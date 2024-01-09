@@ -59,7 +59,7 @@ export default function Home() {
               <p className="text-mintyplex-primary">See all</p>
             </Button>
           </div>
-          <div className="grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
+          <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
             {Array.from({ length: 20 }).map((_, index) => (
               <Card
                 byImg={topCreator}
