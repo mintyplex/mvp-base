@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { TbLayoutGrid } from "react-icons/tb";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import {
@@ -7,6 +8,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import { cn } from "~/lib/utils/utils";
 import topCreator from "~/public/top-creator.jpeg";
 import { TypographyH3, TypographyH4 } from "~/utils/typography";
 
@@ -47,19 +49,12 @@ export default function Home() {
           ))}
         </div>
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-1 bg-mintyplex-primary/20 rounded-md">
-                <ThunderBold />
-              </div>
-              <TypographyH4 className="whitespace-nowrap">
-                Popular Products
-              </TypographyH4>
-            </div>
-            <Button className="" size="sm" variant={"ghost"}>
-              <p className="text-mintyplex-primary">See all</p>
-            </Button>
-          </div>
+          <SeeAllFor
+            tw="bg-mintyplex-primary/20"
+            Icon={ThunderBold}
+            name="Popular Products"
+            route="/popular"
+          />
           <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
             {Array.from({ length: 20 }).map((_, index) => (
               <Card
@@ -73,16 +68,47 @@ export default function Home() {
             ))}
           </div>
           <div className="flex items-center justify-center mt-4">
-            <Button
-              className="mx-auto text-white border rounded-full linear-gradient"
-              variant="ghost"
-            >
-              View All
-            </Button>
+            <button className="outline-none focus-within:outline-none group [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] active:scale-95 transition-all duration-300 p-0.5 rounded-full overflow-hidden">
+              <div className="p-1.5 px-6 rounded-full hover:bg-opacity-0 group-focus-within:bg-opacity-0 bg-opacity-100 transition-all duration-300  bg-mintyplex-dark">
+                View All
+              </div>
+            </button>
           </div>
+          <SeeAllFor
+            Icon={TbLayoutGrid}
+            tw="bg-[#FF73AE]/20 text-[#FF73AE]"
+            name="Recent Listings"
+            route="/new"
+          />
         </div>
       </section>
     </TooltipProvider>
+  );
+}
+
+function SeeAllFor({
+  Icon,
+  name,
+  route,
+  tw,
+}: {
+  route: string;
+  name: string;
+  Icon: React.FC<{ className?: string }>;
+  tw?: string;
+}) {
+  return (
+    <div className={cn("flex items-center justify-between")}>
+      <div className="flex items-center gap-3">
+        <div className={cn("p-1 rounded-md", tw)}>
+          <Icon className="w-6 h-6" />
+        </div>
+        <TypographyH4 className="whitespace-nowrap">{name}</TypographyH4>
+      </div>
+      <Button className="" size="sm" variant={"ghost"}>
+        <p className="text-mintyplex-primary">See all</p>
+      </Button>
+    </div>
   );
 }
 
