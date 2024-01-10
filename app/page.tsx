@@ -93,7 +93,7 @@ type CardProps = {
   price: string;
 };
 
-function Card({ name, by, image, price, byImg }: CardProps) {
+export function Card({ name, by, image, price, byImg }: CardProps) {
   return (
     <div className="max-w-sm mx-auto rounded-lg p-1.5 space-y-2 border border-mintyplex-border">
       <div className="overflow-hidden">
