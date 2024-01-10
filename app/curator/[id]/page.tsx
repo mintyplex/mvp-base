@@ -3,13 +3,13 @@
 import React, { useState } from 'react'
 import topCreator from "~/public/top-creator.jpeg";
 import Image, { StaticImageData } from "next/image";
-import { Card } from '~/app/page'
 import { Button } from '~/components/ui/button';
 import curatorImage from '~/public/curator-bg.png'
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa'
 import { FaXTwitter } from "react-icons/fa6";
 import { TbSettings } from "react-icons/tb";
 import { TypographyH3 } from '~/utils/typography';
+import { Card } from '~/components/ui/card';
 
 export default function Curator() {
 
