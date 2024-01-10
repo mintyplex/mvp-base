@@ -1,4 +1,4 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { Button } from "~/components/ui/button";
 import { Card } from "~/components/ui/card";
 import {
@@ -8,7 +8,7 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 import topCreator from "~/public/top-creator.jpeg";
-import { TypographyH3, TypographyH4, TypographyP } from "~/utils/typography";
+import { TypographyH3, TypographyH4 } from "~/utils/typography";
 
 const creators = {
   image: topCreator,
