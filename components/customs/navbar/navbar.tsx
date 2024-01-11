@@ -1,14 +1,29 @@
 import Image from "next/image";
 import { Button } from "~/components/ui/button";
 import logo from "~/public/logo.png";
+import logoLg from "~/public/logo-lg.png";
 
 export default function Navbar() {
   return (
     <header className="border-y border-mintyplex-border">
       <nav className="container flex items-center justify-between p-3 mx-auto">
         <div className="flex items-center gap-1">
-          <Image className="" alt="Mintyplex Logo" src={logo} />
-          <p className="hidden sm:block">Mintyplex</p>
+          <Image
+            className="hidden md:block"
+            alt="Mintyplex Logo"
+            src={logoLg}
+            height={42}
+            fetchPriority="high"
+            priority
+          />
+          <Image
+            className="md:hidden"
+            alt="Mintyplex Logo"
+            src={logo}
+            height={42}
+            fetchPriority="high"
+            priority
+          />
         </div>
         <div className="flex items-center gap-3">
           <Button size="icon" variant="ghost">
@@ -42,16 +57,16 @@ function SearchIcon() {
       <path
         d="M14.5 25C20.299 25 25 20.299 25 14.5C25 8.70101 20.299 4 14.5 4C8.70101 4 4 8.70101 4 14.5C4 20.299 8.70101 25 14.5 25Z"
         stroke="#E9E9E9"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M21.9253 21.9253L28.0003 28.0003"
         stroke="#E9E9E9"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -77,9 +92,9 @@ function CartIcon() {
       <path
         d="M4.96563 6.75H21.7844L19.3094 15.4125C19.2211 15.7269 19.032 16.0036 18.7711 16.2C18.5103 16.3965 18.1922 16.5019 17.8656 16.5H8.88438C8.55783 16.5019 8.2397 16.3965 7.97887 16.2C7.71803 16.0036 7.52893 15.7269 7.44063 15.4125L4.04688 3.54375C4.00203 3.38696 3.9073 3.24905 3.77704 3.15093C3.64677 3.05282 3.48808 2.99983 3.325 3H1.75"
         stroke="#E9E9E9"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
