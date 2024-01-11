@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Figtree } from "next/font/google";
 import "./globals.css";
 import { cn } from "~/lib/utils/utils";
 import Navbar from "~/components/customs/navbar/navbar";
 import { ThemeProvider } from "~/components/customs/theme-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Figtree({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",

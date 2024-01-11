@@ -1,14 +1,29 @@
 import Image from "next/image";
 import { Button } from "~/components/ui/button";
 import logo from "~/public/logo.png";
+import logoLg from "~/public/logo-lg.png";
 
 export default function Navbar() {
   return (
     <header className="border-y border-mintyplex-border">
       <nav className="container flex items-center justify-between p-3 mx-auto">
         <div className="flex items-center gap-1">
-          <Image className="" alt="Mintyplex Logo" src={logo} />
-          <p className="hidden sm:block">Mintyplex</p>
+          <Image
+            className="hidden md:block"
+            alt="Mintyplex Logo"
+            src={logoLg}
+            height={42}
+            fetchPriority="high"
+            priority
+          />
+          <Image
+            className="md:hidden"
+            alt="Mintyplex Logo"
+            src={logo}
+            height={42}
+            fetchPriority="high"
+            priority
+          />
         </div>
         <div className="flex items-center gap-3">
           <Button size="icon" variant="ghost">

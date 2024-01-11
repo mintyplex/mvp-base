@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 import { TypographyP } from "~/utils/typography";
-import { Button } from "./button";
+import { Button } from "../ui/button";
 
 type CardProps = {
   name: string;
@@ -13,7 +13,7 @@ type CardProps = {
 export function Card({ name, by, image, price, byImg }: CardProps) {
   return (
     <div className="max-w-sm mx-auto rounded-lg p-1.5 space-y-2 border border-mintyplex-border">
-      <div className="overflow-hidden">
+      <div className="overflow-hidden rounded-md">
         <Image
           alt={name}
           src={image}
@@ -26,6 +26,7 @@ export function Card({ name, by, image, price, byImg }: CardProps) {
           <small className="flex items-center gap-2">
             by{" "}
             <Image
+              placeholder="blur"
               height={20}
               width={20}
               className="object-cover rounded-full"
@@ -43,11 +44,13 @@ export function Card({ name, by, image, price, byImg }: CardProps) {
             $ {price}
           </small>
         </div>
-        <Button className="w-full active:scale-95 transition-all duration-300">
-          <span className="text-white">Buy Now</span>
+        <Button
+          asChild
+          className="w-full active:scale-95 transition-all duration-300"
+        >
+          <button className="text-white bg-mintyplex-primary">Buy Now</button>
         </Button>
       </div>
     </div>
   );
 }
-
