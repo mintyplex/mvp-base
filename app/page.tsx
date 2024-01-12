@@ -1,21 +1,24 @@
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
+import { TbLayoutGrid } from "react-icons/tb";
 import { Button } from "~/components/ui/button";
-import { Card } from "~/components/ui/card";
+import { Card } from "~/components/customs/card";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import { cn } from "~/lib/utils/utils";
 import topCreator from "~/public/top-creator.jpeg";
-import { TypographyH3, TypographyH4, TypographyP } from "~/utils/typography";
+import monkey from "~/public/monkey-yellow-bg.jpeg";
+import { TypographyH3, TypographyH4 } from "~/utils/typography";
+import { PopularCard } from "~/components/customs/popular-card";
+import { SeeAllFor } from "~/components/customs/see-all-for";
 
 const creators = {
   image: topCreator,
   name: "Yacth Ape Club",
 };
-
-// TODO: Add a linear gradient to border
 
 export default function Home() {
   return (
@@ -46,24 +49,17 @@ export default function Home() {
             </Tooltip>
           ))}
         </div>
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-1 bg-mintyplex-primary/20 rounded-md">
-                <ThunderBold />
-              </div>
-              <TypographyH4 className="whitespace-nowrap">
-                Popular Products
-              </TypographyH4>
-            </div>
-            <Button className="" size="sm" variant={"ghost"}>
-              <p className="text-mintyplex-primary">See all</p>
-            </Button>
-          </div>
+        <div className="space-y-12">
+          <SeeAllFor
+            tw="bg-mintyplex-primary/20"
+            Icon={ThunderBold}
+            name="Popular Products"
+            route="/popular"
+          />
           <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
             {Array.from({ length: 20 }).map((_, index) => (
               <Card
-                byImg={topCreator}
+                byImg={monkey}
                 name="Yatch Ape Club"
                 by="0x20..8"
                 image={topCreator}
@@ -73,12 +69,41 @@ export default function Home() {
             ))}
           </div>
           <div className="flex items-center justify-center mt-4">
-            <Button
-              className="mx-auto text-white border rounded-full linear-gradient"
-              variant="ghost"
-            >
-              View All
-            </Button>
+            <button className="outline-none focus-within:outline-none group [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] active:scale-95 transition-all duration-300 p-0.5 rounded-full overflow-hidden">
+              <div className="p-1.5 px-6 rounded-full hover:bg-opacity-0 group-focus-within:bg-opacity-0 bg-opacity-100 transition-all duration-300  bg-mintyplex-dark">
+                View All
+              </div>
+            </button>
+          </div>
+          <SeeAllFor
+            Icon={TbLayoutGrid}
+            tw="bg-[#FF73AE]/20 text-[#FF73AE]"
+            name="Recent Listings"
+            route="/new"
+          />
+          <div className="flex overflow-auto gap-3">
+            {Array.from({ length: 20 }).map((_, index) => (
+              <div key={index} className="shrink-0">
+                <Card
+                  byImg={topCreator}
+                  name="Yatch Ape Club"
+                  by="0x20..8"
+                  image={monkey}
+                  price="23"
+                />
+              </div>
+            ))}
+          </div>
+          <SeeAllFor
+            Icon={TbLayoutGrid}
+            tw="bg-[#A431FF]/20 text-[#A431FF]"
+            name="Popular Category"
+            route="/new"
+          />
+          <div className="grid-cols-1 grid gap-3 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-3">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <PopularCard key={index} />
+            ))}
           </div>
         </div>
       </section>
