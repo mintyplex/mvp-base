@@ -58,6 +58,46 @@
   }
 }
 
+.form {
+  position: relative;
+}
+.form input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  /* border: 2px solid #2ecc71; */
+  border-radius: 10px;
+  outline: none;
+  /* padding: 10px 10px; */
+  font-size: 20px;
+}
+.form label {
+  position: absolute;
+  top: -10px;
+  left: 14px;
+  background-color: rgb(49, 50, 51);
+  padding: 6px;
+  color: white;
+  text-transform: capitalize;
+  font-size: 18px;
+  transition: top 0.3s;
+  /* padding: 0 5px; */
+  pointer-events: none;
+}
+.form input:focus ~ label {
+  background-color: rgb(49, 50, 51);
+}
+.apexcharts-xaxistooltip-bottom,
+.apexcharts-ycrosshairs,
+.apexcharts-hcrosshairs {
+  display: none !important;
+}
+
+.kk {
+  overflow: hidden !important;
+  border-radius: 50px !important;
+}
+
 /* Custom Css */
 
 .border-gradient {
