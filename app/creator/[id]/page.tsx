@@ -34,7 +34,7 @@ export default function Curator() {
                             </div>
                         </div>
                     </div>
-                    <div className='absolute top-[60%] md:top-[80%] right-0'>
+                    <div className='absolute top-[60%] md:top-[75%] right-0'>
                         <div className="flex gap-2 text-[10px] md:text-[16px] justify-center items-center p-[8px] w-[100px] md:w-[125px] rounded-[8px] border border-[#313233]">
                             <TbSettings size={24} />
                             <p>Edit Bio</p>
