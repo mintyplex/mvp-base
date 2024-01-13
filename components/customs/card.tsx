@@ -1,6 +1,7 @@
 import Image, { StaticImageData } from "next/image";
 import { TypographyP } from "~/utils/typography";
 import { Button } from "../ui/button";
+import { cn } from "~/lib/utils/utils";
 
 type CardProps = {
   name: string;
@@ -8,11 +9,17 @@ type CardProps = {
   by: string;
   image: string | StaticImageData;
   price: string;
+  asSmall?: boolean;
 };
 
-export function Card({ name, by, image, price, byImg }: CardProps) {
+export function Card({ name, by, image, price, byImg, asSmall }: CardProps) {
   return (
-    <div className="max-w-sm mx-auto rounded-lg p-1.5 space-y-2 border border-mintyplex-border">
+    <div
+      className={cn(
+        " mx-auto rounded-lg p-1.5 space-y-2 border border-mintyplex-border",
+        asSmall ? "max-w-xs" : "max-w-sm"
+      )}
+    >
       <div className="overflow-hidden rounded-md">
         <Image
           alt={name}
