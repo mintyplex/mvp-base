@@ -1,23 +1,22 @@
 import Image from "next/image";
+import creatorImg from "~/public/curator.png";
 import { TbLayoutGrid } from "react-icons/tb";
-import { Button } from "~/components/ui/button";
 import { Card } from "~/components/customs/card";
+import { PopularCard } from "~/components/customs/popular-card";
+import { SeeAllFor } from "~/components/customs/see-all-for";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-import { cn } from "~/lib/utils/utils";
-import topCreator from "~/public/top-creator.jpeg";
 import monkey from "~/public/monkey-yellow-bg.jpeg";
-import { TypographyH3, TypographyH4 } from "~/utils/typography";
-import { PopularCard } from "~/components/customs/popular-card";
-import { SeeAllFor } from "~/components/customs/see-all-for";
+import topCreator from "~/public/top-creator.jpeg";
+import { TypographyH3 } from "~/utils/typography";
 
 const creators = {
-  image: topCreator,
-  name: "Yacth Ape Club",
+  image: creatorImg,
+  name: "0AHY21....342",
 };
 
 export default function Home() {
@@ -85,6 +84,7 @@ export default function Home() {
             {Array.from({ length: 20 }).map((_, index) => (
               <div key={index} className="shrink-0">
                 <Card
+                  asSmall
                   byImg={topCreator}
                   name="Yatch Ape Club"
                   by="0x20..8"

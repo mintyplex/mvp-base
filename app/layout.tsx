@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "~/lib/utils/utils";
 import Navbar from "~/components/customs/navbar/navbar";
 import { ThemeProvider } from "~/components/customs/theme-provider";
+import { Footer } from "~/components/customs/footer/footer";
 
 const inter = Figtree({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
         >
           <Navbar />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
