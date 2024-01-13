@@ -37,7 +37,10 @@ export function PopularCard() {
         </div>
       </div>
       <div>
-        <Button className="w-full transition-all duration-300" asChild>
+        <Button
+          className="w-full bg-mintyplex-primary transition-all duration-300"
+          asChild
+        >
           <button className="text-white bg-mintyplex-primary">
             View Category
           </button>

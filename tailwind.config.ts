@@ -22,7 +22,7 @@ const config = {
       colors: {
         mintyplex: {
           dark: "#1C1E1E",
-          primary: "#1E5BDD",
+          primary: "#2063F2",
           border: "#757575",
         },
         border: "hsl(var(--border))",
@@ -60,8 +60,8 @@ const config = {
         },
       },
       backgroundImage: {
-        'hero-pattern': "url('/img/hero-pattern.svg')",
-        'footer-texture': "url('/img/footer-texture.png')",
+        "hero-pattern": "url('/img/hero-pattern.svg')",
+        "footer-texture": "url('/img/footer-texture.png')",
       },
       borderRadius: {
         lg: "var(--radius)",

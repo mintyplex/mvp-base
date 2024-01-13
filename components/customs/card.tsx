@@ -33,7 +33,6 @@ export function Card({ name, by, image, price, byImg, asSmall }: CardProps) {
           <small className="flex items-center gap-2">
             by{" "}
             <Image
-              placeholder="blur"
               height={20}
               width={20}
               className="object-cover rounded-full"
@@ -53,7 +52,7 @@ export function Card({ name, by, image, price, byImg, asSmall }: CardProps) {
         </div>
         <Button
           asChild
-          className="w-full active:scale-95 transition-all duration-300"
+          className="w-full active:scale-95 transition-all duration-300 bg-mintyplex-primary"
         >
           <button className="text-white bg-mintyplex-primary">Buy Now</button>
         </Button>

@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <div className="container p-3 mx-auto">
       <footer className="relative bg-[#2C2D2E] rounded-lg overflow-hidden px-4 py-8">
-        <div className="flex flex-col items-center space-y-12">
+        <div className="relative z-10 flex flex-col items-center space-y-12">
           <TypographyH4 className="text-center">
             Do you have a feedback or feature request? Feel free to share or
             connect with us on social media!
@@ -27,9 +27,9 @@ export function Footer() {
             </div>
             <Button
               asChild
-              className="text-white rounded-full bg-mintyplex-primary"
+              className="py-4 text-white rounded-full duration-300 transition-all bg-mintyplex-primary"
             >
-              <button className="bg-mintyplex-primary">
+              <button className="py-5 bg-mintyplex-primary">
                 Request a Feature
               </button>
             </Button>
@@ -39,7 +39,7 @@ export function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-6">
+        <div className="relative z-10 mt-6">
           <Image
             alt="Mintyplex logo"
             src={logoBlue}
