@@ -33,7 +33,6 @@ export function Card({ name, by, image, price, byImg, asSmall }: CardProps) {
           <small className="flex items-center gap-2">
             by{" "}
             <Image
-              placeholder="blur"
               height={20}
               width={20}
               className="object-cover rounded-full"
