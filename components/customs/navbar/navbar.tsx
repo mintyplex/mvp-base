@@ -5,7 +5,7 @@ import logoLg from "~/public/logo-lg.png";
 
 export default function Navbar() {
   return (
-    <header className="border-y border-mintyplex-border">
+    <header className="border-b border-mintyplex-border">
       <nav className="container flex items-center justify-between p-3 mx-auto">
         <div className="flex items-center gap-1">
           <Image
