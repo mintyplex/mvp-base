@@ -1,5 +1,5 @@
 import React, { Children } from 'react'
-import { LayoutProps } from '~/.next/types/app/creators/homepage/page'
+// import { LayoutProps } from '~/components/dashboardlayout/page'
 
 const ReuseableBackground = ({children}:LayoutProps) => {
   return (
