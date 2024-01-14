@@ -27,8 +27,8 @@ export const SidebarData = [
 ];
 
 const Sidebar = () => {
-  const { id } = useParams();
 
+  const { id } = useParams();
 
   return (
     <main className="sticky w-[280px] top-0 flex-col hidden h-screen p-6 lg:flex gap-6 bg-[#2C2D2E]">

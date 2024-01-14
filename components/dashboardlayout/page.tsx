@@ -7,11 +7,11 @@ type LayoutProps = {
 
 const DashboardLayout = ({ children }: LayoutProps) => {
     return (
-        <main className='flex gap-3 w-full h-screen relative'>
-            <div className='hidden lg:block col-span-1'>
+        <main className='flex gap-0 w-full h-screen relative'>
+            <div className='hidden lg:block'>
                 <Sidebar />
             </div>
-            <div className='col-span-4 p-6'>
+            <div className='p-6'>
                 {children}
             </div>
 

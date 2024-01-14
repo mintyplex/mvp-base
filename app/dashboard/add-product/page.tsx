@@ -8,6 +8,7 @@ import imagee from '../../../components/assets/Frame 442 (1).png';
 import ProductForm from '~/components/ui/ProductForm';
 import { MdCancel } from "react-icons/md";
 import Link from 'next/link';
+import DashboardLayout from '~/components/dashboardlayout/page';
 
 const AddProduct: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -45,73 +46,75 @@ const AddProduct: React.FC = () => {
   ];
 
   return (
-    <div className='px-6' >
-      <div>
-        <Link href='/'>
-          <button className='px-6 py-2 m:hidden my-8 rounded-md font-normal text-[16px] leading-[27px]  border-brand10 border flex gap-4 items-center'>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-            </svg>
+    <DashboardLayout>
+      <div className='px-6' >
+        <div>
+          <Link href='/'>
+            <button className='px-6 py-2 m:hidden my-8 rounded-md font-normal text-[16px] leading-[27px]  border-brand10 border flex gap-4 items-center'>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+              </svg>
 
-          </button>
-        </Link>
-      </div>
-
-      <div className='flex justify-between items-center'>
-        <h2 className='md:text-[36px] text-[18px] leading-[46px] font-semibold'>
-          Add Product
-        </h2>
-        <div className="gap-4  hidden md:flex items-center">
-          <button className='px-6 py-2 rounded-md font-normal text-[16px] leading-[27px] hover:bg-blue-700 border-brand10 border flex gap-4 items-center'>
-            Cancel
-            <MdCancel />
-          </button>
-          {/* <AddProductListbox options={Active} initialValue={Active[0]} /> */}
-          <button className='bg-blue-500 px-6 py-2 rounded-md font-normal text-[16px] leading-[27px] hover:bg-brand2'>
-            Save
-          </button>
+            </button>
+          </Link>
         </div>
-      </div>
-      <div className="my-8">
-        <ReuseableBackground>
-          <form className="w-full h-full">
-            {preview ? (
-              <Image
-                src={preview}
-                width={1000}
-                height={390}
-                objectFit="contain"
-                className="h-80 object-contain w-full"
-                alt="er"
-                onClick={() => {
-                  setImage(null);
-                }}
+
+        <div className='flex justify-between items-center'>
+          <h2 className='md:text-[36px] text-[18px] leading-[46px] font-semibold'>
+            Add Product
+          </h2>
+          <div className="gap-4  hidden md:flex items-center">
+            <button className='px-6 py-2 rounded-md font-normal text-[16px] leading-[27px] hover:bg-blue-700 border-brand10 border flex gap-4 items-center'>
+              Cancel
+              <MdCancel />
+            </button>
+            {/* <AddProductListbox options={Active} initialValue={Active[0]} /> */}
+            <button className='bg-blue-500 px-6 py-2 rounded-md font-normal text-[16px] leading-[27px] hover:bg-brand2'>
+              Save
+            </button>
+          </div>
+        </div>
+        <div className="my-8">
+          <ReuseableBackground>
+            <form className="w-full h-full">
+              {preview ? (
+                <Image
+                  src={preview}
+                  width={1000}
+                  height={390}
+                  objectFit="contain"
+                  className="h-80 object-contain w-full"
+                  alt="er"
+                  onClick={() => {
+                    setImage(null);
+                  }}
+                />
+              ) : (
+                <Image
+                  src='/assets/imageFrame.png'
+                  width={1300}
+                  height={390}
+                  className='h-80 '
+                  alt="er"
+                  onClick={(event: { preventDefault: () => void }) => {
+                    event.preventDefault();
+                    fileRef.current?.click();
+                  }}
+                />
+              )}
+              <input
+                ref={fileRef}
+                type="file"
+                style={{ display: "none" }}
+                accept="image/*"
+                onChange={handleFileChange}
               />
-            ) : (
-              <Image
-                src='/assets/imageFrame.png'
-                width={1300}
-                height={390}
-                className='h-80 '
-                alt="er"
-                onClick={(event: { preventDefault: () => void }) => {
-                  event.preventDefault();
-                  fileRef.current?.click();
-                }}
-              />
-            )}
-            <input
-              ref={fileRef}
-              type="file"
-              style={{ display: "none" }}
-              accept="image/*"
-              onChange={handleFileChange}
-            />
-          </form>
-        </ReuseableBackground>
+            </form>
+          </ReuseableBackground>
+        </div>
+        <ProductForm />
       </div>
-      <ProductForm />
-    </div>
+    </DashboardLayout>
   );
 };
 
