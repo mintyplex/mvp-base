@@ -9,7 +9,7 @@ import { HiLogout, HiUserCircle } from "react-icons/hi";
 import { PiWallet } from "react-icons/pi";
 import { RxDashboard } from "react-icons/rx";
 import { Button } from "../ui/button";
-// import sadistar from "../../assets/image4.webp";
+import curator from "~/public/curator.png";
 
 export const SidebarData = [
   {
@@ -33,13 +33,13 @@ const Sidebar = () => {
   return (
     <main className="sticky w-[280px] top-0 flex-col hidden h-screen p-6 lg:flex gap-6 bg-[#2C2D2E]">
       <div className="flex flex-col items-center justify-center mx-auto gap-4">
-        {/* <Image
-          src={sadistar}
+        <Image
+          src={curator}
           width={120}
           height={120}
-          alt="sd"
-          className="rounded-full"
-        /> */}
+          alt="curator image"
+          className="rounded-full border-[8px] border-mintyplex-dark"
+        />
         <div className="text-center">
           <p className="text-[25px] font-bold capitalize">0x569...32</p>
           <p className="text-[16px] underline">Alpha Version</p>
