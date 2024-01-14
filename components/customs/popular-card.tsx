@@ -8,7 +8,6 @@ export function PopularCard() {
     <div className="mx-auto border border-mintyplex-border rounded-md p-2.5 space-y-4 w-full max-w-sm">
       <div className="overflow-hidden rounded-md">
         <Image
-          placeholder="blur"
           alt="Monkey "
           className="hover:scale-105 transition-all duration-300"
           src={monkey}
@@ -38,7 +37,10 @@ export function PopularCard() {
         </div>
       </div>
       <div>
-        <Button className="w-full transition-all duration-300" asChild>
+        <Button
+          className="w-full bg-mintyplex-primary transition-all duration-300"
+          asChild
+        >
           <button className="text-white bg-mintyplex-primary">
             View Category
           </button>
