@@ -10,6 +10,7 @@ export default function Navbar() {
         <div className="flex items-center gap-1">
           <Image
             className="hidden md:block"
+            quality="100"
             alt="Mintyplex Logo"
             src={logoLg}
             height={42}
