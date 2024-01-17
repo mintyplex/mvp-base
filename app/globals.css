@@ -110,7 +110,3 @@
   );
   border-image-slice: 1;
 }
-
-.bg-gradient {
-  @apply [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)];
-}
