@@ -2,14 +2,8 @@ import { Card } from "~/components/customs/card";
 import { ScrollArea, ScrollBar } from "~/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { cn } from "~/lib/utils/utils";
-import creatorImg from "~/public/curator.png";
 import topCreator from "~/public/top-creator.jpeg";
 import { TypographyH1, TypographyP } from "~/utils/typography";
-
-const creators = {
-  image: creatorImg,
-  name: "0AHY21....342",
-};
 
 const tabs = [
   {
