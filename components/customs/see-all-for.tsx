@@ -1,6 +1,7 @@
 import { cn } from "~/lib/utils/utils";
 import { TypographyH4 } from "~/utils/typography";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 export function SeeAllFor({
   Icon,
@@ -21,8 +22,10 @@ export function SeeAllFor({
         </div>
         <TypographyH4 className="whitespace-nowrap">{name}</TypographyH4>
       </div>
-      <Button className="" size="sm" variant={"ghost"}>
-        <p className="text-mintyplex-primary">See all</p>
+      <Button asChild className="" size="sm" variant={"ghost"}>
+        <Link href={route}>
+          <p className="text-mintyplex-primary">See all</p>
+        </Link>
       </Button>
     </div>
   );
