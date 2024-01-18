@@ -31,7 +31,7 @@ const Sidebar = () => {
   const { id } = useParams();
 
   return (
-    <main className="sticky w-[280px] top-0 flex-col hidden h-screen p-6 lg:flex gap-6 bg-[#2C2D2E]">
+    <main className="sticky w-[240px] top-0 flex-col hidden h-screen p-6 lg:flex gap-6 bg-[#2C2D2E]">
       <div className="flex flex-col items-center justify-center mx-auto gap-4">
         <Image
           src={curator}

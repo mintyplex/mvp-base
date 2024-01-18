@@ -1,77 +1,61 @@
-// import {
-//     Chart as ChartJS,
-//     CategoryScale,
-//     LinearScale,
-//     PointElement,
-//     LineElement,
-//     Title,
-//     Tooltip,
-//     Filler,
-//     Legend,
-//   } from 'chart.js';
-//   import { Line } from 'react-chartjs-2';
-//   import {faker} from 'faker';
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
+const data = [
+  { name: "1", Total: 300, amt: 400 },
+  { name: "2", Total: 600 },
+  { name: "3", Total: 200 },
+  { name: "4", Total: 800 },
+  { name: "5", Total: 500 },
+  { name: "6", Total: 200 },
+  { name: "7", Total: 600 },
+  { name: "8", Total: 200 },
+  { name: "9", Total: 200 },
+  { name: "10", Total: 300 },
+  { name: "11", Total: 400 },
+  { name: "12", Total: 600 },
+];
 
-  
-//   ChartJS.register(
-//     CategoryScale,
-//     LinearScale,
-//     PointElement,
-//     LineElement,
-//     Title,
-//     Tooltip,
-//     Filler,
-//     Legend
-//   );
-  
-//   export const options = {
-//     responsive: true,
-//     plugins: {
-//       legend: {
-//         display: false,
-//         // position: 'bottom' as const,
-//       },
-//       title: {
-//         display: true,
-//         // text: 'Chart.js Line Chart',
-//       },
-//     },
-//   };
-  
-//   const labels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  
-//   export const data = {
-//     labels,
-//     datasets: [
-//       {
-//         fill: true,
-//         label: '',
-//         data: labels.map(() => faker.random.number({ min: 0, max: 800 })), // Use faker.random.number for random number generation
-//         borderColor: '#6865E7',
-//         backgroundColor: (ctx: { chart: { canvas: { getContext: (arg0: string) => { (): any; new(): any; createLinearGradient: { (arg0: number, arg1: number, arg2: number, arg3: number): any; new(): any; }; }; }; }; }) => {
-//           const gradient = ctx.chart.canvas.getContext('2d').createLinearGradient(0, 0, 0, 400);
-//           gradient.addColorStop(0, '#4745A4'); // Start color
-//           gradient.addColorStop(1, 'rgba(71, 69, 164, 0.00)'); // End color with alpha 0 (transparent)
-//           return gradient;
-//         },
-//         tension: 0.4,
-//       },
-//     ],
-//   };
-  
-//   export function CreatorLineChart() {
-//     return (
-//       <div className='bg-white p-2 rounded-lg'>
-//         <select
-//           name=''
-//           id=''
-//           className='block p-2 mb-6 text-xs text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-//         >
-//           <option value='View all exchange rate'>View all exchange rate</option>
-//         </select>
-//         <Line options={options} data={data} />
-//       </div>
-//     );
-//   }
-  
+const customYAxisTicks = [0, 100, 200, 300, 400, 500, 600, 700];
+
+const CreatorChart = () => {
+  return (
+    <div className="chart mt-48 px-5">
+      <div className="title">Last 6 Months (Revenue)</div>
+      <ResponsiveContainer width="100%" aspect={2}>
+        <AreaChart width={500} height={250} data={data}>
+          <defs>
+            <linearGradient id="total" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <XAxis dataKey="name" stroke="gray" />
+          <YAxis stroke="gray" ticks={customYAxisTicks} domain={[0, 700]}  />
+          <CartesianGrid
+            strokeDasharray="3 3"
+            className="chartGrid"
+            style={{ stroke: "Background" }}
+          />
+          <Tooltip />
+          <Area
+            type="monotone"
+            dataKey="Total"
+            stroke="#8884d8"
+            fillOpacity={1}
+            fill="url(#total)"
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
+export default CreatorChart;
