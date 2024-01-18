@@ -1,5 +1,5 @@
 import Image from "next/image";
-import creatorImg from "~/public/curator.png";
+import Link from "next/link";
 import { TbLayoutGrid } from "react-icons/tb";
 import { Card } from "~/components/customs/card";
 import { PopularCard } from "~/components/customs/popular-card";
@@ -10,10 +10,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import creatorImg from "~/public/curator.png";
 import monkey from "~/public/monkey-yellow-bg.jpeg";
 import topCreator from "~/public/top-creator.jpeg";
 import { TypographyH3 } from "~/utils/typography";
-import Link from "next/link";
 import { RenderCards } from "./_components/render-cards";
 
 const creators = {
@@ -53,7 +53,7 @@ export default function Home() {
         <div className="space-y-12">
           <SeeAllFor
             tw="bg-mintyplex-primary/20"
-            Icon={ThunderBold}
+            Icon={ThunderBolt}
             name="Popular Products"
             route="/popular-products"
           />
@@ -77,7 +77,7 @@ export default function Home() {
             route="/new"
           />
           <div className="flex overflow-auto gap-3">
-            {Array.from({ length: 20 }).map((_, index) => (
+            {Array.from({ length: 10 }).map((_, index) => (
               <div key={index} className="shrink-0">
                 <Card
                   asSmall
@@ -96,9 +96,9 @@ export default function Home() {
             name="Popular Category"
             route="/new"
           />
-          <div className="grid-cols-1 grid gap-3 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-3">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <PopularCard key={index} />
+          <div className="grid grid-cols-3 gap-3">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <PopularCard key={index} index={index} />
             ))}
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function Home() {
   );
 }
 
-function ThunderBold() {
+function ThunderBolt() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
