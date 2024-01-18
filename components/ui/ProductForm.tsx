@@ -7,6 +7,8 @@ const ProductForm = () => {
   return (
 <div>
 <ReuseableBackground>
+<div>
+<ReuseableBackground>
       <form className="flex py-5 flex-col gap-6">
         <div className="form">
           <input
