@@ -49,7 +49,7 @@ export function PopularCard({ asSmall, mxAuto, index }: PopularCardProps) {
       )}
     >
       <div className="overflow-hidden bg-white rounded-md">
-        <CardContent.icon className="w-full max-h-80 group-hover:scale-105 transition-all duration-300" />
+        <CardContent.icon className="w-full max-h-72 group-hover:scale-105 transition-all duration-300" />
       </div>
       <div>
         <TypographyH4>{CardContent.title}</TypographyH4>
