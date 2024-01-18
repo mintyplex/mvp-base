@@ -4,23 +4,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { BsArrowUpRight, BsChevronDown } from "react-icons/bs";
-import { FaChartLine, FaGifts } from "react-icons/fa";
 import { HiLogout, HiUserCircle } from "react-icons/hi";
-import { PiWallet } from "react-icons/pi";
-import { RxDashboard } from "react-icons/rx";
+import { GoHomeFill } from "react-icons/go";
 import { Button } from "../ui/button";
 import curator from "~/public/curator.png";
+import { FaFacebookF } from "react-icons/fa6";
+import TwitterIcon from "../ui/TwitterIcon";
+import TelegramIcon from "../ui/TelegramIcon";
 
 export const SidebarData = [
   {
     title: "Dashboard",
-    icon: <RxDashboard size={20} />,
+    icon: <GoHomeFill size={25} />,
     link: "/dashboard",
     id: "dashboard",
   },
   {
     title: "Profile",
-    icon: <HiUserCircle size={20} />,
+    icon: <HiUserCircle size={25} />,
     link: "/profile",
     id: "profile",
   },
@@ -55,7 +56,7 @@ const Sidebar = () => {
             <div key={i}>
               <Link href={data.link}>
                 <div
-                  className={`text-center cursor-pointer w-full flex items-center gap-4 py-2 px-4 transition-colors rounded-[8px] hover:bg-brand1 ${id === data.id ? "bg-brand1" : ""
+                  className={`text-center cursor-pointer w-full flex items-center gap-4 py-2 px-4 transition-colors rounded-[8px] hover:bg-brand1 ${id === data.link ? "bg-brand1" : ""
                     }`}
                 >
                   {data.icon}
@@ -68,9 +69,21 @@ const Sidebar = () => {
           ))}
         </div>
         <div>
-          <div
-            className={`text-center cursor-pointer w-full flex items-center gap-4 py-3 px-5 transition-colors rounded-[8px] hover:bg-brand1`}
-          >
+          <div className="w-full flex flex-col gap-3 items-center justify-center pb-4 border-b border-mintyplex-border">
+            <h2>Request a Feature</h2>
+            <div className="flex items-center gap-3">
+              <div className="p-2 border rounded-full transition-all duration-300 hover:bg-mintyplex-primary border-mintyplex-border/50">
+                <TwitterIcon />
+              </div>
+              <div className="p-2 border rounded-full border-mintyplex-border/50 transition-all duration-300 hover:bg-mintyplex-primary">
+                <FaFacebookF />
+              </div>
+              <div className="p-2 border rounded-full border-mintyplex-border/50 transition-all duration-300 hover:bg-mintyplex-primary">
+                <TelegramIcon />
+              </div>
+            </div>
+          </div>
+          <div className={`text-center cursor-pointer w-full flex items-center gap-4 py-3 transition-colors rounded-[8px] hover:bg-brand1`}>
             <HiLogout />
             <div>
               <p>Logout</p>
