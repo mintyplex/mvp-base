@@ -25,20 +25,20 @@ const data = [
 
 const customYAxisTicks = [0, 100, 200, 300, 400, 500, 600, 700];
 
-const CreatorChart = () => {
+function CreatorChart() {
   return (
-    <div className="chart mt-48 px-5">
+    <div className="px-5 chart space-y-10">
       <div className="title">Last 6 Months (Revenue)</div>
-      <ResponsiveContainer width="100%" aspect={2}>
+      <ResponsiveContainer width="100%" className="min-h-96">
         <AreaChart width={500} height={250} data={data}>
           <defs>
             <linearGradient id="total" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+              <stop offset="5%" stopColor="#2063F2" stopOpacity={0.8 + 0.2} />
+              <stop offset="95%" stopColor="#2063F2" stopOpacity={0 + 1} />
             </linearGradient>
           </defs>
           <XAxis dataKey="name" stroke="gray" />
-          <YAxis stroke="gray" ticks={customYAxisTicks} domain={[0, 700]}  />
+          <YAxis stroke="gray" ticks={customYAxisTicks} domain={[0, 700]} />
           <CartesianGrid
             strokeDasharray="3 3"
             className="chartGrid"
@@ -56,6 +56,6 @@ const CreatorChart = () => {
       </ResponsiveContainer>
     </div>
   );
-};
+}
 
 export default CreatorChart;
