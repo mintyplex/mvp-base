@@ -88,7 +88,7 @@ export default function Home() {
               <div key={index} className="shrink-0">
                 <Card
                   asSmall
-                  byImg={topCreator}
+                  byImg={creatorImg}
                   name="Yatch Ape Club"
                   by="0x20..8"
                   image={monkey}
