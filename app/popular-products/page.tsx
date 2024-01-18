@@ -22,33 +22,8 @@ const tabs = [
     Component: () => <All title="Recent listing" />,
   },
   {
-    name: "Memberships (20)",
-    slug: "memberships",
-    Component: () => <div>Profile</div>,
-  },
-  {
     name: "Art items (3)",
     slug: "art",
-    Component: () => <div>Profile</div>,
-  },
-  {
-    name: "Music and audio (20)",
-    slug: "music",
-    Component: () => <div>Profile</div>,
-  },
-  {
-    name: "Coaching package (1)",
-    slug: "coaching",
-    Component: () => <div>Profile</div>,
-  },
-  {
-    name: "Services (2)",
-    slug: "services",
-    Component: () => <div>Profile</div>,
-  },
-  {
-    name: "Tickets (2)",
-    slug: "tickets",
     Component: () => <div>Profile</div>,
   },
 ];
