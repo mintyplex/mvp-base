@@ -15,7 +15,7 @@ export default function Dashboard() {
         <>
             <DashboardLayout>
                 <CreatorDashboard />
-                <p>hey {id}</p>
+                
             </DashboardLayout>
         </>
     )

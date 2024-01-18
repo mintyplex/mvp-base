@@ -8,6 +8,8 @@ import Accordium from '~/components/ui/Accordium';
 import ReusableTable from '~/components/ui/Reuseable-table';
 import Image from 'next/image';
 import { headers, data, dataSales, headersSales, dataPurchase, headerPurchase } from '~/app/constant/TableData';
+import Doughnut, { Doughnutt } from '../ui/graph/Creator-Doughnut';
+import { CreatorChart } from '../ui/graph/Creator-line-chart';
 // import CreatorLineChart from '~/components/ui/graph/creator-line-chart';
 
 const CreatorDashboard = () => {
@@ -51,20 +53,20 @@ const CreatorDashboard = () => {
       product: "All Product",
       value: 5,
       color: 'bg-[rgba(0,204,153,1)]',
-      width: 'md:w-[206px] w-[206px] ',
+      width: ' w-[206px] ',
 
     },
     {
       product: "All Sales",
       value: 4,
       color: 'bg-[rgba(164,49,255)]',
-      width: 'md:w-[206px] w-[206px] '
+      width: ' w-[206px] '
     },
     {
       product: "Active Customer",
       value: 4,
       color: 'bg-[rgba(255,115,174,1)]',
-      width: 'md:w-[206px] w-[206px] ',
+      width: ' w-[206px] ',
 
     }
 
@@ -73,9 +75,9 @@ const CreatorDashboard = () => {
 
 
   return (
-    <div className='w-full'>
-      <div className='w-full px-3 md:px-6 flex flex-col gap-8 '>
-        <div className='w-full'>
+    <div className='w-full pb-4'>
+      <div className='w-full flex flex-col gap-8 '>
+        <div className='w-full mt-10'>
           <div className='flex md:flex-row flex-col md:justify-between md:items-center'>
             <div className='flex flex-col gap-1'>
               <h2 className='md:text-[36px] text-[31px] leading-[46px] font-semibold'>
@@ -88,7 +90,7 @@ const CreatorDashboard = () => {
                 Add Product
               </button>
             </Link>
-          </div>
+          </div> 
           <div className='flex overflow-x-auto justify-between mt-10 gap-4 w-full md:w-fit'>
             {
               Creators.map((card, index) => (
@@ -107,17 +109,17 @@ const CreatorDashboard = () => {
           <CreatorsListbox options={Active} initialValue={Active[0]} />
         </div>
 
-        <div className='w-full grid grid-cols-2 gap-5'>
-          <div className='col-span-2 sm:col-span-1'> {/* This item will span two columns (larger) on small screens */}
-            {/* <CreatorLineChart /> */}
-            <h1 className='bg-[rgb(49,50,51)] '>line chart</h1>
+        <div className='md:w-full  gap-y-4 grid md:grid-cols-2 md:gap-5'>
+          <div className='md:col-span-2 h-full sm:col-span-1 bg-[rgb(49,50,51)] rounded-lg'> {/* This item will span two columns (larger) on small screens */}
+            <CreatorChart />
+            
           </div>
-          <div className='col-span-2 h-full sm:col-span-1'> {/* This item will span two columns (smaller) on small screens */}
+          <div className='md:col-span-2 md:p-2  h-full sm:col-span-1 bg-[rgb(49,50,51)] rounded-lg'> {/* This item will span two columns (smaller) on small screens */}
             {/* <PieGraph /> */}
-            <h1 className='bg-[rgb(49,50,51)] '>pie chart</h1>
+       <Doughnutt />
           </div>
         </div>
-        <div className='w-full'>
+        <div className='w-full '>
           <Accordium title="All Products" >
             <ReusableTable headers={headers} data={data} />
           </Accordium>
