@@ -35,12 +35,11 @@ export default function RootLayout({
           <main className="flex flex-col min-h-screen">
             <Navbar />
             <div className="flex-grow">{children}</div>
-            <HideAt paths={[]}>
+            <HideAt paths={['/dashboard']}>
               <Footer />
             </HideAt>
           </main>
-          <Navbar />
-          {children}
+      
           {/* <Footer /> */}
         </ThemeProvider>
       </body>
