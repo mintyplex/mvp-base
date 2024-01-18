@@ -32,8 +32,6 @@ const Sidebar = () => {
 
   return (
     <main className="sticky w-[240px] top-0 flex-col hidden h-screen p-6 lg:flex gap-6 bg-[#2C2D2E]">
-      {pathname}
-      {SidebarData[0].link}
       <div className="flex flex-col items-center justify-center mx-auto gap-4">
         <Image
           src={curator}

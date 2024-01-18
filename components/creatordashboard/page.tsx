@@ -1,23 +1,20 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
-import CreatorsCard from "~/components/ui/Creator-sales-card";
-import CreatorsListbox from "~/components/ui/select";
+import { BsArrowUpRight } from "react-icons/bs";
 import Accordium from "~/components/ui/Accordium";
 import ReusableTable from "~/components/ui/Reuseable-table";
-import Image from "next/image";
+import CreatorsListbox from "~/components/ui/select";
 import {
-  headers,
   data,
-  dataSales,
-  headersSales,
   dataPurchase,
+  dataSales,
   headerPurchase,
+  headers,
+  headersSales,
 } from "~/utils/constants/table-data";
 import { Doughnutt } from "../ui/graph/Creator-Doughnut";
 import CreatorChart from "../ui/graph/Creator-line-chart";
-import { BsArrowUpRight } from "react-icons/bs";
 
 // import CreatorLineChart from '~/components/ui/graph/creator-line-chart';
 

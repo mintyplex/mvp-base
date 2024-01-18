@@ -20,7 +20,7 @@ export function Card({ name, by, image, price, byImg, asSmall }: CardProps) {
     <div
       className={cn(
         " mx-auto rounded-lg p-1.5 space-y-2 border border-mintyplex-border",
-        asSmall ? "max-w-xs" : "max-w-sm"
+        asSmall ? "max-w-xs" : "max-w-sm",
       )}
     >
       <div className="overflow-hidden rounded-md">

@@ -19,7 +19,7 @@ export function TypographyH1({
       {...props}
       className={cn(
         "text-4xl font-extrabold tracking-tight scroll-m-20 lg:text-5xl",
-        className
+        className,
       )}
     >
       {children}
@@ -37,7 +37,7 @@ export function TypographyH2({
       {...props}
       className={cn(
         "pb-2 text-3xl font-semibold tracking-tight border-b scroll-m-20 first:mt-0",
-        className
+        className,
       )}
     >
       {children}
@@ -55,7 +55,7 @@ export function TypographyH3({
       {...props}
       className={cn(
         "text-2xl font-semibold tracking-tight scroll-m-20",
-        className
+        className,
       )}
     >
       {children}
@@ -73,7 +73,7 @@ export function TypographyH4({
       {...props}
       className={cn(
         "text-xl font-semibold tracking-tight scroll-m-20",
-        className
+        className,
       )}
     >
       {children}
