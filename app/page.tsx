@@ -13,6 +13,7 @@ import {
 import monkey from "~/public/monkey-yellow-bg.jpeg";
 import topCreator from "~/public/top-creator.jpeg";
 import { TypographyH3 } from "~/utils/typography";
+import Link from "next/link";
 
 const creators = {
   image: creatorImg,
@@ -53,7 +54,7 @@ export default function Home() {
             tw="bg-mintyplex-primary/20"
             Icon={ThunderBold}
             name="Popular Products"
-            route="/popular"
+            route="/popular-products"
           />
           <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
             {Array.from({ length: 20 }).map((_, index) => (
@@ -68,11 +69,14 @@ export default function Home() {
             ))}
           </div>
           <div className="flex items-center justify-center mt-4">
-            <button className="outline-none focus-within:outline-none group [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] active:scale-95 transition-all duration-300 p-0.5 rounded-full overflow-hidden">
+            <Link
+              href="/popular-products"
+              className="outline-none focus-within:outline-none group [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] active:scale-95 transition-all duration-300 p-0.5 rounded-full overflow-hidden"
+            >
               <div className="p-1.5 px-6 rounded-full hover:bg-opacity-0 group-focus-within:bg-opacity-0 bg-opacity-100 transition-all duration-300  bg-mintyplex-dark">
                 View All
               </div>
-            </button>
+            </Link>
           </div>
           <SeeAllFor
             Icon={TbLayoutGrid}

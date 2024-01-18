@@ -210,4 +210,3 @@ export const dataPurchase: Row[] = [
   },
   // Add more rows as needed
 ];
-

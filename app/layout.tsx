@@ -5,6 +5,7 @@ import { cn } from "~/lib/utils/utils";
 import Navbar from "~/components/customs/navbar/navbar";
 import { ThemeProvider } from "~/components/customs/theme-provider";
 import { Footer } from "~/components/customs/footer/footer";
+import { HideAt } from "~/components/customs/show-at";
 
 const inter = Figtree({
   subsets: ["latin"],
@@ -31,6 +32,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <main className="flex flex-col min-h-screen">
+            <Navbar />
+            <div className="flex-grow">{children}</div>
+            <HideAt paths={[]}>
+              <Footer />
+            </HideAt>
+          </main>
           <Navbar />
           {children}
           {/* <Footer /> */}
