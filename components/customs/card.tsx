@@ -1,18 +1,21 @@
 import Image, { StaticImageData } from "next/image";
+import { cn } from "~/lib/utils/utils";
 import { TypographyP } from "~/utils/typography";
 import { Button } from "../ui/button";
-import { cn } from "~/lib/utils/utils";
 
 type CardProps = {
   name: string;
   byImg: string | StaticImageData;
   by: string;
-  image: string | StaticImageData;
+  image: StaticImageData;
   price: string;
   asSmall?: boolean;
 };
 
 export function Card({ name, by, image, price, byImg, asSmall }: CardProps) {
+  const TEN_PERCENT_OF_HEIGHT = image.height - image.height * 0.1;
+  const TEN_PERCENT_OF_WIDTH = image.width - image.width * 0.1;
+
   return (
     <div
       className={cn(
@@ -23,6 +26,8 @@ export function Card({ name, by, image, price, byImg, asSmall }: CardProps) {
       <div className="overflow-hidden rounded-md">
         <Image
           alt={name}
+          height={TEN_PERCENT_OF_HEIGHT}
+          width={TEN_PERCENT_OF_WIDTH}
           src={image}
           className="transition-all duration-300 hover:scale-105"
         />

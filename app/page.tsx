@@ -1,5 +1,5 @@
 import Image from "next/image";
-import creatorImg from "~/public/curator.png";
+import Link from "next/link";
 import { TbLayoutGrid } from "react-icons/tb";
 import { Card } from "~/components/customs/card";
 import { PopularCard } from "~/components/customs/popular-card";
@@ -10,10 +10,18 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import creatorImg from "~/public/curator.png";
 import monkey from "~/public/monkey-yellow-bg.jpeg";
 import topCreator from "~/public/top-creator.jpeg";
 import { TypographyH3 } from "~/utils/typography";
-import Link from "next/link";
+import { RenderCards } from "./_components/render-cards";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "~/components/ui/carousel";
 
 const creators = {
   image: creatorImg,
@@ -52,21 +60,12 @@ export default function Home() {
         <div className="space-y-12">
           <SeeAllFor
             tw="bg-mintyplex-primary/20"
-            Icon={ThunderBold}
+            Icon={ThunderBolt}
             name="Popular Products"
-            route="/popular-products"
+            route="/popular-products?view=popular"
           />
           <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
-            {Array.from({ length: 20 }).map((_, index) => (
-              <Card
-                byImg={monkey}
-                name="Yatch Ape Club"
-                by="0x20..8"
-                image={topCreator}
-                price="23"
-                key={index}
-              />
-            ))}
+            <RenderCards />
           </div>
           <div className="flex items-center justify-center mt-4">
             <Link
@@ -82,14 +81,14 @@ export default function Home() {
             Icon={TbLayoutGrid}
             tw="bg-[#FF73AE]/20 text-[#FF73AE]"
             name="Recent Listings"
-            route="/new"
+            route="/popular-products?view=recent"
           />
           <div className="flex overflow-auto gap-3">
-            {Array.from({ length: 20 }).map((_, index) => (
+            {Array.from({ length: 10 }).map((_, index) => (
               <div key={index} className="shrink-0">
                 <Card
                   asSmall
-                  byImg={topCreator}
+                  byImg={creatorImg}
                   name="Yatch Ape Club"
                   by="0x20..8"
                   image={monkey}
@@ -104,18 +103,26 @@ export default function Home() {
             name="Popular Category"
             route="/new"
           />
-          <div className="grid-cols-1 grid gap-3 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-3">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <PopularCard key={index} />
-            ))}
-          </div>
+          <Carousel className="">
+            <CarouselContent>
+              {Array.from({ length: 3 }).map((_, index) => (
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                  <PopularCard index={index} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div>
+              <CarouselPrevious className="absolute -left-2" />
+              <CarouselNext className="absolute -right-2" />
+            </div>
+          </Carousel>
         </div>
       </section>
     </TooltipProvider>
   );
 }
 
-function ThunderBold() {
+function ThunderBolt() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
