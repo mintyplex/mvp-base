@@ -38,7 +38,6 @@ export default function Popular({
 
   return (
     <section className="container p-3 mx-auto">
-      <pre>{JSON.stringify(tabByLink, null, 2)}</pre>
       <div className="space-y-3">
         <TypographyP className={cn("text-[#d6d6d6]")}>Popular tags</TypographyP>
         <Tabs defaultValue={tabByLink}>
