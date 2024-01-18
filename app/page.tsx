@@ -14,6 +14,7 @@ import monkey from "~/public/monkey-yellow-bg.jpeg";
 import topCreator from "~/public/top-creator.jpeg";
 import { TypographyH3 } from "~/utils/typography";
 import Link from "next/link";
+import { RenderCards } from "./_components/render-cards";
 
 const creators = {
   image: creatorImg,
@@ -57,16 +58,7 @@ export default function Home() {
             route="/popular-products"
           />
           <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
-            {Array.from({ length: 20 }).map((_, index) => (
-              <Card
-                byImg={monkey}
-                name="Yatch Ape Club"
-                by="0x20..8"
-                image={topCreator}
-                price="23"
-                key={index}
-              />
-            ))}
+            <RenderCards />
           </div>
           <div className="flex items-center justify-center mt-4">
             <Link
