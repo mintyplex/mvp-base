@@ -11,9 +11,34 @@ type PopularCardProps = {
   index: number;
 };
 
+const displayIcons = [MakingArt, BooksIcon, PhotoGraphy];
+
+const contentFor = [
+  {
+    title: "Arts",
+    creators: "13k",
+    product: "12k",
+    icon: MakingArt,
+    sales: "$132,222k",
+  },
+  {
+    title: "E-books",
+    creators: "13k",
+    product: "12k",
+    icon: BooksIcon,
+    sales: "$132,222k",
+  },
+  {
+    title: "Photography",
+    creators: "13k",
+    product: "12k",
+    icon: PhotoGraphy,
+    sales: "$132,222k",
+  },
+];
+
 export function PopularCard({ asSmall, mxAuto, index }: PopularCardProps) {
-  const displayIcons = [MakingArt, BooksIcon, PhotoGraphy];
-  const Icon = displayIcons[index];
+  const CardContent = contentFor[index];
 
   return (
     <div
@@ -24,23 +49,23 @@ export function PopularCard({ asSmall, mxAuto, index }: PopularCardProps) {
       )}
     >
       <div className="overflow-hidden bg-white rounded-md">
-        <Icon className="w-full max-h-96 group-hover:scale-105 transition-all duration-300" />
+        <CardContent.icon className="w-full max-h-80 group-hover:scale-105 transition-all duration-300" />
       </div>
       <div>
-        <TypographyH4>Design</TypographyH4>
+        <TypographyH4>{CardContent.title}</TypographyH4>
       </div>
-      <div className="flex items-center gap-8">
+      <div className="flex items-center justify-between gap-8">
         <div>
           <div className="text-sm font-light text-[#d6d6d6]">Creators:</div>
-          <div>13k</div>
+          <div>{CardContent.creators}</div>
         </div>
         <div>
           <div className="text-sm font-light text-[#d6d6d6]">Product:</div>
-          <div>12k</div>
+          <div>{CardContent.product}</div>
         </div>
         <div>
           <div className="text-sm font-light text-[#d6d6d6]">Sales:</div>
-          <div>$132,222k</div>
+          <div>{CardContent.sales}</div>
         </div>
       </div>
       <div>

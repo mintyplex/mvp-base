@@ -15,6 +15,13 @@ import monkey from "~/public/monkey-yellow-bg.jpeg";
 import topCreator from "~/public/top-creator.jpeg";
 import { TypographyH3 } from "~/utils/typography";
 import { RenderCards } from "./_components/render-cards";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "~/components/ui/carousel";
 
 const creators = {
   image: creatorImg,
@@ -96,11 +103,19 @@ export default function Home() {
             name="Popular Category"
             route="/new"
           />
-          <div className="grid grid-cols-3 gap-3">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <PopularCard key={index} index={index} />
-            ))}
-          </div>
+          <Carousel className="">
+            <CarouselContent>
+              {Array.from({ length: 3 }).map((_, index) => (
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                  <PopularCard index={index} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div>
+              <CarouselPrevious className="absolute -left-2" />
+              <CarouselNext className="absolute -right-2" />
+            </div>
+          </Carousel>
         </div>
       </section>
     </TooltipProvider>
