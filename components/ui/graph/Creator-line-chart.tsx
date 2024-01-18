@@ -1,93 +1,61 @@
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Filler,
-    Legend,
-  } from 'chart.js';
-  import { Line } from 'react-chartjs-2';
-  
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Filler,
-    Legend
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+const data = [
+  { name: "1", Total: 300, amt: 400 },
+  { name: "2", Total: 600 },
+  { name: "3", Total: 200 },
+  { name: "4", Total: 800 },
+  { name: "5", Total: 500 },
+  { name: "6", Total: 200 },
+  { name: "7", Total: 600 },
+  { name: "8", Total: 200 },
+  { name: "9", Total: 200 },
+  { name: "10", Total: 300 },
+  { name: "11", Total: 400 },
+  { name: "12", Total: 600 },
+];
+
+const customYAxisTicks = [0, 100, 200, 300, 400, 500, 600, 700];
+
+const CreatorChart = () => {
+  return (
+    <div className="chart mt-48 px-5">
+      <div className="title">Last 6 Months (Revenue)</div>
+      <ResponsiveContainer width="100%" aspect={2}>
+        <AreaChart width={500} height={250} data={data}>
+          <defs>
+            <linearGradient id="total" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <XAxis dataKey="name" stroke="gray" />
+          <YAxis stroke="gray" ticks={customYAxisTicks} domain={[0, 700]}  />
+          <CartesianGrid
+            strokeDasharray="3 3"
+            className="chartGrid"
+            style={{ stroke: "Background" }}
+          />
+          <Tooltip />
+          <Area
+            type="monotone"
+            dataKey="Total"
+            stroke="#8884d8"
+            fillOpacity={1}
+            fill="url(#total)"
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
   );
-  
-  export const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: false,
-        // position: 'bottom' as const,
-      },
-      title: {
-        display: true,
-        // text: 'Chart.js Line Chart',
-      },
-    },
- 
-  };
-  
-  const labels = ['1 / 12', '2/ 12', '3 / 12', '4 / 12', '5 / 12', '6 / 12', '7 / 12'];
-  const inputData = [200, 400, 500, 700, 800, 500, 300];
-  
-  export const data = {
-    labels,
-    datasets: [
-      {
-        fill: true,
-        label: 'ss',
-        data: inputData,
-  
-        backgroundColor: (ctx: {
-          chart: {
-            canvas: {
-              getContext: (
-                arg0: string
-              ) => {
-                (): any;
-                new (): any;
-                createLinearGradient: {
-                  (
-                    arg0: number,
-                    arg1: number,
-                    arg2: number,
-                    arg3: number
-                  ): any;
-                  new (): any;
-                };
-              };
-            };
-          };
-        }) => {
-          const gradient = ctx.chart.canvas.getContext('2d').createLinearGradient(0, 0, 0, 400);
-          gradient.addColorStop(0, '#4339F2'); // Start color
-          gradient.addColorStop(1, '#4339F2'); // End color with alpha 0 (transparent)
-          return gradient;
-        },
-        tension: 0.4,
-      },
-      
-    ],
-  };
-  
-  export function CreatorChart() {
-    return (
-      <div className=' rounded-lg'>
-        <p className='py-4 px-2  text-2xl font-medium border-[rgba(233,239,254,1)] border-b-2'>
-          Product Overview
-        </p>
-        <Line options={options}  data={data}   />
-      </div>
-    );
-  }
-  
+};
+
+export default CreatorChart;

@@ -104,6 +104,10 @@
   -ms-overflow-style: none; /* IE 10+ */
 }
 /* Custom Css */
+.chartGrid {
+  stroke: rgb(49, 50, 51);
+}
+
 
 .border-gradient {
   border-image: linear-gradient(

@@ -9,7 +9,8 @@ import ReusableTable from '~/components/ui/Reuseable-table';
 import Image from 'next/image';
 import { headers, data, dataSales, headersSales, dataPurchase, headerPurchase } from '~/utils/constants/table-data';
 import  { Doughnutt } from '../ui/graph/Creator-Doughnut';
-import { CreatorChart } from '../ui/graph/Creator-line-chart';
+import CreatorChart from '../ui/graph/Creator-line-chart';
+
 // import CreatorLineChart from '~/components/ui/graph/creator-line-chart';
 
 const CreatorDashboard = () => {
