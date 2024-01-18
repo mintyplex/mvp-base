@@ -62,7 +62,7 @@ export default function Home() {
             tw="bg-mintyplex-primary/20"
             Icon={ThunderBolt}
             name="Popular Products"
-            route="/popular-products"
+            route="/popular-products?view=popular"
           />
           <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
             <RenderCards />
@@ -81,7 +81,7 @@ export default function Home() {
             Icon={TbLayoutGrid}
             tw="bg-[#FF73AE]/20 text-[#FF73AE]"
             name="Recent Listings"
-            route="/new"
+            route="/popular-products?view=recent"
           />
           <div className="flex overflow-auto gap-3">
             {Array.from({ length: 10 }).map((_, index) => (
