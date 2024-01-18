@@ -42,7 +42,7 @@ const Sidebar = () => {
         />
         <div className="text-center">
           <p className="text-[25px] font-bold capitalize">0x569...32</p>
-          <p className="text-[16px] underline">Alpha Version</p>
+          <p className="text-[16px] !underline text-transparent !bg-clip-text [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">Alpha Version</p>
         </div>
       </div>
       <Button className="bg-mintyplex-primary text-white flex justify-between items-center px-4 w-full py-6 rounded-[8px] font-semibold text-[16px]">
