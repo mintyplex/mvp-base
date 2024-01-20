@@ -12,8 +12,8 @@ const tabs = [
     Component: () => <All title="All Products" />,
   },
   {
-    name: "Popular",
-    slug: "popular",
+    name: "Trending",
+    slug: "trending",
     Component: () => <All title="Popular Products" />,
   },
   {
