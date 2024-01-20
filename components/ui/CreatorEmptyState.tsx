@@ -2,7 +2,7 @@ import React from 'react'
 
 const CreatorEmptyState = () => {
   return (
-    <div className='flex justify-center items-center mx-auto'>
+    <div className='flex flex-col gap-10 py-10 justify-center items-center mx-auto'>
 <div>
 <svg xmlns="http://www.w3.org/2000/svg" width="150" height="178" viewBox="0 0 150 178" fill="none">
   <path d="M75 167C116.421 167 150 133.421 150 92C150 50.5786 116.421 17 75 17C33.5786 17 0 50.5786 0 92C0 133.421 33.5786 167 75 167Z" fill="#98B7F9"/>
@@ -41,8 +41,9 @@ const CreatorEmptyState = () => {
     </filter>
   </defs>
 </svg>
-    <p></p>
 </div>
+    <p className='text-2xl font-medium'>You have no Product yet</p>
+
 
     </div>
   )
