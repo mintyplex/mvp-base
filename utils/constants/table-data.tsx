@@ -79,10 +79,10 @@ export const data = [
 export const headersSales = [
   "Date",
   "Product",
-  "Customer ID",
+  "Shopper",
   "Product Type",
   "Your Profit",
-  "sales",
+  "Sales",
   "Price",
   "Options",
 ];
@@ -132,7 +132,7 @@ export const dataSales = [
 export const headerPurchase = [
   "Date",
   "Product",
-  "merchant",
+  "Creator",
   "Product Type",
   "Price",
   "Status",
