@@ -149,18 +149,13 @@ const CreatorDashboard = () => {
           <CreatorsListbox options={Active} initialValue={Active[0]} />
         </div>
 
-        <div className="w-full gap-y-4 grid grid-cols-2 md:gap-5">
+        <div className="w-full gap-y-4 grid  md:gap-5">
           <div className="col-span-2 h-full sm:col-span-1 bg-[rgb(49,50,51)] rounded-lg py-2">
-            {" "}
+
             {/* This item will span two columns (larger) on small screens */}
             <CreatorChart />
           </div>
-          <div className="col-span-2 md:p-2  h-full sm:col-span-1 bg-[rgb(49,50,51)] rounded-lg">
-            {" "}
-            {/* This item will span two columns (smaller) on small screens */}
-            {/* <PieGraph /> */}
-            <Doughnutt />
-          </div>
+
         </div>
         <div className="w-full">
           <Accordium title="All Products">

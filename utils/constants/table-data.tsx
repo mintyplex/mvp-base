@@ -4,7 +4,7 @@ export const headers = [
   "Date",
   "Product",
   "Sales",
-  "Product Type",
+  "Category",
   "Price",
   "Status",
 ];
@@ -22,7 +22,7 @@ export const data = [
         ),
       },
       { content: "100", type: "text-[#0D6EFD] underline font-medium" },
-      { content: "Physical Product" },
+      { content: "Photography" },
       { content: "$30" },
       {
         content: (
@@ -43,7 +43,7 @@ export const data = [
         ),
       },
       { content: "100", type: "text-[#0D6EFD] underline font-medium" },
-      { content: "Physical Product" },
+      { content: "Ebooks" },
       { content: "$30" },
       {
         content: (
@@ -64,7 +64,7 @@ export const data = [
         ),
       },
       { content: "100", type: "text-[#0D6EFD] underline font-medium" },
-      { content: "Physical Product" },
+      { content: "Arts" },
       { content: "$30" },
       {
         content: (
@@ -80,8 +80,8 @@ export const headersSales = [
   "Date",
   "Product",
   "Shopper",
-  "Product Type",
-  "Your Profit",
+  "Category",
+  "Profit",
   "Sales",
   "Price",
   "Options",
@@ -101,7 +101,7 @@ export const dataSales = [
         ),
       },
       { content: "ZicoStar" },
-      { content: "Physical Product" },
+      { content: "Arts" },
 
       { content: "$30" },
       { content: "100", type: "underline font-medium" },
@@ -133,7 +133,7 @@ export const headerPurchase = [
   "Date",
   "Product",
   "Creator",
-  "Product Type",
+  "Category",
   "Price",
   "Status",
 ];
@@ -151,7 +151,7 @@ export const dataPurchase: Row[] = [
         ),
       },
       { content: "Zisco" },
-      { content: "Physical Product" },
+      { content: "Ebooks" },
       { content: "$30" },
       {
         content: (
@@ -174,7 +174,7 @@ export const dataPurchase: Row[] = [
         ),
       },
       { content: "Zisco" },
-      { content: "Physical Product" },
+      { content: "Photography" },
       { content: "$30" },
       {
         content: (
@@ -197,7 +197,7 @@ export const dataPurchase: Row[] = [
         ),
       },
       { content: "Zisco" },
-      { content: "Physical Product" },
+      { content: "Arts" },
       { content: "$30" },
       {
         content: (
