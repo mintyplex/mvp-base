@@ -5,6 +5,13 @@ import { Card } from "~/components/customs/card";
 import { PopularCard } from "~/components/customs/popular-card";
 import { SeeAllFor } from "~/components/customs/see-all-for";
 import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "~/components/ui/carousel";
+import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -12,16 +19,8 @@ import {
 } from "~/components/ui/tooltip";
 import creatorImg from "~/public/curator.png";
 import monkey from "~/public/monkey-yellow-bg.jpeg";
-import topCreator from "~/public/top-creator.jpeg";
 import { TypographyH3 } from "~/utils/typography";
 import { RenderCards } from "./_components/render-cards";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "~/components/ui/carousel";
 
 const creators = {
   image: creatorImg,
@@ -32,7 +31,9 @@ export default function Home() {
   return (
     <TooltipProvider>
       <section className="container p-3 mx-auto space-y-5">
-        <TypographyH3>Top Creators</TypographyH3>
+        <TypographyH3>
+          <span>💎</span>Top Creators
+        </TypographyH3>
         <div className="flex p-4 overflow-auto space-x-4">
           {Array.from({ length: 10 }).map((_, i) => (
             <Tooltip key={i}>
