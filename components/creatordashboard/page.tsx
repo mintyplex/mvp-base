@@ -171,7 +171,7 @@ const CreatorDashboard = () => {
           </div>
         </div>
 
-        <div className="w-full flex flex-wrap gap-4 items-center px-4 rounded-lg bg-[rgb(49,50,51)] py-3">
+        <div className="w-full hidden md:flex flex-wrap gap-4 items-center px-4 rounded-lg bg-[rgb(49,50,51)] py-3">
           <CreatorsListbox options={people} initialValue={people[0]} />
           <CreatorsListbox
             options={ProductType}
