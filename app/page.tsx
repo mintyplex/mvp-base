@@ -1,3 +1,4 @@
+import { Crown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { TbLayoutGrid } from "react-icons/tb";
@@ -17,11 +18,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import { cn } from "~/lib/utils/utils";
 import creatorImg from "~/public/curator.png";
 import monkey from "~/public/monkey-yellow-bg.jpeg";
 import { TypographyH3 } from "~/utils/typography";
 import { RenderCards } from "./_components/render-cards";
-import { cn } from "~/lib/utils/utils";
 
 const creators = {
   image: creatorImg,
@@ -33,8 +34,10 @@ export default function Home() {
     <TooltipProvider>
       <section className="container p-3 mx-auto space-y-5">
         <TypographyH3 className="flex items-center gap-3">
-          <div className={cn("p-1.5 rounded-md bg-cyan-200/20 text-cyan-500")}>
-            <GemIcon />
+          <div
+            className={cn("p-1.5 rounded-md bg-amber-200/20 text-amber-500")}
+          >
+            <Crown className="fill-amber-500" />
           </div>
           <div>Top Creators</div>
         </TypographyH3>
@@ -152,7 +155,7 @@ function GemIcon({ className }: { className?: string }) {
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      fill="none"
+      fill="currentColor"
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
