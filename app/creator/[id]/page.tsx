@@ -6,6 +6,7 @@ import Creator from "~/public/curator.png";
 import Image, { StaticImageData } from "next/image";
 import { Button } from "~/components/ui/button";
 import curatorImage from "~/public/curator-bg.png";
+import curatorImageMobile from "~/public/mobile-creator-bg.png";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { TbSettings } from "react-icons/tb";
@@ -31,14 +32,24 @@ export default function Curator() {
               src={curatorImage}
               objectFit="cover"
               objectPosition="center"
+              className='hidden md:block'
             />
-            <div className="absolute bottom-0 right-0 mr-6 mb-6">
+            <Image
+              height={600}
+              draggable={false}
+              alt="Curator bg"
+              src={curatorImageMobile}
+              objectFit="cover"
+              objectPosition="center"
+              className='block md:hidden'
+            />
+            <div className="absolute bottom-0 right-0 mr-4 md:mr-6 mb-4 md:mb-6">
               <div className="rounded-full bg-mintyplex-dark p-3">
                 <FaXTwitter />
               </div>
             </div>
           </div>
-          <div className="absolute top-[63%] md:top-[75%] right-0">
+          <div className="absolute top-[67%] md:top-[75%] right-0">
             <div className="flex gap-2 text-[10px] md:text-[16px] justify-center items-center p-[8px] w-[100px] md:w-[125px] rounded-[8px] border border-[#313233]">
               <TbSettings size={24} />
               <p>Edit Bio</p>
