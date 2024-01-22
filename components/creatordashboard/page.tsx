@@ -81,7 +81,7 @@ const CreatorDashboard = () => {
               <h2 className="md:text-[39px] text-[28px] leading-[46px] font-semibold">
                 My Dashboard
               </h2>
-              <p className=" text-xl font-light leading-[30px]">
+              <p className="text-[18px] md:text-[24px] font-light ">
                 Since you started selling on Mintyplex, {"here's "} a summary of
                 your activities
               </p>
