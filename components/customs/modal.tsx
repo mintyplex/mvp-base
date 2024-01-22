@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import curator from "~/public/curator.png";
 import React from 'react'
+import { Button } from '../ui/button';
 
 type ModalProps = {
     setEditModal?: any;
@@ -53,6 +54,11 @@ export default function EditModal({ setEditModal }: ModalProps) {
                                 </label>
                             </div>
                         </form>
+                        <div className='w-full flex justify-end mt-4'>
+                            <Button className='text-white bg-mintyplex-primary'>
+                                Update
+                            </Button>
+                        </div>
                     </div>
 
                 </div>
