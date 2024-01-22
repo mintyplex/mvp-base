@@ -22,6 +22,7 @@
     "clsx": "^2.1.0",
     "embla-carousel-react": "^8.0.0-rc19",
     "faker": "^5.5.3",
+    "lucide-react": "^0.314.0",
     "next": "14.0.4",
     "next-themes": "^0.2.1",
     "react": "^18",

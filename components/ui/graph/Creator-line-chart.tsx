@@ -27,10 +27,10 @@ const customYAxisTicks = [0, 100, 200, 300, 400, 500, 600, 700];
 
 function CreatorChart() {
   return (
-    <div className=" ">
+    <div className="pt-12 px-6 ">
       
-      <ResponsiveContainer width="100%" className="min-h-96 ">
-        <AreaChart width={700} height={250} data={data}>
+      <ResponsiveContainer  width="100%" className='min-h-96' >
+        <AreaChart width={200} height={250} data={data}>
           <defs>
             <linearGradient id="total" x1="0" y1="0" x2="0" y2="1">
               <stop offset="100%" stopColor="#2063F2" stopOpacity={1} />

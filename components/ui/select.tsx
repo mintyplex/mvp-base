@@ -23,11 +23,11 @@ export default function CreatorsListbox({
     <div className="w-full md:w-40">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
-          <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-[rgb(28,30,30)] py-4 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-            <span className="block truncate text-white">{selected.name}</span>
+          <Listbox.Button className="relative md:w-full cursor-pointer rounded-lg bg-[rgb(28,30,30)] py-4 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+            <span className="block truncate text-base md:text-xl text-white">{selected.name}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronDownIcon
-                className="h-8 w-8 text-gray-400"
+                className="md:h-8 w-4 h-4 md:w-8 text-gray-400"
                 aria-hidden="true"
               />
             </span>

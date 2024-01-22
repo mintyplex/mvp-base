@@ -13,9 +13,10 @@ import {
   headers,
   headersSales,
 } from "~/utils/constants/table-data";
-import { Doughnutt } from "../ui/graph/Creator-Doughnut";
+
 import CreatorChart from "../ui/graph/Creator-line-chart";
 import CreatorEmptyState from "../ui/CreatorEmptyState";
+import Doughnutt from "../ui/graph/Creator-Doughnut";
 
 // import CreatorLineChart from '~/components/ui/graph/creator-line-chart';
 
@@ -37,12 +38,10 @@ const CreatorDashboard = () => {
     { name: "Hellen Schmidt" },
   ];
   const Active = [
-    { name: " Active customer" },
-    { name: "Arlene Mccoy" },
-    { name: "Devon Webb" },
-    { name: "Tom Cook" },
-    { name: "Tanya Fox" },
-    { name: "Hellen Schmidt" },
+    { name: " Active " },
+    { name: "in Active " },
+   
+
   ];
 
   const Creators = [
@@ -97,7 +96,8 @@ const CreatorDashboard = () => {
             <div className="border-white border-[1px] rounded-md shadow-lg px-[20px] py-[20px] bg-[#313233]">
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
-                  <div className="flex gap-2 items-center">
+            <div className="flex justify-between items-center w-full pb-2">
+            <div className="flex gap-2 items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -129,6 +129,8 @@ const CreatorDashboard = () => {
                       USDC
                     </h1>
                   </div>
+                  <h1 className="text-[16px] leading-[20px] font-semibold">Earnings</h1>
+            </div>
                 </div>
                 <div className="flex gap-[18px] mr-[20px]">
                   <h1 className="text-[32px] font-semibold">$5,000</h1>
@@ -171,19 +173,34 @@ const CreatorDashboard = () => {
           </div>
         </div>
 
-        <div className="w-full hidden md:flex flex-wrap gap-4 items-center px-4 rounded-lg bg-[rgb(49,50,51)] py-3">
+        {/* <div className="w-full flex flex-wrap gap-4 items-center px-4 rounded-lg bg-[rgb(49,50,51)] py-3">
           <CreatorsListbox options={people} initialValue={people[0]} />
           <CreatorsListbox
             options={ProductType}
             initialValue={ProductType[0]}
           />
           <CreatorsListbox options={Active} initialValue={Active[0]} />
-        </div>
+        </div> */}
 
-        <div className="w-full gap-y-4 grid  md:gap-5">
-          <div className="col-span-2 h-full sm:col-span-1 bg-[rgb(49,50,51)] rounded-lg py-2">
+        <div className="w-full grid md:grid-cols-2 gap-y-4 gap-2">
+          <div className=" h-full sm:col-span-1 bg-[rgb(49,50,51)] rounded-lg py-2">
             {/* This item will span two columns (larger) on small screens */}
-            <CreatorChart />
+                <h1 className="text-2xl fomt-medium border-b-2 py-4 px-6 border-[rgb(168,170,175)] ">Sales Overview</h1>
+            
+            <CreatorChart  />
+          </div>
+          <div className=" h-full sm:col-span-1   bg-[rgb(49,50,51)] rounded-lg py-2">
+          <div className="text-2xl flex   w-full items-center  fomt-medium border-b-2  pb-2 md:px-6 border-[rgb(168,170,175)] ">
+            <h1 className="text-xl w-full md:text-xl">Product Overview</h1>
+            
+            <CreatorsListbox options={Active}  initialValue={Active[0]} />
+
+         
+          </div>
+
+
+            {/* This item will span two columns (larger) on small screens */}
+            <Doughnutt />
           </div>
         </div>
         <div className="w-full">
