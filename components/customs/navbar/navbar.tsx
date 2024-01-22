@@ -53,15 +53,17 @@ export default function Navbar() {
               <CartIcon />
             </Button>
           </Link>
-          <Link href='/dashboard'>
-            <Button
-              variant="ghost"
-              className="border border-mintyplex-border"
-              size="icon"
-            >
-              <HiUserCircle size={22} />
-            </Button>
-          </Link>
+          <div className="md:block hidden">
+            <Link href='/dashboard'>
+              <Button
+                variant="ghost"
+                className="border border-mintyplex-border"
+                size="icon"
+              >
+                <HiUserCircle size={24} />
+              </Button>
+            </Link>
+          </div>
           <Button className="block md:hidden" variant="ghost" size="icon">
             <Hamburger />
           </Button>
