@@ -1,56 +1,3 @@
-// import React from "react";
-// import { PieChart, Pie, Legend, Cell } from "recharts";
-
-// const data = [
-//   { name: "E-books 10.5k", value: 400, fill: "#04042A" },
-//   { name: "Services 5k", value: 300, fill: "#2063F2" },
-//   { name: "Art items 9k", value: 300, fill: "#FF73AE" },
-// ];
-
-// const renderColorfulLegendText = (value: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined, entry: any) => {
-//   return (
-//     <span style={{ color: 'white', fontWeight: 500, }}>
-//       {value}
-//     </span>
-//   );
-// };
-
-// const Doughnutt = () => {
-//   const isMobile = window.innerWidth <= 768;
-
-//   return (
-//     <div >
-//       <PieChart className="min-h-96 min-w-60">
-//       <Legend
-//           height={isMobile ? 60 : 120}
-//           iconType="circle"
-//           layout={isMobile ? "horizontal" : "vertical"}
-//           verticalAlign="middle"
-//           align="right"
-//           iconSize={isMobile ? 10 : 20}
-//           formatter={renderColorfulLegendText}
-//         />
-//         <Pie
-//           data={data}
-//           cx={isMobile ? 150 : 130}
-//           cy={200}
-//           innerRadius={isMobile ? 60 : 80}
-//           outerRadius={isMobile ? 120 : 130}
-//           fill="#8884d8"
-//           paddingAngle={0}
-//           dataKey="value"
-//         >
- 
-//         </Pie>
- 
-//       </PieChart>
-//     </div>
-//   );
-// };
-
-// export default Doughnutt;
-
-
 import React from "react";
 import {
   PieChart,
@@ -72,7 +19,7 @@ const COLORS = [" #2063F2", "#04042A ", '#FF73AE'];
 const Bullet = ({ backgroundColor, size }:any) => {
   return (
     <div
-      className="CirecleBullet rounded-full"
+      className="CirecleBullet  rounded-full"
       style={{
         backgroundColor,
         width: size,
@@ -85,11 +32,11 @@ const Bullet = ({ backgroundColor, size }:any) => {
 const CustomizedLegend = (props: { payload: any; }) => {
   const { payload } = props;
   return (
-    <ul className="LegendList flex flex-col gap-3  absolute right-0 bottom-24" >
+    <ul className="LegendList  flex flex-col gap-3  absolute right-0 md:right-10 bottom-40 md:bottom-24">
       {payload.map((entry: { payload: { fill: any; value: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }; value: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }, index: any) => (
         <li key={`item-${index}`} className="flex items-center">
-          <div className="BulletLabel  flex items-center gap-2">
-            <Bullet backgroundColor={entry.payload.fill} size="26px" />
+          <div className="BulletLabel flex items-center gap-2">
+            <Bullet backgroundColor={entry.payload.fill} size="20px" />
             <div className="BulletLabelText">{entry.value}</div>
           </div>
           {/* <div style={{ marginLeft: "10px" }}>{entry.payload.value}</div> */}
@@ -106,7 +53,7 @@ const CustomLabel = ({ viewBox, labelText, value }:any) => {
       <text
         x={cx}
         y={cy}
-        className=""
+        className="recharts-text recharts-label"
         textAnchor="middle"
         dominantBaseline="central"
         alignmentBaseline="middle"
@@ -116,8 +63,8 @@ const CustomLabel = ({ viewBox, labelText, value }:any) => {
       </text>
       <text
         x={cx}
-        y={cy + 3}
-        className="recharts-text recharts-label text-white"
+        y={cy + 5}
+        className="recharts-text recharts-label"
         textAnchor="middle"
         dominantBaseline="central"
         alignmentBaseline="middle"
@@ -132,17 +79,18 @@ const CustomLabel = ({ viewBox, labelText, value }:any) => {
 };
 
 const Doughnutt = () => {
+  const isMobile = window.innerWidth <= 768;
   return (
-    <div className="w-full min-h-96">
+    <div className="flex w-full h-96">
       <ResponsiveContainer>
         <PieChart>
           <Pie
             data={data01}
             dataKey="value"
-            cx={160}
-            cy={250}
-            innerRadius={60}
-            outerRadius={130}
+            cx={ isMobile ? '90' : '130'}
+            cy={isMobile ? '160' :240}
+            innerRadius={ isMobile ? '50' :' 60'}
+            outerRadius={ isMobile ? '90' : '120'}
           >
             {data01.map((entry, index) => (
               <Cell
@@ -163,7 +111,3 @@ const Doughnutt = () => {
 };
 
 export default Doughnutt;
-
-
-
-
