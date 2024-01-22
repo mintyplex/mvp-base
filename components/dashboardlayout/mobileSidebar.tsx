@@ -62,7 +62,7 @@ const MobileSidebar = ({ closeSidebar }: any) => {
                     {SidebarData.map((data, i) => (
                         <div key={i}>
                             <Link href={data.link} onClick={closeSidebar}>
-                                <div className={`text-center cursor-pointer w-full flex items-center gap-4 py-2 px-4 transition-colors rounded-[8px] hover:bg-brand1 ${pathname === data.id ? "bg-brand1" : " "}`}>
+                                <div className={`text-center cursor-pointer w-full flex items-center gap-4 py-2 px-4 transition-colors rounded-[8px] hover:bg-mintyplex-primary ${pathname === data.id ? "bg-mintyplex-primary" : " "}`}>
                                     {data.icon}
                                     <div>
                                         <p>{data.title}</p>

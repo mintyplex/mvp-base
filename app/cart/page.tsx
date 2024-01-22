@@ -29,7 +29,7 @@ export default function Cart() {
           <div className="mt-6 space-y-8">
             <div className="flex items-center justify-between">
               <TypographyH3>My Cart</TypographyH3>
-              <Button className="px-6 w-fit active:scale-95 transition-all duration-300">
+              <Button className="px-6 w-fit active:scale-95 transition-all duration-300 bg-mintyplex-primary">
                 <span className="text-white">Continue Shopping</span>
               </Button>
             </div>
@@ -57,7 +57,7 @@ export default function Cart() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-4 bg-[#2C2D2E] bg-brand11 rounded-[8px] h-fit p-[24px] lg:w-[520px] md:w-full w-full">
+              <div className="flex flex-col gap-4 bg-[#313233] rounded-[8px] h-fit p-[24px] lg:w-[520px] md:w-full w-full">
                 <TypographyH3 className="text-[30px] font-[600]">
                   Pay with
                 </TypographyH3>
@@ -66,7 +66,7 @@ export default function Cart() {
                     <button
                       key={index}
                       onClick={() => setActiveTab(index)}
-                      className={`py-[10px] px-[14px] w-full text-center font-[500] text-[14px] rounded-[10px] hover:bg-brand4  ${activeTab === index ? "bg-primary" : "bg-mintyplex-dark"
+                      className={`py-[10px] px-[14px] w-full text-center font-[500] text-[14px] rounded-[10px] hover:bg-mintyplex-primary  ${activeTab === index ? "bg-mintyplex-primary" : "bg-mintyplex-dark"
                         }`}
                     >
                       {tab.title}
@@ -76,7 +76,7 @@ export default function Cart() {
                 {activeTab === 0 && (
                   <div className="flex flex-col w-full mt-4 gap-2">
                     {/* <p></p> */}
-                    <Button className="w-full px-6 py-6 active:scale-95 transition-all duration-300">
+                    <Button className="w-full px-6 py-6 active:scale-95 transition-all duration-300 bg-mintyplex-primary">
                       <span className="text-white">Pay Now</span>
                     </Button>
                   </div>
@@ -84,7 +84,7 @@ export default function Cart() {
                 {activeTab === 1 && (
                   <div className="flex flex-col w-full mt-4 gap-2">
                     {/* <p></p> */}
-                    <Button className="w-full px-6 py-6 active:scale-95 transition-all duration-300">
+                    <Button className="w-full px-6 py-6 active:scale-95 transition-all duration-300 bg-mintyplex-primary">
                       <span className="text-white">Pay Now</span>
                     </Button>
                   </div>
