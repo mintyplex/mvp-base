@@ -8,7 +8,6 @@ import DashboardLayout from "~/components/dashboardlayout/page";
 import CreatorDashboard from "~/components/creatordashboard/page";
 
 export default function Dashboard() {
-  const { id } = useParams();
 
   return (
     <>

@@ -46,17 +46,19 @@ export default function Home() {
             <Tooltip key={i}>
               <TooltipTrigger asChild>
                 <div className="flex flex-col items-center w-full max-w-40 gap-1">
-                  <Image
-                    width={82}
-                    height={82}
-                    className="rounded-full"
-                    draggable={false}
-                    alt="user image"
-                    src={creators.image}
-                  />
-                  <div className="overflow-hidden text-xs max-w-20 whitespace-nowrap text-ellipsis">
-                    {creators.name}
-                  </div>
+                  <Link href='/creator/32'>
+                    <Image
+                      width={82}
+                      height={82}
+                      className="rounded-full"
+                      draggable={false}
+                      alt="user image"
+                      src={creators.image}
+                    />
+                    <div className="overflow-hidden text-xs max-w-20 whitespace-nowrap text-ellipsis">
+                      {creators.name}
+                    </div>
+                  </Link>
                 </div>
               </TooltipTrigger>
               <TooltipContent align="center">

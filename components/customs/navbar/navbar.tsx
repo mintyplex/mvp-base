@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Button } from "~/components/ui/button";
 import logo from "~/public/logo.png";
@@ -5,8 +7,23 @@ import logoLg from "~/public/logo-lg.png";
 import Link from "next/link";
 import { HiUserCircle } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
+import { BsXLg } from "react-icons/bs";
+import { useState } from "react";
+import MobileSidebar from "~/components/dashboardlayout/mobileSidebar";
 
 export default function Navbar() {
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Function to toggle the sidebar
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
   return (
     <header className="border-b border-mintyplex-border">
       <nav className="container flex items-center justify-between p-3 mx-auto">
@@ -64,11 +81,19 @@ export default function Navbar() {
               </Button>
             </Link>
           </div>
-          <Button className="block md:hidden" variant="ghost" size="icon">
+          <Button className="block md:hidden" variant="ghost" size="icon" onClick={toggleSidebar}>
             <Hamburger />
           </Button>
         </div>
       </nav>
+      <div id="sidebar" className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? '' : '-translate-x-full'}`}>
+        <div className="px-6 py-3 w-full flex justify-end" onClick={toggleSidebar}>
+          <p className="p-2 border rounded-full"><BsXLg /></p>
+        </div>
+        <div className="mt-4 w-full">
+          <MobileSidebar closeSidebar={closeSidebar} />
+        </div>
+      </div>
     </header>
   );
 }
