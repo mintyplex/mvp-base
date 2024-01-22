@@ -200,7 +200,7 @@ const CreatorDashboard = () => {
 
 
             {/* This item will span two columns (larger) on small screens */}
-            <Doughnutt />
+            {/* <Doughnutt /> */}
           </div>
         </div>
         <div className="w-full">
