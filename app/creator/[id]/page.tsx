@@ -7,7 +7,7 @@ import Image, { StaticImageData } from "next/image";
 import { Button } from "~/components/ui/button";
 import curatorImage from "~/public/curator-bg.png";
 import curatorImageMobile from "~/public/mobile-creator-bg.png";
-import { FaChevronUp, FaChevronDown } from "react-icons/fa";
+import { FaChevronUp, FaChevronDown, FaSearch } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { TbSettings } from "react-icons/tb";
 import { TypographyH3 } from "~/utils/typography";
@@ -85,26 +85,35 @@ export default function Curator() {
             NFTs— unique digital collectibles living on the Ethereum blockchain.
           </p>
         </div>
-        {/* <div className="flex gap-6">
-                    <div className="w-[300px] flex flex-col gap-4">
-                        <div onClick={() => { showFilter ? setShowFilter(false) : setShowFilter(true); }} className="w-full cursor-pointer bg-primary flex items-center p-4 rounded-[8px] justify-between" >
-                            <p></p>
-                            {showFilter ? <FaChevronUp /> : <FaChevronDown />}
-                        </div>
-                        {showFilter && (
-                            <>
-                                <div className="w-full bg-brand11 flex items-center p-4 rounded-[8px] justify-between">
-                                    <p>Attributes</p>
-                                    <FaChevronDown />
-                                </div>
-                                <div className="w-full bg-brand11 flex items-center p-4 rounded-[8px] justify-between">
-                                    <p>Search by ID</p>
-                                    <FaChevronDown />
-                                </div>
-                            </>
-                        )}
-                    </div>
-                </div> */}
+        <div className="flex flex-col-reverse md:flex-row w-full gap-6">
+          <div className="w-full md:w-[300px] flex flex-col gap-4">
+            <div onClick={() => { showFilter ? setShowFilter(false) : setShowFilter(true); }} className="w-full cursor-pointer bg-primary flex items-center px-4 py-3 rounded-[8px] justify-between" >
+              <p>Sort</p>
+              {showFilter ? <FaChevronUp /> : <FaChevronDown />}
+            </div>
+            {showFilter && (
+              <>
+                <div className="w-full bg-brand11 flex items-center p-4 rounded-[8px] justify-between">
+                  <p>Attributes</p>
+                  <FaChevronDown />
+                </div>
+                <div className="w-full bg-brand11 flex items-center p-4 rounded-[8px] justify-between">
+                  <p>Search by ID</p>
+                  <FaChevronDown />
+                </div>
+              </>
+            )}
+          </div>
+          <div className="items-center w-full px-3 mx-auto overflow-hidden border border-white rounded-[8px] flex gap-3 focus-within:border-brand1 transition-all duration-300">
+            <FaSearch />
+            <input
+              type="search"
+              name="search"
+              className="w-full py-3 text-sm outline-none bg-opacity-0 bg-transparent focus:outline-none"
+              placeholder="Search product"
+            />
+          </div>
+        </div>
         <div className="space-y-6">
           <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
             {Array.from({ length: 16 }).map((_, index) => (
@@ -131,7 +140,7 @@ export default function Curator() {
           editModal && (
             <>
               <div className=" ">
-                <EditModal />
+                <EditModal setEditModal={setEditModal} />
               </div>
             </>
           )

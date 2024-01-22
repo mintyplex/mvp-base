@@ -1,25 +1,32 @@
 "use client";
 import Image from 'next/image';
+import { AiOutlineCloseCircle } from "react-icons/ai";
 import curator from "~/public/curator.png";
 import React from 'react'
 
+type ModalProps = {
+    setEditModal?: any;
+}
 
-export default function EditModal() {
+export default function EditModal({ setEditModal }: ModalProps) {
     return (
         <div className="bg-bg-dark/[0.65] fixed bottom-0 left-0 overflow-auto right-0 top-0 z-[9999] inset-0 backdrop-blur-[10px] px-4">
             <div className='relative flex items-center justify-center w-full h-screen'>
                 <div className='bg-[#313233] rounded-[8px] max-w-[600px] px-4 md:px-8 py-6 md:py-10'>
                     <div className='w-full flex flex-col items-center justify-center gap-2'>
+                        <div className='cursor-pointer w-full flex justify-end' onClick={() => setEditModal(false)}>
+                            <AiOutlineCloseCircle size={30} />
+                        </div>
                         <h2 className='font-[500] text-[32px]'>Edit Bio</h2>
                         <p className='text-center text-[13px] font-[400]'>Your logo will be visible next to your name in your Mintyplex profile and product pages. </p>
                         <div className='my-4'>
-                        <Image
-                            src={curator}
-                            width={120}
-                            height={120}
-                            alt="curator image"
-                            className="rounded-full border-[8px] border-mintyplex-dark"
-                        />
+                            <Image
+                                src={curator}
+                                width={120}
+                                height={120}
+                                alt="curator image"
+                                className="rounded-full border-[8px] border-mintyplex-dark"
+                            />
                         </div>
                         <form className='flex flex-col gap-3 w-full'>
                             <div className="form">

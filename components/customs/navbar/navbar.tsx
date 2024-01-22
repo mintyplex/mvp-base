@@ -3,32 +3,45 @@ import { Button } from "~/components/ui/button";
 import logo from "~/public/logo.png";
 import logoLg from "~/public/logo-lg.png";
 import Link from "next/link";
+import { HiUserCircle } from "react-icons/hi";
+import { FaSearch } from "react-icons/fa";
 
 export default function Navbar() {
   return (
     <header className="border-b border-mintyplex-border">
       <nav className="container flex items-center justify-between p-3 mx-auto">
-        <div className="flex items-center gap-1">
-          <Image
-            className="hidden md:block"
-            quality="100"
-            alt="Mintyplex Logo"
-            src={logoLg}
-            height={42}
-            fetchPriority="high"
-            priority
-          />
-          <Image
-            className="md:hidden"
-            alt="Mintyplex Logo"
-            src={logo}
-            height={42}
-            fetchPriority="high"
-            priority
-          />
-        </div>
-        <div className="flex items-center gap-3">
-          <Button size="icon" variant="ghost">
+        <Link href='/'>
+          <div className="flex items-center gap-1">
+            <Image
+              className="hidden md:block"
+              quality="100"
+              alt="Mintyplex Logo"
+              src={logoLg}
+              height={28}
+              fetchPriority="high"
+              priority
+            />
+            <Image
+              className="md:hidden"
+              alt="Mintyplex Logo"
+              src={logo}
+              height={30}
+              fetchPriority="high"
+              priority
+            />
+          </div>
+        </Link>
+        <div className="flex items-center gap-4">
+          <div className="items-center w-[300px] px-3 mx-auto overflow-hidden border border-white rounded-[8px] hidden md:flex gap-3 focus-within:border-brand1 transition-all duration-300">
+            <FaSearch />
+            <input
+              type="search"
+              name="search"
+              className="w-full py-3 text-sm outline-none bg-opacity-0 bg-transparent focus:outline-none"
+              placeholder="Search product"
+            />
+          </div>
+          <Button className="block md:hidden" size="icon" variant="ghost">
             <SearchIcon />
           </Button>
           <Link href='/cart'>
@@ -40,7 +53,16 @@ export default function Navbar() {
               <CartIcon />
             </Button>
           </Link>
-          <Button className="" variant="ghost" size="icon">
+          <Link href='/dashboard'>
+            <Button
+              variant="ghost"
+              className="border border-mintyplex-border"
+              size="icon"
+            >
+              <HiUserCircle size={22} />
+            </Button>
+          </Link>
+          <Button className="block md:hidden" variant="ghost" size="icon">
             <Hamburger />
           </Button>
         </div>
