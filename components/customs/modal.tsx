@@ -46,7 +46,7 @@ export default function EditModal({ setEditModal }: ModalProps) {
                                 <input
                                     type="text"
                                     className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
-                                    placeholder="Enter your Product Name"
+                                    placeholder="https://www.x.com/username"
                                     required
                                 />
                                 <label htmlFor="" className="px-4 text-sm">
