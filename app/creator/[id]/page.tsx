@@ -13,13 +13,15 @@ import { TbSettings } from "react-icons/tb";
 import { TypographyH3 } from "~/utils/typography";
 import { Card } from "~/components/customs/card";
 import { BsArrowLeft } from "react-icons/bs";
+import EditModal from "~/components/customs/modal";
 
 export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
+  const [editModal, setEditModal] = useState(false);
 
   return (
     <>
-      <section className="container p-3 mx-auto space-y-6 mt-6">
+      <section className="container relative p-3 mx-auto space-y-6 mt-6">
         <div className="p-2 border border-mintyplex-border w-fit rounded-[8px]">
           <BsArrowLeft size={20} />
         </div>
@@ -49,8 +51,8 @@ export default function Curator() {
               </div>
             </div>
           </div>
-          <div className="absolute top-[67%] md:top-[75%] right-0">
-            <div className="flex gap-2 text-[10px] md:text-[16px] justify-center items-center p-[8px] w-[100px] md:w-[125px] rounded-[8px] border border-[#313233]">
+          <div className="absolute top-[67%] md:top-[75%] right-0 z-[111]">
+            <div className="flex gap-2 text-[10px] md:text-[16px] cursor-pointer justify-center items-center p-[8px] w-[100px] md:w-[125px] rounded-[8px] border border-[#313233]" onClick={() => setEditModal(true)}>
               <TbSettings size={24} />
               <p>Edit Bio</p>
             </div>
@@ -125,6 +127,15 @@ export default function Curator() {
             </Button>
           </div>
         </div>
+        {
+          editModal && (
+            <>
+              <div className=" ">
+                <EditModal />
+              </div>
+            </>
+          )
+        }
       </section>
     </>
   );
