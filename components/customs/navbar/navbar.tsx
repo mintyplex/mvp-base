@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "~/components/ui/button";
 import logo from "~/public/logo.png";
 import logoLg from "~/public/logo-lg.png";
+import Link from "next/link";
 
 export default function Navbar() {
   return (
@@ -30,14 +31,16 @@ export default function Navbar() {
           <Button size="icon" variant="ghost">
             <SearchIcon />
           </Button>
-          <Button
-            variant="ghost"
-            className="border border-mintyplex-border"
-            size="icon"
-          >
-            <CartIcon />
-          </Button>
-          <Button variant="ghost" size="icon">
+          <Link href='/cart'>
+            <Button
+              variant="ghost"
+              className="border border-mintyplex-border"
+              size="icon"
+            >
+              <CartIcon />
+            </Button>
+          </Link>
+          <Button className="" variant="ghost" size="icon">
             <Hamburger />
           </Button>
         </div>

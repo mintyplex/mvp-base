@@ -45,13 +45,13 @@ export default function Cart() {
                     <p className="text-[20px] font-[500]">Total value</p>
                     <p className="text-[20px] font-[500]">USD$23</p>
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="hidden md:flex items-center justify-between">
                     <p className="text-[20px] font-[500]">
                       Transaction fee (gas)
                     </p>
                     <p className="text-[20px] font-[500]">USD$23</p>
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="hidden md:flex items-center justify-between">
                     <p className="text-[20px] font-[500]">Processing Fee</p>
                     <p className="text-[20px] font-[500]">USD$23</p>
                   </div>
@@ -66,9 +66,8 @@ export default function Cart() {
                     <button
                       key={index}
                       onClick={() => setActiveTab(index)}
-                      className={`py-[10px] px-[14px] w-full text-center font-[500] text-[14px] rounded-[10px] hover:bg-brand4  ${
-                        activeTab === index ? "bg-primary" : "bg-mintyplex-dark"
-                      }`}
+                      className={`py-[10px] px-[14px] w-full text-center font-[500] text-[14px] rounded-[10px] hover:bg-brand4  ${activeTab === index ? "bg-primary" : "bg-mintyplex-dark"
+                        }`}
                     >
                       {tab.title}
                     </button>
@@ -159,6 +158,34 @@ function CartCard() {
             >
               +
             </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="block md:hidden w-full">
+        <div className="flex justify-between">
+          <div className="flex items-top gap-[8px]">
+            <Image
+              src={img}
+              alt=""
+              width={79}
+              height={79}
+              className="object-cover rounded-[8px]"
+            />
+            <div className="">
+              <p className="text-[16px] font-[500] font-[600]">
+                Bored Ape Yatch
+              </p>
+              <p className="text-[14px] font-[400]">Sadistar</p>
+              <p className="text-[12px] font-[400]">Qty: 1</p>
+              <p className="text-[12px] font-[400]">Membership: Monthly</p>
+            </div>
+          </div>
+          <div className="flex flex-col items-right justify-between">
+            <p className="text-[16px] font-[500] font-[600]">
+              USD$23
+            </p>
+            <HiTrash size={20} />
           </div>
         </div>
       </div>
