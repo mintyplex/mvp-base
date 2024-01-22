@@ -58,7 +58,7 @@ const Sidebar = () => {
               <Link href={data.link}>
                 <div
                   className={`text-center cursor-pointer w-full flex items-center gap-4 py-2 px-4 transition-colors rounded-[8px] hover:bg-mintyplex-primary ${
-                    pathname === data.link ? "bg-mintyplex-primary" : ""
+                    pathname === data.id ? "bg-mintyplex-primary" : ""
                   }`}
                 >
                   {data.icon}
