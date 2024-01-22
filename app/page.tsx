@@ -1,3 +1,4 @@
+import { Crown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { TbLayoutGrid } from "react-icons/tb";
@@ -5,23 +6,23 @@ import { Card } from "~/components/customs/card";
 import { PopularCard } from "~/components/customs/popular-card";
 import { SeeAllFor } from "~/components/customs/see-all-for";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "~/components/ui/tooltip";
-import creatorImg from "~/public/curator.png";
-import monkey from "~/public/monkey-yellow-bg.jpeg";
-import topCreator from "~/public/top-creator.jpeg";
-import { TypographyH3 } from "~/utils/typography";
-import { RenderCards } from "./_components/render-cards";
-import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from "~/components/ui/carousel";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
+import { cn } from "~/lib/utils/utils";
+import creatorImg from "~/public/curator.png";
+import monkey from "~/public/monkey-yellow-bg.jpeg";
+import { TypographyH3 } from "~/utils/typography";
+import { RenderCards } from "./_components/render-cards";
 
 const creators = {
   image: creatorImg,
@@ -32,7 +33,14 @@ export default function Home() {
   return (
     <TooltipProvider>
       <section className="container p-3 mx-auto space-y-5">
-        <TypographyH3>Top Creators</TypographyH3>
+        <TypographyH3 className="flex items-center gap-3">
+          <div
+            className={cn("p-1.5 rounded-md bg-amber-200/20 text-amber-500")}
+          >
+            <Crown className="fill-amber-500" />
+          </div>
+          <div>Top Creators</div>
+        </TypographyH3>
         <div className="flex p-4 overflow-auto space-x-4">
           {Array.from({ length: 10 }).map((_, i) => (
             <Tooltip key={i}>
@@ -61,7 +69,7 @@ export default function Home() {
           <SeeAllFor
             tw="bg-mintyplex-primary/20"
             Icon={ThunderBolt}
-            name="Popular Products"
+            name="Trending Products"
             route="/popular-products?view=popular"
           />
           <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
@@ -135,6 +143,27 @@ function ThunderBolt() {
         d="M7.65421 11.5719L10.24 8.07335C11.9115 5.81188 12.7472 4.68115 13.5269 4.9201C14.3067 5.15904 14.3067 6.54589 14.3067 9.31957V9.5811C14.3067 10.5815 14.3067 11.0817 14.6263 11.3955L14.6432 11.4117C14.9698 11.7188 15.4904 11.7188 16.5316 11.7188C18.4053 11.7188 19.3422 11.7188 19.6588 12.2871C19.6641 12.2965 19.6692 12.306 19.6741 12.3156C19.973 12.8926 19.4305 13.6265 18.3456 15.0944L15.7598 18.5929C14.0883 20.8544 13.2526 21.9851 12.4729 21.7461C11.6931 21.5072 11.6932 20.1203 11.6932 17.3466L11.6932 17.0852C11.6932 16.0848 11.6932 15.5846 11.3736 15.2708L11.3567 15.2545C11.0301 14.9474 10.5095 14.9474 9.46827 14.9474C7.59455 14.9474 6.6577 14.9474 6.34107 14.3792C6.33583 14.3697 6.33073 14.3603 6.32578 14.3507C6.02689 13.7736 6.56933 13.0397 7.65421 11.5719Z"
         fill="#1E5BDD"
       />
+    </svg>
+  );
+}
+
+function GemIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M6 3h12l4 6-10 13L2 9Z" />
+      <path d="M11 3 8 9l4 13 4-13-3-6" />
+      <path d="M2 9h20" />
     </svg>
   );
 }
