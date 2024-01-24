@@ -9,6 +9,8 @@ import ProductForm from "~/components/ui/ProductForm";
 import { MdCancel } from "react-icons/md";
 import Link from "next/link";
 import DashboardLayout from "~/components/dashboardlayout/page";
+import FloatingSelect from "~/components/ui/FloatingInput";
+import CreatorsListbox from "~/components/ui/select";
 
 const AddProduct: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
@@ -76,7 +78,7 @@ const AddProduct: React.FC = () => {
               Cancel
               <MdCancel />
             </button>
-            {/* <AddProductListbox options={Active} initialValue={Active[0]} /> */}
+            <CreatorsListbox options={Active} initialValue={Active[0]} />
             <button className="bg-blue-500 px-6 py-2 rounded-md font-normal text-[16px] leading-[27px] hover:bg-brand2">
               Save
             </button>
@@ -119,6 +121,7 @@ const AddProduct: React.FC = () => {
               />
             </form>
           </ReuseableBackground>
+
         </div>
         <ProductForm />
       </div>

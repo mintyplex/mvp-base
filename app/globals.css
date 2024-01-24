@@ -117,3 +117,24 @@
   );
   border-image-slice: 1;
 }
+
+label {
+  position: absolute;
+  top: -10px;
+  left: 14px;
+  background-color: rgb(49, 50, 51);
+  padding: 6px;
+  color: white;
+  text-transform: capitalize;
+  font-size: 18px;
+  transition: top 0.3s;
+  /* padding: 0 5px; */
+  pointer-events: none;
+}
+
+.floating-select.active label,
+select:focus + label,
+select:not(:placeholder-shown) + label {
+  transform: translateY(-70%) scale(0.75);
+  color: #333;
+}

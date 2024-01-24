@@ -182,14 +182,14 @@ const CreatorDashboard = () => {
           <CreatorsListbox options={Active} initialValue={Active[0]} />
         </div> */}
 
-        <div className="w-full grid md:grid-cols-2 gap-y-4 gap-2">
+        <div className="w-full grid  gap-y-4 gap-2">
           <div className=" h-full sm:col-span-1 bg-[rgb(49,50,51)] rounded-lg py-2">
             {/* This item will span two columns (larger) on small screens */}
                 <h1 className="text-2xl fomt-medium border-b-2 py-4 px-6 border-[rgb(168,170,175)] ">Sales Overview</h1>
             
             <CreatorChart  />
           </div>
-          <div className=" h-full sm:col-span-1   bg-[rgb(49,50,51)] rounded-lg py-2">
+          {/* <div className=" h-full sm:col-span-1   bg-[rgb(49,50,51)] rounded-lg py-2">
           <div className="text-2xl flex   w-full items-center  fomt-medium border-b-2  pb-2 md:px-6 border-[rgb(168,170,175)] ">
             <h1 className="text-xl w-full md:text-xl">Product Overview</h1>
             
@@ -199,9 +199,8 @@ const CreatorDashboard = () => {
           </div>
 
 
-            {/* This item will span two columns (larger) on small screens */}
-            {/* <Doughnutt /> */}
-          </div>
+            <Doughnutt />
+          </div> */}
         </div>
         <div className="w-full">
           <Accordium title="All Products">
