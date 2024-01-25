@@ -9,7 +9,6 @@ import ProductForm from "~/components/ui/ProductForm";
 import { MdCancel } from "react-icons/md";
 import Link from "next/link";
 import DashboardLayout from "~/components/dashboardlayout/page";
-import FloatingSelect from "~/components/ui/FloatingInput";
 import CreatorsListbox from "~/components/ui/select";
 
 const AddProduct: React.FC = () => {
@@ -121,7 +120,6 @@ const AddProduct: React.FC = () => {
               />
             </form>
           </ReuseableBackground>
-
         </div>
         <ProductForm />
       </div>
