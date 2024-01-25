@@ -51,7 +51,7 @@ export default function Curator() {
               </div>
             </div>
           </div>
-          <div className="absolute top-[67%] md:top-[75%] right-0 z-[11]">
+          <div className="absolute top-[71%] md:top-[75%] right-0 z-[11]">
             <div className="flex gap-2 text-[10px] md:text-[16px] cursor-pointer justify-center items-center p-[8px] w-[100px] md:w-[125px] rounded-[8px] border border-[#313233]" onClick={() => setEditModal(true)}>
               <TbSettings size={24} />
               <p>Edit Bio</p>

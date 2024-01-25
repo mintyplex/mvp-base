@@ -37,7 +37,7 @@ const MobileSidebar = ({ closeSidebar }: any) => {
     const pathname = usePathname()
 
     return (
-        <main className='p-6 flex lg:hidden flex-col gap-6 bg-brand10 sticky top-0 h-screen'>
+        <main className='fixed p-6 flex lg:hidden flex-col gap-6 bg-brand10 top-0 h-screen'>
             <div className="flex flex-col items-center justify-center mx-auto gap-4">
                 <Image
                     src={curator}
@@ -57,7 +57,7 @@ const MobileSidebar = ({ closeSidebar }: any) => {
                 <p>Reserve Username</p>
                 <BsArrowUpRight />
             </Button>
-            <div className='h-screen flex flex-col w-full gap-12 '>
+            <div className='h-screen flex flex-col w-full justify-between '>
                 <div className="flex gap-2 flex-col">
                     {SidebarData.map((data, i) => (
                         <div key={i}>
