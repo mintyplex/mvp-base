@@ -12,7 +12,6 @@ import { useState } from "react";
 import MobileSidebar from "~/components/dashboardlayout/mobileSidebar";
 
 export default function Navbar() {
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Function to toggle the sidebar
@@ -27,7 +26,7 @@ export default function Navbar() {
   return (
     <header className="border-b border-mintyplex-border">
       <nav className="container flex items-center justify-between p-3 mx-auto">
-        <Link href='/'>
+        <Link href="/">
           <div className="flex items-center gap-1">
             <Image
               className="hidden md:block"
@@ -50,18 +49,18 @@ export default function Navbar() {
         </Link>
         <div className="flex items-center gap-4">
           <div className="items-center w-[300px] px-3 mx-auto overflow-hidden border border-white rounded-[8px] hidden md:flex gap-3 focus-within:border-brand1 transition-all duration-300">
-            <FaSearch />
+            <SearchIcon />
             <input
               type="search"
               name="search"
-              className="w-full py-3 text-sm outline-none bg-opacity-0 bg-transparent focus:outline-none"
+              className="w-full py-3 text-sm bg-transparent outline-none bg-opacity-0 focus:outline-none"
               placeholder="Search product"
             />
           </div>
           <Button className="block md:hidden" size="icon" variant="ghost">
             <SearchIcon />
           </Button>
-          <Link href='/cart'>
+          <Link href="/cart">
             <Button
               variant="ghost"
               className="border border-mintyplex-border"
@@ -70,8 +69,8 @@ export default function Navbar() {
               <CartIcon />
             </Button>
           </Link>
-          <div className="md:block hidden">
-            <Link href='/dashboard'>
+          <div className="hidden md:block">
+            <Link href="/dashboard">
               <Button
                 variant="ghost"
                 className="border border-mintyplex-border"
@@ -81,16 +80,31 @@ export default function Navbar() {
               </Button>
             </Link>
           </div>
-          <Button className="block md:hidden" variant="ghost" size="icon" onClick={toggleSidebar}>
+          <Button
+            className="block md:hidden"
+            variant="ghost"
+            size="icon"
+            onClick={toggleSidebar}
+          >
             <Hamburger />
           </Button>
         </div>
       </nav>
-      <div id="sidebar" className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? '' : '-translate-x-full'}`}>
-        <div className="px-6 py-3 w-full flex justify-end" onClick={toggleSidebar}>
-          <p className="p-2 border rounded-full"><BsXLg /></p>
+      <div
+        id="sidebar"
+        className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${
+          isSidebarOpen ? "":"-translate-x-full"
+        }`}
+      >
+        <div
+          className="flex justify-end w-full px-6 py-3"
+          onClick={toggleSidebar}
+        >
+          <p className="p-2 border rounded-full">
+            <BsXLg />
+          </p>
         </div>
-        <div className="mt-4 w-full">
+        <div className="w-full mt-4">
           <MobileSidebar closeSidebar={closeSidebar} />
         </div>
       </div>
