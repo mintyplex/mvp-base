@@ -10,6 +10,8 @@ import { FaSearch } from "react-icons/fa";
 import { BsXLg } from "react-icons/bs";
 import { useState } from "react";
 import MobileSidebar from "~/components/dashboardlayout/mobileSidebar";
+import { RafeSearchIcon } from "~/utils/icons/search-icon";
+import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
 
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -47,9 +49,9 @@ export default function Navbar() {
             />
           </div>
         </Link>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <div className="items-center w-[300px] px-3 mx-auto overflow-hidden border border-white rounded-[8px] hidden md:flex gap-3 focus-within:border-brand1 transition-all duration-300">
-            <SearchIcon />
+            <RafeSearchIcon />
             <input
               type="search"
               name="search"
@@ -57,9 +59,17 @@ export default function Navbar() {
               placeholder="Search product"
             />
           </div>
-          <Button className="block md:hidden" size="icon" variant="ghost">
-            <SearchIcon />
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="md:hidden" size="icon" variant="ghost">
+                <RafeSearchIcon />
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="">
+              <input />
+            </DialogContent>
+          </Dialog>
+
           <Link href="/cart">
             <Button
               variant="ghost"
@@ -93,8 +103,8 @@ export default function Navbar() {
       <div
         id="sidebar"
         className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${
-          isSidebarOpen ? "":"-translate-x-full"
-        }`}
+          isSidebarOpen ? "" : "-translate-x-full"
+        }
       >
         <div
           className="flex justify-end w-full px-6 py-3"

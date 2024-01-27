@@ -3,7 +3,6 @@ export function PhotoGraphy({ className }: { className?: string }) {
     <svg
       className={className}
       xmlns="http://www.w3.org/2000/svg"
-      data-name="Layer 1"
       width="881.50024"
       height="636.57254"
       viewBox="0 0 881.50024 636.57254"
@@ -175,7 +174,7 @@ export function PhotoGraphy({ className }: { className?: string }) {
         points="354.396 293.155 353.653 296.123 380.648 322.384 382.982 322.968 389.014 321.336 389.346 321.329 390.104 318.302 384.737 312.658 390.223 311.221 378.516 299.856 372.407 301.138 367.507 296.273 370.814 294.951 371.126 293.706 367.12 290.553 354.396 293.155"
         fill="none"
         stroke="#3f3d56"
-        stroke-miterlimit="10"
+        strokeMiterlimit="10"
       />
       <ellipse
         cx="526.116"

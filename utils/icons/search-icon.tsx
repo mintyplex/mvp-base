@@ -1,4 +1,6 @@
-export function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
+export const RafeSearchIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
+  props
+) => {
   return (
     <svg
       {...props}
@@ -13,14 +15,14 @@ export function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
         cy="10.6332"
         r="6.96667"
         stroke="#BFBFC0"
-        stroke-width="1.5"
+        strokeWidth="1.5"
       />
       <path
         d="M15.7656 15.7666L18.3323 18.3333"
         stroke="#BFBFC0"
-        stroke-width="1.5"
-        stroke-linecap="round"
+        strokeWidth="1.5"
+        strokeLinecap="round"
       />
     </svg>
   );
-}
+};

@@ -20,7 +20,7 @@ export function Card({ name, by, image, price, byImg, asSmall }: CardProps) {
     <div
       className={cn(
         " mx-auto rounded-lg p-1.5 space-y-2 border border-mintyplex-border",
-        asSmall ? "max-w-xs" : "max-w-sm"
+        asSmall ? "max-w-xs" : "max-w-sm",
       )}
     >
       <div className="overflow-hidden rounded-md">
@@ -51,7 +51,7 @@ export function Card({ name, by, image, price, byImg, asSmall }: CardProps) {
       <div className="">
         <small>Price</small>
         <div>
-          <small className="text-lg text-transparent !bg-clip-text font-medium [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
+          <small className="text-transparent !bg-clip-text font-medium [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
             $ {price}
           </small>
         </div>
