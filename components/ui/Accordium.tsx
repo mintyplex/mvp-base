@@ -13,8 +13,10 @@ const Accordium: React.FC<AccordiumProps> = ({
 
   const toggleAccordion = () => setAccordionOpen(!isAccordionOpen);
 
+
+  
   return (
-    <div className="bg-[rgb(49,50,51)] px-4 py-3 mt-6 rounded-md ">
+    <div className="bg-[rgb(49,50,51)] px-4 py-3 mt-6 rounded-md transition-transform duration-500 ">
       <div
         className="flex justify-between  rounded-md  gap-4 w-full bg-[rgb(49,50,51)]"
         onClick={toggleAccordion}

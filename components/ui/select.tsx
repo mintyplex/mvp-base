@@ -20,11 +20,11 @@ export default function CreatorsListbox({
   const [selected, setSelected] = useState(initialValue || options[0]);
 
   return (
-    <div className="w-full md:w-40">
+    <div className="w-full border md:w-40">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
-          <Listbox.Button className="relative md:w-full cursor-pointer rounded-lg bg-[rgb(28,30,30)] py-4 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-            <span className="block truncate text-base md:text-xl text-white">{selected.name}</span>
+          <Listbox.Button className="relative md:w-full cursor-pointer border outline-none  border-[rgba(224,224,224,1)] rounded-lg bg-[rgb(28,30,30)] py-2 rounded-lg pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+            <span className="block truncate text-base  text-white">{selected.name}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronDownIcon
                 className="md:h-8 w-4 h-4 md:w-8 text-gray-400"
