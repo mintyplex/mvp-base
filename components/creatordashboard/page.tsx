@@ -96,7 +96,7 @@ const CreatorDashboard = () => {
             <div className="border-white border-[1px] rounded-md shadow-lg px-[20px] py-[20px] bg-[#313233]">
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
-            <div className="flex justify-between items-center w-full pb-2">
+            <div className=" w-full pb-2">
             <div className="flex gap-2 items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -129,18 +129,30 @@ const CreatorDashboard = () => {
                       USDC
                     </h1>
                   </div>
-                  <h1 className="text-[16px] leading-[20px] font-semibold">Earnings</h1>
-            </div>
-                </div>
-                <div className="flex gap-[18px] mr-[20px]">
+          
+                  <div className="flex gap-[18px] mr-[20px]">
                   <h1 className="text-[32px] font-semibold">$5,000</h1>
-                  <div
+  
+                </div>
+            </div>
+
+<div >
+        <h1 className="text-[16px] leading-[20px] font-semibold pb-2">Earnings</h1>
+
+
+                <div
                     className={`flex items-center gap-3 border-[rgba(0,128,0,1)] border-[1px] rounded-lg  py-2 px-3  text-[rgba(0,128,0,1)]`}
                   >
                     <BsArrowUpRight size={20} />
                     <p className="font-[500]">2.3%</p>
                   </div>
+
+</div>
+
                 </div>
+
+
+
               </div>
             </div>
 
@@ -188,6 +200,21 @@ const CreatorDashboard = () => {
                 <h1 className="text-2xl fomt-medium border-b-2 py-4 px-6 border-[rgb(168,170,175)] ">Sales Overview</h1>
             
             <CreatorChart  />
+
+            <div className="flex justify-center items-center gap-4  py-8 md:gap-8">
+              <div className="flex items-center  gap-2">
+                <div className="md:h-6 h-4 w-4 md:w-6 rounded-full bg-[rgba(35,89,204,1)]"></div>
+              <button className="bg-[rgba(32,99,242,1)] p-2 md:px-4 rounded-md text-[13px] md:texxt-base font-medium">Arts</button>
+              </div>
+              <div className="flex items-center gap-2">
+              <div className="md:h-6 h-4 w-4 md:w-6 rounded-full bg-[rgba(164,49,255,1)]"></div>
+                <button className="border-[rgba(159,159,159,1)] border p-2 md:px-4 rounded-md text-[13px] md:texxt-base font-medium">E-books</button>
+                </div>
+              <div className="flex items-center gap-2">
+              <div className="md:h-6 h-4 w-4 md:w-6 rounded-full bg-[rgba(4,4,42,1)]"></div>
+                <button className="border-[rgba(159,159,159,1)] border p-2 md:px-4 rounded-md text-[13px] md:texxt-base font-medium">Photography</button>
+                </div>
+            </div>
           </div>
           {/* <div className=" h-full sm:col-span-1   bg-[rgb(49,50,51)] rounded-lg py-2">
           <div className="text-2xl flex   w-full items-center  fomt-medium border-b-2  pb-2 md:px-6 border-[rgb(168,170,175)] ">

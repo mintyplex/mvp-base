@@ -34,6 +34,18 @@ const ProductForm = () => {
               Product Price ($) <span className="text-red-600">*</span>
             </label>
           </div>
+
+          <div className="form">
+            <input
+              type="text"
+              className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
+              placeholder="0"
+              required
+            />
+            <label htmlFor="" className="px-4 text-sm">
+              Discount ($) <span className="text-red-600">*</span>
+            </label>
+          </div>
         </form>
 
         <form className="flex py-5 flex-col gap-6">
@@ -105,6 +117,7 @@ const ProductForm = () => {
               Product Price ($) <span className="text-red-600">*</span>
             </label>
           </div>
+
 
           <div className="form">
             <input

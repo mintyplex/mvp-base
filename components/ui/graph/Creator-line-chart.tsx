@@ -37,8 +37,8 @@ function CreatorChart() {
               <stop offset="95%" stopColor="#2063F2" stopOpacity={1} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="name" stroke="gray" />
-          <YAxis stroke="gray" className="text-[12px]" ticks={customYAxisTicks}  />
+          <XAxis dataKey="name" className="text-[10px]" stroke="gray" />
+          <YAxis stroke="gray" className="text-[10px]" ticks={customYAxisTicks}  />
           <CartesianGrid
             strokeDasharray="1 1"
             stroke="gray"
