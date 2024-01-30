@@ -50,19 +50,14 @@ const ProductForm = () => {
 
         <form className="flex py-5 flex-col gap-6">
           <div className="form">
-          
-<div className='relative'>
-<select
-      className="flex py-5 bg-[rgb(45,46,47)]  w-full outline-none p-4 border-2 border-[rgb(99,99,99)] bg-none rounded-lg form flex-col gap-6"
-        
-      >
-        <option value="" >Select an option</option>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
-      </select>
-     
-</div>
+            <div className="relative">
+              <select className="flex py-5 bg-[rgb(45,46,47)]  w-full outline-none p-4 border-2 border-[rgb(99,99,99)] bg-none rounded-lg form flex-col gap-6">
+                <option value="">Select an option</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+              </select>
+            </div>
             <label htmlFor="" className="px-4 text-sm">
               Categories <span className="text-red-600">*</span>
             </label>
@@ -118,7 +113,6 @@ const ProductForm = () => {
             </label>
           </div>
 
-
           <div className="form">
             <input
               type="text"
@@ -130,7 +124,7 @@ const ProductForm = () => {
               Quantity Available <span className="text-red-600">*</span>
             </label>
             <p className="text-xs font-light italic  px-4 py-2">
-            Set Quantity to { 0} for unlimited
+              Set Quantity to {0} for unlimited
             </p>
           </div>
           <div className="form">
@@ -146,65 +140,53 @@ const ProductForm = () => {
           </div>
 
           <div className="flex justify-end  gap-4 pt-4 items-center ">
-              <button className="px-2 py-2 rounded-md font-normal text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-4 items-center">
-                <MdCancel />
-                Web3
-              </button>
-              <button className="px-2 py-2 rounded-md font-normal text-[16px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center">
-                Add tags
-              </button>
+            <button className="px-2 py-2 rounded-md font-normal text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-4 items-center">
+              <MdCancel />
+              Web3
+            </button>
+            <button className="px-2 py-2 rounded-md font-normal text-[16px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center">
+              Add tags
+            </button>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="form">
+              <div className="relative">
+                <select className="flex py-5 bg-[rgb(45,46,47)]  w-full outline-none p-4 border-2 border-[rgb(99,99,99)] bg-none rounded-lg form flex-col gap-6">
+                  <option value="">Select an option</option>
+                  <option value="option1">Option 1</option>
+                  <option value="option2">Option 2</option>
+                  <option value="option3">Option 3</option>
+                </select>
+              </div>
+              <label htmlFor="" className="px-4 text-sm">
+                Attribute
+              </label>
             </div>
-
-<div className="grid md:grid-cols-2 gap-3">
-<div className="form">
-          
-          <div className='relative'>
-          <select
-                className="flex py-5 bg-[rgb(45,46,47)]  w-full outline-none p-4 border-2 border-[rgb(99,99,99)] bg-none rounded-lg form flex-col gap-6"
-                  
-                >
-                  <option value="" >Select an option</option>
+            <div className="form">
+              <div className="relative">
+                <select className="flex py-5 bg-[rgb(45,46,47)]  w-full outline-none p-4 border-2 border-[rgb(99,99,99)] bg-none rounded-lg form flex-col gap-6">
+                  <option value="">Select an option</option>
                   <option value="option1">Option 1</option>
                   <option value="option2">Option 2</option>
                   <option value="option3">Option 3</option>
                 </select>
-               
+              </div>
+              <label htmlFor="" className="px-4 text-sm">
+                Attribute
+              </label>
+            </div>
           </div>
-                      <label htmlFor="" className="px-4 text-sm">
-                      Attribute 
-                      </label>
 
-                    </div>
-<div className="form">
-          
-          <div className='relative'>
-          <select
-                className="flex py-5 bg-[rgb(45,46,47)]  w-full outline-none p-4 border-2 border-[rgb(99,99,99)] bg-none rounded-lg form flex-col gap-6"
-                  
-                >
-                  <option value="" >Select an option</option>
-                  <option value="option1">Option 1</option>
-                  <option value="option2">Option 2</option>
-                  <option value="option3">Option 3</option>
-                </select>
-               
-          </div>
-                      <label htmlFor="" className="px-4 text-sm">
-                      Attribute 
-                      </label>
-
-                    </div>
-</div>
-
-<div className="flex justify-end  gap-4 pt-4 items-center ">
-              <button className="px-2 py-2 rounded-md font-normal text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-4 items-center">
-                <MdCancel />
-                Face: Beauitful
-              </button>
-              <button className="px-2 py-2 rounded-md font-normal text-[16px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center">
+          <div className="flex justify-end  gap-4 pt-4 items-center ">
+            <button className="px-2 py-2 rounded-md font-normal text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-4 items-center">
+              <MdCancel />
+              Face: Beauitful
+            </button>
+            <button className="px-2 py-2 rounded-md font-normal text-[16px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center">
               Add new Attribute
-              </button>
-            </div>
+            </button>
+          </div>
         </form>
       </ReuseableBackground>
     </div>

@@ -21,44 +21,43 @@ export default function Curator() {
 
   return (
     <>
-      <section className="container relative p-3 mx-auto space-y-6 mt-6">
+      <section className="container relative p-3 mx-auto mt-6 space-y-6">
         <div className="p-2 border border-mintyplex-border w-fit rounded-[8px]">
           <BsArrowLeft size={20} />
         </div>
-        <div className="w-full relative">
+        <div className="relative w-full">
           <div className="flex w-full h-fit min-h-[150px] md:min-h-fit rounded-[24px] relative overflow-hidden">
             <Image
               height={600}
               draggable={false}
               alt="Curator bg"
               src={curatorImage}
-              objectFit="cover"
-              objectPosition="center"
-              className='hidden md:block'
+              className="hidden object-cover object-center md:block"
             />
             <Image
               height={600}
               draggable={false}
               alt="Curator bg"
               src={curatorImageMobile}
-              objectFit="cover"
-              objectPosition="center"
-              className='block md:hidden'
+              className="block object-cover object-center md:hidden"
             />
-            <div className="absolute bottom-0 right-0 mr-4 md:mr-6 mb-4 md:mb-6">
-              <div className="rounded-full bg-mintyplex-dark p-3">
+            <div className="absolute bottom-0 right-0 mb-4 mr-4 md:mr-6 md:mb-6">
+              <div className="p-3 rounded-full bg-mintyplex-dark">
                 <FaXTwitter />
               </div>
             </div>
           </div>
           <div className="absolute top-[67%] md:top-[75%] right-0 z-[11]">
-            <div className="flex gap-2 text-[10px] md:text-[16px] cursor-pointer justify-center items-center p-[8px] w-[100px] md:w-[125px] rounded-[8px] border border-[#313233]" onClick={() => setEditModal(true)}>
+            <div
+              className="flex gap-2 text-[10px] md:text-[16px] cursor-pointer justify-center items-center p-[8px] w-[100px] md:w-[125px] rounded-[8px] border border-[#313233]"
+              onClick={() => setEditModal(true)}
+            >
               <TbSettings size={24} />
               <p>Edit Bio</p>
             </div>
           </div>
           <div className="relative md:mt-[-70px] mt-[-50px] z-[1] flex justify-center w-full">
-            <div className="flex flex-col gap-4 items-center">
+            <div className="flex flex-col items-center gap-4">
               <Image
                 width={150}
                 height={150}
@@ -85,9 +84,14 @@ export default function Curator() {
             NFTs— unique digital collectibles living on the Ethereum blockchain.
           </p>
         </div>
-        <div className="flex flex-col-reverse md:flex-row w-full gap-6">
+        <div className="flex flex-col-reverse w-full md:flex-row gap-6">
           <div className="w-full md:w-[300px] flex flex-col gap-4">
-            <div onClick={() => { showFilter ? setShowFilter(false) : setShowFilter(true); }} className="w-full cursor-pointer bg-primary flex items-center px-4 py-3 rounded-[8px] justify-between" >
+            <div
+              onClick={() => {
+                showFilter ? setShowFilter(false) : setShowFilter(true);
+              }}
+              className="w-full cursor-pointer bg-primary flex items-center px-4 py-3 rounded-[8px] justify-between"
+            >
               <p>Sort</p>
               {showFilter ? <FaChevronUp /> : <FaChevronDown />}
             </div>
@@ -109,7 +113,7 @@ export default function Curator() {
             <input
               type="search"
               name="search"
-              className="w-full py-3 text-sm outline-none bg-opacity-0 bg-transparent focus:outline-none"
+              className="w-full py-3 text-sm bg-transparent outline-none bg-opacity-0 focus:outline-none"
               placeholder="Search product"
             />
           </div>
@@ -136,15 +140,13 @@ export default function Curator() {
             </Button>
           </div>
         </div>
-        {
-          editModal && (
-            <>
-              <div className=" ">
-                <EditModal setEditModal={setEditModal} />
-              </div>
-            </>
-          )
-        }
+        {editModal && (
+          <>
+            <div className="">
+              <EditModal setEditModal={setEditModal} />
+            </div>
+          </>
+        )}
       </section>
     </>
   );

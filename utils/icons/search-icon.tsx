@@ -1,5 +1,5 @@
 export const RafeSearchIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
-  props
+  props,
 ) => {
   return (
     <svg
