@@ -87,7 +87,7 @@ const CreatorDashboard = () => {
               </p>
             </div>
             <Link href="/dashboard/add-product">
-              <button className="bg-[rgba(30,91,221,1)] hidden md:block px-6 py-2 rounded-md font-normal text-[16px] leading-[27px] hover:bg-brand2">
+              <button className="bg-[rgba(30,91,221,1)] block px-6 py-2 mt-6 md:mt-0 rounded-md font-normal text-[16px] leading-[27px] hover:bg-brand2">
                 Add Product
               </button>
             </Link>
