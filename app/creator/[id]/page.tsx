@@ -14,6 +14,11 @@ import { TypographyH3 } from "~/utils/typography";
 import { Card } from "~/components/customs/card";
 import { BsArrowLeft } from "react-icons/bs";
 import EditModal from "~/components/customs/modal";
+import { Select, SelectContent, SelectLabel, SelectGroup, SelectItem, SelectTrigger, SelectValue, } from "~/components/ui/select"
+import Search from "~/components/ui/Search";
+import SortIcon from "~/components/ui/SortIcon";
+import { CaretSortIcon } from "@radix-ui/react-icons";
+
 
 export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
@@ -87,25 +92,26 @@ export default function Curator() {
         </div>
         <div className="flex flex-col-reverse md:flex-row w-full gap-6">
           <div className="w-full md:w-[300px] flex flex-col gap-4">
-            <div onClick={() => { showFilter ? setShowFilter(false) : setShowFilter(true); }} className="w-full cursor-pointer bg-primary flex items-center px-4 py-3 rounded-[8px] justify-between" >
-              <p>Sort</p>
-              {showFilter ? <FaChevronUp /> : <FaChevronDown />}
-            </div>
-            {showFilter && (
-              <>
-                <div className="w-full bg-brand11 flex items-center p-4 rounded-[8px] justify-between">
-                  <p>Attributes</p>
-                  <FaChevronDown />
+            <Select>
+              <SelectTrigger className="w-full !bg-[#2063F2] border-none py-[24px]">
+                <div className="flex items-center gap-3">
+                  <SortIcon />
+                  <SelectValue placeholder="Sort by" />
                 </div>
-                <div className="w-full bg-brand11 flex items-center p-4 rounded-[8px] justify-between">
-                  <p>Search by ID</p>
-                  <FaChevronDown />
-                </div>
-              </>
-            )}
+              </SelectTrigger>
+              <SelectContent className="!bg-[#313233] border-none">
+                <SelectGroup>
+                  <SelectItem value="Price: Low to High">Price: Low to High</SelectItem>
+                  <SelectItem value="Price: High to Low">Price: High to Low</SelectItem>
+                  <SelectItem value="Rarity: Rare to Common">Rarity: Rare to Common</SelectItem>
+                  <SelectItem value="Rarity: Common to Rare">Rarity: Common to Rare</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
           </div>
           <div className="items-center w-full px-3 mx-auto overflow-hidden border border-white rounded-[8px] flex gap-3 focus-within:border-brand1 transition-all duration-300">
-            <FaSearch />
+            <Search />
             <input
               type="search"
               name="search"
@@ -127,14 +133,14 @@ export default function Curator() {
               />
             ))}
           </div>
-          <div className="flex items-center justify-center mt-4">
+          {/* <div className="flex items-center justify-center mt-4">
             <Button
               className="mx-auto text-white border rounded-full linear-gradient"
               variant="ghost"
             >
               View All
             </Button>
-          </div>
+          </div> */}
         </div>
         {
           editModal && (
