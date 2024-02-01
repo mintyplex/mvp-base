@@ -122,6 +122,7 @@ export default function Curator() {
           <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
             {Array.from({ length: 16 }).map((_, index) => (
               <Card
+                id={index.toString()}
                 byImg={topCreator}
                 name="Yatch Ape Club"
                 by="0x20..8"

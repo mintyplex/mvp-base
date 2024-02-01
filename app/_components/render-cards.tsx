@@ -6,7 +6,7 @@ import topCreator from "~/public/top-creator.jpeg";
 
 export function RenderCards() {
   const [size, setSize] = useState(
-    typeof window !== "undefined" && window.innerWidth,
+    typeof window !== "undefined" && window.innerWidth
   );
 
   useEffect(() => {
@@ -26,6 +26,7 @@ export function RenderCards() {
         length: isMobile ? 6 : 12,
       }).map((_, index) => (
         <Card
+          id={index.toString()}
           byImg={creatorImg}
           name="Yatch Ape Club"
           by="0x20..8"

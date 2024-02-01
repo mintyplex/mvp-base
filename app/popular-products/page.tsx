@@ -89,6 +89,7 @@ function All({ title = "All" }: { title?: string }) {
         {Array.from({ length: 20 }).map((_, index) => (
           <div key={index} className="shrink-0">
             <Card
+              id={index.toString()}
               asSmall
               byImg={topCreator}
               name="Yatch Ape Club"

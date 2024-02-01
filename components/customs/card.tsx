@@ -2,6 +2,7 @@ import Image, { StaticImageData } from "next/image";
 import { cn } from "~/lib/utils/utils";
 import { TypographyP } from "~/utils/typography";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 type CardProps = {
   name: string;
@@ -10,17 +11,27 @@ type CardProps = {
   image: StaticImageData;
   price: string;
   asSmall?: boolean;
+  id: string;
 };
 
-export function Card({ name, by, image, price, byImg, asSmall }: CardProps) {
+export function Card({
+  name,
+  by,
+  image,
+  price,
+  byImg,
+  asSmall,
+  id,
+}: CardProps) {
   const TEN_PERCENT_OF_HEIGHT = image.height - image.height * 0.1;
   const TEN_PERCENT_OF_WIDTH = image.width - image.width * 0.1;
 
   return (
-    <div
+    <Link
+      href={id}
       className={cn(
         " mx-auto rounded-lg p-1.5 space-y-2 border border-mintyplex-border",
-        asSmall ? "max-w-xs" : "max-w-sm",
+        asSmall ? "max-w-xs" : "max-w-sm"
       )}
     >
       <div className="overflow-hidden rounded-md">
@@ -62,6 +73,6 @@ export function Card({ name, by, image, price, byImg, asSmall }: CardProps) {
           <button className="text-white bg-mintyplex-primary">Buy Now</button>
         </Button>
       </div>
-    </div>
+    </Link>
   );
 }

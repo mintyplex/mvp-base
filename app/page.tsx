@@ -97,6 +97,7 @@ export default function Home() {
             {Array.from({ length: 10 }).map((_, index) => (
               <div key={index} className="shrink-0">
                 <Card
+                  id={index.toString()}
                   asSmall
                   byImg={creatorImg}
                   name="Yatch Ape Club"
