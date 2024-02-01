@@ -126,7 +126,9 @@ const AddProduct: React.FC = () => {
             Image <span className="text-red-600">*</span>
             </h1>
 
-            <div className="grid grid-cols-3 gap-4 py-6">
+            <Image src='/add.png' width={395} height={300} className=" h-80 w-80" alt={""} />
+
+            {/* <div className="grid grid-cols-3 gap-4 py-6">
               <div className="relative">
               <Image src="/female 17.png" alt="" className="rounded-md h-[104px] w-[98px]" width={89} height={206} />
              <div className="absolute top-0 text-2xl right-0">
@@ -145,8 +147,8 @@ const AddProduct: React.FC = () => {
              <MdCancel   />
              </div>
               </div>
-            </div>
-    <Carousel setApi={setApi}>
+            </div> */}
+    {/* <Carousel setApi={setApi}>
       <CarouselContent>
         <CarouselItem>
           <Image src="/female 17.png" alt="" className="rounded-md " width={500} height={400} />
@@ -156,19 +158,9 @@ const AddProduct: React.FC = () => {
           </CarouselItem>
         <CarouselItem><Image src="/female 17.png" className="rounded-md " alt="" width={500} height={400} /></CarouselItem>
       </CarouselContent>
-    </Carousel>
+    </Carousel> */}
 
-    <div className="flex items-center gap-4 rounded-lg  mt-6 bg-[#1D1E1F] py-4 ">
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-  <path d="M13.4375 17.1875L20 23.75L26.5625 17.1875" stroke="#E9E9E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M20 6.25V23.75" stroke="#E9E9E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M33.75 23.75V32.5C33.75 32.8315 33.6183 33.1495 33.3839 33.3839C33.1495 33.6183 32.8315 33.75 32.5 33.75H7.5C7.16848 33.75 6.85054 33.6183 6.61612 33.3839C6.3817 33.1495 6.25 32.8315 6.25 32.5V23.75" stroke="#E9E9E9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-                <div className="flex flex-col justify-center items-center">
-                <h1 className="flex text-base justify-center items-center">Upload a file or drag and drop</h1>
-      <h1 className="flex justify-center items-center text-[13px]">PNG or JPEG upto 5MB</h1>
-                </div>
-    </div>
+  
           </ReuseableBackground>
         </div>
         <ProductForm />
