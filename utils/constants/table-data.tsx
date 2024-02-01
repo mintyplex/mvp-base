@@ -47,7 +47,9 @@ export const data = [
       { content: "$30" },
       {
         content: (
-          <button className="rounded-lg py-2 px-4 bg-slate-500">inactive</button>
+          <button className="rounded-lg py-2 px-4 bg-slate-500">
+            inactive
+          </button>
         ),
       },
     ],

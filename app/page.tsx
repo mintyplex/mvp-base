@@ -46,7 +46,7 @@ export default function Home() {
             <Tooltip key={i}>
               <TooltipTrigger asChild>
                 <div className="flex flex-col items-center w-full max-w-40 gap-1">
-                  <Link href='/creator/32'>
+                  <Link href="/creator/32">
                     <Image
                       width={82}
                       height={82}
@@ -112,6 +112,7 @@ export default function Home() {
             tw="bg-[#A431FF]/20 text-[#A431FF]"
             name="Popular Category"
             route="/new"
+            hideSeeAll
           />
           <Carousel className="">
             <CarouselContent>

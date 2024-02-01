@@ -66,8 +66,11 @@ export default function Cart() {
                     <button
                       key={index}
                       onClick={() => setActiveTab(index)}
-                      className={`py-[10px] px-[14px] w-full text-center font-[500] text-[14px] rounded-[10px] hover:bg-mintyplex-primary  ${activeTab === index ? "bg-mintyplex-primary" : "bg-mintyplex-dark"
-                        }`}
+                      className={`py-[10px] px-[14px] w-full text-center font-[500] text-[14px] rounded-[10px] hover:bg-mintyplex-primary  ${
+                        activeTab === index
+                          ? "bg-mintyplex-primary"
+                          : "bg-mintyplex-dark"
+                      }`}
                     >
                       {tab.title}
                     </button>
@@ -182,9 +185,7 @@ function CartCard() {
             </div>
           </div>
           <div className="flex flex-col items-right justify-between">
-            <p className="text-[16px] font-[500] font-[600]">
-              USD$23
-            </p>
+            <p className="text-[16px] font-[500] font-[600]">USD$23</p>
             <HiTrash size={20} />
           </div>
         </div>
