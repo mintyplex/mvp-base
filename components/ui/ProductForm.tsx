@@ -1,12 +1,29 @@
 import React from "react";
 import ReuseableBackground from "./ReuseableBackground";
-import Toggle from "../customs/Toggle";
 import { MdCancel } from "react-icons/md";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select"
+
+const people = [
+  { name: 'Wade Cooper' },
+  { name: 'Arlene Mccoy' },
+  { name: 'Devon Webb' },
+  { name: 'Tom Cook' },
+  { name: 'Tanya Fox' },
+  { name: 'Hellen Schmidt' },
+]
 
 const ProductForm = () => {
   return (
     <div>
-            <div className="py-4 md:py-7 bg-[rgb(28,30,30)]">
+      <div className="py-4 md:py-7 bg-[rgb(28,30,30)]">
         <p className="text-2xl font-semibold ">Product Details</p>
       </div>
       <ReuseableBackground>
@@ -52,7 +69,7 @@ const ProductForm = () => {
         </form>
 
         <form className="flex py-5 flex-col gap-6">
-        <div className="form">
+          <div className="form">
             <textarea
               name=""
               placeholder="Provide a well detailed description of the item."
@@ -67,12 +84,21 @@ const ProductForm = () => {
 
           <div className="form">
             <div className="relative">
-              <select className="flex py-5 bg-[rgb(45,46,47)]  w-full outline-none p-4 border-2 border-[rgb(99,99,99)] bg-none rounded-lg form flex-col gap-6">
-                <option value="">Select an option</option>
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-              </select>
+            <Select>
+      <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
+        <SelectValue placeholder="Select a fruit" />
+      </SelectTrigger>
+      <SelectContent className="bg-[rgb(99,99,99)]">
+        <SelectGroup >
+          <SelectLabel>Fruits</SelectLabel>
+          <SelectItem value="apple">Apple</SelectItem>
+          <SelectItem value="banana">Banana</SelectItem>
+          <SelectItem value="blueberry">Blueberry</SelectItem>
+          <SelectItem value="grapes">Grapes</SelectItem>
+          <SelectItem value="pineapple">Pineapple</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
             </div>
             <label htmlFor="" className="px-4 text-sm">
               Categories <span className="text-red-600">*</span>
@@ -83,63 +109,59 @@ const ProductForm = () => {
               also help Affiliate Marketer find your product easily.
             </p>
           </div>
-   
         </form>
       </ReuseableBackground>
       <div className="md:py-7 py-5 bg-[rgb(28,30,30)]">
         <p className="text-2xl font-semibold ">More Details</p>
       </div>
       <ReuseableBackground>
-      <div className="flex items-center justify-center gap-4 rounded-lg  mt-6 bg-[#1D1E1F] py-4 ">
-     
-      <h1 className="flex text-base justify-center items-center">
-      Downloadable file
-                </h1>
+        <div className="flex items-center justify-center gap-4 rounded-lg  mt-6 bg-[#1D1E1F] py-4 ">
+          <h1 className="flex text-base justify-center items-center">
+            Downloadable file
+          </h1>
         </div>
 
-      <div className="flex items-center justify-center gap-4 rounded-lg  mt-6 bg-[#1D1E1F] py-4 ">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="40"
-                height="40"
-                viewBox="0 0 40 40"
-                fill="none"
-              >
-                <path
-                  d="M13.4375 17.1875L20 23.75L26.5625 17.1875"
-                  stroke="#E9E9E9"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M20 6.25V23.75"
-                  stroke="#E9E9E9"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M33.75 23.75V32.5C33.75 32.8315 33.6183 33.1495 33.3839 33.3839C33.1495 33.6183 32.8315 33.75 32.5 33.75H7.5C7.16848 33.75 6.85054 33.6183 6.61612 33.3839C6.3817 33.1495 6.25 32.8315 6.25 32.5V23.75"
-                  stroke="#E9E9E9"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <div className="flex flex-col justify-center items-center">
-                <h1 className="flex text-base justify-center items-center">
-                  Upload a file or drag and drop
-                </h1>
-                <h1 className="flex justify-center items-center text-[13px]">
-                  PNG or JPEG upto 5MB
-                </h1>
-              </div>
-            </div>
-        
+        <div className="flex items-center justify-center gap-4 rounded-lg  mt-6 bg-[#1D1E1F] py-4 ">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+          >
+            <path
+              d="M13.4375 17.1875L20 23.75L26.5625 17.1875"
+              stroke="#E9E9E9"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M20 6.25V23.75"
+              stroke="#E9E9E9"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M33.75 23.75V32.5C33.75 32.8315 33.6183 33.1495 33.3839 33.3839C33.1495 33.6183 32.8315 33.75 32.5 33.75H7.5C7.16848 33.75 6.85054 33.6183 6.61612 33.3839C6.3817 33.1495 6.25 32.8315 6.25 32.5V23.75"
+              stroke="#E9E9E9"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <div className="flex flex-col justify-center items-center">
+            <h1 className="flex text-base justify-center items-center">
+              Upload a file or drag and drop
+            </h1>
+            <h1 className="flex justify-center items-center text-[13px]">
+              PNG or JPEG upto 5MB
+            </h1>
+          </div>
+        </div>
+
         <form className="flex py-5 flex-col gap-6">
-
-
           <div className="form my-3">
             <input
               type="text"
@@ -151,7 +173,8 @@ const ProductForm = () => {
               Quantity Available <span className="text-red-600">*</span>
             </label>
             <p className="text-xs font-light italic  px-4 py-2">
-              Set Quantity to <span className="text-[#2063F2]">0</span> for unlimited
+              Set Quantity to <span className="text-[#2063F2]">0</span> for
+              unlimited
             </p>
           </div>
           <div className="form">
@@ -179,12 +202,21 @@ const ProductForm = () => {
           <div className="grid md:grid-cols-2 gap-3">
             <div className="form">
               <div className="relative">
-                <select className="flex py-5 bg-[rgb(45,46,47)]  w-full outline-none p-4 border-2 border-[rgb(99,99,99)] bg-none rounded-lg form flex-col gap-6">
-                  <option value="">Select an option</option>
-                  <option value="option1">Option 1</option>
-                  <option value="option2">Option 2</option>
-                  <option value="option3">Option 3</option>
-                </select>
+              <Select>
+      <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
+        <SelectValue placeholder="Select a fruit" />
+      </SelectTrigger>
+      <SelectContent className="bg-[rgb(99,99,99)]">
+        <SelectGroup >
+          <SelectLabel>Fruits</SelectLabel>
+          <SelectItem value="apple">Apple</SelectItem>
+          <SelectItem value="banana">Banana</SelectItem>
+          <SelectItem value="blueberry">Blueberry</SelectItem>
+          <SelectItem value="grapes">Grapes</SelectItem>
+          <SelectItem value="pineapple">Pineapple</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
               </div>
               <label htmlFor="" className="px-4 text-sm">
                 Attribute
@@ -192,12 +224,21 @@ const ProductForm = () => {
             </div>
             <div className="form">
               <div className="relative">
-                <select className="flex py-5 bg-[rgb(45,46,47)]  w-full outline-none p-4 border-2 border-[rgb(99,99,99)] bg-none rounded-lg form flex-col gap-6">
-                  <option value="">Select an option</option>
-                  <option value="option1">Option 1</option>
-                  <option value="option2">Option 2</option>
-                  <option value="option3">Option 3</option>
-                </select>
+              <Select>
+      <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
+        <SelectValue placeholder="Select a fruit" />
+      </SelectTrigger>
+      <SelectContent className="bg-[rgb(99,99,99)]">
+        <SelectGroup >
+          <SelectLabel>Fruits</SelectLabel>
+          <SelectItem value="apple">Apple</SelectItem>
+          <SelectItem value="banana">Banana</SelectItem>
+          <SelectItem value="blueberry">Blueberry</SelectItem>
+          <SelectItem value="grapes">Grapes</SelectItem>
+          <SelectItem value="pineapple">Pineapple</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
               </div>
               <label htmlFor="" className="px-4 text-sm">
                 Attribute
@@ -206,7 +247,6 @@ const ProductForm = () => {
           </div>
 
           <div className="flex justify-end gap-2 md:gap-4 pt-4 items-center ">
-   
             <button className="px-2 py-2 rounded-md font-normal text-[14px] md:text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 md:gap-4 items-center">
               <MdCancel />
               Face: Beauitful
