@@ -78,7 +78,30 @@ export default function Cart() {
                 </div>
                 {activeTab === 0 && (
                   <div className="flex flex-col w-full mt-4 gap-2">
-                    {/* <p></p> */}
+                    <div className="flex flex-col w-full gap-4">
+                      <div className="form">
+                        <input
+                          type="text"
+                          className="px-4 py-6 border-2 border-[rgb(99,99,99)] !text-[13px] placeholder:text-[14px] "
+                          placeholder="0xERDS34....DE21"
+                          required
+                        />
+                        <label htmlFor="" className="px-4 text-sm">
+                         Wallet address <span className="text-red-600">*</span>
+                        </label>
+                      </div>
+                      <div className="form">
+                        <input
+                          type="text"
+                          className="px-4 py-6 border-2 border-[rgb(99,99,99)] !text-[13px] placeholder:text-[14px] "
+                          placeholder="Sadistar@gmail.com"
+                          required
+                        />
+                        <label htmlFor="" className="px-4 text-sm">
+                          Email address <span className="text-red-600">*</span>
+                        </label>
+                      </div>
+                    </div>
                     <Button className="w-full px-6 py-6 active:scale-95 transition-all duration-300 bg-mintyplex-primary">
                       <span className="text-white">Pay Now</span>
                     </Button>
