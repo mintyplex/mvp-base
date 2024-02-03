@@ -14,9 +14,9 @@ const data01 = [
   { name: "Photography 9k", value: 30 },
 ];
 
-const COLORS = [" #2063F2", "#04042A ", '#FF73AE'];
+const COLORS = [" #2063F2", "#04042A ", "#FF73AE"];
 
-const Bullet = ({ backgroundColor, size }:any) => {
+const Bullet = ({ backgroundColor, size }: any) => {
   return (
     <div
       className="CirecleBullet  rounded-full"
@@ -29,24 +29,59 @@ const Bullet = ({ backgroundColor, size }:any) => {
   );
 };
 
-const CustomizedLegend = (props: { payload: any; }) => {
+const CustomizedLegend = (props: { payload: any }) => {
   const { payload } = props;
   return (
     <ul className="LegendList  flex flex-col gap-3  absolute right-0 md:right-10 bottom-40 md:bottom-24">
-      {payload.map((entry: { payload: { fill: any; value: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }; value: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | React.PromiseLikeOfReactNode | null | undefined; }, index: any) => (
-        <li key={`item-${index}`} className="flex items-center">
-          <div className="BulletLabel flex items-center gap-2">
-            <Bullet backgroundColor={entry.payload.fill} size="20px" />
-            <div className="BulletLabelText">{entry.value}</div>
-          </div>
-          {/* <div style={{ marginLeft: "10px" }}>{entry.payload.value}</div> */}
-        </li>
-      ))}
+      {payload.map(
+        (
+          entry: {
+            payload: {
+              fill: any;
+              value:
+                | string
+                | number
+                | boolean
+                | React.ReactElement<
+                    any,
+                    string | React.JSXElementConstructor<any>
+                  >
+                | Iterable<React.ReactNode>
+                | React.ReactPortal
+                | React.PromiseLikeOfReactNode
+                | null
+                | undefined;
+            };
+            value:
+              | string
+              | number
+              | boolean
+              | React.ReactElement<
+                  any,
+                  string | React.JSXElementConstructor<any>
+                >
+              | Iterable<React.ReactNode>
+              | React.ReactPortal
+              | React.PromiseLikeOfReactNode
+              | null
+              | undefined;
+          },
+          index: any,
+        ) => (
+          <li key={`item-${index}`} className="flex items-center">
+            <div className="BulletLabel flex items-center gap-2">
+              <Bullet backgroundColor={entry.payload.fill} size="20px" />
+              <div className="BulletLabelText">{entry.value}</div>
+            </div>
+            {/* <div style={{ marginLeft: "10px" }}>{entry.payload.value}</div> */}
+          </li>
+        ),
+      )}
     </ul>
   );
 };
 
-const CustomLabel = ({ viewBox, labelText, value }:any) => {
+const CustomLabel = ({ viewBox, labelText, value }: any) => {
   const { cx, cy } = viewBox;
   return (
     <g>
@@ -87,10 +122,10 @@ const Doughnutt = () => {
           <Pie
             data={data01}
             dataKey="value"
-            cx={ isMobile ? '90' : '130'}
-            cy={isMobile ? '160' :240}
-            innerRadius={ isMobile ? '50' :' 60'}
-            outerRadius={ isMobile ? '90' : '120'}
+            cx={isMobile ? "90" : "130"}
+            cy={isMobile ? "160" : 240}
+            innerRadius={isMobile ? "50" : " 60"}
+            outerRadius={isMobile ? "90" : "120"}
           >
             {data01.map((entry, index) => (
               <Cell
@@ -99,7 +134,9 @@ const Doughnutt = () => {
               />
             ))}
             <Label
-              content={<CustomLabel labelText="" value={'30.5k'} viewBox={undefined} />}
+              content={
+                <CustomLabel labelText="" value={"30.5k"} viewBox={undefined} />
+              }
               position="center"
             />
           </Pie>

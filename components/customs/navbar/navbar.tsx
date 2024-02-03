@@ -10,9 +10,22 @@ import { useState } from "react";
 import MobileSidebar from "~/components/dashboardlayout/mobileSidebar";
 import { useAbstraxionAccount, useAbstraxionSigningClient, Abstraxion } from '@burnt-labs/abstraxion'
 import Search from "~/components/ui/Search";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+} from "~/components/ui/dialog";
+import { TypographyH3 } from "~/utils/typography";
+import { Input } from "~/components/ui/input";
 
 export default function Navbar() {
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -35,7 +48,7 @@ export default function Navbar() {
   return (
     <header className="border-b border-mintyplex-border">
       <nav className="container flex items-center justify-between p-3 mx-auto">
-        <Link href='/'>
+        <Link href="/">
           <div className="flex items-center gap-1">
             <Image
               className="hidden md:block"
@@ -62,14 +75,25 @@ export default function Navbar() {
             <input
               type="search"
               name="search"
-              className="w-full py-3 text-sm outline-none bg-opacity-0 bg-transparent focus:outline-none"
+              className="w-full py-3 text-sm bg-transparent outline-none bg-opacity-0 focus:outline-none"
               placeholder="Search product"
             />
           </div>
-          <Button className="block md:hidden" size="icon" variant="ghost">
-            <SearchIcon />
-          </Button>
-          <Link href='/cart'>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className=" md:hidden" size="icon" variant="ghost">
+                <SearchIcon />
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <TypographyH3>Search Mintyplex</TypographyH3>
+              <Input placeholder="Search Mintyplex..." />
+              <Button className="flex items-center justify-center gap-3 transition-all duration-300">
+                <SearchIcon /> <span className="text-[#E9E9E9]">Search</span>
+              </Button>
+            </DialogContent>
+          </Dialog>
+          <Link href="/cart">
             <Button
               variant="ghost"
               className="border border-mintyplex-border"
@@ -80,6 +104,8 @@ export default function Navbar() {
           </Link>
           <div className="md:block hidden">
             {/* <Link href='/dashboard'>
+          <div className="hidden md:block">
+            <Link href="/dashboard">
               <Button
                 variant="ghost"
                 className="border border-mintyplex-border"
@@ -91,16 +117,31 @@ export default function Navbar() {
             <Abstraxion onClose={() => setIsOpen(false)} isOpen={isOpen} />
             <button onClick={() => setIsOpen(true)}>Click here</button>
           </div>
-          <Button className="block md:hidden" variant="ghost" size="icon" onClick={toggleSidebar}>
+          <Button
+            className="block md:hidden"
+            variant="ghost"
+            size="icon"
+            onClick={toggleSidebar}
+          >
             <Hamburger />
           </Button>
         </div>
       </nav>
-      <div id="sidebar" className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? '' : '-translate-x-full'}`}>
-        <div className="px-6 py-3 w-full flex justify-end" onClick={toggleSidebar}>
-          <p className="p-2 border rounded-full"><BsXLg /></p>
+      <div
+        id="sidebar"
+        className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${
+          isSidebarOpen ? "" : "-translate-x-full"
+        }`}
+      >
+        <div
+          className="flex justify-end w-full px-6 py-3"
+          onClick={toggleSidebar}
+        >
+          <p className="p-2 border rounded-full">
+            <BsXLg />
+          </p>
         </div>
-        <div className="mt-4 w-full">
+        <div className="w-full mt-4">
           <MobileSidebar closeSidebar={closeSidebar} />
         </div>
       </div>
@@ -108,9 +149,10 @@ export default function Navbar() {
   );
 }
 
-function SearchIcon() {
+function SearchIcon({ className }: { className?: string }) {
   return (
     <svg
+      className={className}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"

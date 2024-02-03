@@ -15,8 +15,6 @@ const Accordium: React.FC<AccordiumProps> = ({
 
   const toggleAccordion = () => setAccordionOpen(!isAccordionOpen);
 
-
-  
   return (
     <div className="bg-[rgb(49,50,51)] px-4 py-3 mt-6 rounded-md transition-transform duration-500 ">
       <div

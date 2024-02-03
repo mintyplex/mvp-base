@@ -1,9 +1,10 @@
+import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import { Card } from "~/components/customs/card";
 import { ScrollArea, ScrollBar } from "~/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { cn } from "~/lib/utils/utils";
 import topCreator from "~/public/top-creator.jpeg";
-import { TypographyH1, TypographyP } from "~/utils/typography";
+import { TypographyH1 } from "~/utils/typography";
+import BackButton from "./_components/back-button";
 
 const tabs = [
   {
@@ -49,7 +50,13 @@ export default function Popular({
   return (
     <section className="container p-3 mx-auto">
       <div className="space-y-3">
-        <TypographyP className={cn("text-[#d6d6d6]")}>Popular tags</TypographyP>
+        <BackButton
+          variant="ghost"
+          size="icon"
+          className="!border border-input"
+        >
+          <ArrowLeftIcon />
+        </BackButton>
         <Tabs defaultValue={tabByLink}>
           <ScrollArea>
             <TabsList className="h-14 px-3 gap-3  justify-start w-full bg-[#2c2d2e]">
@@ -82,6 +89,7 @@ function All({ title = "All" }: { title?: string }) {
         {Array.from({ length: 20 }).map((_, index) => (
           <div key={index} className="shrink-0">
             <Card
+              id={index.toString()}
               asSmall
               byImg={topCreator}
               name="Yatch Ape Club"

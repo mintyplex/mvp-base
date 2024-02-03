@@ -8,11 +8,13 @@ export function SeeAllFor({
   name,
   route,
   tw,
+  hideSeeAll,
 }: {
   route: string;
   name: string;
   Icon: React.FC<{ className?: string }>;
   tw?: string;
+  hideSeeAll?: boolean;
 }) {
   return (
     <div className={cn("flex items-center justify-between")}>
@@ -22,11 +24,13 @@ export function SeeAllFor({
         </div>
         <TypographyH4 className="whitespace-nowrap">{name}</TypographyH4>
       </div>
-      <Button asChild className="" size="sm" variant={"ghost"}>
-        <Link href={route}>
-          <p className="text-mintyplex-primary">See all</p>
-        </Link>
-      </Button>
+      {!hideSeeAll && (
+        <Button asChild className="" size="sm" variant={"ghost"}>
+          <Link href={route}>
+            <p className="text-mintyplex-primary">See all</p>
+          </Link>
+        </Button>
+      )}
     </div>
   );
 }
