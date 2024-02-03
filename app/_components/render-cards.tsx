@@ -6,7 +6,7 @@ import topCreator from "~/public/top-creator.jpeg";
 
 export function RenderCards() {
   const [size, setSize] = useState(
-    typeof window !== "undefined" && window.innerWidth
+    typeof window !== "undefined" && window.innerWidth,
   );
 
   useEffect(() => {

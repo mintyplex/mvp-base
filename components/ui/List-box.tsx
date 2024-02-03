@@ -1,18 +1,18 @@
-import { Fragment, useState } from 'react'
-import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import { Fragment, useState } from "react";
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 const people = [
-  { name: 'Active' },
-  { name: 'in Active' },
-  { name: 'Active' },
-  { name: 'in Active' },
-  { name: 'Active' },
-  { name: 'in Active' },
-]
+  { name: "Active" },
+  { name: "in Active" },
+  { name: "Active" },
+  { name: "in Active" },
+  { name: "Active" },
+  { name: "in Active" },
+];
 
 export default function Listtbox() {
-  const [selected, setSelected] = useState(people[0])
+  const [selected, setSelected] = useState(people[0]);
 
   return (
     <div className=" ">
@@ -21,10 +21,21 @@ export default function Listtbox() {
           <Listbox.Button className="px-3  rounded-md font-normal py-2 leading-[27px] flex justify-between  border-[rgb(99,99,99)]  border gap-4 ">
             <span className="block truncate text-[20px]">{selected.name}</span>
             <span className="pointer-events-none">
-            <svg width="32" height="30" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M25.332 12.6193L16.7058 21.2455C16.3153 21.6361 15.6821 21.6361 15.2916 21.2455L6.66536 12.6193" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-
+              <svg
+                width="32"
+                height="30"
+                viewBox="0 0 32 33"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M25.332 12.6193L16.7058 21.2455C16.3153 21.6361 15.6821 21.6361 15.2916 21.2455L6.66536 12.6193"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
             </span>
           </Listbox.Button>
           <Transition
@@ -39,7 +50,7 @@ export default function Listtbox() {
                   key={personIdx}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2  px-4 ${
-                      active ? 'bg-amber-100 text-amber-900' : 'text-gray-900'
+                      active ? "bg-amber-100 text-amber-900" : "text-gray-900"
                     }`
                   }
                   value={person}
@@ -48,7 +59,7 @@ export default function Listtbox() {
                     <>
                       <span
                         className={`block truncate ${
-                          selected ? 'font-medium' : 'font-normal'
+                          selected ? "font-medium" : "font-normal"
                         }`}
                       >
                         {person.name}
@@ -67,5 +78,5 @@ export default function Listtbox() {
         </div>
       </Listbox>
     </div>
-  )
+  );
 }

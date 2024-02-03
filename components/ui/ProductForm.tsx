@@ -9,16 +9,16 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "~/components/ui/select"
+} from "~/components/ui/select";
 
 const people = [
-  { name: 'Wade Cooper' },
-  { name: 'Arlene Mccoy' },
-  { name: 'Devon Webb' },
-  { name: 'Tom Cook' },
-  { name: 'Tanya Fox' },
-  { name: 'Hellen Schmidt' },
-]
+  { name: "Wade Cooper" },
+  { name: "Arlene Mccoy" },
+  { name: "Devon Webb" },
+  { name: "Tom Cook" },
+  { name: "Tanya Fox" },
+  { name: "Hellen Schmidt" },
+];
 
 const ProductForm = () => {
   return (
@@ -84,21 +84,21 @@ const ProductForm = () => {
 
           <div className="form">
             <div className="relative">
-            <Select>
-      <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
-        <SelectValue placeholder="Select a fruit" />
-      </SelectTrigger>
-      <SelectContent className="bg-[rgb(99,99,99)]">
-        <SelectGroup >
-          <SelectLabel>Fruits</SelectLabel>
-          <SelectItem value="apple">Apple</SelectItem>
-          <SelectItem value="banana">Banana</SelectItem>
-          <SelectItem value="blueberry">Blueberry</SelectItem>
-          <SelectItem value="grapes">Grapes</SelectItem>
-          <SelectItem value="pineapple">Pineapple</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+              <Select>
+                <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
+                  <SelectValue placeholder="Select a fruit" />
+                </SelectTrigger>
+                <SelectContent className="bg-[rgb(99,99,99)]">
+                  <SelectGroup>
+                    <SelectLabel>Fruits</SelectLabel>
+                    <SelectItem value="apple">Apple</SelectItem>
+                    <SelectItem value="banana">Banana</SelectItem>
+                    <SelectItem value="blueberry">Blueberry</SelectItem>
+                    <SelectItem value="grapes">Grapes</SelectItem>
+                    <SelectItem value="pineapple">Pineapple</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
             <label htmlFor="" className="px-4 text-sm">
               Categories <span className="text-red-600">*</span>
@@ -180,21 +180,21 @@ const ProductForm = () => {
           <div className="grid md:hidden grid-cols-2 gap-3">
             <div className="form">
               <div className="relative">
-              <Select>
-      <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
-        <SelectValue placeholder="Select a fruit" />
-      </SelectTrigger>
-      <SelectContent className="bg-[rgb(99,99,99)]">
-        <SelectGroup >
-          <SelectLabel>Fruits</SelectLabel>
-          <SelectItem value="apple">Apple</SelectItem>
-          <SelectItem value="banana">Banana</SelectItem>
-          <SelectItem value="blueberry">Blueberry</SelectItem>
-          <SelectItem value="grapes">Grapes</SelectItem>
-          <SelectItem value="pineapple">Pineapple</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+                <Select>
+                  <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
+                    <SelectValue placeholder="Select a fruit" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[rgb(99,99,99)]">
+                    <SelectGroup>
+                      <SelectLabel>Fruits</SelectLabel>
+                      <SelectItem value="apple">Apple</SelectItem>
+                      <SelectItem value="banana">Banana</SelectItem>
+                      <SelectItem value="blueberry">Blueberry</SelectItem>
+                      <SelectItem value="grapes">Grapes</SelectItem>
+                      <SelectItem value="pineapple">Pineapple</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </div>
               <label htmlFor="" className="px-4   text-sm">
                 Attribute
@@ -202,21 +202,21 @@ const ProductForm = () => {
             </div>
             <div className="form">
               <div className="relative">
-              <Select>
-      <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
-        <SelectValue placeholder="Select a fruit" />
-      </SelectTrigger>
-      <SelectContent className="bg-[rgb(99,99,99)]">
-        <SelectGroup >
-          <SelectLabel>Fruits</SelectLabel>
-          <SelectItem value="apple">Apple</SelectItem>
-          <SelectItem value="banana">Banana</SelectItem>
-          <SelectItem value="blueberry">Blueberry</SelectItem>
-          <SelectItem value="grapes">Grapes</SelectItem>
-          <SelectItem value="pineapple">Pineapple</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+                <Select>
+                  <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
+                    <SelectValue placeholder="Select a fruit" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[rgb(99,99,99)]">
+                    <SelectGroup>
+                      <SelectLabel>Fruits</SelectLabel>
+                      <SelectItem value="apple">Apple</SelectItem>
+                      <SelectItem value="banana">Banana</SelectItem>
+                      <SelectItem value="blueberry">Blueberry</SelectItem>
+                      <SelectItem value="grapes">Grapes</SelectItem>
+                      <SelectItem value="pineapple">Pineapple</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </div>
               <label htmlFor="" className="px-4 text-sm">
                 Attribute
@@ -248,44 +248,44 @@ const ProductForm = () => {
           <div className="md:grid hidden grid-cols-2 gap-3">
             <div className="form">
               <div className="relative">
-              <Select>
-      <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
-        <SelectValue placeholder="Select a fruit" />
-      </SelectTrigger>
-      <SelectContent className="bg-[rgb(99,99,99)]">
-        <SelectGroup >
-          <SelectLabel>Fruits</SelectLabel>
-          <SelectItem value="apple">Apple</SelectItem>
-          <SelectItem value="banana">Banana</SelectItem>
-          <SelectItem value="blueberry">Blueberry</SelectItem>
-          <SelectItem value="grapes">Grapes</SelectItem>
-          <SelectItem value="pineapple">Pineapple</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+                <Select>
+                  <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
+                    <SelectValue placeholder="Select a fruit" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[rgb(99,99,99)]">
+                    <SelectGroup>
+                      <SelectLabel>Fruits</SelectLabel>
+                      <SelectItem value="apple">Apple</SelectItem>
+                      <SelectItem value="banana">Banana</SelectItem>
+                      <SelectItem value="blueberry">Blueberry</SelectItem>
+                      <SelectItem value="grapes">Grapes</SelectItem>
+                      <SelectItem value="pineapple">Pineapple</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </div>
               <label htmlFor="" className="px-4   text-sm">
                 Attribute
               </label>
             </div>
-            
+
             <div className="form">
               <div className="relative">
-              <Select>
-      <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
-        <SelectValue placeholder="Select a fruit" />
-      </SelectTrigger>
-      <SelectContent className="bg-[rgb(99,99,99)]">
-        <SelectGroup >
-          <SelectLabel>Fruits</SelectLabel>
-          <SelectItem value="apple">Apple</SelectItem>
-          <SelectItem value="banana">Banana</SelectItem>
-          <SelectItem value="blueberry">Blueberry</SelectItem>
-          <SelectItem value="grapes">Grapes</SelectItem>
-          <SelectItem value="pineapple">Pineapple</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+                <Select>
+                  <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
+                    <SelectValue placeholder="Select a fruit" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[rgb(99,99,99)]">
+                    <SelectGroup>
+                      <SelectLabel>Fruits</SelectLabel>
+                      <SelectItem value="apple">Apple</SelectItem>
+                      <SelectItem value="banana">Banana</SelectItem>
+                      <SelectItem value="blueberry">Blueberry</SelectItem>
+                      <SelectItem value="grapes">Grapes</SelectItem>
+                      <SelectItem value="pineapple">Pineapple</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
               </div>
               <label htmlFor="" className="px-4 text-sm">
                 Attribute

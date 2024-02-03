@@ -15,16 +15,21 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "~/components/ui/select"
+} from "~/components/ui/select";
 
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "~/components/ui/carousel";
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from "~/components/ui/carousel";
 import Listtbox from "~/components/ui/List-box";
 const AddProduct: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const [api, setApi] = React.useState<CarouselApi>()
-  const [current, setCurrent] = React.useState(0)
-  const [count, setCount] = React.useState(0)
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [current, setCurrent] = React.useState(0);
+  const [count, setCount] = React.useState(0);
   useEffect(() => {
     if (image) {
       const reader = new FileReader();
@@ -39,16 +44,16 @@ const AddProduct: React.FC = () => {
 
   React.useEffect(() => {
     if (!api) {
-      return
+      return;
     }
- 
-    setCount(api.scrollSnapList().length)
-    setCurrent(api.selectedScrollSnap() + 1)
- 
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
     api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1)
-    })
-  }, [api])
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
   const Active = [
     { name: "Less Active" },
     { name: "Arlene Mccoy" },
@@ -85,18 +90,16 @@ const AddProduct: React.FC = () => {
             Add Product
           </h2>
           <div className="gap-2  hidden md:flex items-center">
-            <button  className="px-3  rounded-md font-normal py-2 leading-[27px] flex justify-between  text-[20px] border-[rgb(99,99,99)]  border gap-4 ">
+            <button className="px-3  rounded-md font-normal py-2 leading-[27px] flex justify-between  text-[20px] border-[rgb(99,99,99)]  border gap-4 ">
               Cancel
-              <MdCancel  />
+              <MdCancel />
             </button>
-            <div>
-              
-            </div>
+            <div></div>
 
             <div>
-        <Listtbox  />
+              <Listtbox />
             </div>
-    
+
             {/* <CreatorsListbox options={Active} initialValue={Active[0]} /> */}
             <button className="bg-blue-500 px-6 py-2 rounded-md font-normal text-[20px] leading-[27px] hover:bg-brand2">
               Save
@@ -139,11 +142,17 @@ const AddProduct: React.FC = () => {
                 onChange={handleFileChange}
               />
             </form> */}
-          <h1  className="px-4 text-base">
-            Image <span className="text-red-600">*</span>
+            <h1 className="px-4 text-base">
+              Image <span className="text-red-600">*</span>
             </h1>
 
-            <Image src='/add.png' width={395} height={300} className=" h-80 w-80 md:w-full" alt={""} />
+            <Image
+              src="/add.png"
+              width={395}
+              height={300}
+              className=" h-80 w-80 md:w-full"
+              alt={""}
+            />
 
             {/* <div className="grid grid-cols-3 gap-4 py-6">
               <div className="relative">
@@ -165,7 +174,7 @@ const AddProduct: React.FC = () => {
              </div>
               </div>
             </div> */}
-    {/* <Carousel setApi={setApi}>
+            {/* <Carousel setApi={setApi}>
       <CarouselContent>
         <CarouselItem>
           <Image src="/female 17.png" alt="" className="rounded-md " width={500} height={400} />
@@ -176,8 +185,6 @@ const AddProduct: React.FC = () => {
         <CarouselItem><Image src="/female 17.png" className="rounded-md " alt="" width={500} height={400} /></CarouselItem>
       </CarouselContent>
     </Carousel> */}
-
-  
           </ReuseableBackground>
         </div>
         <ProductForm />
