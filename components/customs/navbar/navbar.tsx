@@ -8,7 +8,7 @@ import Link from "next/link";
 import { BsXLg } from "react-icons/bs";
 import { useState } from "react";
 import MobileSidebar from "~/components/dashboardlayout/mobileSidebar";
-import { useAbstraxionAccount, useAbstraxionSigningClient, Abstraxion } from '@burnt-labs/abstraxion'
+// import { useAbstraxionAccount, useAbstraxionSigningClient, Abstraxion } from '@burnt-labs/abstraxion'
 import Search from "~/components/ui/Search";
 import {
   Dialog,
@@ -39,10 +39,10 @@ export default function Navbar() {
   };
 
   // XION
-  const { data: account } = useAbstraxionAccount();
-  const { client } = useAbstraxionSigningClient();
+  // const { data: account } = useAbstraxionAccount();
+  // const { client } = useAbstraxionSigningClient();
 
-  console.log(account)
+  // console.log(account)
   // console.log(client)
 
   return (
@@ -114,7 +114,7 @@ export default function Navbar() {
                 <HiUserCircle size={24} />
               </Button>
             </Link> */}
-            <Abstraxion onClose={() => setIsOpen(false)} isOpen={isOpen} />
+            {/* <Abstraxion onClose={() => setIsOpen(false)} isOpen={isOpen} /> */}
             <button onClick={() => setIsOpen(true)}>Click here</button>
           </div>
           <Button
