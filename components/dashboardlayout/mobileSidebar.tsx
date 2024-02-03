@@ -26,7 +26,7 @@ export const SidebarData = [
         id: "discover",
     },
     {
-        title: "Sell on Mintyplex",
+        title: "Create",
         icon: <GoHomeFill size={25} />,
         link: "/add-product",
         id: "add-product",
@@ -46,18 +46,25 @@ export const SidebarData = [
     {
         title: "Request Feature",
         icon: <GoHomeFill size={25} />,
-        link: "/",
+        link: "/request-feature",
         id: "",
     },
 ];
 
-const MobileSidebar = ({ closeSidebar }: any) => {
+const MobileSidebar = ({ closeSidebar, isLoggedIn }: { closeSidebar: () => void; isLoggedIn: boolean }) => {
     const pathname = usePathname();
 
+    const filteredSidebarData = SidebarData.filter(data => {
+        if (!isLoggedIn) {
+            return data.id !== 'dashboard' && data.id !== 'profile' && data.id !== 'add-product';
+        }
+        return true;
+    });
+
     return (
-        <main className="p-6 block lg:hidden bg-brand10 fixed w-full top-0 h-fit">
+        <main className="px-6 block lg:hidden bg-brand10 fixed w-full top-14 h-fit">
             {/* Logged in */}
-            {/* <div className="mt-[30px] border-[1px] border-mintyplex-border rounded-[12px] p-4 flex lg:hidden flex-col items-start gap-6">
+            {/* <div className="border-[1px] border-mintyplex-border rounded-[12px] p-4 flex lg:hidden flex-col items-start gap-6">
                 <div className="flex flex-col items-left justify-left gap-4 w-full">
                     <Image
                         src={curator}
@@ -114,10 +121,10 @@ const MobileSidebar = ({ closeSidebar }: any) => {
             </div> */}
 
             {/* Not logged in */}
-            <div className="mt-[30px] border-[1px] border-mintyplex-border rounded-[12px] p-4 flex lg:hidden flex-col items-start gap-6">
+            <div className="border-[1px] border-mintyplex-border rounded-[12px] p-4 flex lg:hidden flex-col items-start gap-6">
                 <div className="flex flex-col w-full gap-12 ">
                     <div className="flex gap-2 flex-col">
-                        {SidebarData.map((data, i) => (
+                        {filteredSidebarData.map((data, i) => (
                             <div key={i}>
                                 <Link href={data.link} onClick={closeSidebar}>
                                     <div className={`border-b text-center cursor-pointer w-full flex items-center gap-4 py-2 transition-color hover:bg-mintyplex-primary ${pathname === data.link ? "text-mintyplex-primary" : " "}`}>
@@ -126,15 +133,10 @@ const MobileSidebar = ({ closeSidebar }: any) => {
                                 </Link>
                             </div>
                         ))}
-                        <div className={`mt-4 bg-mintyples-primary rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-mintyplex-primary bg-mintyplex-primary`}>
-                            <p>Sign Up/Log In</p>
+                        <div onClick={closeSidebar} className={`mt-4 bg-mintyples-primary rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-mintyplex-primary bg-mintyplex-primary`}>
+                            <p>Log In</p>
                             <WalletIcon />
                         </div>
-                        {/* <div onClick={closeSidebar}>
-                            <div className={`border-b text-[red] text-center cursor-pointer w-full flex items-center gap-4 py-2 transition-color hover:bg-mintyplex-primary`}>
-                                <p>Logout</p>
-                            </div>
-                        </div> */}
                     </div>
                     <div>
                         <div className="flex flex-col items-center justify-center w-full pb-4 gap-3 border-mintyplex-border">

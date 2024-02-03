@@ -1,9 +1,10 @@
 import { cn } from "~/lib/utils/utils";
-import { PhotoGraphy } from "~/utils/icons/photography";
 import { TypographyH4 } from "~/utils/typography";
 import { Button } from "../ui/button";
-import { MakingArt } from "~/utils/icons/making-art";
-import { BooksIcon } from "~/utils/icons/books";
+import Ebook from "~/public/ebook.png";
+import Art from '~/public/arts.png'
+import PhotoGraphy from '~/public/photography.png'
+import Image from "next/image";
 
 type PopularCardProps = {
   asSmall?: boolean;
@@ -11,21 +12,21 @@ type PopularCardProps = {
   index: number;
 };
 
-const displayIcons = [MakingArt, BooksIcon, PhotoGraphy];
+const displayIcons = [Art, Ebook, PhotoGraphy];
 
 const contentFor = [
   {
     title: "Arts",
     creators: "13k",
     product: "12k",
-    icon: MakingArt,
+    icon: Art,
     sales: "$132,222k",
   },
   {
     title: "E-books",
     creators: "13k",
     product: "12k",
-    icon: BooksIcon,
+    icon: Ebook,
     sales: "$132,222k",
   },
   {
@@ -49,7 +50,9 @@ export function PopularCard({ asSmall, mxAuto, index }: PopularCardProps) {
       )}
     >
       <div className="overflow-hidden bg-white rounded-md">
-        <CardContent.icon className="w-full max-h-72 group-hover:scale-105 transition-all duration-300" />
+        <div className="w-full max-h-72 group-hover:scale-105 transition-all duration-300">
+          <Image src={CardContent.icon} alt='' />
+        </div>
       </div>
       <div>
         <TypographyH4>{CardContent.title}</TypographyH4>
