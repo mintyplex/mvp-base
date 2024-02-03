@@ -117,7 +117,7 @@ export default function Navbar() {
               </Button>
             </Link> */}
             {/* <Abstraxion onClose={() => setIsOpen(false)} isOpen={isOpen} /> */}
-            <button onClick={() => setIsOpen(true)}>Click here</button>
+            <button onClick={() => setIsOpen(true)} className="rounded-[8px] text-[14px] px-5 py-2 bg-mintyplex-primary hover:bg-mintyplex-border">Log in</button>
           </div>
           <Button
             className="block md:hidden"
@@ -131,9 +131,8 @@ export default function Navbar() {
       </nav>
       <div
         id="sidebar"
-        className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${
-          isSidebarOpen ? "" : "-translate-x-full"
-        }`}
+        className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? "" : "-translate-x-full"
+          }`}
       >
         <div
           className="flex justify-end w-full mb-[50px] px-6 py-3 z-[11111]"
