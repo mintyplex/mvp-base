@@ -6,6 +6,7 @@ import {
 } from "@radix-ui/react-icons";
 import Image from "next/image";
 import TwitterIcon from "~/components/ui/TwitterIcon";
+import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import {
   Carousel,
@@ -15,9 +16,8 @@ import {
   CarouselPrevious,
 } from "~/components/ui/carousel";
 import productImg from "~/public/top-creator.jpeg";
+import { TypographyH2, TypographyH4 } from "~/utils/typography";
 import BackButton from "../popular-products/_components/back-button";
-import { TypographyH2, TypographyH4, TypographyP } from "~/utils/typography";
-import { Badge } from "~/components/ui/badge";
 import { Counter } from "./_components/counter";
 
 const data = [
@@ -46,13 +46,18 @@ const data = [
 export default function ProductDetailPage() {
   return (
     <section className="container p-3 mx-auto space-y-3">
-      <BackButton
-        variant="outline"
-        size="icon"
-        className="border-input bg-white/0"
-      >
-        <ArrowLeftIcon />
-      </BackButton>
+      <div className="flex items-center justify-between">
+        <BackButton
+          variant="outline"
+          size="icon"
+          className="border-input bg-white/0"
+        >
+          <ArrowLeftIcon />
+        </BackButton>
+        <Button variant="ghost" size="icon" className="w-10 h-10 p-1">
+          <ShareIcon />
+        </Button>
+      </div>
       <div>
         <Carousel>
           <CarouselContent>
@@ -156,5 +161,40 @@ export default function ProductDetailPage() {
         <Button className="text-white bg-mintyplex-primary">Buy Now</Button>
       </div>
     </section>
+  );
+}
+
+function ShareIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      width="28"
+      height="28"
+      viewBox="0 0 28 28"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M19.25 16.625L24.5 11.375L19.25 6.125"
+        stroke="#E9E9E9"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M21 23.625H4.375C4.14294 23.625 3.92038 23.5328 3.75628 23.3687C3.59219 23.2046 3.5 22.9821 3.5 22.75V9.625"
+        stroke="#E9E9E9"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8.20312 19.25C8.787 16.9962 10.1027 15 11.9437 13.5747C13.7847 12.1494 16.0468 11.3757 18.375 11.375H24.5"
+        stroke="#E9E9E9"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   );
 }
