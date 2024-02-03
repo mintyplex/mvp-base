@@ -88,28 +88,19 @@ export default function Curator() {
         </div>
         <div className="flex flex-col-reverse w-full md:flex-row gap-6">
           <div className="w-full md:w-[300px] flex flex-col gap-4">
-<<<<<<< HEAD
             <Select>
-              <SelectTrigger className="w-full !bg-[#2063F2] border-none py-[24px]">
+              <SelectTrigger className="w-full !bg-[#2063F2] border-none py-[12px]">
                 <div className="flex items-center gap-3">
                   <SortIcon />
                   <SelectValue placeholder="Sort by" />
-=======
-            <div
-              onClick={() => {
-                showFilter ? setShowFilter(false) : setShowFilter(true);
-              }}
-              className="w-full cursor-pointer bg-primary flex items-center px-4 py-3 rounded-[8px] justify-between"
-            >
-              <p>Sort</p>
-              {showFilter ? <FaChevronUp /> : <FaChevronDown />}
-            </div>
-            {showFilter && (
-              <>
-                <div className="w-full bg-brand11 flex items-center p-4 rounded-[8px] justify-between">
-                  <p>Attributes</p>
-                  <FaChevronDown />
->>>>>>> cc0283c79f26f2a2cd66d3ce0fc4c7450918d29b
+                  {showFilter && (
+                    <>
+                      <div className="w-full bg-brand11 flex items-center p-4 rounded-[8px] justify-between">
+                        <p>Attributes</p>
+                        <FaChevronDown />
+                      </div>
+                    </>
+                  )}
                 </div>
               </SelectTrigger>
               <SelectContent className="!bg-[#313233] border-none">
