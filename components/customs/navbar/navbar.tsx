@@ -29,6 +29,8 @@ export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
   // Function to toggle the sidebar
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -142,7 +144,7 @@ export default function Navbar() {
           </p>
         </div>
         <div className="w-full mt-4">
-          <MobileSidebar closeSidebar={closeSidebar} />
+          <MobileSidebar closeSidebar={closeSidebar} isLoggedIn={isLoggedIn} />
         </div>
       </div>
     </header>
