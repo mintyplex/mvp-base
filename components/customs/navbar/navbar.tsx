@@ -136,8 +136,8 @@ export default function Navbar() {
         }`}
       >
         <div
-          className="flex justify-end w-full px-6 py-3"
-          onClick={toggleSidebar}
+          className="flex justify-end w-full mb-[50px] px-6 py-3 z-[11111]"
+          onClick={closeSidebar}
         >
           <p className="p-2 border rounded-full">
             <BsXLg />
