@@ -177,6 +177,52 @@ const ProductForm = () => {
               unlimited
             </p>
           </div>
+          <div className="grid md:hidden grid-cols-2 gap-3">
+            <div className="form">
+              <div className="relative">
+              <Select>
+      <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
+        <SelectValue placeholder="Select a fruit" />
+      </SelectTrigger>
+      <SelectContent className="bg-[rgb(99,99,99)]">
+        <SelectGroup >
+          <SelectLabel>Fruits</SelectLabel>
+          <SelectItem value="apple">Apple</SelectItem>
+          <SelectItem value="banana">Banana</SelectItem>
+          <SelectItem value="blueberry">Blueberry</SelectItem>
+          <SelectItem value="grapes">Grapes</SelectItem>
+          <SelectItem value="pineapple">Pineapple</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+              </div>
+              <label htmlFor="" className="px-4   text-sm">
+                Attribute
+              </label>
+            </div>
+            <div className="form">
+              <div className="relative">
+              <Select>
+      <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
+        <SelectValue placeholder="Select a fruit" />
+      </SelectTrigger>
+      <SelectContent className="bg-[rgb(99,99,99)]">
+        <SelectGroup >
+          <SelectLabel>Fruits</SelectLabel>
+          <SelectItem value="apple">Apple</SelectItem>
+          <SelectItem value="banana">Banana</SelectItem>
+          <SelectItem value="blueberry">Blueberry</SelectItem>
+          <SelectItem value="grapes">Grapes</SelectItem>
+          <SelectItem value="pineapple">Pineapple</SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+              </div>
+              <label htmlFor="" className="px-4 text-sm">
+                Attribute
+              </label>
+            </div>
+          </div>
           <div className="form">
             <input
               type="text"
@@ -190,16 +236,16 @@ const ProductForm = () => {
           </div>
 
           <div className="flex justify-end  gap-4  items-center ">
-            <button className="px-2 py-2 rounded-md font-normal text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-4 items-center">
+            <button className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 items-center">
               <MdCancel />
               Web3
             </button>
-            <button className="px-2 py-2 rounded-md font-normal text-[16px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center">
+            <button className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center">
               Add tags
             </button>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-3">
+          <div className="md:grid hidden grid-cols-2 gap-3">
             <div className="form">
               <div className="relative">
               <Select>
@@ -218,10 +264,11 @@ const ProductForm = () => {
       </SelectContent>
     </Select>
               </div>
-              <label htmlFor="" className="px-4 text-sm">
+              <label htmlFor="" className="px-4   text-sm">
                 Attribute
               </label>
             </div>
+            
             <div className="form">
               <div className="relative">
               <Select>
@@ -246,12 +293,12 @@ const ProductForm = () => {
             </div>
           </div>
 
-          <div className="flex justify-end gap-2 md:gap-4 pt-4 items-center ">
+          <div className="hidden  md:flex justify-end gap-2 md:gap-4 pt-4 items-center ">
             <button className="px-2 py-2 rounded-md font-normal text-[14px] md:text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 md:gap-4 items-center">
               <MdCancel />
               Face: Beauitful
             </button>
-            <button className="px-2 py-2 rounded-md font-normal text-[16px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center">
+            <button className="px-2 md:px-4 py-2 rounded-md font-normal text-base leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center">
               Add new Attribute
             </button>
           </div>
