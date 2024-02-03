@@ -4,7 +4,6 @@ import Link from "next/link";
 import { BsArrowUpRight } from "react-icons/bs";
 import Accordium from "~/components/ui/Accordium";
 import ReusableTable from "~/components/ui/Reuseable-table";
-import CreatorsListbox from "~/components/ui/select";
 import {
   data,
   dataPurchase,
@@ -91,8 +90,8 @@ const CreatorDashboard = () => {
             <div className="border-white border-[1px] rounded-md shadow-lg px-[20px] py-[20px] bg-[#313233]">
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
-                  <div className=" w-full pb-2">
-                    <div className="flex gap-2 items-center">
+                  <div className="w-full pb-2">
+                    <div className="flex items-center gap-2">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -184,7 +183,7 @@ const CreatorDashboard = () => {
           <CreatorsListbox options={Active} initialValue={Active[0]} />
         </div> */}
 
-        <div className="w-full grid  gap-y-4 gap-2">
+        <div className="w-full grid gap-y-4 gap-2">
           <div className=" h-full sm:col-span-1 bg-[rgb(49,50,51)] rounded-lg py-2">
             {/* This item will span two columns (larger) on small screens */}
             <h1 className="text-2xl fomt-medium border-b-2 py-4 px-6 border-[rgb(168,170,175)] ">
@@ -193,8 +192,8 @@ const CreatorDashboard = () => {
 
             <CreatorChart />
 
-            <div className="flex justify-center items-center gap-4  py-8 md:gap-8">
-              <div className="flex items-center  gap-2">
+            <div className="flex items-center justify-center py-8 gap-4 md:gap-8">
+              <div className="flex items-center gap-2">
                 <div className="md:h-6 h-4 w-4 md:w-6 rounded-full bg-[rgba(35,89,204,1)]"></div>
                 <button className="bg-[rgba(32,99,242,1)] p-2 md:px-4 rounded-md text-[13px] md:texxt-base font-medium">
                   Arts
@@ -216,7 +215,7 @@ const CreatorDashboard = () => {
           </div>
           {/* <div className=" h-full sm:col-span-1   bg-[rgb(49,50,51)] rounded-lg py-2">
           <div className="text-2xl flex   w-full items-center  fomt-medium border-b-2  pb-2 md:px-6 border-[rgb(168,170,175)] ">
-            <h1 className="text-xl w-full md:text-xl">Product Overview</h1>
+            <h1 className="w-full text-xl md:text-xl">Product Overview</h1>
             
             <CreatorsListbox options={Active}  initialValue={Active[0]} />
 
