@@ -30,11 +30,11 @@ export function Card({
     <div
       className={cn(
         " mx-auto rounded-lg p-1.5 space-y-2 border border-mintyplex-border max-w-md w-full",
-        asSmall ? "max-w-xs" : "max-w-sm",
+        asSmall ? "max-w-xs" : "max-w-sm"
       )}
     >
       <Link href={id}>
-        <div className="overflow-hidden bg-red-300 rounded-md">
+        <div className="overflow-hidden rounded-md">
           <Image
             alt={name}
             height={TEN_PERCENT_OF_HEIGHT}

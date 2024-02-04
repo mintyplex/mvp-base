@@ -14,16 +14,15 @@ const inter = Figtree({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
-// Metadata is used to set the title and description of the page
 export const metadata: Metadata = {
   title: "Mintyplex - NFT Marketplace",
   description: "Discover, buy and sell NFTs on Mintyplex",
+  metadataBase: new URL("https://testnet.mintyplex.com/"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    images: [
-      {
-        url: "https://opengraph.b-cdn.net/production/documents/cfd284d5-3edf-402d-bcea-984d641f845d.jpg?token=Z4sNERSPh_FsQhW2TgABclfQbqRQDnQYtLfkBWhiHno&height=779&width=1200&expires=33243076735",
-      },
-    ],
+    images: "/opengraph-image.jpg",
   },
 };
 
