@@ -32,7 +32,7 @@ export function Footer() {
               className="py-4 text-white rounded-full duration-300 transition-all bg-mintyplex-primary"
             >
               <button className="py-5 bg-mintyplex-primary">
-                Request a Feature
+                Request A Feature
               </button>
             </Button>
             <div className="mt-5">
