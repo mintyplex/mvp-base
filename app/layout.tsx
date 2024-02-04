@@ -14,6 +14,7 @@ const inter = Figtree({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
+// Metadata is used to set the title and description of the page
 export const metadata: Metadata = {
   title: "Mintyplex - NFT Marketplace",
   description: "Discover, buy and sell NFTs on Mintyplex",
