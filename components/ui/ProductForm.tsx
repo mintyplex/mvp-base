@@ -223,6 +223,20 @@ const ProductForm = () => {
               </label>
             </div>
           </div>
+
+
+          <div className="md:hidden  flex justify-end gap-2 md:gap-4 pt-4 items-center ">
+            <button className="px-2 py-2 rounded-md font-normal text-[14px] md:text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 md:gap-4 items-center">
+              <MdCancel />
+              Face: Beauitful
+            </button>
+            <button className="px-2 md:px-4 py-2 rounded-md font-normal text-base leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center">
+              Add new Attribute
+            </button>
+          </div>
+
+
+
           <div className="form">
             <input
               type="text"
