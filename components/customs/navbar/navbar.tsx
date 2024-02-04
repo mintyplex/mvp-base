@@ -5,11 +5,11 @@ import { Button } from "~/components/ui/button";
 import logo from "~/public/logo.png";
 import logoLg from "~/public/logo-lg.png";
 import Link from "next/link";
-import { HiUserCircle } from "react-icons/hi";
-import { FaSearch } from "react-icons/fa";
 import { BsXLg } from "react-icons/bs";
 import { useState } from "react";
 import MobileSidebar from "~/components/dashboardlayout/mobileSidebar";
+// import { useAbstraxionAccount, useAbstraxionSigningClient, Abstraxion } from '@burnt-labs/abstraxion'
+import Search from "~/components/ui/Search";
 import {
   Dialog,
   DialogClose,
@@ -27,6 +27,9 @@ import { Input } from "~/components/ui/input";
 
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   // Function to toggle the sidebar
   const toggleSidebar = () => {
@@ -36,6 +39,13 @@ export default function Navbar() {
   const closeSidebar = () => {
     setIsSidebarOpen(false);
   };
+
+  // XION
+  // const { data: account } = useAbstraxionAccount();
+  // const { client } = useAbstraxionSigningClient();
+
+  // console.log(account)
+  // console.log(client)
 
   return (
     <header className="border-b border-mintyplex-border">
@@ -63,7 +73,7 @@ export default function Navbar() {
         </Link>
         <div className="flex items-center gap-4">
           <div className="items-center w-[300px] px-3 mx-auto overflow-hidden border border-white rounded-[8px] hidden md:flex gap-3 focus-within:border-brand1 transition-all duration-300">
-            <FaSearch />
+            <Search />
             <input
               type="search"
               name="search"
@@ -94,6 +104,8 @@ export default function Navbar() {
               <CartIcon />
             </Button>
           </Link>
+          <div className="md:block hidden">
+            {/* <Link href='/dashboard'>
           <div className="hidden md:block">
             <Link href="/dashboard">
               <Button
@@ -103,7 +115,9 @@ export default function Navbar() {
               >
                 <HiUserCircle size={24} />
               </Button>
-            </Link>
+            </Link> */}
+            {/* <Abstraxion onClose={() => setIsOpen(false)} isOpen={isOpen} /> */}
+            <button onClick={() => setIsOpen(true)} className="rounded-[8px] text-[14px] px-5 py-2 bg-mintyplex-primary hover:bg-mintyplex-border">Log in</button>
           </div>
           <Button
             className="block md:hidden"
@@ -117,20 +131,19 @@ export default function Navbar() {
       </nav>
       <div
         id="sidebar"
-        className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${
-          isSidebarOpen ? "" : "-translate-x-full"
-        }`}
+        className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? "" : "-translate-x-full"
+          }`}
       >
         <div
-          className="flex justify-end w-full px-6 py-3"
-          onClick={toggleSidebar}
+          className="flex justify-end w-full mb-[50px] px-6 py-3 z-[11111]"
+          onClick={closeSidebar}
         >
           <p className="p-2 border rounded-full">
             <BsXLg />
           </p>
         </div>
         <div className="w-full mt-4">
-          <MobileSidebar closeSidebar={closeSidebar} />
+          <MobileSidebar closeSidebar={closeSidebar} isLoggedIn={isLoggedIn} />
         </div>
       </div>
     </header>
