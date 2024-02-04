@@ -6,6 +6,7 @@ import Navbar from "~/components/customs/navbar/navbar";
 import { ThemeProvider } from "~/components/customs/theme-provider";
 import { Footer } from "~/components/customs/footer/footer";
 import { HideAt } from "~/components/customs/show-at";
+import BurntWrapper from "~/components/customs/burnt-wrapper";
 
 const inter = Figtree({
   subsets: ["latin"],
@@ -16,6 +17,13 @@ const inter = Figtree({
 export const metadata: Metadata = {
   title: "Mintyplex - NFT Marketplace",
   description: "Discover, buy and sell NFTs on Mintyplex",
+  openGraph: {
+    images: [
+      {
+        url: "https://opengraph.b-cdn.net/production/documents/cfd284d5-3edf-402d-bcea-984d641f845d.jpg?token=Z4sNERSPh_FsQhW2TgABclfQbqRQDnQYtLfkBWhiHno&height=779&width=1200&expires=33243076735",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -26,20 +34,22 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-mintyplex-dark">
       <body className={cn(inter.className, "bg-mintyplex-dark text-white")}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main className="flex flex-col min-h-screen">
-            <Navbar />
-            <div className="flex-grow">{children}</div>
-            <HideAt paths={["dashboard"]}>
-              <Footer />
-            </HideAt>
-          </main>
-        </ThemeProvider>
+        <BurntWrapper disable>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <main className="flex flex-col min-h-screen">
+              <Navbar />
+              <div className="flex-grow">{children}</div>
+              <HideAt paths={["dashboard"]}>
+                <Footer />
+              </HideAt>
+            </main>
+          </ThemeProvider>
+        </BurntWrapper>
       </body>
     </html>
   );
