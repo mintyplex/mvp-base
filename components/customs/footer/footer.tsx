@@ -36,7 +36,7 @@ export function Footer() {
               </button>
             </Button>
             <div className="mt-5">
-              Built With <span>❤️</span> by{" "}
+              Built With <span>💙</span> by{" "}
               <span className="text-mintyplex-primary">Mintyplex</span>.
             </div>
           </div>
