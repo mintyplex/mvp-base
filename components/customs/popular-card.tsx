@@ -1,9 +1,11 @@
 import { cn } from "~/lib/utils/utils";
-import { PhotoGraphy } from "~/utils/icons/photography";
+import PhotoGraphy from "~/public/photography.png";
+import Design from "~/public/canvas-stand.png";
 import { TypographyH4 } from "~/utils/typography";
 import { Button } from "../ui/button";
-import { MakingArt } from "~/utils/icons/making-art";
-import { BooksIcon } from "~/utils/icons/books";
+import Ipod from "~/public/ipod.png";
+import EbookImg from "~/public/dotted-notebook.png";
+import Image from "next/image";
 
 type PopularCardProps = {
   asSmall?: boolean;
@@ -11,28 +13,33 @@ type PopularCardProps = {
   index: number;
 };
 
-const displayIcons = [MakingArt, BooksIcon, PhotoGraphy];
-
 const contentFor = [
-  {
-    title: "Arts",
-    creators: "13k",
-    product: "12k",
-    icon: MakingArt,
-    sales: "$132,222k",
-  },
-  {
-    title: "E-books",
-    creators: "13k",
-    product: "12k",
-    icon: BooksIcon,
-    sales: "$132,222k",
-  },
   {
     title: "Photography",
     creators: "13k",
     product: "12k",
     icon: PhotoGraphy,
+    sales: "$132,222k",
+  },
+  {
+    title: "Design",
+    creators: "13k",
+    product: "12k",
+    icon: Design,
+    sales: "$132,222k",
+  },
+  {
+    title: "Ebooks",
+    creators: "13k",
+    product: "12k",
+    icon: EbookImg,
+    sales: "$132,222k",
+  },
+  {
+    title: "Arts",
+    creators: "13k",
+    product: "12k",
+    icon: Ipod,
     sales: "$132,222k",
   },
 ];
@@ -45,11 +52,15 @@ export function PopularCard({ asSmall, mxAuto, index }: PopularCardProps) {
       className={cn(
         "border border-mintyplex-border rounded-md p-2.5 space-y-4 w-full group",
         asSmall ? "max-w-sm" : "",
-        mxAuto ? "mx-auto" : "",
+        mxAuto ? "mx-auto" : ""
       )}
     >
       <div className="overflow-hidden bg-white rounded-md">
-        <CardContent.icon className="w-full max-h-72 group-hover:scale-105 transition-all duration-300" />
+        <Image
+          alt="Ipod"
+          src={CardContent.icon}
+          className="w-full max-h-72 group-hover:scale-105 transition-all duration-300"
+        />
       </div>
       <div>
         <TypographyH4>{CardContent.title}</TypographyH4>
