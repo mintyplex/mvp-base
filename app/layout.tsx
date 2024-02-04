@@ -1,5 +1,3 @@
-"use client";
-
 import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 import "./globals.css";
@@ -8,7 +6,6 @@ import Navbar from "~/components/customs/navbar/navbar";
 import { ThemeProvider } from "~/components/customs/theme-provider";
 import { Footer } from "~/components/customs/footer/footer";
 import { HideAt } from "~/components/customs/show-at";
-// import { AbstraxionProvider } from '@burnt-labs/abstraxion'
 
 const inter = Figtree({
   subsets: ["latin"],
@@ -35,7 +32,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {/* <AbstraxionProvider config={{}}> */}
           <main className="flex flex-col min-h-screen">
             <Navbar />
             <div className="flex-grow">{children}</div>
@@ -43,7 +39,6 @@ export default function RootLayout({
               <Footer />
             </HideAt>
           </main>
-          {/* </AbstraxionProvider> */}
         </ThemeProvider>
       </body>
     </html>
