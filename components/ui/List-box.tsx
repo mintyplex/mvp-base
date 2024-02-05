@@ -15,7 +15,7 @@ export default function Listtbox() {
   const [selected, setSelected] = useState(people[0]);
 
   return (
-    <div className=" ">
+    <div className="">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative mt-1">
           <Listbox.Button className="px-3  rounded-md font-normal py-2 leading-[27px] flex justify-between  border-[rgb(99,99,99)]  border gap-4 ">
@@ -31,9 +31,9 @@ export default function Listtbox() {
                 <path
                   d="M25.332 12.6193L16.7058 21.2455C16.3153 21.6361 15.6821 21.6361 15.2916 21.2455L6.66536 12.6193"
                   stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </span>
@@ -44,7 +44,7 @@ export default function Listtbox() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white shadow-lg max-h-60 rounded-md ring-1 ring-black/5 focus:outline-none sm:text-sm">
               {people.map((person, personIdx) => (
                 <Listbox.Option
                   key={personIdx}
@@ -66,7 +66,7 @@ export default function Listtbox() {
                       </span>
                       {selected ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                          <CheckIcon className="w-5 h-5" aria-hidden="true" />
                         </span>
                       ) : null}
                     </>

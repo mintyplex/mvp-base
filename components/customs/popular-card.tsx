@@ -52,7 +52,7 @@ export function PopularCard({ asSmall, mxAuto, index }: PopularCardProps) {
       className={cn(
         "border border-mintyplex-border rounded-md p-2.5 space-y-4 w-full group",
         asSmall ? "max-w-sm" : "",
-        mxAuto ? "mx-auto" : ""
+        mxAuto ? "mx-auto" : "",
       )}
     >
       <div className="bg-white rounded-md">

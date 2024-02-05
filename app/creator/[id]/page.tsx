@@ -14,11 +14,18 @@ import { TypographyH3 } from "~/utils/typography";
 import { Card } from "~/components/customs/card";
 import { BsArrowLeft } from "react-icons/bs";
 import EditModal from "~/components/customs/modal";
-import { Select, SelectContent, SelectLabel, SelectGroup, SelectItem, SelectTrigger, SelectValue, } from "~/components/ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectLabel,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
 import Search from "~/components/ui/Search";
 import SortIcon from "~/components/ui/SortIcon";
 import { CaretSortIcon } from "@radix-ui/react-icons";
-
 
 export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
@@ -53,7 +60,10 @@ export default function Curator() {
             </div>
           </div>
           <div className="absolute top-[71%] md:top-[75%] right-0 z-[11]">
-            <div className="flex gap-2 text-[10px] md:text-[16px] cursor-pointer justify-center items-center p-[8px] w-[100px] md:w-[125px] rounded-[8px] border border-[#313233]" onClick={() => setEditModal(true)}>
+            <div
+              className="flex gap-2 text-[10px] md:text-[16px] cursor-pointer justify-center items-center p-[8px] w-[100px] md:w-[125px] rounded-[8px] border border-[#313233]"
+              onClick={() => setEditModal(true)}
+            >
               <TbSettings size={24} />
               <p>Edit Bio</p>
             </div>
@@ -105,14 +115,21 @@ export default function Curator() {
               </SelectTrigger>
               <SelectContent className="!bg-[#313233] border-none">
                 <SelectGroup>
-                  <SelectItem value="Price: Low to High">Price: Low to High</SelectItem>
-                  <SelectItem value="Price: High to Low">Price: High to Low</SelectItem>
-                  <SelectItem value="Rarity: Rare to Common">Rarity: Rare to Common</SelectItem>
-                  <SelectItem value="Rarity: Common to Rare">Rarity: Common to Rare</SelectItem>
+                  <SelectItem value="Price: Low to High">
+                    Price: Low to High
+                  </SelectItem>
+                  <SelectItem value="Price: High to Low">
+                    Price: High to Low
+                  </SelectItem>
+                  <SelectItem value="Rarity: Rare to Common">
+                    Rarity: Rare to Common
+                  </SelectItem>
+                  <SelectItem value="Rarity: Common to Rare">
+                    Rarity: Common to Rare
+                  </SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>
-
           </div>
           <div className="items-center w-full px-3 mx-auto overflow-hidden border border-white rounded-[8px] flex gap-3 focus-within:border-brand1 transition-all duration-300">
             <Search />

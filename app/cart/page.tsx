@@ -87,7 +87,7 @@ export default function Cart() {
                           required
                         />
                         <label htmlFor="" className="px-4 text-sm">
-                         Wallet address <span className="text-red-600">*</span>
+                          Wallet address <span className="text-red-600">*</span>
                         </label>
                       </div>
                       <div className="form">
