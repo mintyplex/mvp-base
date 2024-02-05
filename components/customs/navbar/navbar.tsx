@@ -117,7 +117,7 @@ export default function Navbar() {
               </Button>
             </Link> */}
             {/* <Abstraxion onClose={() => setIsOpen(false)} isOpen={isOpen} /> */}
-            <button onClick={() => setIsOpen(true)} className="rounded-[8px] text-[14px] px-5 py-2 bg-mintyplex-primary hover:bg-mintyplex-border">Log in</button>
+            <button onClick={() => setIsOpen(true)} className="rounded-[8px] text-[14px] px-5 py-2 bg-mintyplex-primary hover:bg-mintyplex-border">Connect Wallet </button>
           </div>
           <Button
             className="block md:hidden"
