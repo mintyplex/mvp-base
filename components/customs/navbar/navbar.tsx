@@ -25,7 +25,7 @@ import {
 import { TypographyH3 } from "~/utils/typography";
 import { Input } from "~/components/ui/input";
 
-export default function Navbar() {
+export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -83,7 +83,7 @@ export default function Navbar() {
           </div>
           <Dialog>
             <DialogTrigger asChild>
-              <Button className=" md:hidden" size="icon" variant="ghost">
+              <Button className="md:hidden" size="icon" variant="ghost">
                 <SearchIcon />
               </Button>
             </DialogTrigger>
@@ -104,7 +104,7 @@ export default function Navbar() {
               <CartIcon />
             </Button>
           </Link>
-          <div className="md:block hidden">
+          <div className="hidden md:block">
             {/* <Link href='/dashboard'>
           <div className="hidden md:block">
             <Link href="/dashboard">
@@ -137,8 +137,7 @@ export default function Navbar() {
       <div
         id="sidebar"
         className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${
-          isSidebarOpen ? "" : "-translate-x-full"
-        }`}
+          isSidebarOpen ? "" : "-translate-x-full"}`}
       >
         <div
           className="flex justify-end w-full mb-[50px] px-6 py-3 z-[11111]"
