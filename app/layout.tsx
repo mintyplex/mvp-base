@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Figtree } from "next/font/google";
 import "./globals.css";
 import { cn } from "~/lib/utils/utils";
@@ -7,6 +8,7 @@ import { ThemeProvider } from "~/components/customs/theme-provider";
 import { Footer } from "~/components/customs/footer/footer";
 import { HideAt } from "~/components/customs/show-at";
 import BurntWrapper from "~/components/customs/burnt-wrapper";
+import { AbstraxionProvider } from '@burnt-labs/abstraxion';
 
 const inter = Figtree({
   subsets: ["latin"],
@@ -14,23 +16,14 @@ const inter = Figtree({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
-export const metadata: Metadata = {
-  title: "Mintyplex - NFT Marketplace",
-  description: "Discover, buy and sell NFTs on Mintyplex",
-  metadataBase: new URL("https://testnet.mintyplex.com/"),
-  alternates: {
-    canonical: "/",
-  },
-  openGraph: {
-    images: "/opengraph-image.jpg",
-  },
-};
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
+  const seatContractAddress = "xion1z70cvc08qv5764zeg3dykcyymj5z6nu4sqr7x8vl4zjef2gyp69s9mmdka";
+
   // Something is wrong with the open graph of the meta data
   return (
     <html lang="en" className="bg-mintyplex-dark">
@@ -73,13 +66,15 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main className="flex flex-col min-h-screen">
-              <Navbar />
-              <div className="flex-grow">{children}</div>
-              <HideAt paths={["dashboard"]}>
-                <Footer />
-              </HideAt>
-            </main>
+            <AbstraxionProvider config={{ contracts: [seatContractAddress], }}>
+              <main className="flex flex-col min-h-screen">
+                <Navbar />
+                <div className="flex-grow">{children}</div>
+                <HideAt paths={["dashboard"]}>
+                  <Footer />
+                </HideAt>
+              </main>
+            </AbstraxionProvider>
           </ThemeProvider>
         </BurntWrapper>
       </body>

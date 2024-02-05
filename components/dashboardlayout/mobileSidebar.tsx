@@ -20,7 +20,7 @@ import WalletIcon from "../ui/Wallet";
 
 export const SidebarData = [
   {
-    title: "Discover (Home)",
+    title: "Discover",
     icon: <GoHomeFill size={25} />,
     link: "/",
     id: "discover",
@@ -46,7 +46,7 @@ export const SidebarData = [
   {
     title: "Request Feature",
     icon: <GoHomeFill size={25} />,
-    link: "/request-feature",
+    link: "",
     id: "",
   },
 ];
