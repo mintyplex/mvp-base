@@ -18,13 +18,14 @@ const inter = Figtree({
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://testnet.mintyplex.com/"),
   title: "Mintyplex - Digital Marketplace",
-  description: "Discover, buy and sell Digitals on Mintyplex",
+  description: "Create, Own and Monetize products on-chain with Mintyplex.",
   openGraph: {
     url: "https://testnet.mintyplex.com/",
     type: "website",
     title: "Mintyplex - Digital Marketplace",
-    description: "Discover, buy and sell Digitals on Mintyplex",
+    description: "Create, Own and Monetize products on-chain with Mintyplex.",
     images: [
       {
         url: "https://opengraph.b-cdn.net/production/documents/71547070-99da-47bc-b4fd-c0f513608ba7.jpg?token=U0NgindjiwUYjNnKV68zje0bTqT-gP51QbmGlBWCrHE&height=779&width=1200&expires=33243084907",
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     creator: "@mintyplex",
-    description: "Discover, buy and sell Digitals on Mintyplex",
+    description: "Create, Own and Monetize products on-chain with Mintyplex.",
     title: "Mintyplex - Digital Marketplace",
     images: {
       url: "https://opengraph.b-cdn.net/production/documents/71547070-99da-47bc-b4fd-c0f513608ba7.jpg?token=U0NgindjiwUYjNnKV68zje0bTqT-gP51QbmGlBWCrHE&height=779&width=1200&expires=33243084907",
