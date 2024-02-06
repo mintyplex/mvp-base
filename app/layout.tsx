@@ -9,6 +9,8 @@ import { Footer } from "~/components/customs/footer/footer";
 import { HideAt } from "~/components/customs/show-at";
 import BurntWrapper from "~/components/customs/burnt-wrapper";
 import { AbstraxionProvider } from '@burnt-labs/abstraxion';
+import "@burnt-labs/ui/dist/index.css";
+import "@burnt-labs/abstraxion/dist/index.css";
 
 const inter = Figtree({
   subsets: ["latin"],

@@ -8,7 +8,7 @@ import Link from "next/link";
 import { BsXLg } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import MobileSidebar from "~/components/dashboardlayout/mobileSidebar";
-import { useAbstraxionAccount, useAbstraxionSigningClient, Abstraxion } from '@burnt-labs/abstraxion'
+import { useAbstraxionAccount, useAbstraxionSigningClient, Abstraxion, useModal } from '@burnt-labs/abstraxion'
 import Search from "~/components/ui/Search";
 import {
   Dialog,
@@ -27,9 +27,13 @@ import { Input } from "~/components/ui/input";
 import { HiUserCircle } from "react-icons/hi";
 import AccountContext from "~/components/context/AccountContext";
 
+// type AccpuntProps = {
+//   account?: string;
+// };
+
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [showAbstraxion, setShowAbstraxion] = useModal(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [accountData, setAccountData] = useState(null);
@@ -46,11 +50,11 @@ export default function Navbar() {
   // XION
   const { data: account } = useAbstraxionAccount();
   const { client } = useAbstraxionSigningClient();
+  // console.log(account);
 
   useEffect(() => {
-    // console.log(account);
-    setAccountData(account); // Store account data in state
-    setIsLoggedIn(account); // Store account data in state
+    setAccountData(account);
+    // setIsLoggedIn(account);
   }, [account]);
 
   // Truncate
@@ -130,13 +134,13 @@ export default function Navbar() {
                   </Link>
                 ) : (
                   <button
-                    onClick={() => setIsOpen(true)}
+                      onClick={() => setShowAbstraxion(true)}
                     className="rounded-[8px] text-[14px] px-5 py-2 bg-mintyplex-primary hover:bg-mintyplex-border"
                   >
                     Connect Wallet{" "}
                   </button>
                 )}
-                <Abstraxion onClose={() => setIsOpen(false)} isOpen={isOpen} />
+                <Abstraxion onClose={() => { setShowAbstraxion(false); }} />
               </div>
             </div>
             <Button
