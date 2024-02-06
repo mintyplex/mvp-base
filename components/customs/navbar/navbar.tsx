@@ -33,7 +33,7 @@ import AccountContext from "~/components/context/AccountContext";
 
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [showAbstraxion, setShowAbstraxion] = useModal(false);
+  const [, setShowAbstraxion] = useModal();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [accountData, setAccountData] = useState(null);
@@ -50,12 +50,10 @@ export default function Navbar() {
   // XION
   const { data: account } = useAbstraxionAccount();
   const { client } = useAbstraxionSigningClient();
-  // console.log(account);
+  console.log(account.bech32Address);
 
-  useEffect(() => {
-    setAccountData(account);
-    // setIsLoggedIn(account);
-  }, [account]);
+  //  setAccountData = account.bech32Address
+
 
   // Truncate
   const truncate = (input: string) =>
@@ -121,8 +119,8 @@ export default function Navbar() {
             </Link>
             <div className="md:block hidden">
               <div className="hidden md:block">
-                {account ? (
-                  <Link href="/dashboard">
+                {account.bech32Address ? (
+                  <div onClick={() => setShowAbstraxion(true)}>
                     <Button
                       variant="ghost"
                       className="border border-mintyplex-border"
@@ -131,10 +129,10 @@ export default function Navbar() {
                       {/* <p>{truncate(account.bech32Address)}</p> */}
                       <HiUserCircle size={24} />
                     </Button>
-                  </Link>
+                  </div>
                 ) : (
                   <button
-                      onClick={() => setShowAbstraxion(true)}
+                    onClick={() => setShowAbstraxion(true)}
                     className="rounded-[8px] text-[14px] px-5 py-2 bg-mintyplex-primary hover:bg-mintyplex-border"
                   >
                     Connect Wallet{" "}
