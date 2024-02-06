@@ -36,7 +36,7 @@ export default function Navbar() {
   const [, setShowAbstraxion] = useModal();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [accountData, setAccountData] = useState(null);
+  const [accountData, setAccountData] = useState<string | null>(null);
 
   // Function to toggle the sidebar
   const toggleSidebar = () => {
@@ -51,6 +51,13 @@ export default function Navbar() {
   const { data: account } = useAbstraxionAccount();
   const { client } = useAbstraxionSigningClient();
   console.log(account.bech32Address);
+
+  const profile = account.bech32Address;
+
+  useEffect(() => {
+    setIsLoggedIn(!!profile);
+    setAccountData(profile);
+  }, [profile]);
 
   //  setAccountData = account.bech32Address
 
@@ -165,7 +172,7 @@ export default function Navbar() {
             </p>
           </div>
           <div className="w-full mt-4">
-            <MobileSidebar closeSidebar={closeSidebar} isLoggedIn={isLoggedIn} />
+            <MobileSidebar setShowAbstraxion={setShowAbstraxion} closeSidebar={closeSidebar} isLoggedIn={isLoggedIn} />
           </div>
         </div>
       </header>
