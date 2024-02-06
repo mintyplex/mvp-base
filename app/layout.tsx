@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
+import "@burnt-labs/abstraxion/dist/index.css";
+import "@burnt-labs/ui/dist/index.css";
 import { Figtree } from "next/font/google";
-import "./globals.css";
-import { cn } from "~/lib/utils/utils";
-import Navbar from "~/components/customs/navbar/navbar";
-import { ThemeProvider } from "~/components/customs/theme-provider";
-import { Footer } from "~/components/customs/footer/footer";
-import { HideAt } from "~/components/customs/show-at";
 import BurntWrapper from "~/components/customs/burnt-wrapper";
+import { Footer } from "~/components/customs/footer/footer";
+import Navbar from "~/components/customs/navbar/navbar";
+import { HideAt } from "~/components/customs/show-at";
+import { ThemeProvider } from "~/components/customs/theme-provider";
+import { cn } from "~/lib/utils/utils";
+import "./globals.css";
 
 const inter = Figtree({
   subsets: ["latin"],
@@ -14,15 +15,37 @@ const inter = Figtree({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
+import type { Metadata } from "next";
+
 export const metadata: Metadata = {
-  title: "Mintyplex - NFT Marketplace",
-  description: "Discover, buy and sell NFTs on Mintyplex",
-  metadataBase: new URL("https://testnet.mintyplex.com/"),
-  alternates: {
-    canonical: "/",
-  },
+  title: "Mintyplex - Digital Marketplace",
+  description: "Discover, buy and sell Digitals on Mintyplex",
   openGraph: {
-    images: "/opengraph-image.jpg",
+    url: "https://testnet.mintyplex.com/",
+    type: "website",
+    title: "Mintyplex - Digital Marketplace",
+    description: "Discover, buy and sell Digitals on Mintyplex",
+    images: [
+      {
+        url: "https://opengraph.b-cdn.net/production/documents/71547070-99da-47bc-b4fd-c0f513608ba7.jpg?token=U0NgindjiwUYjNnKV68zje0bTqT-gP51QbmGlBWCrHE&height=779&width=1200&expires=33243084907",
+        width: 1200,
+        height: 779,
+        alt: "Mintyplex - Digital Marketplace",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@mintyplex",
+    description: "Discover, buy and sell Digitals on Mintyplex",
+    title: "Mintyplex - Digital Marketplace",
+    images: {
+      url: "https://opengraph.b-cdn.net/production/documents/71547070-99da-47bc-b4fd-c0f513608ba7.jpg?token=U0NgindjiwUYjNnKV68zje0bTqT-gP51QbmGlBWCrHE&height=779&width=1200&expires=33243084907",
+      width: 1200,
+      height: 779,
+      alt: "Mintyplex - Digital Marketplace",
+    },
+    site: "testnet.mintyplex.com",
   },
 };
 
@@ -31,42 +54,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Something is wrong with the open graph of the meta data
   return (
     <html lang="en" className="bg-mintyplex-dark">
-      <title>Mintyplex - NFT Marketplace</title>
-      <meta
-        name="description"
-        content="Discover, buy and sell NFTs on Mintyplex"
-      />
-
-      <meta property="og:url" content="https://testnet.mintyplex.com/" />
-      <meta property="og:type" content="website" />
-      <meta property="og:title" content="Mintyplex - NFT Marketplace" />
-      <meta
-        property="og:description"
-        content="Discover, buy and sell NFTs on Mintyplex"
-      />
-      <meta
-        property="og:image"
-        content="https://opengraph.b-cdn.net/production/documents/71547070-99da-47bc-b4fd-c0f513608ba7.jpg?token=U0NgindjiwUYjNnKV68zje0bTqT-gP51QbmGlBWCrHE&height=779&width=1200&expires=33243084907"
-      />
-
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:domain" content="testnet.mintyplex.com" />
-      <meta property="twitter:url" content="https://testnet.mintyplex.com/" />
-      <meta name="twitter:title" content="Mintyplex - NFT Marketplace" />
-      <meta
-        name="twitter:description"
-        content="Discover, buy and sell NFTs on Mintyplex"
-      />
-      <meta
-        name="twitter:image"
-        content="https://opengraph.b-cdn.net/production/documents/71547070-99da-47bc-b4fd-c0f513608ba7.jpg?token=U0NgindjiwUYjNnKV68zje0bTqT-gP51QbmGlBWCrHE&height=779&width=1200&expires=33243084907"
-      />
-
       <body className={cn(inter.className, "bg-mintyplex-dark text-white")}>
-        <BurntWrapper disable>
+        <BurntWrapper>
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"

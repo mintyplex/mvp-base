@@ -6,9 +6,9 @@ import logo from "~/public/logo.png";
 import logoLg from "~/public/logo-lg.png";
 import Link from "next/link";
 import { BsXLg } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MobileSidebar from "~/components/dashboardlayout/mobileSidebar";
-// import { useAbstraxionAccount, useAbstraxionSigningClient, Abstraxion } from '@burnt-labs/abstraxion'
+import { useAbstraxionAccount, useAbstraxionSigningClient, Abstraxion, useModal } from '@burnt-labs/abstraxion'
 import Search from "~/components/ui/Search";
 import {
   Dialog,
@@ -24,12 +24,19 @@ import {
 } from "~/components/ui/dialog";
 import { TypographyH3 } from "~/utils/typography";
 import { Input } from "~/components/ui/input";
+import { HiUserCircle } from "react-icons/hi";
+import AccountContext from "~/components/context/AccountContext";
 
-export default function Navbar() {
+// type AccpuntProps = {
+//   account?: string;
+// };
+
+export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [, setShowAbstraxion] = useModal();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [accountData, setAccountData] = useState<string | null>(null);
 
   // Function to toggle the sidebar
   const toggleSidebar = () => {
@@ -41,118 +48,135 @@ export default function Navbar() {
   };
 
   // XION
-  // const { data: account } = useAbstraxionAccount();
-  // const { client } = useAbstraxionSigningClient();
+  const { data: account } = useAbstraxionAccount();
+  const { client } = useAbstraxionSigningClient();
+  console.log(account.bech32Address);
 
-  // console.log(account)
-  // console.log(client)
+  const profile = account.bech32Address;
+
+  useEffect(() => {
+    setIsLoggedIn(!!profile);
+    setAccountData(profile);
+  }, [profile]);
+
+  //  setAccountData = account.bech32Address
+
+
+  // Truncate
+  const truncate = (input: string) =>
+    input?.length > 12 ? `${input.substring(0, 10)}...` : input;
 
   return (
-    <header className="border-b border-mintyplex-border">
-      <nav className="container flex items-center justify-between p-3 mx-auto">
-        <Link href="/">
-          <div className="flex items-center gap-1">
-            <Image
-              className="hidden md:block"
-              quality="100"
-              alt="Mintyplex Logo"
-              src={logoLg}
-              height={28}
-              fetchPriority="high"
-              priority
-            />
-            <Image
-              className="md:hidden"
-              alt="Mintyplex Logo"
-              src={logo}
-              height={30}
-              fetchPriority="high"
-              priority
-            />
-          </div>
-        </Link>
-        <div className="flex items-center gap-4">
-          <div className="items-center w-[300px] px-3 mx-auto overflow-hidden border border-white rounded-[8px] hidden md:flex gap-3 focus-within:border-brand1 transition-all duration-300">
-            <Search />
-            <input
-              type="search"
-              name="search"
-              className="w-full py-3 text-sm bg-transparent outline-none bg-opacity-0 focus:outline-none"
-              placeholder="Search product"
-            />
-          </div>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className=" md:hidden" size="icon" variant="ghost">
-                <SearchIcon />
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <TypographyH3>Search Mintyplex</TypographyH3>
-              <Input placeholder="Search Mintyplex..." />
-              <Button className="flex items-center justify-center gap-3 transition-all duration-300">
-                <SearchIcon /> <span className="text-[#E9E9E9]">Search</span>
-              </Button>
-            </DialogContent>
-          </Dialog>
-          <Link href="/cart">
-            <Button
-              variant="ghost"
-              className="border border-mintyplex-border"
-              size="icon"
-            >
-              <CartIcon />
-            </Button>
+    <AccountContext.Provider value={accountData}>
+      <header className="border-b border-mintyplex-border">
+        <nav className="container flex items-center justify-between p-3 mx-auto">
+          <Link href="/">
+            <div className="flex items-center gap-1">
+              <Image
+                className="hidden md:block"
+                quality="100"
+                alt="Mintyplex Logo"
+                src={logoLg}
+                height={28}
+                fetchPriority="high"
+                priority
+              />
+              <Image
+                className="md:hidden"
+                alt="Mintyplex Logo"
+                src={logo}
+                height={30}
+                fetchPriority="high"
+                priority
+              />
+            </div>
           </Link>
-          <div className="md:block hidden">
-            {/* <Link href='/dashboard'>
-          <div className="hidden md:block">
-            <Link href="/dashboard">
+          <div className="flex items-center gap-4">
+            <div className="items-center w-[300px] px-3 mx-auto overflow-hidden border border-white rounded-[8px] hidden md:flex gap-3 focus-within:border-brand1 transition-all duration-300">
+              <Search />
+              <input
+                type="search"
+                name="search"
+                className="w-full py-3 text-sm bg-transparent outline-none bg-opacity-0 focus:outline-none"
+                placeholder="Search product"
+              />
+            </div>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="md:hidden" size="icon" variant="ghost">
+                  <SearchIcon />
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <TypographyH3>Search Mintyplex</TypographyH3>
+                <Input placeholder="Search Mintyplex..." />
+                <Button className="flex items-center justify-center gap-3 transition-all duration-300 bg-mintyplex-primary">
+                  <SearchIcon /> <span className="text-[#E9E9E9]">Search</span>
+                </Button>
+              </DialogContent>
+            </Dialog>
+            <Link href="/cart">
               <Button
                 variant="ghost"
                 className="border border-mintyplex-border"
                 size="icon"
               >
-                <HiUserCircle size={24} />
+                <CartIcon />
               </Button>
-            </Link> */}
-            {/* <Abstraxion onClose={() => setIsOpen(false)} isOpen={isOpen} /> */}
-            <button
-              onClick={() => setIsOpen(true)}
-              className="rounded-[8px] text-[14px] px-5 py-2 bg-mintyplex-primary hover:bg-mintyplex-border"
+            </Link>
+            <div className="hidden md:block">
+              <div className="hidden md:block">
+                {account.bech32Address ? (
+                  <div onClick={() => setShowAbstraxion(true)}>
+                    <Button
+                      variant="ghost"
+                      className="border border-mintyplex-border"
+                      size="icon"
+                    >
+                      {/* <p>{truncate(account.bech32Address)}</p> */}
+                      <HiUserCircle size={24} />
+                    </Button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setShowAbstraxion(true)}
+                    className="rounded-[8px] text-[14px] px-5 py-2 bg-mintyplex-primary hover:bg-mintyplex-border"
+                  >
+                    Connect Wallet{" "}
+                  </button>
+                )}
+                <Abstraxion onClose={() => { setShowAbstraxion(false); }} />
+              </div>
+            </div>
+            <Button
+              className="block md:hidden"
+              variant="ghost"
+              size="icon"
+              onClick={toggleSidebar}
             >
-              Connect Wallet{" "}
-            </button>
+              <Hamburger />
+            </Button>
           </div>
-          <Button
-            className="block md:hidden"
-            variant="ghost"
-            size="icon"
-            onClick={toggleSidebar}
-          >
-            <Hamburger />
-          </Button>
-        </div>
-      </nav>
-      <div
-        id="sidebar"
-        className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${
-          isSidebarOpen ? "" : "-translate-x-full"
-        }`}
-      >
+        </nav>
         <div
-          className="flex justify-end w-full mb-[50px] px-6 py-3 z-[11111]"
-          onClick={closeSidebar}
+          id="sidebar"
+          className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? "":"-translate-x-full"
+            }`}
         >
-          <p className="p-2 border rounded-full">
-            <BsXLg />
-          </p>
+          <div
+            className="flex justify-end w-full mb-[50px] px-6 py-3 z-[11111]"
+            onClick={closeSidebar}
+          >
+            <p className="p-2 border rounded-full">
+              <BsXLg />
+            </p>
+          </div>
+          <div className="w-full mt-4">
+            <MobileSidebar setShowAbstraxion={setShowAbstraxion} closeSidebar={closeSidebar} isLoggedIn={isLoggedIn} />
+          </div>
         </div>
-        <div className="w-full mt-4">
-          <MobileSidebar closeSidebar={closeSidebar} isLoggedIn={isLoggedIn} />
-        </div>
-      </div>
-    </header>
+      </header>
+    </AccountContext.Provider>
   );
 }
 
