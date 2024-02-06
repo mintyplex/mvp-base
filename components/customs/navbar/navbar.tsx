@@ -103,14 +103,14 @@ export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
             </div>
             <Dialog>
               <DialogTrigger asChild>
-                <Button className=" md:hidden" size="icon" variant="ghost">
+                <Button className="md:hidden" size="icon" variant="ghost">
                   <SearchIcon />
                 </Button>
               </DialogTrigger>
               <DialogContent>
                 <TypographyH3>Search Mintyplex</TypographyH3>
                 <Input placeholder="Search Mintyplex..." />
-                <Button className="flex items-center justify-center gap-3 transition-all duration-300">
+                <Button className="flex items-center justify-center gap-3 transition-all duration-300 bg-mintyplex-primary">
                   <SearchIcon /> <span className="text-[#E9E9E9]">Search</span>
                 </Button>
               </DialogContent>
@@ -124,7 +124,7 @@ export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
                 <CartIcon />
               </Button>
             </Link>
-            <div className="md:block hidden">
+            <div className="hidden md:block">
               <div className="hidden md:block">
                 {account.bech32Address ? (
                   <div onClick={() => setShowAbstraxion(true)}>
@@ -160,7 +160,7 @@ export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
         </nav>
         <div
           id="sidebar"
-          className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? "" : "-translate-x-full"
+          className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? "":"-translate-x-full"
             }`}
         >
           <div
