@@ -1,4 +1,4 @@
-import React,{useRef,useState} from "react";
+import React, { useRef, useState } from "react";
 import ReuseableBackground from "./ReuseableBackground";
 import { MdCancel } from "react-icons/md";
 import {
@@ -20,32 +20,42 @@ const people = [
   { name: "Hellen Schmidt" },
 ];
 
-
-
+type SelectedImage = {
+  name: string;
+  size: number;
+  type: string;
+  url: string | ArrayBuffer | null;
+};
 
 const ProductForm = () => {
-  const fileInputRef = useRef(null);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(
+    null
+  );
 
   const handleDivClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleFileChange = (event: { target: { files: any[]; }; }) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setSelectedImage({
-          name: file.name,
-          size: file.size,
-          type: file.type,
-          url: reader.result,
-        });
-      };
-      reader.readAsDataURL(file);
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
     }
   };
+
+  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setSelectedImage({
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            url: reader.result,
+          });
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  }
   return (
     <div>
       <div className="py-4 md:py-7 bg-[rgb(28,30,30)]">
@@ -138,15 +148,15 @@ const ProductForm = () => {
         <p className="text-2xl font-semibold">More Details</p>
       </div>
       <ReuseableBackground>
-        
-        <div className="flex items-center justify-center gap-4 rounded-lg  mt-6 bg-[#1D1E1F] py-4 " >
+        <div className="flex items-center justify-center gap-4 rounded-lg  mt-6 bg-[#1D1E1F] py-4 ">
           <h1 className="flex items-center justify-center text-base">
             Downloadable file
           </h1>
         </div>
 
-        <div className="flex items-center justify-center gap-4 rounded-lg  mt-6 bg-[#1D1E1F] py-4 " 
-        onClick={handleDivClick}
+        <div
+          className="flex items-center justify-center gap-4 rounded-lg  mt-6 bg-[#1D1E1F] py-4 "
+          onClick={handleDivClick}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -178,30 +188,32 @@ const ProductForm = () => {
             />
           </svg>
           <div className="flex flex-col items-center justify-center">
-        <h1 className="flex items-center justify-center text-base">
-          {selectedImage ? selectedImage.name : 'Upload a file or drag and drop'}
-        </h1>
-        {selectedImage && (
-          <div className="flex flex-col items-center justify-center">
-            {/* <p className="max-w-[300px]">{selectedImage.url}</p> */}
-            <h1 className="flex justify-center items-center text-[13px] mt-2">
-              {selectedImage.size} bytes | {selectedImage.type}
+            <h1 className="flex items-center justify-center text-base">
+              {selectedImage
+                ? selectedImage.name
+                : "Upload a file or drag and drop"}
             </h1>
+            {selectedImage && (
+              <div className="flex flex-col items-center justify-center">
+                {/* <p className="max-w-[300px]">{selectedImage.url}</p> */}
+                <h1 className="flex justify-center items-center text-[13px] mt-2">
+                  {selectedImage.size} bytes | {selectedImage.type}
+                </h1>
+              </div>
+            )}
+            {!selectedImage && (
+              <h1 className="flex justify-center items-center text-[13px]">
+                PNG or JPEG upto 5MB
+              </h1>
+            )}
+            <input
+              type="file"
+              accept="image/png, image/jpeg"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+            />
           </div>
-        )}
-        {!selectedImage && (
-          <h1 className="flex justify-center items-center text-[13px]">
-            PNG or JPEG upto 5MB
-          </h1>
-        )}
-        <input
-          type="file"
-          accept="image/png, image/jpeg"
-          className="hidden"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-        />
-      </div>
         </div>
 
         <form className="flex flex-col py-5 gap-6">
@@ -219,11 +231,10 @@ const ProductForm = () => {
               Set Quantity to <span className="text-[#2063F2]">0</span> for
               unlimited
             </p>
-            
           </div>
           <div className="grid md:hidden grid-cols-2 gap-3">
             <div className="form">
-            <div className="relative">
+              <div className="relative">
                 <Select>
                   <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
                     <SelectValue placeholder="Atribute" />
@@ -244,7 +255,7 @@ const ProductForm = () => {
               </label>
             </div>
             <div className="form">
-            <div className="relative">
+              <div className="relative">
                 <Select>
                   <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
                     <SelectValue placeholder="Names" />
@@ -263,7 +274,7 @@ const ProductForm = () => {
             </div>
           </div>
 
-          <div className="md:hidden  flex justify-end gap-2 md:gap-4 pt-4 items-center ">
+          <div className="flex items-center justify-end pt-4 md:hidden gap-2 md:gap-4">
             <button className="px-2 py-2 rounded-md font-normal text-[14px] md:text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 md:gap-4 items-center">
               <MdCancel />
               Face: Beauitful
@@ -354,7 +365,11 @@ const ProductForm = () => {
 };
 
 export default ProductForm;
-function setSelectedImage(arg0: { name: any; size: any; type: any; url: string | ArrayBuffer | null; }) {
+function setSelectedImage(arg0: {
+  name: any;
+  size: any;
+  type: any;
+  url: string | ArrayBuffer | null;
+}) {
   throw new Error("Function not implemented.");
 }
-
