@@ -150,7 +150,7 @@ const AddProduct: React.FC = () => {
               src="/add.png"
               width={395}
               height={300}
-              className=" h-80 w-80 md:w-full"
+              className=" h-40 md:h-80 w-80 md:w-full"
               alt={""}
             />
 

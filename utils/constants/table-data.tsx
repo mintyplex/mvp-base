@@ -48,7 +48,7 @@ export const data = [
       {
         content: (
           <button className="rounded-lg py-2 px-4 bg-slate-500">
-            inactive
+            In Active
           </button>
         ),
       },

@@ -5,10 +5,6 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 const people = [
   { name: "Active" },
   { name: "in Active" },
-  { name: "Active" },
-  { name: "in Active" },
-  { name: "Active" },
-  { name: "in Active" },
 ];
 
 export default function Listtbox() {
