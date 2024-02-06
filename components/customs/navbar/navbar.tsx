@@ -31,7 +31,7 @@ import AccountContext from "~/components/context/AccountContext";
 //   account?: string;
 // };
 
-export default function Navbar() {
+export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [, setShowAbstraxion] = useModal();
 
