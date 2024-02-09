@@ -50,7 +50,7 @@ export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
   // XION
   const { data: account } = useAbstraxionAccount();
   const { client } = useAbstraxionSigningClient();
-  console.log(account.bech32Address);
+  console.log(account.bech32Address, client);
 
   const profile = account.bech32Address;
 
