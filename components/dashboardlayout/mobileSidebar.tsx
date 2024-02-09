@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React from "react";
+import React, { useContext } from "react";
 import curator from "~/public/curator.png";
 import { HomeIcon, UserIcon, CreditCardIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
@@ -17,6 +17,7 @@ import TwitterIcon from "../ui/TwitterIcon";
 import TelegramIcon from "../ui/TelegramIcon";
 import { Button } from "../ui/button";
 import WalletIcon from "../ui/Wallet";
+import AccountContext from "../context/AccountContext";
 
 export const SidebarData = [
   {
@@ -26,7 +27,7 @@ export const SidebarData = [
   },
   {
     title: "Create",
-    link: "/add-product",
+    link: "/dashboard/add-product",
     id: "add-product",
   },
   {
@@ -49,6 +50,8 @@ export const SidebarData = [
 const MobileSidebar = ({ closeSidebar, isLoggedIn, setShowAbstraxion }: { closeSidebar: () => void; isLoggedIn: boolean; setShowAbstraxion: any; }) => {
   const pathname = usePathname();
 
+  const accountData = useContext(AccountContext)
+
   const filteredSidebarData = SidebarData.filter((data) => {
     if (!isLoggedIn) {
       return (
@@ -59,6 +62,10 @@ const MobileSidebar = ({ closeSidebar, isLoggedIn, setShowAbstraxion }: { closeS
     }
     return true;
   });
+
+  // Truncate
+  const truncate = (input: string) =>
+    input?.length > 12 ? `${input.substring(0, 6)}...${input.substring(17, 3)}` : input;
 
   return (
     <main className="px-6 block lg:hidden bg-brand10 fixed w-full top-14 h-fit">
@@ -74,7 +81,7 @@ const MobileSidebar = ({ closeSidebar, isLoggedIn, setShowAbstraxion }: { closeS
                 className="rounded-full border-[8px] border-mintyplex-dark"
               />
               <div className="w-fit">
-                <p className="text-[25px] font-bold capitalize">0x569...32</p>
+                <p className="text-[25px] font-bold capitalize">{truncate(accountData)}</p>
                 <p className="text-[16px] !underline text-transparent !bg-clip-text [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
                   Alpha Version
                 </p>
@@ -100,12 +107,12 @@ const MobileSidebar = ({ closeSidebar, isLoggedIn, setShowAbstraxion }: { closeS
               </div>
             ))}
             {!isLoggedIn ? (
-              <div onClick={() => { setShowAbstraxion(true); closeSidebar(); }} className={`mt-4 bg-mintyples-primary rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-mintyplex-primary bg-mintyplex-primary`}>
+              <div onClick={() => { setShowAbstraxion(true); closeSidebar(); }} className={`mt-4 bg-mintyples-primary rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-mintyplex-primary`}>
                 <p>Log In</p>
                 <WalletIcon />
               </div>
             ) : (
-              <div onClick={closeSidebar} className={`mt-4 bg-[red] rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-mintyplex-primary bg-mintyplex-primary`}>
+              <div onClick={closeSidebar} className={`mt-4 bg-[#FF0000] rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-dark`}>
                 <p>Log Out</p>
                 <WalletIcon />
               </div>
