@@ -65,7 +65,7 @@ const MobileSidebar = ({ closeSidebar, isLoggedIn, setShowAbstraxion }: { closeS
 
   // Truncate
   const truncate = (input: string) =>
-    input?.length > 12 ? `${input.substring(0, 6)}...` : input;
+    input?.length > 12 ? `${input.substring(0, 8)}...` : input;
 
   return (
     <main className="px-6 block lg:hidden bg-brand10 fixed w-full top-14 h-fit">
