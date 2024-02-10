@@ -50,7 +50,7 @@ export default function ProductDetailPage() {
         <BackButton
           variant="outline"
           size="icon"
-          className="border-input bg-white/0"
+          className="border-mintyplex-border bg-none"
         >
           <ArrowLeftIcon />
         </BackButton>

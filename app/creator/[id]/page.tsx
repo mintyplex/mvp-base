@@ -31,10 +31,14 @@ export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
   const [editModal, setEditModal] = useState(false);
 
+  const back = () => {
+    window.history.back()
+  }
+
   return (
     <>
       <section className="container relative p-3 mx-auto mt-6 space-y-6">
-        <div className="p-2 border border-mintyplex-border w-fit rounded-[8px]">
+        <div className="p-2 border border-mintyplex-border w-fit rounded-[8px] cursor-pointer" onClick={() => back()}>
           <BsArrowLeft size={20} />
         </div>
         <div className="relative w-full">
@@ -54,7 +58,7 @@ export default function Curator() {
               className="block object-cover object-center md:hidden"
             />
             <div className="absolute bottom-0 right-0 mb-4 mr-4 md:mr-6 md:mb-6">
-              <div className="p-3 rounded-full bg-mintyplex-dark">
+              <div className="p-3 rounded-full bg-mintyplex-dark cursor-pointer">
                 <FaXTwitter />
               </div>
             </div>
