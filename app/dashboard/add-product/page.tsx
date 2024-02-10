@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReuseableBackground from "~/components/ui/ReuseableBackground";
 import Image from "next/image";
 import ProductForm from "~/components/ui/ProductForm";
@@ -17,6 +17,15 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 
+
+type SelectedImage = {
+  name: string;
+  size: number;
+  type: string;
+  url: string | ArrayBuffer | null;
+};
+
+
 import {
   Carousel,
   CarouselApi,
@@ -30,6 +39,36 @@ const AddProduct: React.FC = () => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(
+    null
+  );
+
+  const handleDivClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setSelectedImage({
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            url: reader.result,
+          });
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  }
+
   useEffect(() => {
     if (image) {
       const reader = new FileReader();
@@ -145,14 +184,67 @@ const AddProduct: React.FC = () => {
             <h1 className="px-4 text-base">
               Image <span className="text-red-600">*</span>
             </h1>
-
-            <Image
-              src="/add.png"
-              width={395}
-              height={300}
-              className=" h-40 md:h-80 w-80 md:w-full"
-              alt={""}
+       <div
+          className="flex flex-col items-center h-64 md:h-80 justify-center gap-4 rounded-lg  mt-6 bg-[#1D1E1F] py-4 "
+          onClick={handleDivClick}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+          >
+            <path
+              d="M13.4375 17.1875L20 23.75L26.5625 17.1875"
+              stroke="#E9E9E9"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
+            <path
+              d="M20 6.25V23.75"
+              stroke="#E9E9E9"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M33.75 23.75V32.5C33.75 32.8315 33.6183 33.1495 33.3839 33.3839C33.1495 33.6183 32.8315 33.75 32.5 33.75H7.5C7.16848 33.75 6.85054 33.6183 6.61612 33.3839C6.3817 33.1495 6.25 32.8315 6.25 32.5V23.75"
+              stroke="#E9E9E9"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <div className="flex flex-col items-center justify-center">
+            <h1 className="flex items-center justify-center text-[19px] md:text-[25px]">
+              {selectedImage
+                ? selectedImage.name
+                : "Upload a file or drag and drop"}
+            </h1>
+            {selectedImage && (
+              <div className="flex flex-col items-center justify-center">
+                {/* <p className="max-w-[300px]">{selectedImage.url}</p> */}
+                <h1 className="flex justify-center items-center text-base md:text-[20px] ">
+                  {selectedImage.size} bytes | {selectedImage.type}
+                </h1>
+              </div>
+            )}
+            {!selectedImage && (
+              <h1 className="flex justify-center items-center text-[13px]">
+                PNG or JPEG upto 5MB
+              </h1>
+            )}
+            <input
+              type="file"
+              accept="image/png, image/jpeg"
+              className="hidden"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+            />
+          </div>
+        </div>
 
             {/* <div className="grid grid-cols-3 gap-4 py-6">
               <div className="relative">
