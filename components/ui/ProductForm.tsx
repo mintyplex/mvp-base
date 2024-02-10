@@ -254,24 +254,18 @@ const ProductForm = () => {
                 Attribute
               </label>
             </div>
-            <div className="form">
-              <div className="relative">
-                <Select>
-                  <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
-                    <SelectValue placeholder="Names" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[rgb(99,99,99)]">
-                    <SelectGroup>
-                      <SelectLabel>Names</SelectLabel>
-                      <SelectItem value="apple">Beautifull</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-              <label htmlFor="" className="px-4 text-sm">
-                Names
-              </label>
-            </div>
+            <div className=" form">
+            <input
+              type="text"
+              className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
+              placeholder="names"
+              required
+            />
+            <label htmlFor="" className="px-4 text-sm">
+              names
+            </label>
+
+          </div>
           </div>
 
           <div className="flex items-center justify-end pt-4 md:hidden gap-2 md:gap-4">
@@ -328,25 +322,18 @@ const ProductForm = () => {
                 Attribute
               </label>
             </div>
+        <div className=" form">
+            <input
+              type="text"
+              className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
+              placeholder="names"
+              required
+            />
+            <label htmlFor="" className="px-4 text-sm">
+              names
+            </label>
 
-            <div className="form">
-              <div className="relative">
-                <Select>
-                  <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
-                    <SelectValue placeholder="Names" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[rgb(99,99,99)]">
-                    <SelectGroup>
-                      <SelectLabel>Names</SelectLabel>
-                      <SelectItem value="apple">Beautifull</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-              <label htmlFor="" className="px-4 text-sm">
-                Names
-              </label>
-            </div>
+          </div>
           </div>
 
           <div className="items-center justify-end hidden pt-4 md:flex gap-2 md:gap-4">
@@ -360,6 +347,9 @@ const ProductForm = () => {
           </div>
         </form>
       </ReuseableBackground>
+
+      <button className="md:hidden block bg-mintyplex-primary w-full text-center py-4 px-24 rounded-md my-6">Create Profile</button>
+
     </div>
   );
 };
