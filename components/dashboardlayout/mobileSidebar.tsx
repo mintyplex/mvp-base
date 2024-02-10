@@ -18,6 +18,7 @@ import TelegramIcon from "../ui/TelegramIcon";
 import { Button } from "../ui/button";
 import WalletIcon from "../ui/Wallet";
 import AccountContext from "../context/AccountContext";
+import { truncate } from "~/utils/truncate";
 
 export const SidebarData = [
   {
@@ -63,10 +64,6 @@ const MobileSidebar = ({ closeSidebar, isLoggedIn, setShowAbstraxion }: { closeS
     return true;
   });
 
-  // Truncate
-  const truncate = (input: string) =>
-    input?.length > 12 ? `${input.substring(0, 8)}...` : input;
-
   return (
     <main className="px-6 block lg:hidden bg-brand10 fixed w-full top-14 h-fit">
       <div className="border-[1px] border-mintyplex-border rounded-[12px] p-4 flex lg:hidden flex-col items-start gap-6">
@@ -81,7 +78,7 @@ const MobileSidebar = ({ closeSidebar, isLoggedIn, setShowAbstraxion }: { closeS
                 className="rounded-full border-[8px] border-mintyplex-dark"
               />
               <div className="w-fit">
-                <p className="text-[25px] font-bold capitalize">{truncate(accountData)}</p>
+                <p className="text-[28px] font-bold capitalize">{truncate(accountData)}</p>
                 <p className="text-[16px] !underline text-transparent !bg-clip-text [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
                   Alpha Version
                 </p>

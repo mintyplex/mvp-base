@@ -50,7 +50,7 @@ export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
   // XION
   const { data: account } = useAbstraxionAccount();
   const { client } = useAbstraxionSigningClient();
-  console.log(account.bech32Address, client);
+  // console.log(account.bech32Address, client);
 
   const profile = account.bech32Address;
 
@@ -60,11 +60,6 @@ export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
   }, [profile]);
 
   //  setAccountData = account.bech32Address
-
-
-  // Truncate
-  const truncate = (input: string) =>
-    input?.length > 12 ? `${input.substring(0, 10)}...` : input;
 
   return (
     <AccountContext.Provider value={accountData}>
