@@ -98,7 +98,7 @@ const ProductForm = () => {
               required
             />
             <label htmlFor="" className="px-4 text-sm">
-              Discount ($) <span className="text-red-600">*</span>
+              Discount (%) <span className="text-red-600">*</span>
             </label>
           </div>
         </form>
@@ -348,7 +348,7 @@ const ProductForm = () => {
         </form>
       </ReuseableBackground>
 
-      <button className="md:hidden block bg-mintyplex-primary w-full text-center py-4 px-24 rounded-md my-6">Create Profile</button>
+      <button className="md:hidden block bg-mintyplex-primary w-full text-center py-4 px-24 rounded-md my-6">Create Product</button>
 
     </div>
   );

@@ -221,7 +221,7 @@ const AddProduct: React.FC = () => {
             <h1 className="flex items-center justify-center text-[19px] md:text-[25px]">
               {selectedImage
                 ? selectedImage.name
-                : "Upload a file or drag and drop"}
+                : "Upload an Image or drag and drop"}
             </h1>
             {selectedImage && (
               <div className="flex flex-col items-center justify-center">
