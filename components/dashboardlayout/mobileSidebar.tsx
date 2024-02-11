@@ -105,7 +105,7 @@ const MobileSidebar = ({ closeSidebar, isLoggedIn, setShowAbstraxion }: { closeS
             ))}
             {!isLoggedIn ? (
               <div onClick={() => { setShowAbstraxion(true); closeSidebar(); }} className={`mt-4 bg-mintyples-primary rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-mintyplex-primary`}>
-                <p>Log In</p>
+                <p>Login</p>
                 <WalletIcon />
               </div>
             ) : (

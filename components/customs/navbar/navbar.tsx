@@ -137,7 +137,7 @@ export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
                     onClick={() => setShowAbstraxion(true)}
                     className="rounded-[8px] text-[14px] px-5 py-2 bg-mintyplex-primary hover:bg-mintyplex-border"
                   >
-                    Connect Wallet{" "}
+                    Login{" "}
                   </button>
                 )}
                 <Abstraxion onClose={() => { setShowAbstraxion(false); }} />
