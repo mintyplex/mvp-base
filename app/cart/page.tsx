@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
+import { BsExclamationCircle } from "react-icons/bs";
 import { HiTrash } from "react-icons/hi";
 import { Button } from "~/components/ui/button";
 import { TooltipProvider } from "~/components/ui/tooltip";
@@ -29,9 +31,11 @@ export default function Cart() {
           <div className="mt-6 space-y-8">
             <div className="flex items-center justify-between">
               <TypographyH3>My Cart</TypographyH3>
-              <Button className="px-6 w-fit active:scale-95 transition-all duration-300 bg-mintyplex-primary">
-                <span className="text-white">Continue Shopping</span>
-              </Button>
+              <Link href='/popular-products'>
+                <Button className="px-6 w-fit active:scale-95 transition-all duration-300 bg-mintyplex-primary">
+                  <span className="text-white">Continue Shopping</span>
+                </Button>
+              </Link>
             </div>
             <div className="flex flex-col justify-between w-full lg:flex-row gap-6">
               <div className="w-full space-y-4 rounded-[8px] bg-[#2C2D2E]">
@@ -63,17 +67,23 @@ export default function Cart() {
                 </TypographyH3>
                 <div className="flex items-center w-full gap-2">
                   {tabs.map((tab, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setActiveTab(index)}
-                      className={`py-[10px] px-[14px] w-full text-center font-[500] text-[14px] rounded-[10px] hover:bg-mintyplex-primary  ${
-                        activeTab === index
+                    <div key={index} className="relative w-[100%]">
+                      <button
+                        key={index}
+                        onClick={() => setActiveTab(index)}
+                        className={`py-[10px] px-[14px] w-full text-center font-[500] text-[14px] rounded-[10px] hover:bg-mintyplex-primary  ${activeTab === index
                           ? "bg-mintyplex-primary"
                           : "bg-mintyplex-dark"
-                      }`}
-                    >
-                      {tab.title}
-                    </button>
+                          }`}
+                      >
+                        {tab.title}
+                      </button>
+                      {tab.title === 'Pay with card' && (
+                        <div className="absolute top-[-26%] left-[6%] !bg-[#313233] px-2 rounded-[5px] text-[10px] font-semibold">
+                          <p className="text-transparent !bg-clip-text [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">Coming soon</p>
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
                 {activeTab === 0 && (
@@ -108,11 +118,11 @@ export default function Cart() {
                   </div>
                 )}
                 {activeTab === 1 && (
-                  <div className="flex flex-col w-full mt-4 gap-2">
-                    {/* <p></p> */}
-                    <Button className="w-full px-6 py-6 active:scale-95 transition-all duration-300 bg-mintyplex-primary">
-                      <span className="text-white">Pay Now</span>
-                    </Button>
+                  <div className="flex flex-col w-full mt-4 gap-2 w-full">
+                    <div className="flex flex-col items-center gap-2 w-full my-[16px]">
+                      <BsExclamationCircle size={25} />
+                      <p className="italic">Coming soon!</p>
+                    </div>
                   </div>
                 )}
               </div>

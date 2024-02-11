@@ -22,7 +22,7 @@ export const SidebarData = [
   {
     title: "Profile",
     icon: <HiUserCircle size={25} />,
-    link: "/profile",
+    link: "/creator/32",
     id: "profile",
   },
 ];
