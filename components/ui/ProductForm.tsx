@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import ReuseableBackground from "./ReuseableBackground";
 import { MdCancel } from "react-icons/md";
 import {
@@ -32,6 +32,55 @@ const ProductForm = () => {
   const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(
     null
   );
+  const [tags, setTags] = useState([]);
+  const [inputValuee, setInputValuee] = useState('');
+
+  // const [inputValue, setInputValue] = useState<string>('');
+
+  const updateSelectOptions = (event: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value.toLowerCase();
+    const select = document.getElementById('attributeSelect') as HTMLSelectElement;
+
+    // Clear previous options
+    select.innerHTML = '<option value="" selected disabled>Attribute</option>';
+
+    // Example options based on inputValue
+    if (inputValue.includes('artwork')) {
+      select.innerHTML += `
+        <option value="Artwork">AResolution:</option>
+        <option value="PColor Profile">PColor Profile:</option>
+        <option value="Printability">Printability</option>
+        <option value="Dimensions:">Dimensions:</option>
+      `;
+    }
+    if (inputValue.includes('ebook')) {
+      select.innerHTML += `
+        <option value="File Format">File Format</option>
+        <option value="Page Count">Page Count</option>
+        <option value="Language">Language</option>
+      `;
+    }
+    if (inputValue.includes('photography')) {
+      select.innerHTML += `
+        <option value="Color Profile">Color Profile</option>
+        <option value="Dimensions">Dimensions</option>
+        <option value="Resolution">Resolution</option>
+      `;
+    }
+  };
+  
+ 
+
+  const handleInputChange = (e) => {
+    setInputValuee(e.target.value);
+  };
+
+  const handleAddTag = () => {
+    if (inputValuee.trim() !== '') {
+      setTags([...tags, inputValuee.trim()]);
+      setInputValuee('');
+    }
+  };
 
   const handleDivClick = () => {
     if (fileInputRef.current) {
@@ -98,7 +147,7 @@ const ProductForm = () => {
               required
             />
             <label htmlFor="" className="px-4 text-sm">
-              Discount (%) <span className="text-red-600">*</span>
+              Discount (%) 
             </label>
           </div>
         </form>
@@ -148,7 +197,7 @@ const ProductForm = () => {
         <p className="text-2xl font-semibold">More Details</p>
       </div>
       <ReuseableBackground>
-        <div className="flex items-center justify-center gap-4 rounded-lg  mt-6 bg-[#1D1E1F] py-4 ">
+        <div className="flex items-center justify-center gap-4 rounded-lg  mt-6 bg-[#1E293B] py-4 ">
           <h1 className="flex items-center justify-center text-base">
             Downloadable file
           </h1>
@@ -203,7 +252,7 @@ const ProductForm = () => {
             )}
             {!selectedImage && (
               <h1 className="flex justify-center items-center text-[13px]">
-                PNG or JPEG upto 5MB
+                PNG or JPEG  PDF, EPUB, MOBI upto 5MB
               </h1>
             )}
             <input
@@ -257,12 +306,12 @@ const ProductForm = () => {
             <div className=" form">
             <input
               type="text"
-              className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
-              placeholder="names"
+              className="p-4 border-2 text-base border-[rgb(99,99,99)] placeholder:text-[14px] "
+              placeholder="value"
               required
             />
             <label htmlFor="" className="px-4 text-sm">
-              names
+              Value
             </label>
 
           </div>
@@ -281,6 +330,8 @@ const ProductForm = () => {
           <div className="form">
             <input
               type="text"
+              value={inputValuee}
+              onChange={handleInputChange}
               className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
               placeholder="0"
               required
@@ -291,50 +342,40 @@ const ProductForm = () => {
           </div>
 
           <div className="flex items-center justify-end gap-4">
-            <button className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 items-center">
-              <MdCancel />
-              Web3
-            </button>
-            <button className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center">
+
+            {tags.map((tag, index) => (
+                      <button key={index}  className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 items-center">
+                      <MdCancel />
+                      {tag}
+                    </button>
+        ))}
+            <button className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center" onClick={handleAddTag}> 
               Add tags
             </button>
           </div>
-
-          <div className="hidden md:grid grid-cols-2 gap-3">
-            <div className="form">
-              <div className="relative">
-                <Select>
-                  <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
-                    <SelectValue placeholder="Atribute" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[rgb(99,99,99)]">
-                    <SelectGroup>
-                      <SelectLabel>Atribute</SelectLabel>
-                      <SelectItem value="apple">Digital Content</SelectItem>
-                      <SelectItem value="banana">video Clip</SelectItem>
-                      <SelectItem value="blueberry">Art work</SelectItem>
-                      <SelectItem value="grapes">Beautifull</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-              <label htmlFor="" className="px-4 text-sm">
-                Attribute
-              </label>
-            </div>
-        <div className=" form">
-            <input
-              type="text"
-              className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
-              placeholder="names"
-              required
-            />
-            <label htmlFor="" className="px-4 text-sm">
-              names
-            </label>
-
-          </div>
-          </div>
+                {/* desktop-part */}
+      <div className="hidden md:grid grid-cols-2 gap-3">
+      <div className="form">
+        <div className="relative ">
+          <select id="attributeSelect" className="p-4 py-6 border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)]  rounded-lg w-full outline-none placeholder:text-[14px]">
+            <option className="hover:bg-[rgb(30,49,59)]" value="" selected disabled>Attribute</option>
+          </select>
+        </div>
+        <label htmlFor="attributeSelect" className="px-4 text-sm">Attribute</label>
+      </div>
+      <div className="form">
+        <input
+          type="text"
+          id="inputValues"
+          className="p-4 border-2 text-base border-[rgb(99,99,99)] placeholder:text-[14px]"
+          placeholder="values"
+          required
+          onChange={updateSelectOptions}
+        />
+        <label htmlFor="inputValues" className="px-4 text-sm">Values</label>
+      </div>
+    </div>
+           {/* desktop-part */}
 
           <div className="items-center justify-end hidden pt-4 md:flex gap-2 md:gap-4">
             <button className="px-2 py-2 rounded-md font-normal text-[14px] md:text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 md:gap-4 items-center">
