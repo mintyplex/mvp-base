@@ -281,41 +281,27 @@ const ProductForm = () => {
               unlimited
             </p>
           </div>
-          <div className="grid md:hidden grid-cols-2 gap-3">
-            <div className="form">
-              <div className="relative">
-                <Select>
-                  <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
-                    <SelectValue placeholder="Atribute" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[rgb(99,99,99)]">
-                    <SelectGroup>
-                      <SelectLabel>Atribute</SelectLabel>
-                      <SelectItem value="apple">Digital Content</SelectItem>
-                      <SelectItem value="banana">video Clip</SelectItem>
-                      <SelectItem value="blueberry">Art work</SelectItem>
-                      <SelectItem value="grapes">Beautifull</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-              <label htmlFor="" className="px-4 text-sm">
-                Attribute
-              </label>
-            </div>
-            <div className=" form">
-            <input
-              type="text"
-              className="p-4 border-2 text-base border-[rgb(99,99,99)] placeholder:text-[14px] "
-              placeholder="value"
-              required
-            />
-            <label htmlFor="" className="px-4 text-sm">
-              Value
-            </label>
-
-          </div>
-          </div>
+          <div className="md:hidden grid grid-cols-2 gap-3">
+      <div className="form">
+        <div className="relative ">
+          <select id="attributeSelect" className="p-4  border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)]  rounded-lg w-full outline-none placeholder:text-[14px]">
+            <option className="hover:bg-[rgb(30,49,59)]" value="" selected disabled>Attribute</option>
+          </select>
+        </div>
+        <label htmlFor="attributeSelect" className="px-4 text-sm">Attribute</label>
+      </div>
+      <div className="form">
+        <input
+          type="text"
+          id="inputValues"
+          className="p-4 border-2 text-base border-[rgb(99,99,99)] placeholder:text-[14px]"
+          placeholder="values"
+          required
+          onChange={updateSelectOptions}
+        />
+        <label htmlFor="inputValues" className="px-4 text-sm">Values</label>
+      </div>
+    </div>
 
           <div className="flex items-center justify-end pt-4 md:hidden gap-2 md:gap-4">
             <button className="px-2 py-2 rounded-md font-normal text-[14px] md:text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 md:gap-4 items-center">
@@ -341,13 +327,15 @@ const ProductForm = () => {
             </label>
           </div>
 
-          <div className="flex items-center justify-end gap-4">
+          <div className="flex items-center md:w-full max-w-44 flex-wrap gap-4">
 
             {tags.map((tag, index) => (
-                      <button key={index}  className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 items-center">
+                  <div key={index} className="">
+                                        <button   className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 items-center">
                       <MdCancel />
                       {tag}
                     </button>
+                  </div>
         ))}
             <button className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center" onClick={handleAddTag}> 
               Add tags
