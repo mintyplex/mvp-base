@@ -18,3 +18,13 @@ export const connectMongoDB = async () => {
     console.error(error);
   }
 };
+
+export const truncateXionAddress = (address: string) => {
+  var prefix = address.substring(0, 6);
+  var suffix = address.substring(address.length - 4);
+
+  return prefix + "..." + suffix;
+};
+
+export const mintyplexContractAddress: string =
+  "xion1h6hrq6wlfrt53aafpt27uvvrmwqeqwrcuqdy4uzcdn4jqz2sqdcq8egzfu";
