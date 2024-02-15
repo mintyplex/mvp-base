@@ -8,6 +8,21 @@ import TelegramIcon from "~/components/ui/TelegramIcon";
 import Link from "next/link";
 
 export function Footer() {
+  const links = [
+    {
+      Icon: TwitterIcon,
+      href: "https://twitter.com/Mintyplex",
+    },
+    {
+      Icon: FaFacebookF,
+      href: "https://www.facebook.com/mintyplex",
+    },
+    {
+      Icon: TelegramIcon,
+      href: "https://t.me/mintyplex",
+    },
+  ];
+
   return (
     <div className="container p-3 mx-auto mt-auto">
       <footer className="relative bg-[#2C2D2E] rounded-lg overflow-hidden px-4 py-8">
@@ -18,15 +33,17 @@ export function Footer() {
           </TypographyH4>
           <div className="flex flex-col items-center justify-center gap-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 border rounded-full transition-all duration-300 hover:bg-mintyplex-primary border-mintyplex-border/50">
-                <TwitterIcon />
-              </div>
-              <div className="p-2 border rounded-full border-mintyplex-border/50 transition-all duration-300 hover:bg-mintyplex-primary">
-                <FaFacebookF />
-              </div>
-              <div className="p-2 border rounded-full border-mintyplex-border/50 transition-all duration-300 hover:bg-mintyplex-primary">
-                <TelegramIcon />
-              </div>
+              {links.map((link, index) => (
+                <Link
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href={link.href}
+                  key={index}
+                  className="p-2 border rounded-full border-mintyplex-border/50 transition-all duration-300 hover:bg-mintyplex-primary"
+                >
+                  <link.Icon />
+                </Link>
+              ))}
             </div>
             <Button
               asChild
