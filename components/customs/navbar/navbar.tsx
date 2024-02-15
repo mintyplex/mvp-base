@@ -1,31 +1,25 @@
 "use client";
 
-import Image from "next/image";
-import { Button } from "~/components/ui/button";
-import logo from "~/public/logo.png";
-import logoLg from "~/public/logo-lg.png";
-import Link from "next/link";
-import { BsXLg } from "react-icons/bs";
-import { useEffect, useState } from "react";
-import MobileSidebar from "~/components/dashboardlayout/mobileSidebar";
-import { useAbstraxionAccount, useAbstraxionSigningClient, Abstraxion, useModal } from '@burnt-labs/abstraxion'
-import Search from "~/components/ui/Search";
 import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogOverlay,
-  DialogPortal,
-  DialogTitle,
-  DialogTrigger,
-} from "~/components/ui/dialog";
-import { TypographyH3 } from "~/utils/typography";
-import { Input } from "~/components/ui/input";
+  Abstraxion,
+  useAbstraxionAccount,
+  useAbstraxionSigningClient,
+  useModal,
+} from "@burnt-labs/abstraxion";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { BsXLg } from "react-icons/bs";
 import { HiUserCircle } from "react-icons/hi";
 import AccountContext from "~/components/context/AccountContext";
+import MobileSidebar from "~/components/dashboardlayout/mobileSidebar";
+import Search from "~/components/ui/Search";
+import { Button } from "~/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "~/components/ui/dialog";
+import { Input } from "~/components/ui/input";
+import logoLg from "~/public/logo-lg.png";
+import logo from "~/public/logo.png";
+import { TypographyH3 } from "~/utils/typography";
 
 // type AccpuntProps = {
 //   account?: string;
@@ -140,7 +134,11 @@ export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
                     Connect Wallet{" "}
                   </button>
                 )}
-                <Abstraxion onClose={() => { setShowAbstraxion(false); }} />
+                <Abstraxion
+                  onClose={() => {
+                    setShowAbstraxion(false);
+                  }}
+                />
               </div>
             </div>
             <Button
@@ -155,8 +153,9 @@ export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
         </nav>
         <div
           id="sidebar"
-          className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? "":"-translate-x-full"
-            }`}
+          className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${
+            isSidebarOpen ? "" : "-translate-x-full"
+          }`}
         >
           <div
             className="flex justify-end w-full mb-[50px] px-6 py-3 z-[11111]"
@@ -167,8 +166,11 @@ export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
             </p>
           </div>
           <div className="w-full mt-4">
-            <MobileSidebar setShowAbstraxion={setShowAbstraxion} closeSidebar={closeSidebar} isLoggedIn={isLoggedIn} />
-          </div>
+            <MobileSidebar
+              setShowAbstraxion={setShowAbstraxion}
+              closeSidebar={closeSidebar}
+              isLoggedIn={isLoggedIn}
+           
         </div>
       </header>
     </AccountContext.Provider>
