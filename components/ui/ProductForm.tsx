@@ -36,19 +36,14 @@ const ProductForm = () => {
   const [inputValuee, setInputValuee] = useState('');
 
   // const [inputValue, setInputValue] = useState<string>('');
+
   const updateSelectOptions = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.toLowerCase();
-    const parentForm = event.currentTarget.closest('form');
-    const select = document.querySelector('select') as HTMLSelectElement;
-  
-    if (!select) {
-      console.error('Select element not found');
-      return;
-    }
-  
+    const select = document.getElementById('attributeSelect') as HTMLSelectElement;
+
     // Clear previous options
     select.innerHTML = '<option value="" selected disabled>Attribute</option>';
-  
+
     // Example options based on inputValue
     if (inputValue.includes('artwork')) {
       select.innerHTML += `
@@ -73,8 +68,6 @@ const ProductForm = () => {
       `;
     }
   };
-  
-  
   
  
 
@@ -148,7 +141,7 @@ const ProductForm = () => {
 
           <div className="form">
             <input
-              type="number"
+              type="text"
               className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
               placeholder="0"
               required
@@ -298,6 +291,10 @@ const ProductForm = () => {
         </div>
         <label htmlFor="attributeSelect" className="px-4 text-sm">Attribute</label>
       </div>
+
+
+
+
       <div className="form">
         <input
           type="text"
@@ -350,10 +347,10 @@ const ProductForm = () => {
             </button>
           </div>
                 {/* desktop-part */}
-                <div className="hidden md:grid grid-cols-2 gap-3">
-  <div className="form">
+      <div className="hidden md:grid grid-cols-2 gap-3">
+      <div className="form">
         <div className="relative ">
-          <select  className="p-4  border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)]  rounded-lg w-full outline-none placeholder:text-[14px]">
+        <select id="attributeSelect" className="p-4  border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)]  rounded-lg w-full outline-none placeholder:text-[14px]">
             <option className="bg-[rgb(30,49,59)] " value="" selected disabled>Attribute</option>
           </select>
         </div>
