@@ -55,7 +55,15 @@ export function Footer() {
             </Button>
             <div className="mt-5">
               Built With <span>💙</span> By{" "}
-              <span className="text-mintyplex-primary">Mintyplex Inc.</span>
+              <span className="text-mintyplex-primary">
+                <Link
+                  href="https://www.mintyplex.com/"
+                  target="_blank"
+                  referrerPolicy="origin"
+                >
+                  Mintyplex Inc.
+                </Link>
+              </span>
             </div>
           </div>
         </div>
