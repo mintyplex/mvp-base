@@ -17,8 +17,8 @@ import TwitterIcon from "../ui/TwitterIcon";
 import TelegramIcon from "../ui/TelegramIcon";
 import { Button } from "../ui/button";
 import WalletIcon from "../ui/Wallet";
-import AccountContext from "../context/AccountContext";
 import { truncate } from "~/utils/truncate";
+import { useAccount } from "../context/AccountContext";
 
 export const SidebarData = [
   {
@@ -48,10 +48,18 @@ export const SidebarData = [
   },
 ];
 
-const MobileSidebar = ({ closeSidebar, isLoggedIn, setShowAbstraxion }: { closeSidebar: () => void; isLoggedIn: boolean; setShowAbstraxion: any; }) => {
+const MobileSidebar = ({
+  closeSidebar,
+  isLoggedIn,
+  setShowAbstraxion,
+}: {
+  closeSidebar: () => void;
+  isLoggedIn: boolean;
+  setShowAbstraxion: any;
+}) => {
   const pathname = usePathname();
 
-  const accountData = useContext(AccountContext)
+  const { accountData } = useAccount();
 
   const filteredSidebarData = SidebarData.filter((data) => {
     if (!isLoggedIn) {
@@ -65,11 +73,11 @@ const MobileSidebar = ({ closeSidebar, isLoggedIn, setShowAbstraxion }: { closeS
   });
 
   return (
-    <main className="px-6 block lg:hidden bg-brand10 fixed w-full top-14 h-fit">
+    <main className="fixed block w-full px-6 lg:hidden bg-brand10 top-14 h-fit">
       <div className="border-[1px] border-mintyplex-border rounded-[12px] p-4 flex lg:hidden flex-col items-start gap-6">
         {isLoggedIn && (
           <>
-            <div className="flex flex-col items-left justify-left gap-4 w-full">
+            <div className="flex flex-col w-full items-left justify-left gap-4">
               <Image
                 src={curator}
                 width={100}
@@ -78,7 +86,9 @@ const MobileSidebar = ({ closeSidebar, isLoggedIn, setShowAbstraxion }: { closeS
                 className="rounded-full border-[8px] border-mintyplex-dark"
               />
               <div className="w-fit">
-                <p className="text-[28px] font-bold capitalize">{truncate(accountData)}</p>
+                <p className="text-[28px] font-bold capitalize">
+                  {truncate(accountData)}
+                </p>
                 <p className="text-[16px] !underline text-transparent !bg-clip-text [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
                   Alpha Version
                 </p>
@@ -90,8 +100,8 @@ const MobileSidebar = ({ closeSidebar, isLoggedIn, setShowAbstraxion }: { closeS
             </Button>
           </>
         )}
-        <div className="flex flex-col w-full gap-12 ">
-          <div className="flex gap-2 flex-col">
+        <div className="flex flex-col w-full gap-12">
+          <div className="flex flex-col gap-2">
             {filteredSidebarData.map((data, i) => (
               <div key={i}>
                 <Link href={data.link} onClick={closeSidebar}>
@@ -104,12 +114,21 @@ const MobileSidebar = ({ closeSidebar, isLoggedIn, setShowAbstraxion }: { closeS
               </div>
             ))}
             {!isLoggedIn ? (
-              <div onClick={() => { setShowAbstraxion(true); closeSidebar(); }} className={`mt-4 bg-mintyples-primary rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-mintyplex-primary`}>
+              <div
+                onClick={() => {
+                  setShowAbstraxion(true);
+                  closeSidebar();
+                }}
+                className={`flex items-center justify-center w-full px-4 py-4 mt-4 text-center cursor-pointer bg-mintyples-primary rounded-[8px] gap-1 transition-color hover:bg-mintyplex-primary`}
+              >
                 <p>Log In</p>
                 <WalletIcon />
               </div>
             ) : (
-              <div onClick={closeSidebar} className={`mt-4 bg-[#FF0000] rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-dark`}>
+              <div
+                onClick={closeSidebar}
+                className={`mt-4 bg-[#FF0000] rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-dark`}
+              >
                 <p>Log Out</p>
                 <WalletIcon />
               </div>
