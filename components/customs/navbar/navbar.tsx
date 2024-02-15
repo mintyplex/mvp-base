@@ -98,7 +98,7 @@ export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
               </DialogTrigger>
               <DialogContent>
                 <TypographyH3>Search Mintyplex</TypographyH3>
-                <Input placeholder="Search Mintyplex..." />
+                <Input placeholder="Search for Creators, Products and Categories" />
                 <Button className="flex items-center justify-center gap-3 transition-all duration-300 bg-mintyplex-primary">
                   <SearchIcon /> <span className="text-[#E9E9E9]">Search</span>
                 </Button>
@@ -154,7 +154,7 @@ export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
         <div
           id="sidebar"
           className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${
-            isSidebarOpen ? "" : "-translate-x-full"
+            isSidebarOpen ? "":"-translate-x-full"
           }`}
         >
           <div
