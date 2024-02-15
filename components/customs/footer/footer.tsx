@@ -5,6 +5,7 @@ import { TypographyH4 } from "~/utils/typography";
 import Image from "next/image";
 import TwitterIcon from "~/components/ui/TwitterIcon";
 import TelegramIcon from "~/components/ui/TelegramIcon";
+import Link from "next/link";
 
 export function Footer() {
   return (
@@ -31,9 +32,9 @@ export function Footer() {
               asChild
               className="py-4 text-white rounded-full duration-300 transition-all bg-mintyplex-primary"
             >
-              <button className="py-5 bg-mintyplex-primary">
+              <Link href="https://discord.gg/2qeDehj4De">
                 Request A Feature
-              </button>
+              </Link>
             </Button>
             <div className="mt-5">
               Built With <span>💙</span> By{" "}
