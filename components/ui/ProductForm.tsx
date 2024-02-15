@@ -32,20 +32,22 @@ const ProductForm = () => {
   const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(
     null
   );
-  const [tags, setTags] = useState([]);
-  const [inputValuee, setInputValuee] = useState('');
+  const [tags, setTags] = useState<string[]>([]);
+  const [inputValuee, setInputValuee] = useState("");
 
   // const [inputValue, setInputValue] = useState<string>('');
 
   const updateSelectOptions = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.toLowerCase();
-    const select = document.getElementById('attributeSelect') as HTMLSelectElement;
+    const select = document.getElementById(
+      "attributeSelect"
+    ) as HTMLSelectElement;
 
     // Clear previous options
     select.innerHTML = '<option value="" selected disabled>Attribute</option>';
 
     // Example options based on inputValue
-    if (inputValue.includes('artwork')) {
+    if (inputValue.includes("artwork")) {
       select.innerHTML += `
         <option value="Artwork">AResolution:</option>
         <option value="PColor Profile">PColor Profile:</option>
@@ -53,14 +55,14 @@ const ProductForm = () => {
         <option value="Dimensions:">Dimensions:</option>
       `;
     }
-    if (inputValue.includes('ebook')) {
+    if (inputValue.includes("ebook")) {
       select.innerHTML += `
         <option value="File Format">File Format</option>
         <option value="Page Count">Page Count</option>
         <option value="Language">Language</option>
       `;
     }
-    if (inputValue.includes('photography')) {
+    if (inputValue.includes("photography")) {
       select.innerHTML += `
         <option value="Color Profile">Color Profile</option>
         <option value="Dimensions">Dimensions</option>
@@ -68,17 +70,15 @@ const ProductForm = () => {
       `;
     }
   };
-  
- 
 
-  const handleInputChange = (e) => {
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValuee(e.target.value);
-  };
+  }
 
   const handleAddTag = () => {
-    if (inputValuee.trim() !== '') {
+    if (inputValuee.trim() !== "") {
       setTags([...tags, inputValuee.trim()]);
-      setInputValuee('');
+      setInputValuee("");
     }
   };
 
@@ -147,7 +147,7 @@ const ProductForm = () => {
               required
             />
             <label htmlFor="" className="px-4 text-sm">
-              Discount (%) 
+              Discount (%)
             </label>
           </div>
         </form>
@@ -252,7 +252,7 @@ const ProductForm = () => {
             )}
             {!selectedImage && (
               <h1 className="flex justify-center items-center text-[13px]">
-                PNG or JPEG  PDF, EPUB, MOBI upto 5MB
+                PNG or JPEG PDF, EPUB, MOBI upto 5MB
               </h1>
             )}
             <input
@@ -282,32 +282,43 @@ const ProductForm = () => {
             </p>
           </div>
           <div className="md:hidden grid grid-cols-2 gap-3">
-  {/* start of mobile session */}
-  <div className="form">
-        <div className="relative ">
-          <select id="attributeSelect" className="p-4  border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)]  rounded-lg w-full outline-none placeholder:text-[14px]">
-            <option className="bg-[rgb(30,49,59)] " value="" selected disabled>Attribute</option>
-          </select>
-        </div>
-        <label htmlFor="attributeSelect" className="px-4 text-sm">Attribute</label>
-      </div>
+            {/* start of mobile session */}
+            <div className="form">
+              <div className="relative ">
+                <select
+                  id="attributeSelect"
+                  className="p-4  border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)]  rounded-lg w-full outline-none placeholder:text-[14px]"
+                >
+                  <option
+                    className="bg-[rgb(30,49,59)] "
+                    value=""
+                    selected
+                    disabled
+                  >
+                    Attribute
+                  </option>
+                </select>
+              </div>
+              <label htmlFor="attributeSelect" className="px-4 text-sm">
+                Attribute
+              </label>
+            </div>
 
-
-
-
-      <div className="form">
-        <input
-          type="text"
-          id="inputValues"
-          className="p-4 border-2 text-base border-[rgb(99,99,99)] placeholder:text-[14px]"
-          placeholder="values"
-          required
-          onChange={updateSelectOptions}
-        />
-        <label htmlFor="inputValues" className="px-4 text-sm">Values</label>
-      </div>
-    </div>
-  {/* end of mobile session */}
+            <div className="form">
+              <input
+                type="text"
+                id="inputValues"
+                className="p-4 border-2 text-base border-[rgb(99,99,99)] placeholder:text-[14px]"
+                placeholder="values"
+                required
+                onChange={updateSelectOptions}
+              />
+              <label htmlFor="inputValues" className="px-4 text-sm">
+                Values
+              </label>
+            </div>
+          </div>
+          {/* end of mobile session */}
           <div className="flex items-center justify-end pt-4 md:hidden gap-2 md:gap-4">
             <button className="px-2 py-2 rounded-md font-normal text-[14px] md:text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 md:gap-4 items-center">
               <MdCancel />
@@ -333,42 +344,58 @@ const ProductForm = () => {
           </div>
 
           <div className="flex items-center md:w-full max-w-44 flex-wrap gap-4">
-
             {tags.map((tag, index) => (
-                  <div key={index} className="">
-                                        <button   className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 items-center">
-                      <MdCancel />
-                      {tag}
-                    </button>
-                  </div>
-        ))}
-            <button className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center" onClick={handleAddTag}> 
+              <div key={index} className="">
+                <button className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 items-center">
+                  <MdCancel />
+                  {tag}
+                </button>
+              </div>
+            ))}
+            <button
+              className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center"
+              onClick={handleAddTag}
+            >
               Add tags
             </button>
           </div>
-                {/* desktop-part */}
-      <div className="hidden md:grid grid-cols-2 gap-3">
-      <div className="form">
-        <div className="relative ">
-        <select id="attributeSelect" className="p-4  border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)]  rounded-lg w-full outline-none placeholder:text-[14px]">
-            <option className="bg-[rgb(30,49,59)] " value="" selected disabled>Attribute</option>
-          </select>
-        </div>
-        <label htmlFor="attributeSelect" className="px-4 text-sm">Attribute</label>
-      </div>
-      <div className="form">
-        <input
-          type="text"
-          id="inputValues"
-          className="p-4 border-2 text-base border-[rgb(99,99,99)] placeholder:text-[14px]"
-          placeholder="values"
-          required
-          onChange={updateSelectOptions}
-        />
-        <label htmlFor="inputValues" className="px-4 text-sm">Values</label>
-      </div>
-    </div>
-           {/* desktop-part */}
+          {/* desktop-part */}
+          <div className="hidden md:grid grid-cols-2 gap-3">
+            <div className="form">
+              <div className="relative ">
+                <select
+                  id="attributeSelect"
+                  className="p-4  border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)]  rounded-lg w-full outline-none placeholder:text-[14px]"
+                >
+                  <option
+                    className="bg-[rgb(30,49,59)] "
+                    value=""
+                    selected
+                    disabled
+                  >
+                    Attribute
+                  </option>
+                </select>
+              </div>
+              <label htmlFor="attributeSelect" className="px-4 text-sm">
+                Attribute
+              </label>
+            </div>
+            <div className="form">
+              <input
+                type="text"
+                id="inputValues"
+                className="p-4 border-2 text-base border-[rgb(99,99,99)] placeholder:text-[14px]"
+                placeholder="values"
+                required
+                onChange={updateSelectOptions}
+              />
+              <label htmlFor="inputValues" className="px-4 text-sm">
+                Values
+              </label>
+            </div>
+          </div>
+          {/* desktop-part */}
 
           <div className="items-center justify-end hidden pt-4 md:flex gap-2 md:gap-4">
             <button className="px-2 py-2 rounded-md font-normal text-[14px] md:text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 md:gap-4 items-center">
@@ -382,8 +409,9 @@ const ProductForm = () => {
         </form>
       </ReuseableBackground>
 
-      <button className="md:hidden block bg-mintyplex-primary w-full text-center py-4 px-24 rounded-md my-6">Create Product</button>
-
+      <button className="md:hidden block bg-mintyplex-primary w-full text-center py-4 px-24 rounded-md my-6">
+        Create Product
+      </button>
     </div>
   );
 };

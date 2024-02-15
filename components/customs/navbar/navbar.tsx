@@ -1,17 +1,11 @@
 "use client";
 
-import {
-  Abstraxion,
-  useAbstraxionAccount,
-  useAbstraxionSigningClient,
-  useModal,
-} from "@burnt-labs/abstraxion";
+import { Abstraxion } from "@burnt-labs/abstraxion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { BsXLg } from "react-icons/bs";
 import { HiUserCircle } from "react-icons/hi";
-import AccountContext from "~/components/context/AccountContext";
+import { useAccount } from "~/components/context/AccountContext";
 import MobileSidebar from "~/components/dashboardlayout/mobileSidebar";
 import Search from "~/components/ui/Search";
 import { Button } from "~/components/ui/button";
@@ -21,159 +15,133 @@ import logoLg from "~/public/logo-lg.png";
 import logo from "~/public/logo.png";
 import { TypographyH3 } from "~/utils/typography";
 
-// type AccpuntProps = {
-//   account?: string;
-// };
-
-export default function Navbar({ loggedIn }: { loggedIn?: boolean }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [, setShowAbstraxion] = useModal();
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [accountData, setAccountData] = useState<string | null>(null);
-
-  // Function to toggle the sidebar
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const closeSidebar = () => {
-    setIsSidebarOpen(false);
-  };
-
-  // XION
-  const { data: account } = useAbstraxionAccount();
-  const { client } = useAbstraxionSigningClient();
-  // console.log(account.bech32Address, client);
-
-  const profile = account.bech32Address;
-
-  useEffect(() => {
-    setIsLoggedIn(!!profile);
-    setAccountData(profile);
-  }, [profile]);
-
-  //  setAccountData = account.bech32Address
+export default function Navbar() {
+  const {
+    closeSidebar,
+    isSidebarOpen,
+    isLoggedIn,
+    account,
+    setShowAbstraxion,
+    toggleSidebar,
+  } = useAccount();
 
   return (
-    <AccountContext.Provider value={accountData}>
-      <header className="border-b border-mintyplex-border">
-        <nav className="container flex items-center justify-between p-3 mx-auto">
-          <Link href="/">
-            <div className="flex items-center gap-1">
-              <Image
-                className="hidden md:block"
-                quality="100"
-                alt="Mintyplex Logo"
-                src={logoLg}
-                height={28}
-                fetchPriority="high"
-                priority
-              />
-              <Image
-                className="md:hidden"
-                alt="Mintyplex Logo"
-                src={logo}
-                height={30}
-                fetchPriority="high"
-                priority
-              />
-            </div>
-          </Link>
-          <div className="flex items-center gap-4">
-            <div className="items-center w-[300px] px-3 mx-auto overflow-hidden border border-white rounded-[8px] hidden md:flex gap-3 focus-within:border-brand1 transition-all duration-300">
-              <Search />
-              <input
-                type="search"
-                name="search"
-                className="w-full py-3 text-sm bg-transparent outline-none bg-opacity-0 focus:outline-none"
-                placeholder="Search product"
-              />
-            </div>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button className="md:hidden" size="icon" variant="ghost">
-                  <SearchIcon />
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <TypographyH3>Search Mintyplex</TypographyH3>
-                <Input placeholder="Search for Creators, Products and Categories" />
-                <Button className="flex items-center justify-center gap-3 transition-all duration-300 bg-mintyplex-primary">
-                  <SearchIcon /> <span className="text-[#E9E9E9]">Search</span>
-                </Button>
-              </DialogContent>
-            </Dialog>
-            <Link href="/cart">
-              <Button
-                variant="ghost"
-                className="border border-mintyplex-border"
-                size="icon"
-              >
-                <CartIcon />
+    <header className="border-b border-mintyplex-border">
+      <nav className="container flex items-center justify-between p-3 mx-auto">
+        <Link href="/">
+          <div className="flex items-center gap-1">
+            <Image
+              className="hidden md:block"
+              quality="100"
+              alt="Mintyplex Logo"
+              src={logoLg}
+              height={28}
+              fetchPriority="high"
+              priority
+            />
+            <Image
+              className="md:hidden"
+              alt="Mintyplex Logo"
+              src={logo}
+              height={30}
+              fetchPriority="high"
+              priority
+            />
+          </div>
+        </Link>
+        <div className="flex items-center gap-4">
+          <div className="items-center w-[300px] px-3 mx-auto overflow-hidden border border-white rounded-[8px] hidden md:flex gap-3 focus-within:border-brand1 transition-all duration-300">
+            <Search />
+            <input
+              type="search"
+              name="search"
+              className="w-full py-3 text-sm bg-transparent outline-none bg-opacity-0 focus:outline-none"
+              placeholder="Search product"
+            />
+          </div>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="md:hidden" size="icon" variant="ghost">
+                <SearchIcon />
               </Button>
-            </Link>
-            <div className="hidden md:block">
-              <div className="hidden md:block">
-                {account.bech32Address ? (
-                  <div onClick={() => setShowAbstraxion(true)}>
-                    <Button
-                      variant="ghost"
-                      className="border border-mintyplex-border"
-                      size="icon"
-                    >
-                      {/* <p>{truncate(account.bech32Address)}</p> */}
-                      <HiUserCircle size={24} />
-                    </Button>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => setShowAbstraxion(true)}
-                    className="rounded-[8px] text-[14px] px-5 py-2 bg-mintyplex-primary hover:bg-mintyplex-border"
-                  >
-                    Connect Wallet{" "}
-                  </button>
-                )}
-                <Abstraxion
-                  onClose={() => {
-                    setShowAbstraxion(false);
-                  }}
-                />
-              </div>
-            </div>
+            </DialogTrigger>
+            <DialogContent>
+              <TypographyH3>Search Mintyplex</TypographyH3>
+              <Input placeholder="Search for Creators, Products and Categories" />
+              <Button className="flex items-center justify-center gap-3 transition-all duration-300 bg-mintyplex-primary">
+                <SearchIcon /> <span className="text-[#E9E9E9]">Search</span>
+              </Button>
+            </DialogContent>
+          </Dialog>
+          <Link href="/cart">
             <Button
-              className="block md:hidden"
               variant="ghost"
+              className="border border-mintyplex-border"
               size="icon"
-              onClick={toggleSidebar}
             >
-              <Hamburger />
+              <CartIcon />
             </Button>
+          </Link>
+          <div className="hidden md:block">
+            <div className="hidden md:block">
+              {account.bech32Address ? (
+                <div onClick={() => setShowAbstraxion(true)}>
+                  <Button
+                    variant="ghost"
+                    className="border border-mintyplex-border"
+                    size="icon"
+                  >
+                    {/* <p>{truncate(account.bech32Address)}</p> */}
+                    <HiUserCircle size={24} />
+                  </Button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setShowAbstraxion(true)}
+                  className="rounded-[8px] text-[14px] px-5 py-2 bg-mintyplex-primary hover:bg-mintyplex-border"
+                >
+                  Connect Wallet{" "}
+                </button>
+              )}
+              <Abstraxion
+                onClose={() => {
+                  setShowAbstraxion(false);
+                }}
+              />
+            </div>
           </div>
-        </nav>
-        <div
-          id="sidebar"
-          className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${
-            isSidebarOpen ? "":"-translate-x-full"
-          }`}
-        >
-          <div
-            className="flex justify-end w-full mb-[50px] px-6 py-3 z-[11111]"
-            onClick={closeSidebar}
+          <Button
+            className="block md:hidden"
+            variant="ghost"
+            size="icon"
+            onClick={toggleSidebar}
           >
-            <p className="p-2 border rounded-full">
-              <BsXLg />
-            </p>
-          </div>
-          <div className="w-full mt-4">
-            <MobileSidebar
-              setShowAbstraxion={setShowAbstraxion}
-              closeSidebar={closeSidebar}
-              isLoggedIn={isLoggedIn}
-           
+            <Hamburger />
+          </Button>
         </div>
-      </header>
-    </AccountContext.Provider>
+      </nav>
+      <div
+        id="sidebar"
+        className={`fixed inset-y-0 left-0 bg-mintyplex-dark w-full z-50 transform transition-transform duration-300 ease-in-out ${
+          isSidebarOpen ? "" : "-translate-x-full"}`}
+      >
+        <div
+          className="flex justify-end w-full mb-[50px] px-6 py-3 z-[11111]"
+          onClick={closeSidebar}
+        >
+          <p className="p-2 border rounded-full">
+            <BsXLg />
+          </p>
+        </div>
+        <div className="w-full mt-4">
+          <MobileSidebar
+            setShowAbstraxion={setShowAbstraxion}
+            closeSidebar={closeSidebar}
+            isLoggedIn={isLoggedIn}
+          />
+        </div>
+      </div>
+    </header>
   );
 }
 
