@@ -36,14 +36,19 @@ const ProductForm = () => {
   const [inputValuee, setInputValuee] = useState('');
 
   // const [inputValue, setInputValue] = useState<string>('');
-
   const updateSelectOptions = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value.toLowerCase();
-    const select = document.getElementById('attributeSelect') as HTMLSelectElement;
-
+    const parentForm = event.currentTarget.closest('form');
+    const select = document.querySelector('select') as HTMLSelectElement;
+  
+    if (!select) {
+      console.error('Select element not found');
+      return;
+    }
+  
     // Clear previous options
     select.innerHTML = '<option value="" selected disabled>Attribute</option>';
-
+  
     // Example options based on inputValue
     if (inputValue.includes('artwork')) {
       select.innerHTML += `
@@ -68,6 +73,8 @@ const ProductForm = () => {
       `;
     }
   };
+  
+  
   
  
 
@@ -141,7 +148,7 @@ const ProductForm = () => {
 
           <div className="form">
             <input
-              type="text"
+              type="number"
               className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
               placeholder="0"
               required
@@ -282,10 +289,11 @@ const ProductForm = () => {
             </p>
           </div>
           <div className="md:hidden grid grid-cols-2 gap-3">
-      <div className="form">
+  {/* start of mobile session */}
+  <div className="form">
         <div className="relative ">
           <select id="attributeSelect" className="p-4  border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)]  rounded-lg w-full outline-none placeholder:text-[14px]">
-            <option className="hover:bg-[rgb(30,49,59)]" value="" selected disabled>Attribute</option>
+            <option className="bg-[rgb(30,49,59)] " value="" selected disabled>Attribute</option>
           </select>
         </div>
         <label htmlFor="attributeSelect" className="px-4 text-sm">Attribute</label>
@@ -302,7 +310,7 @@ const ProductForm = () => {
         <label htmlFor="inputValues" className="px-4 text-sm">Values</label>
       </div>
     </div>
-
+  {/* end of mobile session */}
           <div className="flex items-center justify-end pt-4 md:hidden gap-2 md:gap-4">
             <button className="px-2 py-2 rounded-md font-normal text-[14px] md:text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 md:gap-4 items-center">
               <MdCancel />
@@ -342,11 +350,11 @@ const ProductForm = () => {
             </button>
           </div>
                 {/* desktop-part */}
-      <div className="hidden md:grid grid-cols-2 gap-3">
-      <div className="form">
+                <div className="hidden md:grid grid-cols-2 gap-3">
+  <div className="form">
         <div className="relative ">
-          <select id="attributeSelect" className="p-4 py-6 border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)]  rounded-lg w-full outline-none placeholder:text-[14px]">
-            <option className="hover:bg-[rgb(30,49,59)]" value="" selected disabled>Attribute</option>
+          <select  className="p-4  border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)]  rounded-lg w-full outline-none placeholder:text-[14px]">
+            <option className="bg-[rgb(30,49,59)] " value="" selected disabled>Attribute</option>
           </select>
         </div>
         <label htmlFor="attributeSelect" className="px-4 text-sm">Attribute</label>
