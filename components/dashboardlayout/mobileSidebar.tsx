@@ -3,14 +3,11 @@
 import Image from "next/image";
 import React, { useContext } from "react";
 import curator from "~/public/curator.png";
-import { HomeIcon, UserIcon, CreditCardIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { RxDashboard } from "react-icons/rx";
 import { FaFacebookF } from "react-icons/fa6";
-import { PiWallet } from "react-icons/pi";
-import { GoHomeFill } from "react-icons/go";
-import { HiLogout, HiUserCircle } from "react-icons/hi";
+import { GoCopy } from "react-icons/go";
 import { BsArrowUpRight, BsChevronDown } from "react-icons/bs";
 import { usePathname } from "next/navigation";
 import TwitterIcon from "../ui/TwitterIcon";
@@ -19,6 +16,8 @@ import { Button } from "../ui/button";
 import WalletIcon from "../ui/Wallet";
 import { truncate } from "~/utils/truncate";
 import { useAccount } from "../context/AccountContext";
+import { copyToClipboard } from "~/utils/copyToClipboard";
+import { useToast } from "../ui/use-toast";
 
 export const SidebarData = [
   {
@@ -72,6 +71,15 @@ const MobileSidebar = ({
     return true;
   });
 
+  const { toast } = useToast()
+
+  // handle copy notification
+  const handleCopy = (text: string | null) => {
+    toast({
+      description: "Address copied.",
+    })
+  };
+
   return (
     <main className="fixed block w-full px-6 lg:hidden bg-brand10 top-14 h-fit">
       <div className="border-[1px] border-mintyplex-border rounded-[12px] p-4 flex lg:hidden flex-col items-start gap-6">
@@ -86,9 +94,14 @@ const MobileSidebar = ({
                 className="rounded-full border-[8px] border-mintyplex-dark"
               />
               <div className="w-fit">
-                <p className="text-[28px] font-bold capitalize">
-                  {truncate(accountData)}
-                </p>
+                <div className="flex items-center gap-2">
+                  <p className="text-[28px] font-bold capitalize">
+                    {truncate(accountData)}
+                  </p>
+                  <div onClick={() => copyToClipboard(`${accountData}`, handleCopy)}>
+                    <GoCopy />
+                  </div>
+                </div>
                 <p className="text-[16px] !underline text-transparent !bg-clip-text [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
                   Alpha Version
                 </p>
@@ -114,14 +127,8 @@ const MobileSidebar = ({
               </div>
             ))}
             {!isLoggedIn ? (
-              <div
-                onClick={() => {
-                  setShowAbstraxion(true);
-                  closeSidebar();
-                }}
-                className={`flex items-center justify-center w-full px-4 py-4 mt-4 text-center cursor-pointer bg-mintyples-primary rounded-[8px] gap-1 transition-color hover:bg-mintyplex-primary`}
-              >
-                <p>Log In</p>
+              <div onClick={() => { setShowAbstraxion(true); closeSidebar(); }} className={`mt-4 bg-mintyplex-primary rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-mintyplex-primary`}>
+                <p>Login</p>
                 <WalletIcon />
               </div>
             ) : (

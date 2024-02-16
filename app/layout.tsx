@@ -17,6 +17,7 @@ const inter = Figtree({
 
 import type { Metadata } from "next";
 import { AccountProvider } from "~/components/context/AccountContext";
+import { Toaster } from "~/components/ui/toaster";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://testnet.mintyplex.com/"),
@@ -74,6 +75,7 @@ export default function RootLayout({
                   <Footer />
                 </HideAt>
               </main>
+              <Toaster />
             </ThemeProvider>
           </AccountProvider>
         </BurntWrapper>
