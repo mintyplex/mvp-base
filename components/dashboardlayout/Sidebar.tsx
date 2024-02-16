@@ -27,6 +27,21 @@ export const SidebarData = [
   },
 ];
 
+const links = [
+  {
+    Icon: TwitterIcon,
+    href: "https://twitter.com/Mintyplex",
+  },
+  {
+    Icon: FaFacebookF,
+    href: "https://www.facebook.com/mintyplex",
+  },
+  {
+    Icon: TelegramIcon,
+    href: "https://t.me/mintyplex",
+  },
+];
+
 const Sidebar = () => {
   const pathname = usePathname();
 
@@ -72,17 +87,19 @@ const Sidebar = () => {
         </div>
         <div>
           <div className="flex flex-col items-center justify-center w-full pb-4 border-b gap-3 border-mintyplex-border">
-            <h2>Request a Feature</h2>
+            <Link href="https://discord.gg/2qeDehj4De">
+              <h2>Request a Feature</h2>
+            </Link>
             <div className="flex items-center gap-3">
-              <div className="p-2 border rounded-full transition-all duration-300 hover:bg-mintyplex-primary border-mintyplex-border/50">
-                <TwitterIcon />
-              </div>
-              <div className="p-2 border rounded-full border-mintyplex-border/50 transition-all duration-300 hover:bg-mintyplex-primary">
-                <FaFacebookF />
-              </div>
-              <div className="p-2 border rounded-full border-mintyplex-border/50 transition-all duration-300 hover:bg-mintyplex-primary">
-                <TelegramIcon />
-              </div>
+              {links.map(({ Icon, href }, index) => (
+                <Link
+                  href={href}
+                  key={index}
+                  className="p-2 border rounded-full transition-all duration-300 hover:bg-mintyplex-primary border-mintyplex-border/50"
+                >
+                  <Icon />
+                </Link>
+              ))}
             </div>
           </div>
           <div
