@@ -33,6 +33,20 @@ import {
   CarouselItem,
 } from "~/components/ui/carousel";
 import Listtbox from "~/components/ui/List-box";
+
+import { randomUUID } from "crypto";
+import { useAbstraxionAccount, useAbstraxionSigningClient } from "@burnt-labs/abstraxion";
+import { mintyplexContractAddress } from "~/lib/utils/utils";
+
+function getProductID() {
+  return randomUUID();
+}
+
+function getSiaURI() {
+  return randomUUID();
+}
+
+
 const AddProduct: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -102,6 +116,50 @@ const AddProduct: React.FC = () => {
     { name: "Hellen Schmidt" },
   ];
 
+  const { data: account } = useAbstraxionAccount();
+  const { client } = useAbstraxionSigningClient();
+  console.log(account.bech32Address);
+
+
+  // Disable mint button till product is created on DB.
+
+
+  async function mintProduct() {
+    // Set loading
+    const msg = {
+      mint: {
+        token_id: getProductID(),
+        owner: account.bech32Address,
+        token_uri: getSiaURI(),
+        extension: {},
+      }
+    }
+
+    try {
+      const mintRes = await client?.execute(
+        account.bech32Address,
+        mintyplexContractAddress,
+        msg,
+        {
+          amount: [{ amount: "0", denom: "uxion" }],
+          gas: "500000",
+        },
+        "",
+        [],
+      );
+      console.log(mintRes)
+      // Show an alert of transaction hash response
+
+    } catch (error) {
+      // eslint-disable-next-line no-console -- No UI exists yet to display errors
+      console.log(error);
+    } finally {
+      // setLoading(false);
+    }
+  }
+
+
+
   return (
     <DashboardLayout>
       <div className="mt-10">
@@ -142,6 +200,9 @@ const AddProduct: React.FC = () => {
             {/* <CreatorsListbox options={Active} initialValue={Active[0]} /> */}
             <button className="bg-blue-500 px-6 py-2 rounded-md font-normal text-[20px] leading-[27px] hover:bg-brand2">
               Save
+            </button>
+            <button onClick={mintProduct} className="bg-blue-500 px-6 py-2 rounded-md font-normal text-[20px] leading-[27px] hover:bg-brand2">
+              Mint
             </button>
           </div>
         </div>
@@ -221,7 +282,7 @@ const AddProduct: React.FC = () => {
             <h1 className="flex items-center justify-center text-[19px] md:text-[25px]">
               {selectedImage
                 ? selectedImage.name
-                : "Upload a file or drag and drop"}
+                : "Upload an Image or drag and drop"}
             </h1>
             {selectedImage && (
               <div className="flex flex-col items-center justify-center">

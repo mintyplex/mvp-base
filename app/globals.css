@@ -138,3 +138,28 @@ select:not(:placeholder-shown) + label {
   transform: translateY(-70%) scale(0.75);
   color: #333;
 }
+
+select#attributeSelect {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('/Chevron Down.svg'); /* Replace 'your-dropdown-icon.png' with the path to your custom dropdown icon */
+  background-repeat: no-repeat;
+  background-position: right center;
+  /* Adjust as needed */
+}
+
+  select#attributeSelect option {
+    background-color: rgb(99, 99, 99); /* Background color of options */
+    color: #ffffff; /* Text color of options */
+    font-size: 8px; /* Font size of options */
+    width: fit-content;
+  }
+
+  select#attributeSelect option:hover{
+    background-color: rgb(30, 41, 59); /* Background color of options */
+    color: #ffffff; /* Text color of options */
+    font-size: 12px; /* Font size of options */
+    /* width: fit-content; */
+  }
+

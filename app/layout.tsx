@@ -16,6 +16,8 @@ const inter = Figtree({
 });
 
 import type { Metadata } from "next";
+import { AccountProvider } from "~/components/context/AccountContext";
+import { Toaster } from "~/components/ui/toaster";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://testnet.mintyplex.com/"),
@@ -59,20 +61,23 @@ export default function RootLayout({
     <html lang="en" className="bg-mintyplex-dark">
       <body className={cn(inter.className, "bg-mintyplex-dark text-white")}>
         <BurntWrapper>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <main className="flex flex-col min-h-screen">
-              <Navbar />
-              <div className="flex-grow">{children}</div>
-              <HideAt paths={["dashboard"]}>
-                <Footer />
-              </HideAt>
-            </main>
-          </ThemeProvider>
+          <AccountProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <main className="flex flex-col min-h-screen">
+                <Navbar />
+                <div className="flex-grow">{children}</div>
+                <HideAt paths={["dashboard"]}>
+                  <Footer />
+                </HideAt>
+              </main>
+              <Toaster />
+            </ThemeProvider>
+          </AccountProvider>
         </BurntWrapper>
       </body>
     </html>

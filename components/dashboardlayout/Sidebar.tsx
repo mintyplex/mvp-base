@@ -5,12 +5,18 @@ import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { BsArrowUpRight, BsChevronDown } from "react-icons/bs";
 import { HiLogout, HiUserCircle } from "react-icons/hi";
-import { GoHomeFill } from "react-icons/go";
+import { GoCopy, GoHomeFill } from "react-icons/go";
 import { Button } from "../ui/button";
 import curator from "~/public/curator.png";
 import { FaFacebookF } from "react-icons/fa6";
 import TwitterIcon from "../ui/TwitterIcon";
 import TelegramIcon from "../ui/TelegramIcon";
+import { useAbstraxionAccount, useAbstraxionSigningClient } from "@burnt-labs/abstraxion";
+import { truncateXionAddress } from "~/lib/utils/utils";
+import { copyToClipboard } from "~/utils/copyToClipboard";
+import { useToast } from "../ui/use-toast";
+
+
 
 export const SidebarData = [
   {
@@ -27,8 +33,34 @@ export const SidebarData = [
   },
 ];
 
+const links = [
+  {
+    Icon: TwitterIcon,
+    href: "https://twitter.com/Mintyplex",
+  },
+  {
+    Icon: FaFacebookF,
+    href: "https://www.facebook.com/mintyplex",
+  },
+  {
+    Icon: TelegramIcon,
+    href: "https://t.me/mintyplex",
+  },
+];
+
 const Sidebar = () => {
   const pathname = usePathname();
+  const { data: account } = useAbstraxionAccount();
+  const { client } = useAbstraxionSigningClient();
+
+  const { toast } = useToast()
+
+  // handle copy notification
+  const handleCopy = (text: string | null) => {
+    toast({
+      description: "Address copied.",
+    })
+  };
 
   return (
     <main className="sticky w-[240px] top-0 flex-col hidden h-screen p-6 lg:flex gap-6 bg-[#2C2D2E]">
@@ -41,7 +73,12 @@ const Sidebar = () => {
           className="rounded-full border-[8px] border-mintyplex-dark"
         />
         <div className="text-center">
-          <p className="text-[25px] font-bold capitalize">0x569...32</p>
+          <div className="flex items-center gap-2">
+          <p className="text-[25px] font-bold capitalize">{truncateXionAddress(account.bech32Address)}</p>
+            <div className="cursor-pointer" onClick={() => copyToClipboard(`${account.bech32Address}`, handleCopy)}>
+              <GoCopy />
+            </div>
+          </div>
           <p className="text-[16px] !underline text-transparent !bg-clip-text [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
             Alpha Version
           </p>
@@ -57,9 +94,8 @@ const Sidebar = () => {
             <div key={i}>
               <Link href={data.link}>
                 <div
-                  className={`text-center cursor-pointer w-full flex items-center gap-4 py-2 px-4 transition-colors rounded-[8px] hover:bg-mintyplex-primary ${
-                    pathname === data.id ? "bg-mintyplex-primary" : ""
-                  }`}
+                  className={`text-center cursor-pointer w-full flex items-center gap-4 py-2 px-4 transition-colors rounded-[8px] hover:bg-mintyplex-primary ${pathname === data.id ? "bg-mintyplex-primary" : ""
+                    }`}
                 >
                   {data.icon}
                   <div>
@@ -72,17 +108,19 @@ const Sidebar = () => {
         </div>
         <div>
           <div className="flex flex-col items-center justify-center w-full pb-4 border-b gap-3 border-mintyplex-border">
-            <h2>Request a Feature</h2>
+            <Link href="https://discord.gg/2qeDehj4De">
+              <h2>Request a Feature</h2>
+            </Link>
             <div className="flex items-center gap-3">
-              <div className="p-2 border rounded-full transition-all duration-300 hover:bg-mintyplex-primary border-mintyplex-border/50">
-                <TwitterIcon />
-              </div>
-              <div className="p-2 border rounded-full border-mintyplex-border/50 transition-all duration-300 hover:bg-mintyplex-primary">
-                <FaFacebookF />
-              </div>
-              <div className="p-2 border rounded-full border-mintyplex-border/50 transition-all duration-300 hover:bg-mintyplex-primary">
-                <TelegramIcon />
-              </div>
+              {links.map(({ Icon, href }, index) => (
+                <Link
+                  href={href}
+                  key={index}
+                  className="p-2 border rounded-full transition-all duration-300 hover:bg-mintyplex-primary border-mintyplex-border/50"
+                >
+                  <Icon />
+                </Link>
+              ))}
             </div>
           </div>
           <div
