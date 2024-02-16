@@ -16,6 +16,8 @@ import {
 import CreatorChart from "../ui/graph/Creator-line-chart";
 import CreatorEmptyState from "../ui/CreatorEmptyState";
 import Doughnutt from "../ui/graph/Creator-Doughnut";
+import { randomUUID } from "crypto";
+import { useAbstraxionAccount, useAbstraxionSigningClient } from "@burnt-labs/abstraxion";
 
 // import CreatorLineChart from '~/components/ui/graph/creator-line-chart';
 
@@ -65,6 +67,8 @@ const CreatorDashboard = () => {
       width: " w-[206px] ",
     },
   ];
+
+
 
   return (
     <div className="w-full pb-4">
@@ -244,3 +248,4 @@ const CreatorDashboard = () => {
 };
 
 export default CreatorDashboard;
+

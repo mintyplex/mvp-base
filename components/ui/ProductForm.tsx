@@ -105,6 +105,20 @@ const ProductForm = () => {
       }
     }
   }
+
+  async function createProduct(name: string, description: string, image: string, tags: string[]) {
+    const apiBase = process.env.NODE_ENV === 'production'
+      ? 'https://testnet.mintyplex.com'
+      : 'http://localhost:3000';
+
+    const res = await fetch(`${apiBase}/api/product`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, description, image, tags }),
+    })
+  }
   return (
     <div>
       <div className="py-4 md:py-7 bg-[rgb(28,30,30)]">
