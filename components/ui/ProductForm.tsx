@@ -91,12 +91,12 @@ const ProductForm = () => {
   }
 
   const updateSelectOptions = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value = e.target.value.toLowerCase();
     setInputAttribute(value);
 
     // Here you can implement the logic to fetch options based on the input value
     // For demonstration purposes, I'm just updating options with some dummy data
-    if (value === 'Ebook') {
+    if (value === 'ebook') {
       setOptions([
         "File Format",
        "Page Count:",
@@ -105,7 +105,7 @@ const ProductForm = () => {
        "Compatibility:"
       
       ]);
-    } else if (value === 'Artwork') {
+    } else if (value === 'artwork') {
       setOptions([
         "Resolution:", 
         "Color Profile:", 
@@ -113,7 +113,7 @@ const ProductForm = () => {
         "File Format:",
         "Copyright Information:"
       ]);
-    }  else if (value === 'Photography') {
+    }  else if (value === 'photography') {
       setOptions([
         "Resolution:", 
         "Color Profile:", 
@@ -356,8 +356,8 @@ const ProductForm = () => {
               type="text"
               value={inputValuee}
               onChange={handleInputChange}
-              className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
-              placeholder="0"
+              className="p-4 border-2 text-sm border-[rgb(99,99,99)] placeholder:text-[14px] "
+              placeholder="Web3"
               required
             />
             <label htmlFor="" className="px-4 text-sm">
@@ -386,7 +386,7 @@ const ProductForm = () => {
       <div className="form">
         <div className="relative">
           <select
-            className="p-4 border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)] rounded-lg w-full outline-none placeholder:text-[14px]"
+            className="p-4 border-2 bg-[rgb(46,48,49)] text-sm border-[rgb(99,99,99)] rounded-lg w-full outline-none placeholder:text-[14px]"
           >
             <option className="bg-[rgb(30,49,59)] " value="" selected disabled>
               Attribute
@@ -406,7 +406,7 @@ const ProductForm = () => {
         <input
           type="text"
           // id="inputValues"
-          className="p-4 border-2 text-base border-[rgb(99,99,99)] placeholder:text-[14px]"
+          className="p-4 border-2 text-sm border-[rgb(99,99,99)] placeholder:text-[14px]"
           placeholder="values"
           required
           onChange={updateSelectOptions}
