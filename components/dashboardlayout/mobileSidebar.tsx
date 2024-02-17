@@ -4,11 +4,11 @@ import Image from "next/image";
 import React, { useContext } from "react";
 import curator from "~/public/curator.png";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { RxDashboard } from "react-icons/rx";
+import { Dialog, DialogContent, DialogTrigger } from '../../components/ui/dialog'
 import { FaFacebookF } from "react-icons/fa6";
 import { GoCopy } from "react-icons/go";
 import { BsArrowUpRight, BsChevronDown } from "react-icons/bs";
+import { TypographyH3 } from "../../utils/typography";
 import { usePathname } from "next/navigation";
 import TwitterIcon from "../ui/TwitterIcon";
 import TelegramIcon from "../ui/TelegramIcon";
@@ -18,6 +18,7 @@ import { truncate } from "~/utils/truncate";
 import { useAccount } from "../context/AccountContext";
 import { copyToClipboard } from "~/utils/copyToClipboard";
 import { useToast } from "../ui/use-toast";
+import ReserveUsername from "../customs/ReserveUsername";
 
 export const SidebarData = [
   {
@@ -107,10 +108,17 @@ const MobileSidebar = ({
                 </p>
               </div>
             </div>
-            <Button className="bg-mintyplex-primary text-white flex justify-between items-center px-4 w-full py-6 rounded-[8px] font-semibold text-[16px]">
-              <p>Reserve Username</p>
-              <BsArrowUpRight />
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button className="!bg-mintyplex-primary text-white flex justify-between items-center px-4 w-full py-6 rounded-[8px] font-semibold text-[16px]">
+                  <p>Reserve Username</p>
+                  <BsArrowUpRight />
+                </Button>
+              </DialogTrigger>
+              <DialogContent >
+                <ReserveUsername />
+              </DialogContent>
+            </Dialog>
           </>
         )}
         <div className="flex flex-col w-full gap-12">
@@ -164,3 +172,32 @@ const MobileSidebar = ({
 };
 
 export default MobileSidebar;
+
+
+function SearchIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 32 32"
+      fill="none"
+    >
+      <path
+        d="M14.5 25C20.299 25 25 20.299 25 14.5C25 8.70101 20.299 4 14.5 4C8.70101 4 4 8.70101 4 14.5C4 20.299 8.70101 25 14.5 25Z"
+        stroke="#E9E9E9"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M21.9253 21.9253L28.0003 28.0003"
+        stroke="#E9E9E9"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
