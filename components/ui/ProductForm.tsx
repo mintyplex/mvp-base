@@ -34,42 +34,12 @@ const ProductForm = () => {
   );
   const [tags, setTags] = useState<string[]>([]);
   const [inputValuee, setInputValuee] = useState("");
+  const [inputattribute, setInputAttribute] = useState("");
+
+  const [options, setOptions] = useState<string[]>([]);
+
 
   // const [inputValue, setInputValue] = useState<string>('');
-
-  const updateSelectOptions = (event: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = event.target.value.toLowerCase();
-    const select = document.getElementById(
-      "attributeSelect"
-    ) as HTMLSelectElement;
-
-    // Clear previous options
-    select.innerHTML = '<option value="" selected disabled>Attribute</option>';
-
-    // Example options based on inputValue
-    if (inputValue.includes("artwork")) {
-      select.innerHTML += `
-        <option value="Artwork">AResolution:</option>
-        <option value="PColor Profile">PColor Profile:</option>
-        <option value="Printability">Printability</option>
-        <option value="Dimensions:">Dimensions:</option>
-      `;
-    }
-    if (inputValue.includes("ebook")) {
-      select.innerHTML += `
-        <option value="File Format">File Format</option>
-        <option value="Page Count">Page Count</option>
-        <option value="Language">Language</option>
-      `;
-    }
-    if (inputValue.includes("photography")) {
-      select.innerHTML += `
-        <option value="Color Profile">Color Profile</option>
-        <option value="Dimensions">Dimensions</option>
-        <option value="Resolution">Resolution</option>
-      `;
-    }
-  };
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValuee(e.target.value);
@@ -119,6 +89,45 @@ const ProductForm = () => {
       body: JSON.stringify({ name, description, image, tags }),
     })
   }
+
+  const updateSelectOptions = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.toLowerCase();
+    setInputAttribute(value);
+
+    // Here you can implement the logic to fetch options based on the input value
+    // For demonstration purposes, I'm just updating options with some dummy data
+    if (value === 'ebook') {
+      setOptions([
+        "File Format",
+       "Page Count:",
+       "Resolution:",
+       "File Size:",
+       "Compatibility:"
+      
+      ]);
+    } else if (value === 'artwork') {
+      setOptions([
+        "Resolution:", 
+        "Color Profile:", 
+        "Dimensions:",
+        "File Format:",
+        "Copyright Information:"
+      ]);
+    }  else if (value === 'photography') {
+      setOptions([
+        "Resolution:", 
+        "Color Profile:", 
+        "Dimensions:",
+        "File Format:",
+        "Copyright Information:"
+      ]);
+    }
+    
+    else {
+      setOptions([]);
+    }
+  };
+
   return (
     <div>
       <div className="py-4 md:py-7 bg-[rgb(28,30,30)]">
@@ -295,43 +304,42 @@ const ProductForm = () => {
               unlimited
             </p>
           </div>
-          <div className="md:hidden grid grid-cols-2 gap-3">
             {/* start of mobile session */}
-            <div className="form">
-              <div className="relative ">
-                <select
-                  id="attributeSelect"
-                  className="p-4  border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)]  rounded-lg w-full outline-none placeholder:text-[14px]"
-                >
-                  <option
-                    className="bg-[rgb(30,49,59)] "
-                    value=""
-                    selected
-                    disabled
-                  >
-                    Attribute
-                  </option>
-                </select>
-              </div>
-              <label htmlFor="attributeSelect" className="px-4 text-sm">
-                Attribute
-              </label>
-            </div>
+            <div className="md:hidden grid grid-cols-2 gap-3">
+      <div className="form">
+        <div className="relative">
+          <select
+            className="p-4 border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)] rounded-lg w-full outline-none placeholder:text-[14px]"
+          >
+            <option className="bg-[rgb(30,49,59)] " value="" selected disabled>
+              Attribute
+            </option>
+            {options.map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+        <label htmlFor="attributeSelect" className="px-4 text-sm">
+          Attribute
+        </label>
+      </div>
+      <div className="form">
+        <input
+          type="text"
+          // id="inputValues"
+          className="p-4 border-2 text-base border-[rgb(99,99,99)] placeholder:text-[14px]"
+          placeholder="values"
+          required
+          onChange={updateSelectOptions}
+        />
+        <label htmlFor="inputValues" className="px-4 text-sm">
+          Values
+        </label>
+      </div>
+    </div>
 
-            <div className="form">
-              <input
-                type="text"
-                id="inputValues"
-                className="p-4 border-2 text-base border-[rgb(99,99,99)] placeholder:text-[14px]"
-                placeholder="values"
-                required
-                onChange={updateSelectOptions}
-              />
-              <label htmlFor="inputValues" className="px-4 text-sm">
-                Values
-              </label>
-            </div>
-          </div>
           {/* end of mobile session */}
           <div className="flex items-center justify-end pt-4 md:hidden gap-2 md:gap-4">
             <button className="px-2 py-2 rounded-md font-normal text-[14px] md:text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 md:gap-4 items-center">
@@ -348,8 +356,8 @@ const ProductForm = () => {
               type="text"
               value={inputValuee}
               onChange={handleInputChange}
-              className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
-              placeholder="0"
+              className="p-4 border-2 text-sm border-[rgb(99,99,99)] placeholder:text-[14px] "
+              placeholder="Web3"
               required
             />
             <label htmlFor="" className="px-4 text-sm">
@@ -357,7 +365,7 @@ const ProductForm = () => {
             </label>
           </div>
 
-          <div className="flex items-center md:w-full max-w-44 flex-wrap gap-4">
+          <div className="flex items-end md:w-full justify-end flex-wrap gap-4">
             {tags.map((tag, index) => (
               <div key={index} className="">
                 <button className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 items-center">
@@ -367,7 +375,7 @@ const ProductForm = () => {
               </div>
             ))}
             <button
-              className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center"
+              className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 justify-end items-center"
               onClick={handleAddTag}
             >
               Add tags
@@ -375,40 +383,40 @@ const ProductForm = () => {
           </div>
           {/* desktop-part */}
           <div className="hidden md:grid grid-cols-2 gap-3">
-            <div className="form">
-              <div className="relative ">
-                <select
-                  id="attributeSelect"
-                  className="p-4  border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)]  rounded-lg w-full outline-none placeholder:text-[14px]"
-                >
-                  <option
-                    className="bg-[rgb(30,49,59)] "
-                    value=""
-                    selected
-                    disabled
-                  >
-                    Attribute
-                  </option>
-                </select>
-              </div>
-              <label htmlFor="attributeSelect" className="px-4 text-sm">
-                Attribute
-              </label>
-            </div>
-            <div className="form">
-              <input
-                type="text"
-                id="inputValues"
-                className="p-4 border-2 text-base border-[rgb(99,99,99)] placeholder:text-[14px]"
-                placeholder="values"
-                required
-                onChange={updateSelectOptions}
-              />
-              <label htmlFor="inputValues" className="px-4 text-sm">
-                Values
-              </label>
-            </div>
-          </div>
+      <div className="form">
+        <div className="relative">
+          <select
+            className="p-4 border-2 bg-[rgb(46,48,49)] text-sm border-[rgb(99,99,99)] rounded-lg w-full outline-none placeholder:text-[14px]"
+          >
+            <option className="bg-[rgb(30,49,59)] " value="" selected disabled>
+              Attribute
+            </option>
+            {options.map((option, index) => (
+              <option key={index} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+        <label htmlFor="attributeSelect" className="px-4 text-sm">
+          Attribute
+        </label>
+      </div>
+      <div className="form">
+        <input
+          type="text"
+          // id="inputValues"
+          className="p-4 border-2 text-sm border-[rgb(99,99,99)] placeholder:text-[14px]"
+          placeholder="values"
+          required
+          onChange={updateSelectOptions}
+        />
+        <label htmlFor="inputValues" className="px-4 text-sm">
+          Values
+        </label>
+      </div>
+    </div>
+
           {/* desktop-part */}
 
           <div className="items-center justify-end hidden pt-4 md:flex gap-2 md:gap-4">
@@ -439,3 +447,7 @@ function setSelectedImage(arg0: {
 }) {
   throw new Error("Function not implemented.");
 }
+function setOptions(arg0: string[]) {
+  throw new Error("Function not implemented.");
+}
+
