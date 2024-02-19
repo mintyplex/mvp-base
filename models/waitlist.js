@@ -13,7 +13,7 @@ const waitlistSchema = new mongoose.Schema({
         unique: true,
     },
 },
-    { timestamps: { createdAt: 'created_at' } }
+    { timestamps: { createdAt: 'created_at'} }
 );
 
 const Waitlist = mongoose.models.Waitlist || mongoose.model('Waitlist', waitlistSchema);
