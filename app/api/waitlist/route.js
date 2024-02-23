@@ -17,12 +17,12 @@ export async function POST(req, res) {
         const { email, username } = req.body;
         
 
-        if (!email || typeof email !== 'string') {
-            return NextResponse.json({ message: "Email is required and must be strings." }, { status: 400 });
-        }
-        if (!username || typeof username !== 'string') {
-            return NextResponse.json({ message: "Username is required and must be strings." }, { status: 400 });
-        }
+        // if (!email || typeof email !== 'string') {
+        //     return NextResponse.json({ message: "Email is required and must be strings." }, { status: 400 });
+        // }
+        // if (!username || typeof username !== 'string') {
+        //     return NextResponse.json({ message: "Username is required and must be strings." }, { status: 400 });
+        // }
 
         // Check for existing email in the waitlist
         const existingEmail = await Waitlist.findOne({ email: email.toLowerCase() });

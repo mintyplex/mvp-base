@@ -48,15 +48,24 @@ export default function ReserveUsername() {
                 username: `${data.username}.mtpx`, // Customize the username as needed
             };
 
-            axios.post('/api/waitlist', updatedData, {
+            console.log(updatedData, 'Successful');
+            // axios.post('/api/waitlist', updatedData, {
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            // });
+
+            const res = await fetch(`/api/waitlist`, {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
+                  "Content-Type": "application/json",
                 },
-            });
-            console.log('Content-Type:', req.headers['content-type']);
+                body: JSON.stringify({ updatedData }),
+              })
+
+            console.log(res, 'response');
 
             reset(); // Reset the form state
-            // console.log(updatedData, 'Successful');
 
             // Display a success message
             const message = `Your username ${updatedData.username} has been reserved!`;
