@@ -5,7 +5,6 @@ import {
   PlusIcon,
 } from "@radix-ui/react-icons";
 import Image from "next/image";
-import TwitterIcon from "~/components/ui/TwitterIcon";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import {
@@ -19,6 +18,7 @@ import productImg from "~/public/top-creator.jpeg";
 import { TypographyH2, TypographyH4 } from "~/utils/typography";
 import BackButton from "../popular-products/_components/back-button";
 import { Counter } from "./_components/counter";
+import Link from "next/link";
 
 const data = [
   {
@@ -43,7 +43,16 @@ const data = [
   },
 ];
 
-export default function ProductDetailPage() {
+import React from "react";
+
+type ProductPageProps = {
+  params: { [key: string]: string };
+  searchParams: { [key: string]: string };
+};
+
+export default function ProductDetailPage({ params }: ProductPageProps) {
+  const productId = params.productId;
+
   return (
     <section className="container p-3 mx-auto space-y-3">
       <div className="flex items-center justify-between">
@@ -59,39 +68,37 @@ export default function ProductDetailPage() {
         </Button>
       </div>
       <div>
-        <Carousel>
-          <CarouselContent>
-            <CarouselItem className="">
-              <div className="relative mx-auto w-fit">
-                <CarouselNext className="text-black bg-white right-4">
-                  <ChevronRightIcon />
-                </CarouselNext>
-                <CarouselPrevious className="text-black bg-white left-4">
-                  <ChevronLeftIcon />
-                </CarouselPrevious>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute w-6 h-6 text-black bg-white rounded-full top-3 right-3"
-                >
-                  <PlusIcon />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute w-6 h-6 text-black bg-black rounded-full bottom-3 right-3"
-                >
-                  <TwitterIcon />
-                </Button>
-                <Image
-                  src={productImg}
-                  width={1280}
-                  height={720}
-                  alt="product image"
-                  className="object-cover mx-auto rounded-md max-h-[45rem]"
-                />
-              </div>
-            </CarouselItem>
+        <Carousel className="relative w-full max-w-5xl mx-auto">
+          <CarouselNext className="z-30 text-black bg-white right-4">
+            <ChevronRightIcon />
+          </CarouselNext>
+          <CarouselPrevious className="z-30 text-black bg-white left-4">
+            <ChevronLeftIcon />
+          </CarouselPrevious>
+          <CarouselContent className="">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <CarouselItem
+                key={index}
+                className="relative flex items-center justify-center w-full max-w-6xl mx-auto"
+              >
+                <div className="p-2 mx-auto w-fit">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute text-black bg-white rounded-full size-6 top-4 right-4"
+                  >
+                    <PlusIcon />
+                  </Button>
+                  <Image
+                    src={productImg}
+                    width={1280}
+                    height={720}
+                    alt="product image"
+                    className="object-cover mx-auto rounded-md max-h-[45rem] bg-green-200"
+                  />
+                </div>
+              </CarouselItem>
+            ))}
           </CarouselContent>
         </Carousel>
       </div>
@@ -106,7 +113,9 @@ export default function ProductDetailPage() {
             width={24}
             className="rounded-full"
           />
-          <span className="underline">0x20...82</span>
+          <Link href={`/creator/${productId}`} className="underline">
+            0x20...82
+          </Link>
         </div>
       </div>
       <div className="">
