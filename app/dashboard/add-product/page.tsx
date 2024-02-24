@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import ReuseableBackground from "~/components/ui/ReuseableBackground";
-import Image from "next/image";
 import ProductForm from "~/components/ui/ProductForm";
 import { MdCancel } from "react-icons/md";
 import Link from "next/link";
@@ -14,7 +13,6 @@ import {
   useAbstraxionSigningClient,
 } from "@burnt-labs/abstraxion";
 import { mintyplexContractAddress } from "~/lib/utils/utils";
-import { PopularCard } from "~/components/customs/popular-card";
 import {
   Carousel,
   CarouselContent,
@@ -22,13 +20,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "~/components/ui/carousel";
-
-type SelectedImage = {
-  name: string;
-  size: number;
-  type: string;
-  url: string | ArrayBuffer | null;
-};
+import Image from "next/image";
 
 function getProductID() {
   return randomUUID();
@@ -39,14 +31,11 @@ function getSiaURI() {
 }
 
 const AddProduct: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(
-    null
-  );
   const { data: account } = useAbstraxionAccount();
   const { client } = useAbstraxionSigningClient();
-  const [imagePreviews, setImagePreviews] = useState<unknown>([]);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [fileInputVisible, setFileInputVisible] = useState(true);
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   // function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
   //   if (event.target.files && event.target.files.length > 0) {
   //     const file = event.target.files[0];
@@ -109,9 +98,16 @@ const AddProduct: React.FC = () => {
   const displayImage = (file: Blob) => {
     const reader = new FileReader();
     reader.onload = (event) => {
-      const newImagePreview = event.target.result;
-      setImagePreviews((prevPreviews) => [...prevPreviews, newImagePreview]);
-      setFileInputVisible(false); // Hide file input after selecting an image
+      if (event.target) {
+        const newImagePreview = event.target.result;
+        if (typeof newImagePreview === "string") {
+          setImagePreviews((prevPreviews) => [
+            ...prevPreviews,
+            newImagePreview,
+          ]);
+        }
+        setFileInputVisible(false); // Hide file input after selecting an image
+      }
     };
     reader.readAsDataURL(file);
   };
@@ -138,11 +134,11 @@ const AddProduct: React.FC = () => {
           </Link>
         </div>
 
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <h2 className="md:text-[36px] text-[24px] leading-[46px] font-semibold">
             Add Product
           </h2>
-          <div className="gap-2 hidden md:flex items-center">
+          <div className="items-center hidden gap-2 md:flex">
             <button className="px-3  rounded-md font-normal py-2 leading-[27px] flex justify-between  text-[20px] border-[rgb(99,99,99)]  border gap-4 ">
               Cancel
               <MdCancel />
@@ -168,24 +164,22 @@ const AddProduct: React.FC = () => {
               Image <span className="text-red-600">*</span>
             </h1>
 
-            <div className="gap-2 items-center">
+            <div className="items-center gap-2">
               {/* Display all images */}
-              <div className=" flex gap-2 my-4">
-                {imagePreviews.map(
-                  (
-                    preview: string | undefined,
-                    index: React.Key | null | undefined
-                  ) => (
-                    <div key={index}>
-                      <div className="">
-                        <img
-                          src={preview}
-                          className="w-40 h-40 border border-white"
-                        />
-                      </div>
+              <div className="flex my-4 gap-2">
+                {imagePreviews.map((preview, index) => (
+                  <div key={index}>
+                    <div className="">
+                      <Image
+                        src={preview}
+                        height={160}
+                        width={160}
+                        alt="preview"
+                        className="w-40 h-40 border border-white"
+                      />
                     </div>
-                  )
-                )}
+                  </div>
+                ))}
               </div>
 
               {/* Display only the first image */}
@@ -195,10 +189,13 @@ const AddProduct: React.FC = () => {
                   {Array.from({ length: 3 }).map((_, index) => (
                     <CarouselItem key={index} className="">
                       {imagePreviews.length > 0 && (
-                        <div className="flex  gap-2 items-center">
-                          <img
+                        <div className="flex items-center gap-2">
+                          <Image
+                            alt="preview-image"
                             src={imagePreviews[0]}
-                            className="w-full h-60 "
+                            width={240}
+                            height={240}
+                            className="w-full h-60"
                           />
                         </div>
                       )}
@@ -212,7 +209,11 @@ const AddProduct: React.FC = () => {
               </Carousel>
               <div
                 className={`flex items-center flex-col justify-center  rounded-lg  mt-6 bg-[rgb(29,30,31)] py-4 ${imagePreviews.length === 0 ? "hidden" : "flex"}`}
-                onClick={() => fileInputRef.current.click()}
+                onClick={() => {
+                  if (fileInputRef.current) {
+                    fileInputRef.current.click();
+                  }
+                }}
               >
                 <h1 className="flex items-center justify-center text-[11px] md:text-[13px]">
                   Upload an Image or drag and drop
@@ -233,7 +234,11 @@ const AddProduct: React.FC = () => {
             {fileInputVisible && (
               <div
                 className="flex flex-col items-center h-64 md:h-80 justify-center gap-4 rounded-lg mt-6 bg-[#1D1E1F] py-4"
-                onClick={() => fileInputRef.current.click()}
+                onClick={() => {
+                  if (fileInputRef.current) {
+                    fileInputRef.current.click();
+                  }
+                }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
