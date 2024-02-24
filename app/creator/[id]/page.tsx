@@ -26,6 +26,9 @@ import {
 import Search from "~/components/ui/Search";
 import SortIcon from "~/components/ui/SortIcon";
 import { CaretSortIcon } from "@radix-ui/react-icons";
+import { GoCopy } from "react-icons/go";
+import { copyToClipboard } from "~/utils/copyToClipboard";
+import { toast } from "~/components/ui/use-toast";
 
 export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
@@ -35,6 +38,11 @@ export default function Curator() {
     window.history.back()
   }
 
+  const handleCopy = (text: string | null) => {
+    toast({
+      description: "Creators Name copied.",
+    })
+  };
   return (
     <>
       <section className="container relative p-3 mx-auto mt-6 space-y-6">
@@ -90,7 +98,15 @@ export default function Curator() {
                 alt="user image"
                 src={Creator}
               />
-              <TypographyH3>0AHY21....342</TypographyH3>
+           <div className="flex items-center gap-2">
+           <TypographyH3>
+                0AHY21....342
+             
+                </TypographyH3>
+                <div className="cursor-pointer" onClick={() => copyToClipboard(`0AHY21....342`, handleCopy)}>
+                    <GoCopy />
+                  </div>
+           </div>
             </div>
           </div>
         </div>
