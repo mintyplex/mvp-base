@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import ReuseableBackground from "~/components/ui/ReuseableBackground";
-import Image from "next/image";
 import ProductForm from "~/components/ui/ProductForm";
 import { MdCancel } from "react-icons/md";
 import Link from "next/link";
@@ -13,7 +12,6 @@ import {
   useAbstraxionSigningClient,
 } from "@burnt-labs/abstraxion";
 import { mintyplexContractAddress } from "~/lib/utils/utils";
-import { PopularCard } from "~/components/customs/popular-card";
 import {
   Carousel,
   CarouselContent,
@@ -21,13 +19,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "~/components/ui/carousel";
-
-type SelectedImage = {
-  name: string;
-  size: number;
-  type: string;
-  url: string | ArrayBuffer | null;
-};
+import Image from "next/image";
 
 function getProductID(): string {
   return randomUUID();
@@ -38,9 +30,6 @@ function getSiaURI(): string {
 }
 
 const AddProduct: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(
-    null
-  );
   const { data: account } = useAbstraxionAccount();
   const { client } = useAbstraxionSigningClient();
   const [imagePreviews, setImagePreviews] = useState<Array<string>>([]);
@@ -129,11 +118,11 @@ const AddProduct: React.FC = () => {
           </Link>
         </div>
 
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <h2 className="md:text-[36px] text-[24px] leading-[46px] font-semibold">
             Add Product
           </h2>
-          <div className="gap-2 hidden md:flex items-center">
+          <div className="items-center hidden gap-2 md:flex">
             <button className="px-3  rounded-md font-normal py-2 leading-[27px] flex justify-between  text-[20px] border-[rgb(99,99,99)]  border gap-4 ">
               Cancel
               <MdCancel />
@@ -159,7 +148,7 @@ const AddProduct: React.FC = () => {
               Image <span className="text-red-600">*</span>
             </h1>
 
-            <div className="gap-2 items-center">
+            <div className="items-center gap-2">
               {/* Display all images */}
               <div className=" flex flex-wrap  gap-2 my-4">
                 {imagePreviews.map((preview, index) => (
