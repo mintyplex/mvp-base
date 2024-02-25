@@ -6,6 +6,10 @@ import { Button } from "../ui/button";
 import Ipod from "~/public/ipod.png";
 import EbookImg from "~/public/dotted-notebook.png";
 import Image from "next/image";
+import ebook from "~/public/ebook.svg";
+import design from "~/public/art.svg";
+import art from "~/public/art.svg";
+import photography from "~/public/photography.svg";
 
 type PopularCardProps = {
   asSmall?: boolean;
@@ -18,28 +22,28 @@ const contentFor = [
     title: "Photography",
     creators: "13k",
     product: "12k",
-    icon: PhotoGraphy,
+    icon: photography,
     sales: "$132,222k",
   },
   {
     title: "Design",
     creators: "13k",
     product: "12k",
-    icon: Design,
+    icon: design,
     sales: "$132,222k",
   },
   {
     title: "Ebooks",
     creators: "13k",
     product: "12k",
-    icon: EbookImg,
+    icon: ebook,
     sales: "$132,222k",
   },
   {
     title: "Arts",
     creators: "13k",
     product: "12k",
-    icon: Ipod,
+    icon: art,
     sales: "$132,222k",
   },
 ];
@@ -57,9 +61,9 @@ export function PopularCard({ asSmall, mxAuto, index }: PopularCardProps) {
     >
       <div className="overflow-hidden rounded-md">
         <Image
-          alt="Ipod"
+          alt={CardContent.title}
           src={CardContent.icon}
-          className="w-full max-h-72 group-hover:scale-105 transition-all duration-300"
+          className="w-full group-hover:scale-105 transition-all duration-300 bg-mintyplex-primary"
         />
       </div>
       <div>
