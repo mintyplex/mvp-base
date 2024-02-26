@@ -1,15 +1,11 @@
+import Image from "next/image";
 import { cn } from "~/lib/utils/utils";
-import PhotoGraphy from "~/public/photography.png";
-import Design from "~/public/canvas-stand.png";
 import { TypographyH4 } from "~/utils/typography";
 import { Button } from "../ui/button";
-import Ipod from "~/public/ipod.png";
-import EbookImg from "~/public/dotted-notebook.png";
-import Image from "next/image";
-import ebook from "~/public/ebook.svg";
-import design from "~/public/art.svg";
-import art from "~/public/art.svg";
-import photography from "~/public/photography.svg";
+import design from "~/public/Design-WA.png";
+import art from "~/public/Art-WA.png";
+import photography from "~/public/Photography-WA.png";
+import ebook from "~/public/Ebook-WA.png";
 
 type PopularCardProps = {
   asSmall?: boolean;
@@ -63,7 +59,7 @@ export function PopularCard({ asSmall, mxAuto, index }: PopularCardProps) {
         <Image
           alt={CardContent.title}
           src={CardContent.icon}
-          className="w-full group-hover:scale-105 transition-all duration-300 bg-mintyplex-primary"
+          className="object-cover w-full group-hover:scale-105 transition-all duration-300 bg-mintyplex-primary max-h-[30rem] object-top"
         />
       </div>
       <div>
