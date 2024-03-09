@@ -3,6 +3,7 @@ import { cn } from "~/lib/utils/utils";
 import { TypographyH4 } from "~/utils/typography";
 import { Button } from "../ui/button";
 import design from "~/public/Design-WA.png";
+import art from "~/public/Art-WA.png";
 import photography from "~/public/Photography-WA.png";
 import ebook from "~/public/Ebook-WA.png";
 
@@ -21,7 +22,7 @@ const contentFor = [
     sales: "$132,222k",
   },
   {
-    title: "Art",
+    title: "Arts",
     creators: "13k",
     product: "12k",
     icon: design,
@@ -32,6 +33,13 @@ const contentFor = [
     creators: "13k",
     product: "12k",
     icon: ebook,
+    sales: "$132,222k",
+  },
+  {
+    title: "Design",
+    creators: "13k",
+    product: "12k",
+    icon: art,
     sales: "$132,222k",
   },
 ];
