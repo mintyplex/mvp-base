@@ -16,6 +16,8 @@ export async function GET(request) {
   return NextResponse.json(product, { status: 200 });
 }
 
+// Endpoint for all products getting the required details {Name, Description, Image, Price, Discount, Cartegories, Tags}
+
 export async function DELETE(request) {
   const { name } = await request.json();
   await connectMongoDB();
