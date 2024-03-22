@@ -21,65 +21,65 @@ import { useToast } from "../ui/use-toast";
 import ReserveUsername from "../customs/ReserveUsername";
 
 export const SidebarData = [
-  {
-    title: "Discover",
-    link: "/",
-    id: "discover",
-  },
-  {
-    title: "Create",
-    link: "/dashboard/add-product",
-    id: "add-product",
-  },
-  {
-    title: "Dashboard",
-    link: "/dashboard",
-    id: "dashboard",
-  },
-  {
-    title: "Profile",
-    link: "/creator/321",
-    id: "profile",
-  },
-  {
-    title: "Request Feature",
-    link: "",
-    id: "",
-  },
+	{
+		title: "Discover",
+		link: "/",
+		id: "discover",
+	},
+	{
+		title: "Create",
+		link: "/dashboard/add-product",
+		id: "add-product",
+	},
+	{
+		title: "Dashboard",
+		link: "/dashboard",
+		id: "dashboard",
+	},
+	{
+		title: "Profile",
+		link: "/creator/321",
+		id: "profile",
+	},
+	{
+		title: "Request Feature",
+		link: "",
+		id: "https://discord.gg/2qeDehj4De",
+	},
 ];
 
 const MobileSidebar = ({
-  closeSidebar,
-  isLoggedIn,
-  setShowAbstraxion,
+	closeSidebar,
+	isLoggedIn,
+	setShowAbstraxion,
 }: {
-  closeSidebar: () => void;
-  isLoggedIn: boolean;
-  setShowAbstraxion: any;
+	closeSidebar: () => void;
+	isLoggedIn: boolean;
+	setShowAbstraxion: any;
 }) => {
-  const pathname = usePathname();
+	const pathname = usePathname();
 
-  const { accountData } = useAccount();
+	const { accountData } = useAccount();
 
-  const filteredSidebarData = SidebarData.filter((data) => {
-    if (!isLoggedIn) {
-      return (
-        data.id !== "dashboard" &&
-        data.id !== "profile" &&
-        data.id !== "add-product"
-      );
-    }
-    return true;
-  });
+	const filteredSidebarData = SidebarData.filter((data) => {
+		if (!isLoggedIn) {
+			return (
+				data.id !== "dashboard" &&
+				data.id !== "profile" &&
+				data.id !== "add-product"
+			);
+		}
+		return true;
+	});
 
-  const { toast } = useToast()
+	const { toast } = useToast();
 
-  // handle copy notification
-  const handleCopy = (text: string | null) => {
-    toast({
-      description: "Address copied.",
-    })
-  };
+	// handle copy notification
+	const handleCopy = (text: string | null) => {
+		toast({
+			description: "Address copied.",
+		});
+	};
 
   return (
     <main className="fixed block w-full px-6 lg:hidden bg-brand10 top-14 h-fit">

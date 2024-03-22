@@ -1,11 +1,11 @@
+import Image from "next/image";
 import { cn } from "~/lib/utils/utils";
-import PhotoGraphy from "~/public/photography.png";
-import Design from "~/public/canvas-stand.png";
 import { TypographyH4 } from "~/utils/typography";
 import { Button } from "../ui/button";
-import Ipod from "~/public/ipod.png";
-import EbookImg from "~/public/dotted-notebook.png";
-import Image from "next/image";
+import design from "~/public/Design-WA.png";
+import art from "~/public/Art-WA.png";
+import photography from "~/public/Photography-WA.png";
+import ebook from "~/public/Ebook-WA.png";
 
 type PopularCardProps = {
   asSmall?: boolean;
@@ -18,28 +18,28 @@ const contentFor = [
     title: "Photography",
     creators: "13k",
     product: "12k",
-    icon: PhotoGraphy,
-    sales: "$132,222k",
-  },
-  {
-    title: "Design",
-    creators: "13k",
-    product: "12k",
-    icon: Design,
-    sales: "$132,222k",
-  },
-  {
-    title: "Ebooks",
-    creators: "13k",
-    product: "12k",
-    icon: EbookImg,
+    icon: photography,
     sales: "$132,222k",
   },
   {
     title: "Arts",
     creators: "13k",
     product: "12k",
-    icon: Ipod,
+    icon: design,
+    sales: "$132,222k",
+  },
+  {
+    title: "Ebooks",
+    creators: "13k",
+    product: "12k",
+    icon: ebook,
+    sales: "$132,222k",
+  },
+  {
+    title: "Design",
+    creators: "13k",
+    product: "12k",
+    icon: art,
     sales: "$132,222k",
   },
 ];
@@ -57,9 +57,9 @@ export function PopularCard({ asSmall, mxAuto, index }: PopularCardProps) {
     >
       <div className="overflow-hidden rounded-md">
         <Image
-          alt="Ipod"
+          alt={CardContent.title}
           src={CardContent.icon}
-          className="w-full max-h-72 group-hover:scale-105 transition-all duration-300"
+          className="object-cover w-full group-hover:scale-105 transition-all duration-300 bg-mintyplex-primary max-h-[30rem] object-top"
         />
       </div>
       <div>

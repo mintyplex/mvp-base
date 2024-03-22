@@ -52,6 +52,15 @@ const ProductForm = () => {
     }
   };
 
+  const handleDeleteTag = (tagIndex:any) => {
+    // Create a copy of the tags array
+    const newTags = [...tags];
+    // Remove the tag at the specified index
+    newTags.splice(tagIndex, 1);
+    // Update the state with the new tags array
+    setTags(newTags);
+  };
+
   const handleDivClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -197,7 +206,7 @@ const ProductForm = () => {
                 </SelectTrigger>
                 <SelectContent className="bg-[rgb(99,99,99)]">
                   <SelectGroup>
-                    <SelectLabel>Fruits</SelectLabel>
+                    <SelectLabel>Category</SelectLabel>
                     <SelectItem value="apple">E-book</SelectItem>
                     <SelectItem value="banana">Art</SelectItem>
                     <SelectItem value="blueberry">Photography</SelectItem>
@@ -275,7 +284,7 @@ const ProductForm = () => {
             )}
             {!selectedImage && (
               <h1 className="flex justify-center items-center text-[13px]">
-                PNG or JPEG PDF, EPUB, MOBI upto 5MB
+                PNG or JPEG PDF, EPUB, MOBI upto 1GB
               </h1>
             )}
             <input
@@ -357,7 +366,7 @@ const ProductForm = () => {
               value={inputValuee}
               onChange={handleInputChange}
               className="p-4 border-2 text-sm border-[rgb(99,99,99)] placeholder:text-[14px] "
-              placeholder="Web3"
+              placeholder=" type a tag"
               required
             />
             <label htmlFor="" className="px-4 text-sm">
@@ -368,8 +377,10 @@ const ProductForm = () => {
           <div className="flex items-end md:w-full justify-end flex-wrap gap-4">
             {tags.map((tag, index) => (
               <div key={index} className="">
-                <button className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 items-center">
+                <button className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 items-center" >
+                  <div onClick={handleDeleteTag}>
                   <MdCancel />
+                  </div>
                   {tag}
                 </button>
               </div>
