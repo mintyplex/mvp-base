@@ -27,7 +27,7 @@ export const SidebarData = [
 		id: "discover",
 	},
 	{
-		title: "Create",
+		title: "Sell on Mintyplex",
 		link: "/dashboard/add-product",
 		id: "add-product",
 	},
