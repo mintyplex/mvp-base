@@ -57,7 +57,7 @@ const AddProduct: React.FC = () => {
         []
       );
       console.log(mintRes);
-      // Show an alert of transaction hash response
+       // Show an alert of transaction hash response
     } catch (error) {
       console.log(error);
     }
