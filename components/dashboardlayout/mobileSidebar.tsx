@@ -104,7 +104,7 @@ const MobileSidebar = ({
                   </div>
                 </div>
                 <p className="text-[16px] !underline text-transparent !bg-clip-text [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
-                  Alpha Version
+                  Testnet Version
                 </p>
               </div>
             </div>
