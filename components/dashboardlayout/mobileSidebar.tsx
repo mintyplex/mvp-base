@@ -141,7 +141,7 @@ const MobileSidebar = ({
               </div>
             ) : (
               <div
-                onClick={closeSidebar}
+              onClick={() => { setShowAbstraxion(true); closeSidebar(); }}
                 className={`mt-4 bg-[#FF0000] rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-dark`}
               >
                 <p>Log Out</p>
