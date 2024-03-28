@@ -17,7 +17,7 @@ export async function POST(req, res) {
         const { email, username } = req.body;
         
 
-        // if (!email || typeof email !== 'string') {
+     // if (!email || typeof email !== 'string') {
         //     return NextResponse.json({ message: "Email is required and must be strings." }, { status: 400 });
         // }
         // if (!username || typeof username !== 'string') {
