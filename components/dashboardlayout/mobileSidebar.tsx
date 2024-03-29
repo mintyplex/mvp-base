@@ -43,7 +43,7 @@ export const SidebarData = [
 	},
 	{
 		title: "Request Feature",
-		link: "",
+		link: "https://discord.gg/2qeDehj4De",
 		id: "https://discord.gg/2qeDehj4De",
 	},
 ];
