@@ -29,24 +29,30 @@ import { CaretSortIcon } from "@radix-ui/react-icons";
 import { GoCopy } from "react-icons/go";
 import { copyToClipboard } from "~/utils/copyToClipboard";
 import { toast } from "~/components/ui/use-toast";
+import { useAccount } from "~/components/context/AccountContext";
+import { truncate } from "~/utils/truncate";
 
 export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
   const [editModal, setEditModal] = useState(false);
+  const { accountData } = useAccount();
 
   const back = () => {
-    window.history.back()
-  }
+    window.history.back();
+  };
 
   const handleCopy = (text: string | null) => {
     toast({
       description: "Creators Name copied.",
-    })
+    });
   };
   return (
     <>
       <section className="container relative p-3 mx-auto mt-6 space-y-6">
-        <div className="p-2 border border-mintyplex-border w-fit rounded-[8px] cursor-pointer" onClick={() => back()}>
+        <div
+          className="p-2 border border-mintyplex-border w-fit rounded-[8px] cursor-pointer"
+          onClick={() => back()}
+        >
           <BsArrowLeft size={20} />
         </div>
         <div className="relative w-full">
@@ -98,15 +104,15 @@ export default function Curator() {
                 alt="user image"
                 src={Creator}
               />
-           <div className="flex items-center gap-2">
-           <TypographyH3>
-                0AHY21....342
-             
-                </TypographyH3>
-                <div className="cursor-pointer" onClick={() => copyToClipboard(`0AHY21....342`, handleCopy)}>
-                    <GoCopy />
-                  </div>
-           </div>
+              <div className="flex items-center gap-2">
+                <TypographyH3>{truncate(accountData)}</TypographyH3>
+                <div
+                  className="cursor-pointer"
+                  onClick={() => copyToClipboard(`0AHY21....342`, handleCopy)}
+                >
+                  <GoCopy />
+                </div>
+              </div>
             </div>
           </div>
         </div>

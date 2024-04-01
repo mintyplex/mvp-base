@@ -17,7 +17,10 @@ import CreatorChart from "../ui/graph/Creator-line-chart";
 import CreatorEmptyState from "../ui/CreatorEmptyState";
 import Doughnutt from "../ui/graph/Creator-Doughnut";
 import { randomUUID } from "crypto";
-import { useAbstraxionAccount, useAbstraxionSigningClient } from "@burnt-labs/abstraxion";
+import {
+  useAbstraxionAccount,
+  useAbstraxionSigningClient,
+} from "@burnt-labs/abstraxion";
 
 // import CreatorLineChart from '~/components/ui/graph/creator-line-chart';
 
@@ -68,8 +71,6 @@ const CreatorDashboard = () => {
     },
   ];
 
-
-
   return (
     <div className="w-full pb-4">
       <div className="flex flex-col w-full gap-8">
@@ -84,11 +85,13 @@ const CreatorDashboard = () => {
                 your activities
               </p>
             </div>
-            <Link href="/dashboard/add-product">
-              <button className="bg-[rgba(30,91,221,1)] block px-6 py-2 mt-6 md:mt-0 rounded-md font-normal text-[16px] leading-[27px] hover:bg-brand2">
-                Add Product
-              </button>
-            </Link>
+            <div className="w-fit mt-6 md:mt-0">
+              <Link href="/dashboard/add-product">
+                <button className="bg-[rgba(30,91,221,1)] block px-6 py-2 rounded-md font-normal text-[16px] leading-[27px] hover:bg-brand2">
+                  Add Product
+                </button>
+              </Link>
+            </div>
           </div>
           <div className="flex overflow-x-auto justify-between my-10 gap-[16px] w-full md:w-fit">
             <div className="border-white border-[1px] rounded-md shadow-lg px-[20px] py-[20px] bg-[#313233]">
@@ -248,4 +251,3 @@ const CreatorDashboard = () => {
 };
 
 export default CreatorDashboard;
-

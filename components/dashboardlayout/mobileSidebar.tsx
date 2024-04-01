@@ -43,7 +43,7 @@ export const SidebarData = [
 	},
 	{
 		title: "Request Feature",
-		link: "",
+		link: "https://discord.gg/2qeDehj4De",
 		id: "https://discord.gg/2qeDehj4De",
 	},
 ];
@@ -104,7 +104,7 @@ const MobileSidebar = ({
                   </div>
                 </div>
                 <p className="text-[16px] !underline text-transparent !bg-clip-text [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
-                  Alpha Version
+                  Testnet Version
                 </p>
               </div>
             </div>
@@ -141,7 +141,7 @@ const MobileSidebar = ({
               </div>
             ) : (
               <div
-                onClick={closeSidebar}
+              onClick={() => { setShowAbstraxion(true); closeSidebar(); }}
                 className={`mt-4 bg-[#FF0000] rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-dark`}
               >
                 <p>Log Out</p>

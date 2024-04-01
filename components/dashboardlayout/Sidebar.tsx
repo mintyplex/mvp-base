@@ -11,14 +11,16 @@ import curator from "~/public/curator.png";
 import { FaFacebookF } from "react-icons/fa6";
 import TwitterIcon from "../ui/TwitterIcon";
 import TelegramIcon from "../ui/TelegramIcon";
-import { useAbstraxionAccount, useAbstraxionSigningClient } from "@burnt-labs/abstraxion";
+import {
+  useAbstraxionAccount,
+  useAbstraxionSigningClient,
+} from "@burnt-labs/abstraxion";
 import { truncateXionAddress } from "~/lib/utils/utils";
 import { copyToClipboard } from "~/utils/copyToClipboard";
 import { useToast } from "../ui/use-toast";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import ReserveUsername from "../customs/ReserveUsername";
-
-
+import { useAccount } from "../context/AccountContext";
 
 export const SidebarData = [
   {
@@ -52,16 +54,14 @@ const links = [
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const { data: account } = useAbstraxionAccount();
-  const { client } = useAbstraxionSigningClient();
-
-  const { toast } = useToast()
+  const { account } = useAccount();
+  const { toast } = useToast();
 
   // handle copy notification
   const handleCopy = (text: string | null) => {
     toast({
       description: "Address copied.",
-    })
+    });
   };
 
   return (
@@ -76,13 +76,20 @@ const Sidebar = () => {
         />
         <div className="text-center">
           <div className="flex items-center gap-2">
-          <p className="text-[25px] font-bold capitalize">{truncateXionAddress(account.bech32Address)}</p>
-            <div className="cursor-pointer" onClick={() => copyToClipboard(`${account.bech32Address}`, handleCopy)}>
+            <p className="text-[25px] font-bold capitalize">
+              {truncateXionAddress(account.bech32Address)}
+            </p>
+            <div
+              className="cursor-pointer"
+              onClick={() =>
+                copyToClipboard(`${account.bech32Address}`, handleCopy)
+              }
+            >
               <GoCopy />
             </div>
           </div>
           <p className="text-[16px] !underline text-transparent !bg-clip-text [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
-            Alpha Version
+            Testnet Version
           </p>
         </div>
       </div>
@@ -103,8 +110,9 @@ const Sidebar = () => {
             <div key={i}>
               <Link href={data.link}>
                 <div
-                  className={`text-center cursor-pointer w-full flex items-center gap-4 py-2 px-4 transition-colors rounded-[8px] hover:bg-mintyplex-primary ${pathname === data.id ? "bg-mintyplex-primary" : ""
-                    }`}
+                  className={`text-center cursor-pointer w-full flex items-center gap-4 py-2 px-4 transition-colors rounded-[8px] hover:bg-mintyplex-primary ${
+                    pathname === data.link ? "bg-mintyplex-primary" : ""
+                  }`}
                 >
                   {data.icon}
                   <div>
