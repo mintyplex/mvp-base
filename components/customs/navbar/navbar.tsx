@@ -3,6 +3,7 @@
 import { Abstraxion } from "@burnt-labs/abstraxion";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import { BsXLg } from "react-icons/bs";
 import { HiUserCircle } from "react-icons/hi";
 import { useAccount } from "~/components/context/AccountContext";
@@ -19,12 +20,18 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { Input } from "~/components/ui/input";
+import usePostData from "~/hooks/usePostData";
 import logoLg from "~/public/logo-lg.png";
 import logo from "~/public/logo.png";
 import { truncate } from "~/utils/truncate";
 import { TypographyH3 } from "~/utils/typography";
 
 export default function Navbar() {
+  // const baseURL = process.env.BASE_URL;
+  const baseURL = "https://mintyplex-api.onrender.com/api/v1/user";
+
+  // console.log(baseURL, 'hey');
+
   const {
     closeSidebar,
     isSidebarOpen,
@@ -33,6 +40,23 @@ export default function Navbar() {
     setShowAbstraxion,
     toggleSidebar,
   } = useAccount();
+  const { postData } = usePostData();
+
+  useEffect(() => {
+    if (account.bech32Address) {
+      postData({
+        url: `${baseURL}/profile/`,
+        body: { wallet_address: account.bech32Address },
+      })
+        .then((response) => {
+          // Handle the response if needed
+          console.log("Address submitted successfully:", response);
+        })
+        .catch((error) => {
+          console.error("Error submitting address:", error);
+        });
+    }
+  }, [account.bech32Address, postData]);
 
   return (
     <header className="border-b border-mintyplex-border">
