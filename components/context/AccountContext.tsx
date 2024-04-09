@@ -59,6 +59,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   const { client } = useAbstraxionSigningClient();
 
   // console.log(account, client)
+  // const apiUrl = process.env.NEXT_BASE_URL;
 
   if (isLoggedIn) {
     router.push("/profile-update");
@@ -72,10 +73,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
 
     if (isLoggedIn && profile) {
 
-      const apiUrl = process.env.NEXT_BASE_URL;
-
-      console.log(apiUrl);
-      
+      const apiUrl = 'https://mintyplex-api.onrender.com/api/v1/user';      
 
       fetch(`${apiUrl}/profile/${profile}`)
         .then((response) => response.json())
