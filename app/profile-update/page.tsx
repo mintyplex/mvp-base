@@ -54,9 +54,11 @@ export default function UpdateProfile() {
 
   const onSubmit = async (data: any) => {
     // preventDefault();
-    const apiUrl = process.env.NEXT_BASE_URL;
+    const apiUrl = 'https://mintyplex-api.onrender.com/api/v1/user';
+    // const apiUrl = process.env.NEXT_BASE_URL;
 
     data.wallet_address = account.bech32Address;
+    // data.email = 'mail@gmail.com';
 
     console.log(data);
 
@@ -66,7 +68,7 @@ export default function UpdateProfile() {
     });
     if (response) {
       console.log("Form submitted successfully:", response);
-      router.push("/profile-update");
+      router.push("/dashboard");
     }
   };
 
@@ -117,7 +119,7 @@ export default function UpdateProfile() {
               <div className="w-full py-2 px-4 flex justify-center">
                 <h3>{truncate(account.bech32Address)}</h3>
               </div>
-              <div className="form">
+              {/* <div className="form">
                 <p className="mb-2 text-[14px]">
                   Email <span className="text-red-600">*</span>
                 </p>
@@ -129,7 +131,7 @@ export default function UpdateProfile() {
                   required
                   {...register("email", { required: true })}
                 />
-              </div>
+              </div> */}
               <div className="form">
                 <p className="mb-2 text-[14px]">
                   Bio <span className="text-red-600">*</span>

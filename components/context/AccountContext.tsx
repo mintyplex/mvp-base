@@ -6,9 +6,11 @@ import {
   useAbstraxionSigningClient,
   useModal,
 } from "@burnt-labs/abstraxion";
+import axios from "axios";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import LoadingModal from "../ui/LoadingModal";
 
 // I don't know how to properly get the type for client so I'll just pass in any for the type being
 type AccountProviderProps = {
@@ -21,6 +23,11 @@ type AccountProviderProps = {
   setShowAbstraxion: (value: boolean) => void;
   closeSidebar: () => void;
   userData: any | null;
+  setUserData: any | null;
+  isError: any | null;
+  loading: any | null;
+  setIsError: any | null;
+  setLoading: any | null;
 } | null;
 
 // Create a context with an initial empty value
@@ -42,6 +49,8 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [accountData, setAccountData] = useState<string | null>(null);
   const [userData, setUserData] = useState<any>(null); // Initialize userData state
+  const [loading, setLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const router = useRouter();
 
@@ -61,35 +70,20 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   // console.log(account, client)
   // const apiUrl = process.env.NEXT_BASE_URL;
 
-  if (isLoggedIn) {
-    router.push("/profile-update");
-  }
+  // if (isLoggedIn) {
+  //   router.push("/");
+  // }
+
+  // if (!isLoggedIn) {
+  //   router.push("/");
+  // }
 
   const profile = account?.bech32Address;
 
   useEffect(() => {
     setIsLoggedIn(!!profile);
     setAccountData(profile);
-
-    if (isLoggedIn && profile) {
-
-      const apiUrl = 'https://mintyplex-api.onrender.com/api/v1/user';      
-
-      fetch(`${apiUrl}/profile/${profile}`)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data) {
-            setUserData(data);
-          } else {
-            router.push("/profile-update");
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error);
-          router.push("/profile-update");
-        });
-    }
-  }, [profile, isLoggedIn, router]);
+  }, [profile, router]);
 
   const contextValue: AccountProviderProps = {
     toggleSidebar,
@@ -101,6 +95,11 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     setShowAbstraxion,
     closeSidebar,
     userData,
+    setUserData,
+    isError,
+    setIsError,
+    loading,
+    setLoading,
   };
 
   return (
