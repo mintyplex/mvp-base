@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 
 import { Crown } from "lucide-react";
 import Image from "next/image";
@@ -36,13 +35,16 @@ const creators = {
 };
 
 export default function Home() {
-
-  const { accountData, isLoggedIn } = useAccount()
- const {isLoading}= useFetchUserData({isLoggedIn, accountData,retries:3})
+  const { accountData, isLoggedIn } = useAccount();
+  const { isLoading } = useFetchUserData({
+    isLoggedIn,
+    accountData,
+    retries: 3,
+  });
 
   return (
     <TooltipProvider>
-      {isLoading && ( <LoadingModal isOpen={isLoading}/>)}
+      {isLoading && <LoadingModal isOpen={isLoading} />}
       <section className="container p-3 mx-auto space-y-5">
         <TypographyH3 className="flex items-center gap-3">
           <div

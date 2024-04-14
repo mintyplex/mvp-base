@@ -22,8 +22,6 @@ type AccountProviderProps = {
   account: any;
   setShowAbstraxion: (value: boolean) => void;
   closeSidebar: () => void;
-  userData: any | null;
-  setUserData: any | null;
   isError: any | null;
   loading: any | null;
   setIsError: any | null;
@@ -48,7 +46,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   const [, setShowAbstraxion] = useModal();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [accountData, setAccountData] = useState<string | null>(null);
-  const [userData, setUserData] = useState<any>(null); // Initialize userData state
+  // const [userData, setUserData] = useState<any>(null); // Initialize userData state
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -94,8 +92,6 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     account,
     setShowAbstraxion,
     closeSidebar,
-    userData,
-    setUserData,
     isError,
     setIsError,
     loading,
