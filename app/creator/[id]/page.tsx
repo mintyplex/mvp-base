@@ -39,9 +39,9 @@ export default function Curator() {
   const [editModal, setEditModal] = useState(false);
   const { accountData, isLoggedIn, loading, isError } = useAccount();
 
-  const { userData, isLoading} = useFetchUserData({isLoggedIn, accountData})
+  const { userData} = useFetchUserData({isLoggedIn, accountData})
 
-  console.log(userData);
+  // console.log(userData);
   
   const back = () => {
     window.history.back();
@@ -54,7 +54,6 @@ export default function Curator() {
   };
   return (
     <>
-    {isLoading && ( <LoadingModal isOpen={isLoading}/>)}
       <section className="container relative p-3 mx-auto mt-6 space-y-6">
         <div
           className="p-2 border border-mintyplex-border w-fit rounded-[8px] cursor-pointer"

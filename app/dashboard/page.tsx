@@ -10,14 +10,8 @@ import { useAccount } from "~/components/context/AccountContext";
 import LoadingModal from "~/components/ui/LoadingModal";
 
 export default function Dashboard() {
-
-  const { accountData, userData, isLoading, isError } = useAccount();
-
-
   return (
     <>
-          {isLoading && <LoadingModal isOpen={isLoading} />}
-
       <DashboardLayout>
         <CreatorDashboard />
       </DashboardLayout>

@@ -114,9 +114,11 @@ export default function Navbar() {
                         </DropdownMenuItem>
                       </Link>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem className="cursor-pointer">
-                        Profile
-                      </DropdownMenuItem>
+                      <Link href="/creator/32">
+                        <DropdownMenuItem className="cursor-pointer">
+                          Profile
+                        </DropdownMenuItem>
+                      </Link>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
                         className="cursor-pointer hover:bg-red"

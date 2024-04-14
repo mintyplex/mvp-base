@@ -11,6 +11,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import LoadingModal from "../ui/LoadingModal";
+import ProtectedRoute from "../customs/protected-route";
 
 // I don't know how to properly get the type for client so I'll just pass in any for the type being
 type AccountProviderProps = {
@@ -100,7 +101,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AccountContext.Provider value={contextValue}>
-      {children}
+      <ProtectedRoute>{children}</ProtectedRoute>
     </AccountContext.Provider>
   );
 }
