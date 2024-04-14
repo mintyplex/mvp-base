@@ -20,6 +20,7 @@ import type { Metadata } from "next";
 import { AccountProvider } from "~/components/context/AccountContext";
 import { Toaster } from "~/components/ui/toaster";
 import { queryClient } from "~/lib/queryClient";
+import { QueryProvider } from "~/components/context/queryClient";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://testnet.mintyplex.com/"),
@@ -62,7 +63,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-mintyplex-dark">
       <body className={cn(inter.className, "bg-mintyplex-dark text-white")}>
-        {/* <QueryClientProvider client={queryClient}> */}
+        <QueryProvider>
           <BurntWrapper>
             <AccountProvider>
               <ThemeProvider
@@ -82,7 +83,7 @@ export default function RootLayout({
               </ThemeProvider>
             </AccountProvider>
           </BurntWrapper>
-        {/* </QueryClientProvider> */}
+        </QueryProvider>
       </body>
     </html>
   );

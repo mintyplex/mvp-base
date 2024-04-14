@@ -22,8 +22,8 @@ export const useFetchData = () => {
       const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
 
       if (isLoggedIn && accountData) {
-        router.push("/profile-update");
-        setLoading(true);
+        // router.push("/profile-update");
+        // setLoading(true);
         setIsError(false);
 
         try {

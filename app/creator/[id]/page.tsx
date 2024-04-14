@@ -33,14 +33,19 @@ import { useAccount } from "~/components/context/AccountContext";
 import { truncate } from "~/utils/truncate";
 import { useFetchData } from "~/hooks/userDataFetch";
 import LoadingModal from "~/components/ui/LoadingModal";
+import useFetchUserData from "~/hooks/useFetchData";
 
 export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
   const [editModal, setEditModal] = useState(false);
-  const { accountData, userData, loading, isError } = useAccount();
+  const { accountData, isLoggedIn, loading, isError } = useAccount();
 
-  if (loading) return <LoadingModal isOpen={loading} />;
-  if (isError) return <div>Error fetching user data.</div>;
+  const { userData} = useFetchUserData({isLoggedIn, accountData})
+
+  // if (loading) {
+  //   console.log(loading)
+  //   return <LoadingModal isOpen={loading} />};
+  // if (isError) return <div>Error fetching user data.</div>;
   console.log(userData);
   
   const back = () => {

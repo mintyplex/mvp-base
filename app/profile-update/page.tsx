@@ -29,17 +29,20 @@ export default function UpdateProfile() {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageSrc(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      // const reader = new FileReader();
+      // reader.onloadend = () => {
+      //   setImageSrc(reader.result as string);
+      // };
+      // reader.readAsDataURL(file);
+
+      console.log(file)
     }
   };
 
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
+  console.log(imageSrc);
 
   // data
   const router = useRouter();
