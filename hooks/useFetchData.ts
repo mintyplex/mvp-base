@@ -1,8 +1,7 @@
 "use client";
-
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect } from "react";
 
 interface UserProfile {
   wallet_address: string;
@@ -18,8 +17,7 @@ interface UserProfile {
 interface UserData {
   user?: UserProfile;
   status?: number;
-  error?: boolean;
-  // Assuming the API response includes a status code inside the data
+  error?: boolean; // Assuming the API response includes a status code inside the data
 }
 
 interface UseFetchUserDataProps {
@@ -31,7 +29,7 @@ interface UseFetchUserDataProps {
 const useFetchUserData = ({
   isLoggedIn,
   accountData,
-  retries=0,
+  retries = 0,
 }: UseFetchUserDataProps) => {
   const router = useRouter();
   const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
@@ -42,34 +40,32 @@ const useFetchUserData = ({
     return response.json();
   };
 
-  const { data, status,isLoading } = useQuery<UserData, Error>(
+  const { data, status, isLoading } = useQuery<UserData, Error>(
     ["userData"],
     fetchUserData,
     {
       enabled: isLoggedIn && !!accountData,
       retry: retries,
       onSuccess: (data) => {
-        if (data?.error === false) {
-          router.push("/dashboard");
-        } else {
-          router.push("/profile-update");
-        }
+        // No state updates or router pushes here
       },
       onError: (error) => {
         console.error("Error fetching user data:", error);
-        router.push("/profile-update");
       },
     }
   );
 
-  // This state and effect are placeholders. Adapt according to your state management strategy.
-  const [userData, setUserData] = useState<UserProfile | undefined>();
-  if (status === "success" && data) {
-    setUserData(data?.user);
-    // storeUserData(data);
-  }
+  useEffect(() => {
+    if (status === "success" && data) {
+      if (data.error === false) {
+        // router.push("/dashboard");
+      } else {
+        router.push("/profile-update");
+      }
+    }
+  }, [data, router, status]);
 
-  return { userData, status,isLoading };
+  return { userData: data?.user, status, isLoading };
 };
 
 export default useFetchUserData;

@@ -23,7 +23,7 @@ interface FormData {
 
 export default function EditModal({ setEditModal }: ModalProps) {
 
-  const { account } = useAccount();
+  const { accountData } = useAccount();
 
   const [imageSrc, setImageSrc] = useState<any>(Curator);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -58,12 +58,11 @@ export default function EditModal({ setEditModal }: ModalProps) {
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
     // const apiUrl = process.env.NEXT_BASE_URL;
 
-    // data.wallet_address = account.bech32Address;
 
     console.log(data);
 
     const response = await postData({
-      url: `${apiUrl}/profile`,
+      url: `${apiUrl}/profile/${accountData}`,
       body: data,
     });
     if (response) {
