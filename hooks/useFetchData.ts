@@ -18,6 +18,7 @@ interface UserProfile {
 interface UserData {
   user?: UserProfile;
   status?: number;
+  error?: boolean;
   // Assuming the API response includes a status code inside the data
 }
 
@@ -48,7 +49,7 @@ const useFetchUserData = ({
       enabled: isLoggedIn && !!accountData,
       retry: retries,
       onSuccess: (data) => {
-        if (data?.status === 200) {
+        if (data?.error === false) {
           router.push("/dashboard");
         } else {
           router.push("/profile-update");

@@ -21,6 +21,7 @@ import { AccountProvider } from "~/components/context/AccountContext";
 import { Toaster } from "~/components/ui/toaster";
 import { queryClient } from "~/lib/queryClient";
 import { QueryProvider } from "~/components/context/queryClient";
+import ProtectedRoute from "~/components/customs/protected-route";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://testnet.mintyplex.com/"),
@@ -66,6 +67,7 @@ export default function RootLayout({
         <QueryProvider>
           <BurntWrapper>
             <AccountProvider>
+              {/* <ProtectedRoute> */}
               <ThemeProvider
                 attribute="class"
                 defaultTheme="dark"
@@ -81,6 +83,7 @@ export default function RootLayout({
                 </main>
                 <Toaster />
               </ThemeProvider>
+              {/* </ProtectedRoute> */}
             </AccountProvider>
           </BurntWrapper>
         </QueryProvider>

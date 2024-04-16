@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAccount } from "~/components/context/AccountContext";
@@ -14,7 +16,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { isLoading } = useFetchUserData({
     isLoggedIn,
     accountData,
-    retries: 2,
+    retries: 1,
   });
 
 //   useEffect(() => {
@@ -29,9 +31,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   return (
     <>
-      {isLoggedIn ? (
+      {/* {isLoggedIn ? (
         <>{isLoading && <LoadingModal isOpen={isLoading} />}</>
-      ) : null}
+      ) : null} */}
       {children}
     </>
   );
