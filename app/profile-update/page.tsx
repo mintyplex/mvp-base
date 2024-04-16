@@ -169,9 +169,7 @@ export default function UpdateProfile() {
               >
                 {isLoading ? (
                   <>
-                    <div className="loading-spinner">
-                      <div className="spinner"></div>
-                    </div>
+                    <div className="loader"></div>
                   </>
                 ) : (
                   "Update"
