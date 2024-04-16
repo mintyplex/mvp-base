@@ -11,7 +11,6 @@ import usePostData from "~/hooks/usePostData";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-
 interface FormData {
   bio: string;
   email: string;
@@ -35,7 +34,7 @@ export default function UpdateProfile() {
       // };
       // reader.readAsDataURL(file);
 
-      console.log(file)
+      console.log(file);
     }
   };
 
@@ -57,7 +56,7 @@ export default function UpdateProfile() {
 
   const onSubmit = async (data: any) => {
     // preventDefault();
-    const apiUrl = 'https://mintyplex-api.onrender.com/api/v1/user';
+    const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
     // const apiUrl = process.env.NEXT_BASE_URL;
 
     data.wallet_address = account.bech32Address;
@@ -168,7 +167,15 @@ export default function UpdateProfile() {
                 // disabled={isLoading}
                 className="text-white bg-mintyplex-primary px-3 py-2 rounded-[8px]"
               >
-                {isLoading ? "Loading..." : "Update"}
+                {isLoading ? (
+                  <>
+                    <div className="loading-spinner">
+                      <div className="spinner"></div>
+                    </div>
+                  </>
+                ) : (
+                  "Update"
+                )}
               </button>
             </div>
           </div>
