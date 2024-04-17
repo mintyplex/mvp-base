@@ -185,7 +185,7 @@ export default function UpdateProfile() {
             </form>
             <div className="w-full flex justify-end mt-4">
               <button
-                onClick={handleSubmit((data) => onSubmitImage(data.imageSrc, accountData))}
+                onClick={handleSubmit(onSubmit)}
                 // disabled={isLoading}
                 className="text-white bg-mintyplex-primary px-3 py-2 rounded-[8px]"
               >
