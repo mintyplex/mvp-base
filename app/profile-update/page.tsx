@@ -18,6 +18,8 @@ interface FormData {
   x_link: string;
 }
 
+
+
 export default function UpdateProfile() {
   const { account, accountData } = useAccount();
 
@@ -71,7 +73,7 @@ export default function UpdateProfile() {
   };
 
   // On submit Image
-  const onSubmitImage = async (imageSrc: any, accountData: string) => {
+  const onSubmitImage = async (imageSrc: any, accountData: string | null) => {
     // preventDefault(); // Remove this line as it's not needed in this context
   
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
