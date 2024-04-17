@@ -96,7 +96,7 @@ const MobileSidebar = ({
               />
               <div className="w-fit">
                 <div className="flex items-center gap-2">
-                  <p className="text-[28px] font-bold capitalize">
+                  <p className="text-[28px] font-bold">
                     {truncate(accountData)}
                   </p>
                   <div onClick={() => copyToClipboard(`${accountData}`, handleCopy)}>
