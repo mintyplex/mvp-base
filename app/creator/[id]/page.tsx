@@ -31,11 +31,20 @@ import { copyToClipboard } from "~/utils/copyToClipboard";
 import { toast } from "~/components/ui/use-toast";
 import { useAccount } from "~/components/context/AccountContext";
 import { truncate } from "~/utils/truncate";
+import LoadingModal from "~/components/ui/LoadingModal";
+import useFetchUserData from "~/hooks/useFetchData";
+import Link from "next/link";
 
 export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
   const [editModal, setEditModal] = useState(false);
-  const { accountData } = useAccount();
+  const { accountData, isLoggedIn, loading, isError } = useAccount();
+
+  const { userData } = useFetchUserData({ isLoggedIn, accountData });
+
+  const userURL = `${userData?.x_link}`;
+
+  // console.log(userData);
 
   const back = () => {
     window.history.back();
@@ -71,10 +80,12 @@ export default function Curator() {
               src={curatorImageMobile}
               className="block object-cover object-center md:hidden"
             />
-            <div className="absolute bottom-0 right-0 mb-4 mr-4 md:mr-6 md:mb-6">
-              <div className="p-3 rounded-full bg-mintyplex-dark cursor-pointer">
+            <div className="absolute bottom-0 right-0 mb-4 mr-4 md:mr-6 md:mb-6 z-[1111]">
+              <Link target="_blank" href={userURL}>
+              <div className="p-3 rounded-full bg-mintyplex-dark cursor-pointer ">
                 <FaXTwitter />
               </div>
+              </Link>
             </div>
           </div>
           <div className="absolute top-[71%] md:top-[75%] right-0 z-[11]">
@@ -108,7 +119,7 @@ export default function Curator() {
                 <TypographyH3>{truncate(accountData)}</TypographyH3>
                 <div
                   className="cursor-pointer"
-                  onClick={() => copyToClipboard(`0AHY21....342`, handleCopy)}
+                  onClick={() => copyToClipboard(`${accountData}`, handleCopy)}
                 >
                   <GoCopy />
                 </div>
@@ -118,8 +129,7 @@ export default function Curator() {
         </div>
         <div className="w-full grid place-items-center">
           <p className="max-w-[1000px] text-center font-[300]">
-            The Bored Ape Yacht Club is a collection of 10,000 unique Bored Ape
-            NFTs— unique digital collectibles living on the Ethereum blockchain.
+            {userData?.bio}
           </p>
         </div>
         <div className="flex flex-col-reverse w-full md:flex-row gap-6">

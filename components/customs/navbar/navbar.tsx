@@ -14,7 +14,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
@@ -25,6 +24,8 @@ import { truncate } from "~/utils/truncate";
 import { TypographyH3 } from "~/utils/typography";
 
 export default function Navbar() {
+  // const baseURL = process.env.BASE_URL;
+
   const {
     closeSidebar,
     isSidebarOpen,
@@ -113,9 +114,11 @@ export default function Navbar() {
                         </DropdownMenuItem>
                       </Link>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem className="cursor-pointer">
-                        Profile
-                      </DropdownMenuItem>
+                      <Link href="/creator/32">
+                        <DropdownMenuItem className="cursor-pointer">
+                          Profile
+                        </DropdownMenuItem>
+                      </Link>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
                         className="cursor-pointer hover:bg-red"

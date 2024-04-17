@@ -1,18 +1,15 @@
 "use client";
 import Image from "next/image";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import Curator from '~/public/curator.png'
+import Curator from "~/public/curator.png";
 import React, { useRef, useState } from "react";
-import { Button } from "../ui/button";
 import { FaCamera } from "react-icons/fa6";
-import usePutData from "~/hooks/usePutData";
-import { useAccount } from "../context/AccountContext";
-import { useRouter } from "next/navigation";
+import { Button } from "~/components/ui/button";
+import { useAccount } from "~/components/context/AccountContext";
+import { truncate } from "~/utils/truncate";
+import usePostData from "~/hooks/usePostData";
 import { useForm } from "react-hook-form";
-
-type ModalProps = {
-  setEditModal?: any;
-};
+import { useRouter } from "next/navigation";
 
 interface FormData {
   bio: string;
@@ -21,15 +18,19 @@ interface FormData {
   x_link: string;
 }
 
-export default function EditModal({ setEditModal }: ModalProps) {
 
-  const { accountData } = useAccount();
 
+export default function UpdateProfile() {
+  const { account, accountData } = useAccount();
+
+  // Image scr
   const [imageSrc, setImageSrc] = useState<any>(Curator);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
+    console.log(file);
+    // setImageSrc(file);
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -43,7 +44,7 @@ export default function EditModal({ setEditModal }: ModalProps) {
     fileInputRef.current?.click();
   };
 
-  // form handle
+  // data
   const router = useRouter();
 
   const {
@@ -51,46 +52,63 @@ export default function EditModal({ setEditModal }: ModalProps) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { postData, isLoading, error } = usePutData();
+
+  const { postData, isLoading, error } = usePostData();
 
   const onSubmit = async (data: any) => {
     // preventDefault();
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
     // const apiUrl = process.env.NEXT_BASE_URL;
 
-
-    console.log(data);
+    data.wallet_address = account.bech32Address;
 
     const response = await postData({
-      url: `${apiUrl}/profile/${accountData}`,
+      url: `${apiUrl}/profile`,
       body: data,
     });
     if (response) {
       console.log("Form submitted successfully:", response);
-      setEditModal(false)
+      router.push("/dashboard");
+    }
+  };
+
+  // On submit Image
+  const onSubmitImage = async (imageSrc: any, accountData: string | null) => {
+    // preventDefault(); // Remove this line as it's not needed in this context
+  
+    const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
+    const formData = new FormData();
+    formData.append("image", imageSrc);
+  
+    try {
+      const response = await fetch(`${apiUrl}/avatar/${accountData}`, {
+        method: "POST",
+        body: formData,
+      });
+  
+      if (response.ok) {
+        console.log("Image submitted successfully");
+      } else {
+        console.log("Error submitting image:", response.status);
+      }
+    } catch (error) {
+      console.log("Error submitting image:", error);
     }
   };
 
   return (
-    <div className="bg-bg-dark/[0.65] fixed inset-0 z-[9999] backdrop-blur-[10px] px-4 overflow-auto">
+    <div>
       <div className="relative flex items-center justify-center w-full h-screen">
         <div className="bg-[#313233] rounded-[8px] !max-w-[800px] px-4 md:px-8 py-6 md:py-10">
           <div className="w-full flex flex-col items-center justify-center gap-2">
-            {/* Close Button */}
-            <div
-              className="cursor-pointer w-full flex justify-end"
-              onClick={() => setEditModal(false)}
-            >
-              <AiOutlineCloseCircle size={30} />
-            </div>
-            <h2 className="font-[500] text-[32px]">Edit Bio</h2>
+            <h2 className="font-[500] text-[32px]">Complete profile</h2>
             <p className="text-center text-[13px] font-[400]">
-              Your logo will be visible next to your name in your Mintyplex
-              profile and product pages.{" "}
+              Your profile image will be visible next to your name in your
+              Mintyplex profile and product pages.{" "}
             </p>
 
             {/* Image Upload Section */}
-            <div className="my-4 relative">
+            <form onSubmit={handleSubmit((data) => onSubmitImage(data.imageSrc, accountData))} className="my-2 relative">
               <div onClick={triggerFileInput} className="cursor-pointer">
                 <div className="absolute bg-[#1C1E1E]/[0.5] rounded-full inset-0 grid items-center opacity-90 justify-center">
                   <FaCamera />
@@ -101,7 +119,11 @@ export default function EditModal({ setEditModal }: ModalProps) {
                   height={120}
                   alt="Curator"
                   className="rounded-full border-[8px] border-mintyplex-dark"
-                  style={{ height: '120px', objectFit: 'cover', objectPosition: 'top' }}
+                  style={{
+                    height: "120px",
+                    objectFit: "cover",
+                    objectPosition: "top",
+                  }}
                 />
               </div>
               <input
@@ -112,9 +134,29 @@ export default function EditModal({ setEditModal }: ModalProps) {
                 className="hidden"
                 ref={fileInputRef}
               />
-            </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 w-full">
-            <div className="form">
+            </form>
+
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col gap-3 w-full"
+            >
+              <div className="w-full py-2 px-4 flex justify-center">
+                <h3>{truncate(account.bech32Address)}</h3>
+              </div>
+              {/* <div className="form">
+                <p className="mb-2 text-[14px]">
+                  Email <span className="text-red-600">*</span>
+                </p>
+                <input
+                  type="email"
+                  // name="email"
+                  className="p-4 bg-none border-2 border-[rgb(99,99,99)] !text-[13px] placeholder:text-[14px] "
+                  placeholder="examplamail@gmail.com"
+                  required
+                  {...register("email", { required: true })}
+                />
+              </div> */}
+              <div className="form">
                 <p className="mb-2 text-[14px]">
                   Bio <span className="text-red-600">*</span>
                 </p>
@@ -143,7 +185,7 @@ export default function EditModal({ setEditModal }: ModalProps) {
             </form>
             <div className="w-full flex justify-end mt-4">
               <button
-                onClick={handleSubmit(onSubmit)}
+                onClick={handleSubmit((data) => onSubmitImage(data.imageSrc, accountData))}
                 // disabled={isLoading}
                 className="text-white bg-mintyplex-primary px-3 py-2 rounded-[8px]"
               >

@@ -5,8 +5,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { BsExclamationCircle } from "react-icons/bs";
 import { HiTrash } from "react-icons/hi";
+import { useAccount } from "~/components/context/AccountContext";
 import { Button } from "~/components/ui/button";
 import { TooltipProvider } from "~/components/ui/tooltip";
+import useFetchUserData from "~/hooks/useFetchData";
 import img from "~/public/top-creator.jpeg";
 import { TypographyH3 } from "~/utils/typography";
 
@@ -23,6 +25,13 @@ export default function Cart() {
       content: "3",
     },
   ];
+
+  const { accountData, isLoggedIn } = useAccount();
+  const { isLoading } = useFetchUserData({
+    isLoggedIn,
+    accountData,
+    retries: 1,
+  });
 
   return (
     <>

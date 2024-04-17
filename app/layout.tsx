@@ -6,6 +6,7 @@ import { Footer } from "~/components/customs/footer/footer";
 import Navbar from "~/components/customs/navbar/navbar";
 import { HideAt } from "~/components/customs/show-at";
 import { ThemeProvider } from "~/components/customs/theme-provider";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { cn } from "~/lib/utils/utils";
 import "./globals.css";
 
@@ -18,6 +19,9 @@ const inter = Figtree({
 import type { Metadata } from "next";
 import { AccountProvider } from "~/components/context/AccountContext";
 import { Toaster } from "~/components/ui/toaster";
+import { queryClient } from "~/lib/queryClient";
+import { QueryProvider } from "~/components/context/queryClient";
+import ProtectedRoute from "~/components/customs/protected-route";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://testnet.mintyplex.com/"),
@@ -60,25 +64,29 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-mintyplex-dark">
       <body className={cn(inter.className, "bg-mintyplex-dark text-white")}>
-        <BurntWrapper>
-          <AccountProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="dark"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <main className="flex flex-col min-h-screen">
-                <Navbar />
-                <div className="flex-grow">{children}</div>
-                <HideAt paths={["dashboard"]}>
-                  <Footer />
-                </HideAt>
-              </main>
-              <Toaster />
-            </ThemeProvider>
-          </AccountProvider>
-        </BurntWrapper>
+        <QueryProvider>
+          <BurntWrapper>
+            <AccountProvider>
+              {/* <ProtectedRoute> */}
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="dark"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <main className="flex flex-col min-h-screen">
+                  <Navbar />
+                  <div className="flex-grow">{children}</div>
+                  <HideAt paths={["dashboard"]}>
+                    <Footer />
+                  </HideAt>
+                </main>
+                <Toaster />
+              </ThemeProvider>
+              {/* </ProtectedRoute> */}
+            </AccountProvider>
+          </BurntWrapper>
+        </QueryProvider>
       </body>
     </html>
   );

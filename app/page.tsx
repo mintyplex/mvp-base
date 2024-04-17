@@ -1,3 +1,5 @@
+"use client";
+
 import { Crown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,6 +25,9 @@ import creatorImg from "~/public/curator.png";
 import monkey from "~/public/monkey-yellow-bg.jpeg";
 import { TypographyH3 } from "~/utils/typography";
 import { RenderCards } from "./_components/render-cards";
+import useFetchUserData from "~/hooks/useFetchData";
+import { useAccount } from "~/components/context/AccountContext";
+import LoadingModal from "~/components/ui/LoadingModal";
 
 const creators = {
   image: creatorImg,
@@ -30,6 +35,14 @@ const creators = {
 };
 
 export default function Home() {
+
+  const { accountData, isLoggedIn } = useAccount();
+  const { isLoading } = useFetchUserData({
+    isLoggedIn,
+    accountData,
+    retries: 1,
+  });
+
   return (
     <TooltipProvider>
       <section className="container p-3 mx-auto space-y-5">
