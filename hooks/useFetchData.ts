@@ -56,12 +56,14 @@ const useFetchUserData = ({
   );
 
   useEffect(() => {
-    if (status === "success" && data) {
+    if (data) {
       if (data.error === false) {
         // router.push("/dashboard");
       } else {
         router.push("/profile-update");
       }
+    } else {
+      router.push("/profile-update");
     }
   }, [data, router, status]);
 
