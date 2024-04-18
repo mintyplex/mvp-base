@@ -94,8 +94,6 @@ export default function UpdateProfile() {
     }
   };
 
-  };
-
   return (
     <div>
       <div className="relative flex items-center justify-center w-full h-screen">
