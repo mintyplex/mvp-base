@@ -67,8 +67,8 @@ export default function UpdateProfile() {
       body: data,
     });
     if (response) {
-      console.log("Form submitted successfully:", response);
       router.push("/dashboard");
+      console.log("Form submitted successfully:", response);
     }
   };
 
@@ -194,7 +194,7 @@ export default function UpdateProfile() {
                     <div className="loader"></div>
                   </>
                 ) : (
-                  "Update"
+                  "Complete Profile"
                 )}
               </button>
             </div>

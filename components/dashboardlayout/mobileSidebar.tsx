@@ -115,7 +115,7 @@ const MobileSidebar = ({
                   <BsArrowUpRight />
                 </Button>
               </DialogTrigger>
-              <DialogContent >
+              <DialogContent className='w-[300px]' >
                 <ReserveUsername />
               </DialogContent>
             </Dialog>

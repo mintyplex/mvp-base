@@ -80,7 +80,7 @@ export default function Curator() {
               src={curatorImageMobile}
               className="block object-cover object-center md:hidden"
             />
-            <div className="absolute bottom-0 right-0 mb-4 mr-4 md:mr-6 md:mb-6 z-[1111]">
+            <div className="absolute bottom-0 right-0 mb-4 mr-4 md:mr-6 md:mb-6 z-[11]">
               <Link target="_blank" href={userURL}>
               <div className="p-3 rounded-full bg-mintyplex-dark cursor-pointer ">
                 <FaXTwitter />
