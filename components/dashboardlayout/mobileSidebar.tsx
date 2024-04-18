@@ -4,7 +4,11 @@ import Image from "next/image";
 import React, { useContext } from "react";
 import curator from "~/public/curator.png";
 import Link from "next/link";
-import { Dialog, DialogContent, DialogTrigger } from '../../components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "../../components/ui/dialog";
 import { FaFacebookF } from "react-icons/fa6";
 import { GoCopy } from "react-icons/go";
 import { BsArrowUpRight, BsChevronDown } from "react-icons/bs";
@@ -21,65 +25,80 @@ import { useToast } from "../ui/use-toast";
 import ReserveUsername from "../customs/ReserveUsername";
 
 export const SidebarData = [
-	{
-		title: "Discover",
-		link: "/",
-		id: "discover",
-	},
-	{
-		title: "Sell on Mintyplex",
-		link: "/dashboard/add-product",
-		id: "add-product",
-	},
-	{
-		title: "Dashboard",
-		link: "/dashboard",
-		id: "dashboard",
-	},
-	{
-		title: "Profile",
-		link: "/creator/321",
-		id: "profile",
-	},
-	{
-		title: "Request Feature",
-		link: "https://discord.gg/2qeDehj4De",
-		id: "https://discord.gg/2qeDehj4De",
-	},
+  {
+    title: "Discover",
+    link: "/",
+    id: "discover",
+  },
+  {
+    title: "Sell on Mintyplex",
+    link: "/dashboard/add-product",
+    id: "add-product",
+  },
+  {
+    title: "Dashboard",
+    link: "/dashboard",
+    id: "dashboard",
+  },
+  {
+    title: "Profile",
+    link: "/creator/321",
+    id: "profile",
+  },
+  {
+    title: "Request Feature",
+    link: "https://discord.gg/2qeDehj4De",
+    id: "https://discord.gg/2qeDehj4De",
+  },
 ];
 
 const MobileSidebar = ({
-	closeSidebar,
-	isLoggedIn,
-	setShowAbstraxion,
+  closeSidebar,
+  isLoggedIn,
+  setShowAbstraxion,
 }: {
-	closeSidebar: () => void;
-	isLoggedIn: boolean;
-	setShowAbstraxion: any;
+  closeSidebar: () => void;
+  isLoggedIn: boolean;
+  setShowAbstraxion: any;
 }) => {
-	const pathname = usePathname();
+  const pathname = usePathname();
 
-	const { accountData } = useAccount();
+  const { accountData } = useAccount();
 
-	const filteredSidebarData = SidebarData.filter((data) => {
-		if (!isLoggedIn) {
-			return (
-				data.id !== "dashboard" &&
-				data.id !== "profile" &&
-				data.id !== "add-product"
-			);
-		}
-		return true;
-	});
+  const filteredSidebarData = SidebarData.filter((data) => {
+    if (!isLoggedIn) {
+      return (
+        data.id !== "dashboard" &&
+        data.id !== "profile" &&
+        data.id !== "add-product"
+      );
+    }
+    return true;
+  });
 
-	const { toast } = useToast();
+  const { toast } = useToast();
 
-	// handle copy notification
-	const handleCopy = (text: string | null) => {
-		toast({
-			description: "Address copied.",
-		});
-	};
+  // handle copy notification
+  const handleCopy = (text: string | null) => {
+    toast({
+      description: "Address copied.",
+    });
+  };
+
+  const links = [
+    {
+      Icon: TwitterIcon,
+      href: "https://twitter.com/Mintyplex",
+    },
+    {
+      Icon: FaFacebookF,
+      href: "https://www.facebook.com/mintyplex",
+    },
+    {
+      Icon: TelegramIcon,
+      href: "https://t.me/mintyplex",
+    },
+  ];
 
   return (
     <main className="fixed block w-full px-6 lg:hidden bg-brand10 top-14 h-fit">
@@ -99,7 +118,11 @@ const MobileSidebar = ({
                   <p className="text-[28px] font-bold">
                     {truncate(accountData)}
                   </p>
-                  <div onClick={() => copyToClipboard(`${accountData}`, handleCopy)}>
+                  <div
+                    onClick={() =>
+                      copyToClipboard(`${accountData}`, handleCopy)
+                    }
+                  >
                     <GoCopy />
                   </div>
                 </div>
@@ -135,14 +158,23 @@ const MobileSidebar = ({
               </div>
             ))}
             {!isLoggedIn ? (
-              <div onClick={() => { setShowAbstraxion(true); closeSidebar(); }} className={`mt-4 bg-mintyplex-primary rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-mintyplex-primary`}>
+              <div
+                onClick={() => {
+                  setShowAbstraxion(true);
+                  closeSidebar();
+                }}
+                className={`flex items-center justify-center w-full px-4 py-4 mt-4 text-center cursor-pointer bg-mintyplex-primary rounded-[8px] gap-1 transition-color hover:bg-mintyplex-primary`}
+              >
                 <p>Login</p>
                 <WalletIcon />
               </div>
             ) : (
               <div
-              onClick={() => { setShowAbstraxion(true); closeSidebar(); }}
-                className={`mt-4 bg-[#FF0000] rounded-[8px] text-center cursor-pointer w-full flex items-center gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-dark`}
+                onClick={() => {
+                  setShowAbstraxion(true);
+                  closeSidebar();
+                }}
+                className={`mt-4 bg-[#FF0000] rounded-[8px] text-center cursor-pointer w-full flex gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-dark`}
               >
                 <p>Log Out</p>
                 <WalletIcon />
@@ -153,15 +185,17 @@ const MobileSidebar = ({
             <div className="flex flex-col items-center justify-center w-full pb-4 gap-3 border-mintyplex-border">
               <h2>Let&apos;s Connect</h2>
               <div className="flex items-center gap-3">
-                <div className="p-2 border rounded-full transition-all duration-300 hover:bg-mintyplex-primary border-mintyplex-border/50">
-                  <TwitterIcon />
-                </div>
-                <div className="p-2 border rounded-full border-mintyplex-border/50 transition-all duration-300 hover:bg-mintyplex-primary">
-                  <FaFacebookF />
-                </div>
-                <div className="p-2 border rounded-full border-mintyplex-border/50 transition-all duration-300 hover:bg-mintyplex-primary">
-                  <TelegramIcon />
-                </div>
+                {links.map((link, index) => (
+                  <Link
+                    rel="noopener noreferrer"
+                    target="_blank"
+                    href={link.href}
+                    key={index}
+                    className="p-2 border rounded-full border-mintyplex-border/50 transition-all duration-300 hover:bg-mintyplex-primary"
+                  >
+                    <link.Icon />
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
@@ -172,7 +206,6 @@ const MobileSidebar = ({
 };
 
 export default MobileSidebar;
-
 
 function SearchIcon({ className }: { className?: string }) {
   return (
@@ -201,3 +234,4 @@ function SearchIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+

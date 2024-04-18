@@ -19,7 +19,7 @@ const COLORS = [" #2063F2", "#04042A ", "#FF73AE"];
 const Bullet = ({ backgroundColor, size }: any) => {
   return (
     <div
-      className="CirecleBullet  rounded-full"
+      className="rounded-full CirecleBullet"
       style={{
         backgroundColor,
         width: size,
@@ -32,7 +32,7 @@ const Bullet = ({ backgroundColor, size }: any) => {
 const CustomizedLegend = (props: { payload: any }) => {
   const { payload } = props;
   return (
-    <ul className="LegendList  flex flex-col gap-3  absolute right-0 md:right-10 bottom-40 md:bottom-24">
+    <ul className="absolute right-0 flex flex-col LegendList gap-3 md:right-10 bottom-40 md:bottom-24">
       {payload.map(
         (
           entry: {
@@ -48,7 +48,7 @@ const CustomizedLegend = (props: { payload: any }) => {
                   >
                 | Iterable<React.ReactNode>
                 | React.ReactPortal
-                | React.PromiseLikeOfReactNode
+                | React.ReactNode
                 | null
                 | undefined;
             };
@@ -62,11 +62,11 @@ const CustomizedLegend = (props: { payload: any }) => {
                 >
               | Iterable<React.ReactNode>
               | React.ReactPortal
-              | React.PromiseLikeOfReactNode
+              | React.ReactNode
               | null
               | undefined;
           },
-          index: any,
+          index: any
         ) => (
           <li key={`item-${index}`} className="flex items-center">
             <div className="BulletLabel flex items-center gap-2">
@@ -75,7 +75,7 @@ const CustomizedLegend = (props: { payload: any }) => {
             </div>
             {/* <div style={{ marginLeft: "10px" }}>{entry.payload.value}</div> */}
           </li>
-        ),
+        )
       )}
     </ul>
   );
