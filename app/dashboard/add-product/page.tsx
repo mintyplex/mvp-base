@@ -57,7 +57,7 @@ const AddProduct: React.FC = () => {
         []
       );
       console.log(mintRes);
-       // Show an alert of transaction hash response
+      // Show an alert of transaction hash response
     } catch (error) {
       console.log(error);
     }
@@ -133,7 +133,7 @@ const AddProduct: React.FC = () => {
             </button>
           </div>
         </div>
-        <div className="my-8 relative">
+        <div className="relative my-8">
           <ReuseableBackground>
             <h1 className="px-4 text-base">
               Image <span className="text-red-600">*</span>
@@ -157,10 +157,10 @@ const AddProduct: React.FC = () => {
               />
             </div>
             {/* Images collage */}
-            <div className="relative mt-4 w-full justify-center flex flex-wrap gap-4 ">
+            <div className="relative flex flex-wrap justify-center w-full mt-4 gap-4">
               {images.map((image, index) => (
                 <div key={index} className="relative">
-                  <img
+                  <Image
                     src={image}
                     alt={`Upload ${index}`}
                     style={{
