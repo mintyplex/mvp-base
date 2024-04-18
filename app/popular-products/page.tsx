@@ -1,5 +1,6 @@
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import { Card } from "~/components/customs/card";
+import creatorImg from "~/public/curator.png";
 import { ScrollArea, ScrollBar } from "~/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import topCreator from "~/public/top-creator.jpeg";
@@ -91,7 +92,7 @@ function All({ title = "All" }: { title?: string }) {
             <Card
               id={index.toString()}
               asSmall
-              byImg={topCreator}
+              byImg={creatorImg}
               name="Yatch Ape Club"
               by="0x20..8"
               image={topCreator}
