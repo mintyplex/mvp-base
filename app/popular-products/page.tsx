@@ -25,17 +25,17 @@ const tabs = [
   {
     name: "Arts (3)",
     slug: "art",
-    Component: () => <div>Profile</div>,
+    Component: () => <All title="Arts" />,
   },
   {
     name: "Ebooks",
     slug: "ebooks",
-    Component: () => <div>Profile</div>,
+    Component: () => <All title="Ebooks" />,
   },
   {
     name: "Photography",
     slug: "photography",
-    Component: () => <div>Profile</div>,
+    Component: () => <All title="Photography" />,
   },
 ];
 
