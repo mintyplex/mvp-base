@@ -70,6 +70,15 @@ export default function UpdateProfile() {
     }
   };
 
+  const isUserDataInLocalStorage = () => {
+    const userData = localStorage.getItem("user");
+    return !!userData;
+  };
+  const userDataExists = isUserDataInLocalStorage();
+  if (userDataExists) {
+    router.push("/");
+  }
+
   // On submit Image
   const onSubmitImage = async (imageSrc: any, accountData: string | null) => {
     // preventDefault(); // Remove this line as it's not needed in this context
