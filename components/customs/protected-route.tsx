@@ -16,27 +16,27 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { isLoading } = useFetchUserData({
     isLoggedIn,
     accountData,
-    retries: 1,
+    retries: 0,
   });
 
-//   useEffect(() => {
-//     if (!isLoggedIn && !isLoading) {
-//       router.push("/");
-//     }
-//   }, [isLoggedIn, isLoading, router]);
+  const isUserDataInLocalStorage = () => {
+    const userData = localStorage.getItem("user");
+    return !!userData;
+  };
 
-  //   if (!isLoggedIn) {
-  //     isLoading === false
-  //   }
+  useEffect(() => {
+    const userDataExists = isUserDataInLocalStorage();
 
-  return (
-    <>
-      {/* {isLoggedIn ? (
-        <>{isLoading && <LoadingModal isOpen={isLoading} />}</>
-      ) : null} */}
-      {children}
-    </>
-  );
+    if (!userDataExists) {
+      console.log("User data not found");
+      // Example: Redirect to a login page
+      router.push("/profile-update");
+    } else {
+      console.log("User data found in localStorage");
+    }
+  }, [router]);
+
+  return children;
 };
 
 export default ProtectedRoute;

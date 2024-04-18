@@ -35,14 +35,6 @@ const creators = {
 };
 
 export default function Home() {
-
-  const { accountData, isLoggedIn } = useAccount();
-  const { isLoading } = useFetchUserData({
-    isLoggedIn,
-    accountData,
-    retries: 1,
-  });
-
   return (
     <TooltipProvider>
       <section className="container p-3 mx-auto space-y-5">

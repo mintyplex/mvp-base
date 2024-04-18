@@ -72,7 +72,8 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   //   router.push("/");
   // }
 
-  // if (!isLoggedIn) {
+  // if (!isLoggedIn && !accountData) {
+  //   localStorage.clear();
   //   router.push("/");
   // }
 

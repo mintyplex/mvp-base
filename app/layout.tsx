@@ -67,23 +67,23 @@ export default function RootLayout({
         <QueryProvider>
           <BurntWrapper>
             <AccountProvider>
-              {/* <ProtectedRoute> */}
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="dark"
-                enableSystem
-                disableTransitionOnChange
-              >
-                <main className="flex flex-col min-h-screen">
-                  <Navbar />
-                  <div className="flex-grow">{children}</div>
-                  <HideAt paths={["dashboard"]}>
-                    <Footer />
-                  </HideAt>
-                </main>
-                <Toaster />
-              </ThemeProvider>
-              {/* </ProtectedRoute> */}
+              <ProtectedRoute>
+                <ThemeProvider
+                  attribute="class"
+                  defaultTheme="dark"
+                  enableSystem
+                  disableTransitionOnChange
+                >
+                  <main className="flex flex-col min-h-screen">
+                    <Navbar />
+                    <div className="flex-grow">{children}</div>
+                    <HideAt paths={["dashboard"]}>
+                      <Footer />
+                    </HideAt>
+                  </main>
+                  <Toaster />
+                </ThemeProvider>
+              </ProtectedRoute>
             </AccountProvider>
           </BurntWrapper>
         </QueryProvider>

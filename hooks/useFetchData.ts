@@ -47,7 +47,9 @@ const useFetchUserData = ({
       enabled: isLoggedIn && !!accountData,
       retry: retries,
       onSuccess: (data) => {
-        // No state updates or router pushes here
+        if (data?.user) {
+          localStorage.setItem("user", JSON.stringify(data.user));
+        }
       },
       onError: (error) => {
         console.error("Error fetching user data:", error);
@@ -55,17 +57,19 @@ const useFetchUserData = ({
     }
   );
 
-  useEffect(() => {
-    if (data) {
-      if (data.error === false) {
-        // router.push("/dashboard");
-      } else {
-        router.push("/profile-update");
-      }
-    } else {
-      router.push("/profile-update");
-    }
-  }, [data, router, status]);
+  // useEffect(() => {
+  //   if (data) {
+  //     if (data?.error === false) {
+  //       // router.push("/dashboard");
+  //       console.log(data);
+        
+  //     } else {
+  //       router.push("/profile-update");
+  //     }
+  //   } else {
+  //     router.push("/profile-update");
+  //   }
+  // }, [data, router, status]);
 
   return { userData: data?.user, status, isLoading };
 };

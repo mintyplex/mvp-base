@@ -26,13 +26,6 @@ export default function Cart() {
     },
   ];
 
-  const { accountData, isLoggedIn } = useAccount();
-  const { isLoading } = useFetchUserData({
-    isLoggedIn,
-    accountData,
-    retries: 1,
-  });
-
   return (
     <>
       <TooltipProvider>
@@ -40,7 +33,7 @@ export default function Cart() {
           <div className="mt-6 space-y-8">
             <div className="flex items-center justify-between">
               <TypographyH3>My Cart</TypographyH3>
-              <Link href='/popular-products'>
+              <Link href="/popular-products">
                 <Button className="px-6 w-fit active:scale-95 transition-all duration-300 bg-mintyplex-primary">
                   <span className="text-white">Continue Shopping</span>
                 </Button>
@@ -80,16 +73,19 @@ export default function Cart() {
                       <button
                         key={index}
                         onClick={() => setActiveTab(index)}
-                        className={`py-[10px] px-[14px] w-full text-center font-[500] text-[14px] rounded-[10px] hover:bg-mintyplex-primary  ${activeTab === index
-                          ? "bg-mintyplex-primary"
-                          : "bg-mintyplex-dark"
-                          }`}
+                        className={`py-[10px] px-[14px] w-full text-center font-[500] text-[14px] rounded-[10px] hover:bg-mintyplex-primary  ${
+                          activeTab === index
+                            ? "bg-mintyplex-primary"
+                            : "bg-mintyplex-dark"
+                        }`}
                       >
                         {tab.title}
                       </button>
-                      {tab.title === 'Pay with card' && (
+                      {tab.title === "Pay with card" && (
                         <div className="absolute top-[-26%] left-[6%] !bg-[#313233] px-2 rounded-[5px] text-[10px] font-semibold">
-                          <p className="text-transparent !bg-clip-text [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">Coming soon</p>
+                          <p className="text-transparent !bg-clip-text [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
+                            Coming soon
+                          </p>
                         </div>
                       )}
                     </div>
