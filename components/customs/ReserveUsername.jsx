@@ -102,7 +102,7 @@ export default function ReserveUsername() {
                 <div className="flex gap-2 w-full">
                     <Input type='text' placeholder="Enter a unique username" {...register('username')} />
                     <div className="grid place-items-center text-[12px] rounded-[5px] px-2 py-1 bg-mintyplex-dark">
-                        <span>.mtpx</span>
+                        <span className="text-transparent !bg-clip-text [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">.mtpx</span>
                     </div>
                 </div>
             </div>
