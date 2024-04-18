@@ -52,7 +52,7 @@ export default function Curator() {
 
   const handleCopy = (text: string | null) => {
     toast({
-      description: "Creators Name copied.",
+      description: "Creators address copied.",
     });
   };
   return (
@@ -82,9 +82,9 @@ export default function Curator() {
             />
             <div className="absolute bottom-0 right-0 mb-4 mr-4 md:mr-6 md:mb-6 z-[11]">
               <Link target="_blank" href={userURL}>
-              <div className="p-3 rounded-full bg-mintyplex-dark cursor-pointer ">
-                <FaXTwitter />
-              </div>
+                <div className="p-3 rounded-full bg-mintyplex-dark cursor-pointer ">
+                  <FaXTwitter />
+                </div>
               </Link>
             </div>
           </div>
@@ -178,7 +178,7 @@ export default function Curator() {
           </div>
         </div>
         <div className="space-y-6">
-          <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
+          {/* <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
             {Array.from({ length: 16 }).map((_, index) => (
               <Card
                 id={index.toString()}
@@ -190,6 +190,9 @@ export default function Curator() {
                 key={index}
               />
             ))}
+          </div> */}
+          <div className="h-[30vh] flex w-[100%] items-center justify-center">
+            <p>No Items yet</p>
           </div>
           {/* <div className="flex items-center justify-center mt-4">
             <Button

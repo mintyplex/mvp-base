@@ -18,8 +18,6 @@ interface FormData {
   x_link: string;
 }
 
-
-
 export default function UpdateProfile() {
   const { account, accountData } = useAccount();
 
@@ -75,17 +73,17 @@ export default function UpdateProfile() {
   // On submit Image
   const onSubmitImage = async (imageSrc: any, accountData: string | null) => {
     // preventDefault(); // Remove this line as it's not needed in this context
-  
+
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
     const formData = new FormData();
     formData.append("image", imageSrc);
-  
+
     try {
       const response = await fetch(`${apiUrl}/avatar/${accountData}`, {
         method: "POST",
         body: formData,
       });
-  
+
       if (response.ok) {
         console.log("Image submitted successfully");
       } else {
@@ -108,7 +106,12 @@ export default function UpdateProfile() {
             </p>
 
             {/* Image Upload Section */}
-            <form onSubmit={handleSubmit((data) => onSubmitImage(data.imageSrc, accountData))} className="my-2 relative">
+            <form
+              onSubmit={handleSubmit((data) =>
+                onSubmitImage(data.imageSrc, accountData)
+              )}
+              className="my-2 relative"
+            >
               <div onClick={triggerFileInput} className="cursor-pointer">
                 <div className="absolute bg-[#1C1E1E]/[0.5] rounded-full inset-0 grid items-center opacity-90 justify-center">
                   <FaCamera />
