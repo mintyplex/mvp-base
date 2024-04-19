@@ -24,11 +24,12 @@ export default function UpdateProfile() {
   // Image scr
   const [imageSrc, setImageSrc] = useState<any>(Curator);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
-    console.log(file);
-    // setImageSrc(file);
+    setImageFile(file);
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -70,22 +71,19 @@ export default function UpdateProfile() {
     }
   };
 
-  // const isUserDataInLocalStorage = () => {
-  //   const userData = localStorage.getItem("user");
-  //   return !!userData;
-  // };
-  // const userDataExists = isUserDataInLocalStorage();
-  // if (userDataExists) {
-  //   router.push("/");
-  // }
-
+  
   // On submit Image
-  const onSubmitImage = async (imageSrc: any, accountData: string | null) => {
+  const onSubmitImage = async () => {
     // preventDefault(); // Remove this line as it's not needed in this context
-
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
+
+    if (!imageFile) {
+      console.error("No image file selected");
+      return;
+    }
+
     const formData = new FormData();
-    formData.append("image", imageSrc);
+    formData.append("avatar", imageFile);
 
     try {
       const response = await fetch(`${apiUrl}/avatar/${accountData}`, {
@@ -94,13 +92,18 @@ export default function UpdateProfile() {
       });
 
       if (response.ok) {
-        console.log("Image submitted successfully");
+        console.log("Image uploaded successfully");
       } else {
-        console.log("Error submitting image:", response.status);
+        console.error("Failed to upload image");
       }
     } catch (error) {
-      console.log("Error submitting image:", error);
+      console.error("Error uploading image:", error);
     }
+  };
+
+  const handleSubmitAll = async () => {
+    await onSubmit({});
+    await onSubmitImage();
   };
 
   return (
@@ -116,9 +119,7 @@ export default function UpdateProfile() {
 
             {/* Image Upload Section */}
             <form
-              onSubmit={handleSubmit((data) =>
-                onSubmitImage(data.imageSrc, accountData)
-              )}
+              onSubmit={handleSubmit(onSubmitImage)}
               className="my-2 relative"
             >
               <div onClick={triggerFileInput} className="cursor-pointer">
@@ -155,19 +156,6 @@ export default function UpdateProfile() {
               <div className="w-full py-2 px-4 flex justify-center">
                 <h3>{truncate(account.bech32Address)}</h3>
               </div>
-              {/* <div className="form">
-                <p className="mb-2 text-[14px]">
-                  Email <span className="text-red-600">*</span>
-                </p>
-                <input
-                  type="email"
-                  // name="email"
-                  className="p-4 bg-none border-2 border-[rgb(99,99,99)] !text-[13px] placeholder:text-[14px] "
-                  placeholder="examplamail@gmail.com"
-                  required
-                  {...register("email", { required: true })}
-                />
-              </div> */}
               <div className="form">
                 <p className="mb-2 text-[14px]">
                   Bio <span className="text-red-600">*</span>
@@ -197,7 +185,7 @@ export default function UpdateProfile() {
             </form>
             <div className="w-full flex justify-end mt-4">
               <button
-                onClick={handleSubmit(onSubmit)}
+                onClick={handleSubmitAll}
                 // disabled={isLoading}
                 className="text-white bg-mintyplex-primary px-3 py-2 rounded-[8px]"
               >

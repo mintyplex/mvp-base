@@ -72,10 +72,6 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   //   router.push("/");
   // }
 
-  // if (!isLoggedIn && !accountData) {
-  //   localStorage.clear();
-  //   router.push("/");
-  // }
 
   const profile = account?.bech32Address;
 

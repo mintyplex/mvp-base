@@ -42,9 +42,12 @@ export default function Curator() {
 
   const { userData } = useFetchUserData({ isLoggedIn, accountData });
 
-  const userURL = `${userData?.x_link}`;
-
   // console.log(userData);
+
+  const userURL = `${userData?.x_link}`;
+  const userAvatar = `${userData?.avatar}`;
+
+  // console.log(userAvatar);
 
   const back = () => {
     window.history.back();
@@ -77,7 +80,9 @@ export default function Curator() {
               height={600}
               draggable={false}
               alt="Curator bg"
-              src={curatorImageMobile}
+              // src={userAvatar ? userAvatar : ""}
+              src={""}
+              width={600}
               className="block object-cover object-center md:hidden"
             />
             <div className="absolute bottom-0 right-0 mb-4 mr-4 md:mr-6 md:mb-6 z-[11]">
