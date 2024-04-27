@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import topCreator from "~/public/top-creator.jpeg";
 import Creator from "~/public/curator.png";
 import Image, { StaticImageData } from "next/image";
@@ -34,20 +34,39 @@ import { truncate } from "~/utils/truncate";
 import LoadingModal from "~/components/ui/LoadingModal";
 import useFetchUserData from "~/hooks/useFetchData";
 import Link from "next/link";
+import axios from "axios";
 
 export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
   const [editModal, setEditModal] = useState(false);
-  const { accountData, isLoggedIn, loading, isError } = useAccount();
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const { accountData, isLoggedIn, } = useAccount();
 
   const { userData } = useFetchUserData({ isLoggedIn, accountData });
 
-  // console.log(userData);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`);
+        console.log(response.data);
+        
+        setData(response.data);
+      } catch (error) {
+        console.log('error', error);
+        
+      } finally {
+      }
+    };
+
+    fetchData();
+  }, []);
+  
+  console.log(data);
+  
 
   const userURL = `${userData?.x_link}`;
   const userAvatar = `${userData?.avatar}`;
-
-  // console.log(userAvatar);
 
   const back = () => {
     window.history.back();
@@ -81,7 +100,7 @@ export default function Curator() {
               draggable={false}
               alt="Curator bg"
               // src={userAvatar ? userAvatar : ""}
-              src={""}
+              src={curatorImage}
               width={600}
               className="block object-cover object-center md:hidden"
             />

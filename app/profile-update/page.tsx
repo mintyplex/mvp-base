@@ -10,6 +10,7 @@ import { truncate } from "~/utils/truncate";
 import usePostData from "~/hooks/usePostData";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import useFetchUserData from "~/hooks/useFetchData";
 
 interface FormData {
   bio: string;
@@ -19,12 +20,18 @@ interface FormData {
 }
 
 export default function UpdateProfile() {
-  const { account, accountData } = useAccount();
+  const { account, accountData, isLoggedIn } = useAccount();
+  const { userData } = useFetchUserData({ isLoggedIn, accountData });
+  const router = useRouter();
 
   // Image scr
   const [imageSrc, setImageSrc] = useState<any>(Curator);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
+
+  if (userData) {
+    router.push("/");
+  }
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
@@ -44,7 +51,6 @@ export default function UpdateProfile() {
   };
 
   // data
-  const router = useRouter();
 
   const {
     register,
@@ -71,7 +77,6 @@ export default function UpdateProfile() {
     }
   };
 
-  
   // On submit Image
   const onSubmitImage = async () => {
     // preventDefault(); // Remove this line as it's not needed in this context
