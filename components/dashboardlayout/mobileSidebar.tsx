@@ -63,7 +63,7 @@ const MobileSidebar = ({
 }) => {
   const pathname = usePathname();
 
-  const { accountData } = useAccount();
+  const { accountData, userAvatar } = useAccount();
 
   const filteredSidebarData = SidebarData.filter((data) => {
     if (!isLoggedIn) {
@@ -107,11 +107,16 @@ const MobileSidebar = ({
           <>
             <div className="flex flex-col w-full items-left justify-left gap-4">
               <Image
-                src={curator}
+                src={userAvatar}
                 width={100}
                 height={100}
                 alt="curator image"
                 className="rounded-full border-[8px] border-mintyplex-dark"
+                style={{
+                  height: "100px",
+                  objectFit: "cover",
+                  objectPosition: "top",
+                }}
               />
               <div className="w-fit">
                 <div className="flex items-center gap-2">

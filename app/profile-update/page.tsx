@@ -11,6 +11,7 @@ import usePostData from "~/hooks/usePostData";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import useFetchUserData from "~/hooks/useFetchData";
+import { useToast } from "~/components/ui/use-toast";
 
 interface FormData {
   bio: string;
@@ -30,7 +31,7 @@ export default function UpdateProfile() {
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   if (userData) {
-    window.history.back();
+    router.push("/dashboard");
   }
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,6 +49,19 @@ export default function UpdateProfile() {
 
   const triggerFileInput = () => {
     fileInputRef.current?.click();
+  };
+
+  const { toast } = useToast();
+
+  const handleSuccessful = () => {
+    toast({
+      description: "Profile Completed.",
+    });
+  };
+  const handleError = () => {
+    toast({
+      description: "Error uploading image (try an image with less than 1mb).",
+    });
   };
 
   // data
@@ -72,6 +86,7 @@ export default function UpdateProfile() {
       body: data,
     });
     if (response) {
+      handleSuccessful();
       router.push("/dashboard");
       console.log("Form submitted successfully:", response);
     }
@@ -97,8 +112,11 @@ export default function UpdateProfile() {
       });
 
       if (response.ok) {
+        handleSuccessful();
         console.log("Image uploaded successfully");
+        router.push("/dashboard");
       } else {
+        handleError();
         console.error("Failed to upload image");
       }
     } catch (error) {

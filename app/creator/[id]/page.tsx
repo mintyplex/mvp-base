@@ -28,7 +28,7 @@ import SortIcon from "~/components/ui/SortIcon";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { GoCopy } from "react-icons/go";
 import { copyToClipboard } from "~/utils/copyToClipboard";
-import { toast } from "~/components/ui/use-toast";
+import { toast, useToast } from "~/components/ui/use-toast";
 import { useAccount } from "~/components/context/AccountContext";
 import { truncate } from "~/utils/truncate";
 import LoadingModal from "~/components/ui/LoadingModal";
@@ -39,16 +39,21 @@ import axios from "axios";
 export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
   const [editModal, setEditModal] = useState(false);
-  const { accountData, isLoggedIn, } = useAccount();
+  const { accountData, isLoggedIn, userAvatar } = useAccount();
 
   const { userData } = useFetchUserData({ isLoggedIn, accountData });
-    
+
   const userURL = `${userData?.x_link}`;
-  const userAvatar = `https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`;
-  
 
   const back = () => {
     window.history.back();
+  };
+  const { toast } = useToast();
+
+  const handleSuccessful = () => {
+    toast({
+      description: "Profile updated.",
+    });
   };
 
   const handleCopy = (text: string | null) => {
@@ -106,7 +111,7 @@ export default function Curator() {
                 height={150}
                 className="hidden md:block rounded-full border-[9px] border-mintyplex-dark"
                 draggable={false}
-                alt="user image"
+                alt=""
                 src={userAvatar}
                 style={{
                   height: "150px",
@@ -140,7 +145,7 @@ export default function Curator() {
           </div>
         </div>
         <div className="w-full grid place-items-center">
-          <p className="max-w-[1000px] text-center font-[300]">
+          <p className="max-w-[630px] text-center font-[300]">
             {userData?.bio}
           </p>
         </div>
@@ -218,7 +223,10 @@ export default function Curator() {
         {editModal && (
           <>
             <div className="">
-              <EditModal setEditModal={setEditModal} />
+              <EditModal
+                handleSuccessful={handleSuccessful}
+                setEditModal={setEditModal}
+              />
             </div>
           </>
         )}

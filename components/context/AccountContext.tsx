@@ -26,6 +26,7 @@ type AccountProviderProps = {
   loading: any | null;
   setIsError: any | null;
   setLoading: any | null;
+  userAvatar: any | null;
 } | null;
 
 // Create a context with an initial empty value
@@ -65,13 +66,14 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   const { data: account } = useAbstraxionAccount();
   const { client } = useAbstraxionSigningClient();
 
+  const userAvatar = `https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`;
+
   // console.log(account, client)
   // const apiUrl = process.env.NEXT_BASE_URL;
 
   // if (isLoggedIn) {
   //   router.push("/");
   // }
-
 
   const profile = account?.bech32Address;
 
@@ -93,6 +95,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     setIsError,
     loading,
     setLoading,
+    userAvatar,
   };
 
   return (
