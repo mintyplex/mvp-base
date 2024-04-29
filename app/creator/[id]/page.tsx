@@ -28,7 +28,7 @@ import SortIcon from "~/components/ui/SortIcon";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { GoCopy } from "react-icons/go";
 import { copyToClipboard } from "~/utils/copyToClipboard";
-import { toast } from "~/components/ui/use-toast";
+import { toast, useToast } from "~/components/ui/use-toast";
 import { useAccount } from "~/components/context/AccountContext";
 import { truncate } from "~/utils/truncate";
 import LoadingModal from "~/components/ui/LoadingModal";
@@ -39,37 +39,21 @@ import axios from "axios";
 export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
   const [editModal, setEditModal] = useState(false);
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const { accountData, isLoggedIn, } = useAccount();
+  const { accountData, isLoggedIn, userAvatar } = useAccount();
 
   const { userData } = useFetchUserData({ isLoggedIn, accountData });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`);
-        console.log(response.data);
-        
-        setData(response.data);
-      } catch (error) {
-        console.log('error', error);
-        
-      } finally {
-      }
-    };
-
-    fetchData();
-  }, []);
-  
-  console.log(data);
-  
-
   const userURL = `${userData?.x_link}`;
-  const userAvatar = `${userData?.avatar}`;
 
   const back = () => {
     window.history.back();
+  };
+  const { toast } = useToast();
+
+  const handleSuccessful = () => {
+    toast({
+      description: "Profile updated.",
+    });
   };
 
   const handleCopy = (text: string | null) => {
@@ -99,7 +83,6 @@ export default function Curator() {
               height={600}
               draggable={false}
               alt="Curator bg"
-              // src={userAvatar ? userAvatar : ""}
               src={curatorImage}
               width={600}
               className="block object-cover object-center md:hidden"
@@ -128,8 +111,13 @@ export default function Curator() {
                 height={150}
                 className="hidden md:block rounded-full border-[9px] border-mintyplex-dark"
                 draggable={false}
-                alt="user image"
-                src={Creator}
+                alt=""
+                src={userAvatar}
+                style={{
+                  height: "150px",
+                  objectFit: "cover",
+                  objectPosition: "top",
+                }}
               />
               <Image
                 width={100}
@@ -137,7 +125,12 @@ export default function Curator() {
                 className="md:hidden rounded-full border-[6px] border-mintyplex-dark"
                 draggable={false}
                 alt="user image"
-                src={Creator}
+                src={userAvatar}
+                style={{
+                  height: "150px",
+                  objectFit: "cover",
+                  objectPosition: "top",
+                }}
               />
               <div className="flex items-center gap-2">
                 <TypographyH3>{truncate(accountData)}</TypographyH3>
@@ -152,7 +145,7 @@ export default function Curator() {
           </div>
         </div>
         <div className="w-full grid place-items-center">
-          <p className="max-w-[1000px] text-center font-[300]">
+          <p className="max-w-[630px] text-center font-[300]">
             {userData?.bio}
           </p>
         </div>
@@ -230,7 +223,10 @@ export default function Curator() {
         {editModal && (
           <>
             <div className="">
-              <EditModal setEditModal={setEditModal} />
+              <EditModal
+                handleSuccessful={handleSuccessful}
+                setEditModal={setEditModal}
+              />
             </div>
           </>
         )}

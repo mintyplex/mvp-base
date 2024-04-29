@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 
 type ModalProps = {
   setEditModal?: any;
+  handleSuccessful?: any;
 };
 
 interface FormData {
@@ -21,7 +22,7 @@ interface FormData {
   x_link: string;
 }
 
-export default function EditModal({ setEditModal }: ModalProps) {
+export default function EditModal({ setEditModal, handleSuccessful }: ModalProps) {
 
   const { accountData } = useAccount();
 
@@ -66,6 +67,7 @@ export default function EditModal({ setEditModal }: ModalProps) {
       body: data,
     });
     if (response) {
+      handleSuccessful()
       console.log("Form submitted successfully:", response);
       setEditModal(false)
     }
