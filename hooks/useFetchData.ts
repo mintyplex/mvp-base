@@ -62,10 +62,8 @@ const useFetchUserData = ({
       if (data?.error === false) {
         // router.push("/dashboard");
         // window.location.href = window.location.href;
-        console.log(data);
+        // console.log(data);
         
-      } else {
-        router.push("/profile-update");
       }
     } else {
       router.push("/profile-update");

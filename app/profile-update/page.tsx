@@ -30,7 +30,7 @@ export default function UpdateProfile() {
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   if (userData) {
-    router.push("/");
+    window.history.back();
   }
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {

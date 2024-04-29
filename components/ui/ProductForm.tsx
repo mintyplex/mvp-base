@@ -10,36 +10,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-
-const people = [
-  { name: "Wade Cooper" },
-  { name: "Arlene Mccoy" },
-  { name: "Devon Webb" },
-  { name: "Tom Cook" },
-  { name: "Tanya Fox" },
-  { name: "Hellen Schmidt" },
-];
-
-type SelectedImage = {
-  name: string;
-  size: number;
-  type: string;
-  url: string | ArrayBuffer | null;
-};
+import { FaCamera } from "react-icons/fa6";
+import Image from "next/image";
+import { Controller, useForm } from "react-hook-form";
+import usePostData from "~/hooks/usePostData";
+import { useAccount } from "../context/AccountContext";
+import { useRouter } from "next/navigation";
 
 const ProductForm = () => {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [selectedImage, setSelectedImage] = useState<SelectedImage | null>(
-    null
-  );
   const [tags, setTags] = useState<string[]>([]);
   const [inputValuee, setInputValuee] = useState("");
-  const [inputattribute, setInputAttribute] = useState("");
+  const { account, accountData, isLoggedIn } = useAccount();
 
-  const [options, setOptions] = useState<string[]>([]);
-
-
-  // const [inputValue, setInputValue] = useState<string>('');
+  const router = useRouter();
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValuee(e.target.value);
@@ -52,7 +35,7 @@ const ProductForm = () => {
     }
   };
 
-  const handleDeleteTag = (tagIndex:any) => {
+  const handleDeleteTag = (tagIndex: any) => {
     // Create a copy of the tags array
     const newTags = [...tags];
     // Remove the tag at the specified index
@@ -61,95 +44,145 @@ const ProductForm = () => {
     setTags(newTags);
   };
 
-  const handleDivClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
+  // for image handling
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [images, setImages] = useState<string[]>([]); // Store image data
+
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const files = Array.from(event.target.files); // Convert FileList to Array
+      const imageURLs = files.map((file) => URL.createObjectURL(file)); // Create URLs for display
+      setImages((prev: string[]) => [...prev, ...imageURLs]); // Update state with new images
     }
   };
 
-  function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-    if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          setSelectedImage({
-            name: file.name,
-            size: file.size,
-            type: file.type,
-            url: reader.result,
-          });
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-  }
+  const removeImage = (indexToRemove: number) => {
+    setImages((prev: string[]) =>
+      prev.filter((_, index) => index !== indexToRemove)
+    ); // Remove image by index
+  };
 
-  async function createProduct(name: string, description: string, image: string, tags: string[]) {
-    const apiBase = process.env.NODE_ENV === 'production'
-      ? 'https://testnet.mintyplex.com'
-      : 'http://localhost:3000';
+  // adding product
 
-    const res = await fetch(`${apiBase}/api/product`, {
-      method: "POST",
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const { postData, isLoading, error } = usePostData();
+
+  const onSubmit = async (data: any) => {
+    // const hasDecimalDigits = /\.\d+$/.test(
+    //   data.price.toString() && data.discount.toString()
+    // );
+
+    // if (!hasDecimalDigits) {
+    //   data.price = parseFloat(data.price).toFixed(2);
+    //   data.discount = parseFloat(data.discount).toFixed(2);
+    // }
+
+    data.price = Number(data.price);
+    data.discount = Number(data.discount);
+    data.quantity = Number(data.quantity);
+
+    data.categories = [data.categories]
+    data.tags = tags;
+    console.log(data);
+    const apiUrl = "https://mintyplex-api.onrender.com/api/v1/product";
+
+    const response = await postData({
+      url: `${apiUrl}/${accountData}`,
+      body: data,
       headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, description, image, tags }),
-    })
-  }
+        Content: 'multipart/form-data'
+      }
+    });
 
-  const updateSelectOptions = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.toLowerCase();
-    setInputAttribute(value);
-
-    // Here you can implement the logic to fetch options based on the input value
-    // For demonstration purposes, I'm just updating options with some dummy data
-    if (value === 'ebook') {
-      setOptions([
-        "File Format",
-       "Page Count:",
-       "Resolution:",
-       "File Size:",
-       "Compatibility:"
-      
-      ]);
-    } else if (value === 'artwork') {
-      setOptions([
-        "Resolution:", 
-        "Color Profile:", 
-        "Dimensions:",
-        "File Format:",
-        "Copyright Information:"
-      ]);
-    }  else if (value === 'photography') {
-      setOptions([
-        "Resolution:", 
-        "Color Profile:", 
-        "Dimensions:",
-        "File Format:",
-        "Copyright Information:"
-      ]);
-    }
-    
-    else {
-      setOptions([]);
+    if (response) {
+      reset();
+      router.push("/dashboard");
+      console.log("Product added successfully:", response);
     }
   };
 
   return (
     <div>
+      <div className="relative my-8">
+        <ReuseableBackground>
+          <h1 className="px-4 text-base">
+            Image <span className="text-red-600">*</span>
+          </h1>
+          <div className="w-full my-4">
+            <div onClick={triggerFileInput} className="cursor-pointer">
+              <div className="bg-[#1C1E1E]/[0.5] h-[180px] p-8 flex flex-col items-center opacity-90 justify-center">
+                <FaCamera size={24} />
+                <p className="font-light">Upload an image or drag and drop</p>
+                <p className="font-light">PNG or JPEG upto 5MB</p>
+              </div>
+            </div>
+            <input
+              type="file"
+              id="image-upload"
+              accept="image/*"
+              multiple // Allow multiple files
+              onChange={handleImageChange}
+              className="hidden"
+              ref={fileInputRef}
+            />
+          </div>
+          {/* Images collage */}
+          <div className="relative flex flex-wrap justify-center w-full mt-4 gap-4">
+            {images.map((image, index) => (
+              <div key={index} className="relative">
+                <Image
+                  src={image}
+                  alt={`Upload ${index}`}
+                  width={140}
+                  height={140}
+                  style={{
+                    width: "140px",
+                    height: "140px",
+                    objectFit: "cover",
+                    objectPosition: "top",
+                  }}
+                />
+                <button
+                  onClick={() => removeImage(index)}
+                  className="absolute top-0 right-0 bg-red-500 text-white mt-2 mr-2 px-2 py-1 text-[10px] rounded-full"
+                >
+                  X
+                </button>
+              </div>
+            ))}
+          </div>
+          {/* Counter at the corner */}
+          <div className="absolute top-0 right-0 mt-2 mr-2 text-[10px] px-3 py-2 bg-mintyplex-dark rounded-full">
+            {images.length}
+          </div>
+        </ReuseableBackground>
+      </div>
       <div className="py-4 md:py-7 bg-[rgb(28,30,30)]">
         <p className="text-2xl font-semibold">Product Details</p>
       </div>
       <ReuseableBackground>
-        <form className="flex flex-col py-5 gap-6">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col py-5 gap-6"
+        >
           <div className="form">
             <input
               type="text"
               className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
               placeholder="Enter your Product Name"
               required
+              {...register("name", { required: true })}
             />
             <label htmlFor="" className="px-4 text-sm">
               Product Name <span className="text-red-600">*</span>
@@ -161,10 +194,11 @@ const ProductForm = () => {
 
           <div className="form">
             <input
-              type="text"
+              type="number"
               className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
-              placeholder="0"
+              placeholder="0.00"
               required
+              {...register("price", { required: true })}
             />
             <label htmlFor="" className="px-4 text-sm">
               Product Price ($) <span className="text-red-600">*</span>
@@ -173,25 +207,23 @@ const ProductForm = () => {
 
           <div className="form">
             <input
-              type="text"
+              type="number"
               className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
-              placeholder="0"
+              placeholder="0.00"
               required
+              {...register("discount", { required: true })}
             />
             <label htmlFor="" className="px-4 text-sm">
               Discount (%)
             </label>
           </div>
-        </form>
-
-        <form className="flex flex-col py-5 gap-6">
           <div className="form">
             <textarea
-              name=""
               placeholder="Provide a well detailed description of the item."
               className="p-4 rounded-lg border-2 border-[rgb(99,99,99)] placeholder:text-[14px] outline-none bg-[rgb(44,45,46)] w-full "
               id=""
               rows={6}
+              {...register("description", { required: true })}
             ></textarea>
             <label htmlFor="" className="px-4 text-sm">
               Description<span className="text-red-600">*</span>
@@ -200,19 +232,29 @@ const ProductForm = () => {
 
           <div className="form">
             <div className="relative">
-              <Select>
-                <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
-                  <SelectValue placeholder="Category" />
-                </SelectTrigger>
-                <SelectContent className="bg-[rgb(99,99,99)]">
-                  <SelectGroup>
-                    <SelectLabel>Category</SelectLabel>
-                    <SelectItem value="apple">E-book</SelectItem>
-                    <SelectItem value="banana">Art</SelectItem>
-                    <SelectItem value="blueberry">Photography</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+              <Controller
+                name="categories" // Register the category field
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] ">
+                      <SelectValue placeholder="Category" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[rgb(99,99,99)]">
+                      <SelectGroup>
+                        <SelectLabel>Category</SelectLabel>
+                        <SelectItem value="ebook">E-book</SelectItem>
+                        <SelectItem value="art">Art</SelectItem>
+                        <SelectItem value="photography">Photography</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
             </div>
             <label htmlFor="" className="px-4 text-sm">
               Categories <span className="text-red-600">*</span>
@@ -229,81 +271,14 @@ const ProductForm = () => {
         <p className="text-2xl font-semibold">More Details</p>
       </div>
       <ReuseableBackground>
-        <div className="flex items-center justify-center gap-4 rounded-lg  mt-6 bg-[#1E293B] py-4 ">
-          <h1 className="flex items-center justify-center text-base">
-            Downloadable file
-          </h1>
-        </div>
-
-        <div
-          className="flex items-center justify-center gap-4 rounded-lg  mt-6 bg-[#1D1E1F] py-4 "
-          onClick={handleDivClick}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="40"
-            height="40"
-            viewBox="0 0 40 40"
-            fill="none"
-          >
-            <path
-              d="M13.4375 17.1875L20 23.75L26.5625 17.1875"
-              stroke="#E9E9E9"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M20 6.25V23.75"
-              stroke="#E9E9E9"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M33.75 23.75V32.5C33.75 32.8315 33.6183 33.1495 33.3839 33.3839C33.1495 33.6183 32.8315 33.75 32.5 33.75H7.5C7.16848 33.75 6.85054 33.6183 6.61612 33.3839C6.3817 33.1495 6.25 32.8315 6.25 32.5V23.75"
-              stroke="#E9E9E9"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <div className="flex flex-col items-center justify-center">
-            <h1 className="flex items-center justify-center text-base">
-              {selectedImage
-                ? selectedImage.name
-                : "Upload a file or drag and drop"}
-            </h1>
-            {selectedImage && (
-              <div className="flex flex-col items-center justify-center">
-                {/* <p className="max-w-[300px]">{selectedImage.url}</p> */}
-                <h1 className="flex justify-center items-center text-[13px] mt-2">
-                  {selectedImage.size} bytes | {selectedImage.type}
-                </h1>
-              </div>
-            )}
-            {!selectedImage && (
-              <h1 className="flex justify-center items-center text-[13px]">
-                PNG or JPEG PDF, EPUB, MOBI upto 1GB
-              </h1>
-            )}
-            <input
-              type="file"
-              accept="image/png, image/jpeg"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-            />
-          </div>
-        </div>
-
         <form className="flex flex-col py-5 gap-6">
           <div className="my-3 form">
             <input
-              type="text"
+              type="number"
               className="p-4 border-2 border-[rgb(99,99,99)] placeholder:text-[14px] "
               placeholder="0"
               required
+              {...register("quantity", { required: true })}
             />
             <label htmlFor="" className="px-4 text-sm">
               Quantity Available <span className="text-red-600">*</span>
@@ -313,52 +288,6 @@ const ProductForm = () => {
               unlimited
             </p>
           </div>
-            {/* start of mobile session */}
-            <div className="md:hidden grid grid-cols-2 gap-3">
-      <div className="form">
-        <div className="relative">
-          <select
-            className="p-4 border-2 bg-[rgb(46,48,49)] border-[rgb(99,99,99)] rounded-lg w-full outline-none placeholder:text-[14px]"
-          >
-            <option className="bg-[rgb(30,49,59)] " value="" selected disabled>
-              Attribute
-            </option>
-            {options.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-        <label htmlFor="attributeSelect" className="px-4 text-sm">
-          Attribute
-        </label>
-      </div>
-      <div className="form">
-        <input
-          type="text"
-          // id="inputValues"
-          className="p-4 border-2 text-base border-[rgb(99,99,99)] placeholder:text-[14px]"
-          placeholder="values"
-          required
-          onChange={updateSelectOptions}
-        />
-        <label htmlFor="inputValues" className="px-4 text-sm">
-          Values
-        </label>
-      </div>
-    </div>
-
-          {/* end of mobile session */}
-          <div className="flex items-center justify-end pt-4 md:hidden gap-2 md:gap-4">
-            <button className="px-2 py-2 rounded-md font-normal text-[14px] md:text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 md:gap-4 items-center">
-              <MdCancel />
-              Face: Beauitful
-            </button>
-            <button className="px-2 md:px-4 py-2 rounded-md font-normal text-base leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center">
-              Add new Attribute
-            </button>
-          </div>
 
           <div className="form">
             <input
@@ -366,7 +295,7 @@ const ProductForm = () => {
               value={inputValuee}
               onChange={handleInputChange}
               className="p-4 border-2 text-sm border-[rgb(99,99,99)] placeholder:text-[14px] "
-              placeholder=" type a tag"
+              placeholder="Type a tag"
               required
             />
             <label htmlFor="" className="px-4 text-sm">
@@ -377,74 +306,38 @@ const ProductForm = () => {
           <div className="flex items-end md:w-full justify-end flex-wrap gap-4">
             {tags.map((tag, index) => (
               <div key={index} className="">
-                <button className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 items-center" >
+                <button className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 items-center">
                   <div onClick={handleDeleteTag}>
-                  <MdCancel />
+                    <MdCancel />
                   </div>
                   {tag}
                 </button>
               </div>
             ))}
-            <button
+            <div
               className="px-2 md:px-4 py-2 rounded-md font-normal text-[14px] leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 justify-end items-center"
               onClick={handleAddTag}
             >
               Add tags
-            </button>
-          </div>
-          {/* desktop-part */}
-          <div className="hidden md:grid grid-cols-2 gap-3">
-      <div className="form">
-        <div className="relative">
-          <select
-            className="p-4 border-2 bg-[rgb(46,48,49)] text-sm border-[rgb(99,99,99)] rounded-lg w-full outline-none placeholder:text-[14px]"
-          >
-            <option className="bg-[rgb(30,49,59)] " value="" selected disabled>
-              Attribute
-            </option>
-            {options.map((option, index) => (
-              <option key={index} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-        <label htmlFor="attributeSelect" className="px-4 text-sm">
-          Attribute
-        </label>
-      </div>
-      <div className="form">
-        <input
-          type="text"
-          // id="inputValues"
-          className="p-4 border-2 text-sm border-[rgb(99,99,99)] placeholder:text-[14px]"
-          placeholder="values"
-          required
-          onChange={updateSelectOptions}
-        />
-        <label htmlFor="inputValues" className="px-4 text-sm">
-          Values
-        </label>
-      </div>
-    </div>
-
-          {/* desktop-part */}
-
-          <div className="items-center justify-end hidden pt-4 md:flex gap-2 md:gap-4">
-            <button className="px-2 py-2 rounded-md font-normal text-[14px] md:text-[16px] leading-[27px] text-black bg-[rgb(231,241,244)] border-brand10 border flex gap-2 md:gap-4 items-center">
-              <MdCancel />
-              Face: Beauitful
-            </button>
-            <button className="px-2 md:px-4 py-2 rounded-md font-normal text-base leading-[27px]  bg-[rgba(13,110,253,1)] border-brand10 border flex gap-4 items-center">
-              Add new Attribute
-            </button>
+            </div>
           </div>
         </form>
       </ReuseableBackground>
 
-      <button className="md:hidden block bg-mintyplex-primary w-full text-center py-4 px-24 rounded-md my-6">
-        Create Product
-      </button>
+      <div className="flex w-full justify-end">
+        <button
+          onClick={handleSubmit(onSubmit)}
+          className="block bg-mintyplex-primary w-fit text-center py-4 px-10 rounded-md my-6"
+        >
+          {isLoading ? (
+            <>
+              <div className="loader"></div>
+            </>
+          ) : (
+            "Create Product"
+          )}
+        </button>
+      </div>
     </div>
   );
 };
@@ -461,4 +354,3 @@ function setSelectedImage(arg0: {
 function setOptions(arg0: string[]) {
   throw new Error("Function not implemented.");
 }
-

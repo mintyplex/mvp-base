@@ -39,34 +39,13 @@ import axios from "axios";
 export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
   const [editModal, setEditModal] = useState(false);
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
   const { accountData, isLoggedIn, } = useAccount();
 
   const { userData } = useFetchUserData({ isLoggedIn, accountData });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`);
-        console.log(response.data);
-        
-        setData(response.data);
-      } catch (error) {
-        console.log('error', error);
-        
-      } finally {
-      }
-    };
-
-    fetchData();
-  }, []);
-  
-  console.log(data);
-  
-
+    
   const userURL = `${userData?.x_link}`;
-  const userAvatar = `${userData?.avatar}`;
+  const userAvatar = `https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`;
+  
 
   const back = () => {
     window.history.back();
@@ -99,7 +78,6 @@ export default function Curator() {
               height={600}
               draggable={false}
               alt="Curator bg"
-              // src={userAvatar ? userAvatar : ""}
               src={curatorImage}
               width={600}
               className="block object-cover object-center md:hidden"
@@ -129,7 +107,12 @@ export default function Curator() {
                 className="hidden md:block rounded-full border-[9px] border-mintyplex-dark"
                 draggable={false}
                 alt="user image"
-                src={Creator}
+                src={userAvatar}
+                style={{
+                  height: "150px",
+                  objectFit: "cover",
+                  objectPosition: "top",
+                }}
               />
               <Image
                 width={100}
@@ -137,7 +120,12 @@ export default function Curator() {
                 className="md:hidden rounded-full border-[6px] border-mintyplex-dark"
                 draggable={false}
                 alt="user image"
-                src={Creator}
+                src={userAvatar}
+                style={{
+                  height: "150px",
+                  objectFit: "cover",
+                  objectPosition: "top",
+                }}
               />
               <div className="flex items-center gap-2">
                 <TypographyH3>{truncate(accountData)}</TypographyH3>
