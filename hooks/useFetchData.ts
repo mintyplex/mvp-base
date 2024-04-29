@@ -57,19 +57,20 @@ const useFetchUserData = ({
     }
   );
 
-  // useEffect(() => {
-  //   if (data) {
-  //     if (data?.error === false) {
-  //       // router.push("/dashboard");
-  //       console.log(data);
+  useEffect(() => {
+    if (data) {
+      if (data?.error === false) {
+        // router.push("/dashboard");
+        // window.location.href = window.location.href;
+        console.log(data);
         
-  //     } else {
-  //       router.push("/profile-update");
-  //     }
-  //   } else {
-  //     router.push("/profile-update");
-  //   }
-  // }, [data, router, status]);
+      } else {
+        router.push("/profile-update");
+      }
+    } else {
+      router.push("/profile-update");
+    }
+  }, [data, router, status]);
 
   return { userData: data?.user, status, isLoading };
 };

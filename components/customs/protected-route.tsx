@@ -13,28 +13,28 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const router = useRouter();
   const { accountData, isLoggedIn } = useAccount();
-  const { isLoading } = useFetchUserData({
+  const { isLoading, userData } = useFetchUserData({
     isLoggedIn,
     accountData,
     retries: 0,
   });
 
-  const isUserDataInLocalStorage = () => {
-    const userData = localStorage.getItem("user");
-    return !!userData;
-  };
+  // const isUserDataInLocalStorage = () => {
+  //   const userDataa = localStorage.getItem("user");
+  //   return !!userDataa;
+  // };
 
-  useEffect(() => {
-    const userDataExists = isUserDataInLocalStorage();
+  // useEffect(() => {
+  //   const userDataExists = isUserDataInLocalStorage();
 
-    if (!userDataExists) {
-      console.log("User data not found");
-      // Example: Redirect to a login page
-      router.push("/profile-update");
-    } else {
-      console.log("User data found in localStorage");
-    }
-  }, [router]);
+  //   if (!userData) {
+  //     console.log("User data not found");
+  //     // Example: Redirect to a login page
+  //     router.push("/profile-update");
+  //   } else {
+  //     console.log("User data found in localStorage");
+  //   }
+  // }, [router]);
 
   return children;
 };
