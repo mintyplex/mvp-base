@@ -12,8 +12,10 @@ interface ReusableTableProps {
   data: Row[];
 }
 
-interface Product {
-  data: ProductFromApi;
+interface ProductsFromApi {
+  data: _ProductFromApi[];
+  message: string;
+  status: string;
 }
 
 interface ProductFromApi {
@@ -25,7 +27,7 @@ interface ProductFromApi {
   name: string;
   price: number;
   quantity: number;
-  tags: string[];
+  tags: string[]?;
   updated_at: number;
   user_id: string;
 }
