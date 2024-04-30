@@ -13,9 +13,9 @@ import {
 import { FaCamera } from "react-icons/fa6";
 import Image from "next/image";
 import { Controller, useForm } from "react-hook-form";
-import usePostData from "~/hooks/usePostData";
 import { useAccount } from "../context/AccountContext";
 import { useRouter } from "next/navigation";
+import usePostData from "~/hooks/usePostFormData";
 
 const ProductForm = () => {
   const [tags, setTags] = useState<string[]>([]);
@@ -92,17 +92,17 @@ const ProductForm = () => {
     data.discount = Number(data.discount);
     data.quantity = Number(data.quantity);
 
-    data.categories = [data.categories]
+    data.categories = [data.categories];
     data.tags = tags;
     console.log(data);
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/product";
 
     const response = await postData({
       url: `${apiUrl}/${accountData}`,
-      body: data,
+      data,
       headers: {
-        Content: 'multipart/form-data'
-      }
+        "Content-Type": "multipart/form-data",
+      },
     });
 
     if (response) {

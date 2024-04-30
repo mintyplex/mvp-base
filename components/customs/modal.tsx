@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import Curator from '~/public/curator.png'
+import Curator from "~/public/curator.png";
 import React, { useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { FaCamera } from "react-icons/fa6";
@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 type ModalProps = {
   setEditModal?: any;
   handleSuccessful?: any;
+  handleError?: any;
 };
 
 interface FormData {
@@ -22,15 +23,21 @@ interface FormData {
   x_link: string;
 }
 
-export default function EditModal({ setEditModal, handleSuccessful }: ModalProps) {
-
+export default function EditModal({
+  setEditModal,
+  handleSuccessful,
+  handleError,
+}: ModalProps) {
   const { accountData } = useAccount();
 
   const [imageSrc, setImageSrc] = useState<any>(Curator);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
+    setImageFile(file);
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -50,6 +57,7 @@ export default function EditModal({ setEditModal, handleSuccessful }: ModalProps
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm();
   const { postData, isLoading, error } = usePutData();
@@ -59,7 +67,6 @@ export default function EditModal({ setEditModal, handleSuccessful }: ModalProps
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
     // const apiUrl = process.env.NEXT_BASE_URL;
 
-
     console.log(data);
 
     const response = await postData({
@@ -67,10 +74,47 @@ export default function EditModal({ setEditModal, handleSuccessful }: ModalProps
       body: data,
     });
     if (response) {
-      handleSuccessful()
-      console.log("Form submitted successfully:", response);
-      setEditModal(false)
+      handleSuccessful();
+      console.log("Profile updated successfully:", response);
+      setEditModal(false);
     }
+  };
+
+  // On submit Image
+  const onSubmitImage = async () => {
+    // preventDefault(); // Remove this line as it's not needed in this context
+    const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
+
+    if (!imageFile) {
+      console.error("No image file selected");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("avatar", imageFile);
+
+    try {
+      const response = await fetch(`${apiUrl}/avatar/${accountData}`, {
+        method: "PUT",
+        body: formData,
+      });
+
+      if (response.ok) {
+        handleSuccessful();
+        console.log("Image uploaded successfully");
+        // router.push("/dashboard");
+      } else {
+        handleError();
+        console.error("Failed to upload image");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
+  const handleSubmitAll = () => {
+    onSubmit(getValues());
+    onSubmitImage();
   };
 
   return (
@@ -92,31 +136,40 @@ export default function EditModal({ setEditModal, handleSuccessful }: ModalProps
             </p>
 
             {/* Image Upload Section */}
-            <div className="my-4 relative">
-              <div onClick={triggerFileInput} className="cursor-pointer">
-                <div className="absolute bg-[#1C1E1E]/[0.5] rounded-full inset-0 grid items-center opacity-90 justify-center">
-                  <FaCamera />
+            <form onSubmit={handleSubmit(onSubmitImage)}>
+              <div className="my-4 relative">
+                <div onClick={triggerFileInput} className="cursor-pointer">
+                  <div className="absolute bg-[#1C1E1E]/[0.5] rounded-full inset-0 grid items-center opacity-90 justify-center">
+                    <FaCamera />
+                  </div>
+                  <Image
+                    src={imageSrc}
+                    width={120}
+                    height={120}
+                    alt="Curator"
+                    className="rounded-full border-[8px] border-mintyplex-dark"
+                    style={{
+                      height: "120px",
+                      objectFit: "cover",
+                      objectPosition: "top",
+                    }}
+                  />
                 </div>
-                <Image
-                  src={imageSrc}
-                  width={120}
-                  height={120}
-                  alt="Curator"
-                  className="rounded-full border-[8px] border-mintyplex-dark"
-                  style={{ height: '120px', objectFit: 'cover', objectPosition: 'top' }}
+                <input
+                  type="file"
+                  id="image-upload"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden"
+                  ref={fileInputRef}
                 />
               </div>
-              <input
-                type="file"
-                id="image-upload"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="hidden"
-                ref={fileInputRef}
-              />
-            </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 w-full">
-            <div className="form">
+            </form>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col gap-3 w-full"
+            >
+              <div className="form">
                 <p className="mb-2 text-[14px]">
                   Bio <span className="text-red-600">*</span>
                 </p>
@@ -145,7 +198,7 @@ export default function EditModal({ setEditModal, handleSuccessful }: ModalProps
             </form>
             <div className="w-full flex justify-end mt-4">
               <button
-                onClick={handleSubmit(onSubmit)}
+                onClick={handleSubmitAll}
                 // disabled={isLoading}
                 className="text-white bg-mintyplex-primary px-3 py-2 rounded-[8px]"
               >

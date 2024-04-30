@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -35,6 +35,18 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   //     console.log("User data found in localStorage");
   //   }
   // }, [router]);
+
+  useEffect(() => {
+    if (userData) {
+      if (userData) {
+        // router.push("/dashboard");
+        // window.location.href = window.location.href;
+        // console.log(data);
+      }
+    } else {
+      router.push("/profile-update");
+    }
+  }, [router, userData, isLoggedIn]);
 
   return children;
 };
