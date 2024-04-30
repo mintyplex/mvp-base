@@ -11,3 +11,21 @@ interface ReusableTableProps {
   headers: string[];
   data: Row[];
 }
+
+interface Product {
+  data: ProductFromApi;
+}
+
+interface ProductFromApi {
+  _id: string;
+  categories: string[];
+  created_at: number;
+  description: string;
+  discount: number;
+  name: string;
+  price: number;
+  quantity: number;
+  tags: string[];
+  updated_at: number;
+  user_id: string;
+}
