@@ -89,7 +89,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
           `https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`
         );
         setUserData(response.data);
-      } catch (err) {
+      } catch (err:any) {
         setError(err);
         console.log(error);
       }
@@ -99,9 +99,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     fetchData();
   }, [accountData]);
 
-  const userAvatar = error
-    ? "/curator.png"
-    : `https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`;
+  const userAvatar = `https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`;
 
   const contextValue: AccountProviderProps = {
     toggleSidebar,
