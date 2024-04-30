@@ -47,7 +47,6 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   const [, setShowAbstraxion] = useModal();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [accountData, setAccountData] = useState<string | null>(null);
-  // const [userData, setUserData] = useState<any>(null); // Initialize userData state
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -62,11 +61,12 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     setIsSidebarOpen(false);
   };
 
+  const [userData, setUserData] = useState(null);
+  const [error, setError] = useState<Error | null>(null);
+
   // XION
   const { data: account } = useAbstraxionAccount();
   const { client } = useAbstraxionSigningClient();
-
-  const userAvatar = `https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`;
 
   // console.log(account, client)
   // const apiUrl = process.env.NEXT_BASE_URL;
@@ -81,6 +81,25 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     setIsLoggedIn(!!profile);
     setAccountData(profile);
   }, [profile, router]);
+
+  const fetchData = async () => {
+    setTimeout( async () => {
+      try {
+        const response = await axios.get(
+          `https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`
+        );
+        setUserData(response.data);
+      } catch (err:any) {
+        setError(err);
+        console.log(error);
+      }
+    }, 15000);
+  };
+  useEffect(() => {
+    fetchData();
+  }, [accountData]);
+
+  const userAvatar = `https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`;
 
   const contextValue: AccountProviderProps = {
     toggleSidebar,

@@ -58,17 +58,10 @@ const useFetchUserData = ({
   );
 
   useEffect(() => {
-    if (data) {
-      if (data?.error === false) {
-        // router.push("/dashboard");
-        // window.location.href = window.location.href;
-        // console.log(data);
-        
-      }
-    } else {
-      router.push("/profile-update");
-    }
-  }, [data, router, status]);
+    if (!isLoggedIn) {
+      router.push("/");
+    };
+  }, [data, router, status, isLoggedIn]);
 
   return { userData: data?.user, status, isLoading };
 };

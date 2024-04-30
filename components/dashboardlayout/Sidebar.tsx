@@ -67,18 +67,18 @@ const Sidebar = () => {
   return (
     <main className="sticky w-[240px] top-0 flex-col hidden h-screen p-6 lg:flex gap-6 bg-[#2C2D2E]">
       <div className="flex flex-col items-center justify-center mx-auto gap-4">
-          <Image
-            src={userAvatar}
-            width={120}
-            height={120}
-            alt="Curator image"
-            className="rounded-full border-[8px] border-mintyplex-dark"
-            style={{
-              height: "120px",
-              objectFit: "cover",
-              objectPosition: "top",
-            }}
-          />
+        <Image
+          src={userAvatar}
+          width={120}
+          height={120}
+          alt="Curator image"
+          className="rounded-full border-[8px] border-mintyplex-dark"
+          style={{
+            height: "120px",
+            objectFit: "cover",
+            objectPosition: "top",
+          }}
+        />
         <div className="text-center">
           <div className="flex items-center gap-2">
             <p className="text-[25px] font-bold capitalize">

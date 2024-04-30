@@ -56,6 +56,12 @@ export default function Curator() {
     });
   };
 
+  const handleError = () => {
+    toast({
+      description: "Error uploading image (try an image with less than 1mb).",
+    });
+  };
+
   const handleCopy = (text: string | null) => {
     toast({
       description: "Creators address copied.",
@@ -225,6 +231,7 @@ export default function Curator() {
             <div className="">
               <EditModal
                 handleSuccessful={handleSuccessful}
+                handleError={handleError}
                 setEditModal={setEditModal}
               />
             </div>
