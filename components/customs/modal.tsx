@@ -180,7 +180,7 @@ export default function EditModal({
                   id=""
                   rows={4}
                   {...register("bio", { required: true })}
-                  defaultValue={userData.bio}
+                  defaultValue={userData.bio as string}
                 ></textarea>
               </div>
               <div className="form">
@@ -194,7 +194,7 @@ export default function EditModal({
                   placeholder="https://www.x.com/username"
                   required
                   {...register("x_link", { required: true })}
-                  defaultValue={userData.x_link}
+                  defaultValue={userData.x_link as string}
                 />
               </div>
             </form>
