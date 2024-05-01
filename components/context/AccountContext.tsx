@@ -85,7 +85,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   }, [profile, router]);
 
   const { userData } = useFetchUserData({ isLoggedIn, accountData });
-  console.log(userData);
+  // console.log(userData);
   const userAvatar = userData?.avatar
 
   const contextValue: AccountProviderProps = {
