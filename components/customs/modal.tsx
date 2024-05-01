@@ -28,7 +28,7 @@ export default function EditModal({
   handleSuccessful,
   handleError,
 }: ModalProps) {
-  const { accountData } = useAccount();
+  const { accountData, userData } = useAccount();
 
   const [imageSrc, setImageSrc] = useState<any>(Curator);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -180,6 +180,7 @@ export default function EditModal({
                   id=""
                   rows={4}
                   {...register("bio", { required: true })}
+                  defaultValue={userData.bio}
                 ></textarea>
               </div>
               <div className="form">
@@ -193,6 +194,7 @@ export default function EditModal({
                   placeholder="https://www.x.com/username"
                   required
                   {...register("x_link", { required: true })}
+                  defaultValue={userData.x_link}
                 />
               </div>
             </form>

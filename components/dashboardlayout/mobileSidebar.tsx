@@ -23,6 +23,7 @@ import { useAccount } from "../context/AccountContext";
 import { copyToClipboard } from "~/utils/copyToClipboard";
 import { useToast } from "../ui/use-toast";
 import ReserveUsername from "../customs/ReserveUsername";
+import useFetchUserData from "~/hooks/useFetchData";
 
 export const SidebarData = [
   {
@@ -64,6 +65,7 @@ const MobileSidebar = ({
   const pathname = usePathname();
 
   const { accountData, userAvatar } = useAccount();
+  const { userData } = useFetchUserData({ isLoggedIn, accountData });
 
   const filteredSidebarData = SidebarData.filter((data) => {
     if (!isLoggedIn) {

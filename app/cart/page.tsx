@@ -14,6 +14,7 @@ import { TypographyH3 } from "~/utils/typography";
 
 export default function Cart() {
   const [activeTab, setActiveTab] = useState(0);
+  const { accountData } = useAccount();
 
   const tabs = [
     {
@@ -100,6 +101,7 @@ export default function Cart() {
                           className="px-4 py-6 border-2 border-[rgb(99,99,99)] !text-[13px] placeholder:text-[14px] "
                           placeholder="0xERDS34....DE21"
                           required
+                          defaultValue={accountData}
                         />
                         <label htmlFor="" className="px-4 text-sm">
                           Wallet address <span className="text-red-600">*</span>

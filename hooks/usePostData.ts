@@ -9,7 +9,7 @@ interface PostDataOptions {
 }
 
 const usePostData = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
   const router = useRouter();
 
@@ -18,7 +18,7 @@ const usePostData = () => {
     body,
     headers,
   }: PostDataOptions): Promise<T | undefined> => {
-    setIsLoading(true);
+    setLoading(true);
     setError(null);
 
     try {
@@ -36,18 +36,18 @@ const usePostData = () => {
       }
 
       const data = await response.json();
-      setIsLoading(false);
+      setLoading(false);
 
       return data;
     } catch (error) {
       setError("An error occurred while posting data");
-      setIsLoading(false);
+      setLoading(false);
       console.error("Error posting data:", error);
       return undefined;
     }
   };
 
-  return { postData, isLoading, error };
+  return { postData, loading, error };
 };
 
 export default usePostData;

@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface UserProfile {
   wallet_address: string;
@@ -40,6 +40,8 @@ const useFetchUserData = ({
     return response.json();
   };
 
+  const [hasError, setHasError] = useState(false);
+
   const { data, status, isLoading } = useQuery<UserData, Error>(
     ["userData"],
     fetchUserData,
@@ -50,6 +52,9 @@ const useFetchUserData = ({
         if (data?.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
         }
+        if (data?.error === true) {
+          setHasError(true)
+        }
       },
       onError: (error) => {
         console.error("Error fetching user data:", error);
@@ -58,12 +63,12 @@ const useFetchUserData = ({
   );
 
   useEffect(() => {
-    if (!isLoggedIn) {
-      router.push("/");
-    };
-  }, [data, router, status, isLoggedIn]);
+    if (hasError) {
+      router.push("/profile-update");
+    }
+  }, [router, hasError]);
 
-  return { userData: data?.user, status, isLoading };
+  return { userData: data?.user, status, isLoading, hasError };
 };
 
 export default useFetchUserData;

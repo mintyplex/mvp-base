@@ -53,7 +53,7 @@ export function RenderCards({ data }: { data?: ProductFromApi[] }) {
           id={product._id}
           byImg={creatorImg}
           name={product.name}
-          by={truncateXionAddress(product.user_id)}
+          by={product.user_id}
           image={topCreator}
           price={product.price.toString()}
           discountedPrice={createPriceWithDiscount(
