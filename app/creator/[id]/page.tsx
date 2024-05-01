@@ -133,7 +133,7 @@ export default function Curator() {
                 alt="user image"
                 src={userAvatar}
                 style={{
-                  height: "150px",
+                  height: "100px",
                   objectFit: "cover",
                   objectPosition: "top",
                 }}
