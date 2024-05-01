@@ -23,7 +23,7 @@ interface FormData {
 
 export default function UpdateProfile() {
   const { account, accountData, isLoggedIn } = useAccount();
-  const { userData, isLoading } = useFetchUserData({ isLoggedIn, accountData });
+ 
   const router = useRouter();
 
   // Image scr
@@ -132,7 +132,6 @@ export default function UpdateProfile() {
 
   return (
     <>
-      <LoadingModal isOpen={isLoading} />
       <div className="relative flex items-center justify-center w-full h-screen">
         <div className="bg-[#313233] rounded-[8px] !max-w-[800px] px-4 md:px-8 py-6 md:py-10">
           <div className="w-full flex flex-col items-center justify-center gap-2">
