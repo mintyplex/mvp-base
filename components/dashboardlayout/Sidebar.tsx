@@ -21,6 +21,7 @@ import { useToast } from "../ui/use-toast";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import ReserveUsername from "../customs/ReserveUsername";
 import { useAccount } from "../context/AccountContext";
+import useFetchUserData from "~/hooks/useFetchData";
 
 export const SidebarData = [
   {
@@ -54,7 +55,8 @@ const links = [
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const { account, userAvatar } = useAccount();
+  const { account, userAvatar, isLoggedIn, accountData } = useAccount();
+  const { userData } = useFetchUserData({ isLoggedIn, accountData });
   const { toast } = useToast();
 
   // handle copy notification

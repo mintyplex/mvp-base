@@ -10,7 +10,7 @@ import axios from "axios";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import LoadingModal from "../ui/LoadingModal";
+import useFetchUserData from "~/hooks/useFetchData";
 
 // I don't know how to properly get the type for client so I'll just pass in any for the type being
 type AccountProviderProps = {
@@ -26,6 +26,7 @@ type AccountProviderProps = {
   loading: any | null;
   setIsError: any | null;
   setLoading: any | null;
+  userData: any | null;
   userAvatar: any | null;
 } | null;
 
@@ -61,8 +62,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     setIsSidebarOpen(false);
   };
 
-  const [userData, setUserData] = useState(null);
-  const [error, setError] = useState<Error | null>(null);
+  // const [userData, setUserData] = useState(null);
 
   // XION
   const { data: account } = useAbstraxionAccount();
@@ -71,9 +71,11 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   // console.log(account, client)
   // const apiUrl = process.env.NEXT_BASE_URL;
 
-  // if (isLoggedIn) {
-  //   router.push("/");
-  // }
+  // useEffect(() => {
+  //   if (!!!isLoggedIn) {
+  //     router.push("/");
+  //   }
+  // }, [isLoggedIn, router]);
 
   const profile = account?.bech32Address;
 
@@ -82,24 +84,9 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     setAccountData(profile);
   }, [profile, router]);
 
-  const fetchData = async () => {
-    setTimeout( async () => {
-      try {
-        const response = await axios.get(
-          `https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`
-        );
-        setUserData(response.data);
-      } catch (err:any) {
-        setError(err);
-        console.log(error);
-      }
-    }, 15000);
-  };
-  useEffect(() => {
-    fetchData();
-  }, [accountData]);
-
-  const userAvatar = `https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`;
+  const { userData } = useFetchUserData({ isLoggedIn, accountData });
+  console.log(userData);
+  const userAvatar = userData?.avatar
 
   const contextValue: AccountProviderProps = {
     toggleSidebar,
@@ -114,6 +101,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     setIsError,
     loading,
     setLoading,
+    userData,
     userAvatar,
   };
 

@@ -1,5 +1,5 @@
 import Image, { StaticImageData } from "next/image";
-import { cn } from "~/lib/utils/utils";
+import { cn, truncateXionAddress } from "~/lib/utils/utils";
 import { TypographyP } from "~/utils/typography";
 import { Button } from "../ui/button";
 import Link from "next/link";
@@ -58,7 +58,7 @@ export function Card({
                 alt={by}
               />
               <Link href={`/creator/${id}`} className="underline">
-                {by}
+                {truncateXionAddress(by)}
               </Link>
             </small>
           </div>

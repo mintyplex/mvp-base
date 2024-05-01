@@ -9,11 +9,11 @@ const LoadingModal = ({ isOpen }: any) => {
 
   return ReactDOM.createPortal(
     <div className="modal-overlay">
-      <div className="modal-content">
+      <div className="modal-content flex flex-col items-center gap-2">
         <div className="loading-spinner">
           <div className="spinner"></div>
-          {/* <p>Loading...</p> */}
         </div>
+          <p>Conecting...</p>
       </div>
     </div>,
     document.body 

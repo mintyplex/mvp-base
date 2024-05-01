@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import useFetchUserData from "~/hooks/useFetchData";
 import { useToast } from "~/components/ui/use-toast";
+import LoadingModal from "~/components/ui/LoadingModal";
 
 interface FormData {
   bio: string;
@@ -22,7 +23,7 @@ interface FormData {
 
 export default function UpdateProfile() {
   const { account, accountData, isLoggedIn } = useAccount();
-  const { userData } = useFetchUserData({ isLoggedIn, accountData });
+  const { userData, isLoading } = useFetchUserData({ isLoggedIn, accountData });
   const router = useRouter();
 
   // Image scr
@@ -30,9 +31,9 @@ export default function UpdateProfile() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-  if (userData) {
-    router.push("/dashboard");
-  }
+  // if (userData) {
+  //   router.push("/dashboard");
+  // }
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
@@ -72,7 +73,7 @@ export default function UpdateProfile() {
     formState: { errors },
   } = useForm();
 
-  const { postData, isLoading, error } = usePostData();
+  const { postData, loading, error } = usePostData();
 
   const onSubmit = async (data: any) => {
     // preventDefault();
@@ -130,7 +131,8 @@ export default function UpdateProfile() {
   };
 
   return (
-    <div>
+    <>
+      <LoadingModal isOpen={isLoading} />
       <div className="relative flex items-center justify-center w-full h-screen">
         <div className="bg-[#313233] rounded-[8px] !max-w-[800px] px-4 md:px-8 py-6 md:py-10">
           <div className="w-full flex flex-col items-center justify-center gap-2">
@@ -212,7 +214,7 @@ export default function UpdateProfile() {
                 // disabled={isLoading}
                 className="text-white bg-mintyplex-primary px-3 py-2 rounded-[8px]"
               >
-                {isLoading ? (
+                {loading ? (
                   <>
                     <div className="loader"></div>
                   </>
@@ -225,6 +227,6 @@ export default function UpdateProfile() {
           {error && <p>{error}</p>}
         </div>
       </div>
-    </div>
+    </>
   );
 }
