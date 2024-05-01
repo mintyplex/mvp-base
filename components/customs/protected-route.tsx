@@ -19,10 +19,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     retries: 0,
   });
 
-
   return (
     <>
-      <LoadingModal isOpen={isLoading} />
+      {isLoggedIn && <LoadingModal isOpen={isLoading} />}
       {children}
     </>
   );

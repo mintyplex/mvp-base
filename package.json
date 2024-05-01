@@ -10,7 +10,7 @@
     "prettier": "prettier --write ."
   },
   "dependencies": {
-    "@burnt-labs/abstraxion": "^1.0.0-alpha.25",
+    "@burnt-labs/abstraxion": "^1.0.0-alpha.43",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
     "@radix-ui/react-avatar": "^1.0.4",
