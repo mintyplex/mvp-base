@@ -13,7 +13,7 @@ interface ReusableTableProps {
 }
 
 interface ProductsFromApi {
-  data: _ProductFromApi[];
+  data: ProductFromApi[];
   message: string;
   status: string;
 }

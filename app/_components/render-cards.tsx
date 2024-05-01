@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import creatorImg from "~/public/curator.png";
 import { Card } from "~/components/customs/card";
 import topCreator from "~/public/top-creator.jpeg";
+import { truncateXionAddress } from "~/lib/utils/utils";
 
-export function RenderCards() {
+export function RenderCards({ data }: { data?: ProductFromApi[] }) {
   const [size, setSize] = useState(
-    typeof window !== "undefined" && window.innerWidth,
+    typeof window !== "undefined" && window.innerWidth
   );
 
   useEffect(() => {
@@ -20,19 +21,46 @@ export function RenderCards() {
 
   const isMobile = typeof size === "number" && size < 640;
 
+  if (!data) {
+    return (
+      <>
+        {Array.from({
+          length: isMobile ? 6 : 12,
+        }).map((_, index) => (
+          <Card
+            id={index.toString()}
+            byImg={creatorImg}
+            name="Yatch Ape Club"
+            by="0x20..8"
+            image={topCreator}
+            price="23"
+            key={index}
+          />
+        ))}
+      </>
+    );
+  }
+
+  function createPriceWithDiscount(price: number, discount: number) {
+    const returnMe = price - (price * discount) / 100;
+    return returnMe.toFixed(2).toString();
+  }
+
   return (
     <>
-      {Array.from({
-        length: isMobile ? 6 : 12,
-      }).map((_, index) => (
+      {data.map((product) => (
         <Card
-          id={index.toString()}
+          id={product._id}
           byImg={creatorImg}
-          name="Yatch Ape Club"
-          by="0x20..8"
+          name={product.name}
+          by={truncateXionAddress(product.user_id)}
           image={topCreator}
-          price="23"
-          key={index}
+          price={product.price.toString()}
+          discountedPrice={createPriceWithDiscount(
+            product.price,
+            product.discount
+          )}
+          key={product._id}
         />
       ))}
     </>

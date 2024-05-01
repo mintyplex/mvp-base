@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import topCreator from "~/public/top-creator.jpeg";
 import { TypographyH1 } from "~/utils/typography";
 import BackButton from "./_components/back-button";
+import { TrendingProducts } from "../_components/trending-products";
 
 const tabs = [
   {
@@ -86,21 +87,7 @@ function All({ title = "All" }: { title?: string }) {
       <div className="flex items-center justify-center">
         <PopularProductsText text={title} />
       </div>
-      <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
-        {Array.from({ length: 20 }).map((_, index) => (
-          <div key={index} className="shrink-0">
-            <Card
-              id={index.toString()}
-              asSmall
-              byImg={creatorImg}
-              name="Yatch Ape Club"
-              by="0x20..8"
-              image={topCreator}
-              price="23"
-            />
-          </div>
-        ))}
-      </div>
+      <TrendingProducts shouldNotBe12 />
     </div>
   );
 }

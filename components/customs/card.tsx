@@ -12,6 +12,7 @@ type CardProps = {
   price: string;
   asSmall?: boolean;
   id: string;
+  discountedPrice?: string;
 };
 
 export function Card({
@@ -22,6 +23,7 @@ export function Card({
   byImg,
   asSmall,
   id,
+  discountedPrice,
 }: CardProps) {
   const TEN_PERCENT_OF_HEIGHT = image.height - image.height * 0.1;
   const TEN_PERCENT_OF_WIDTH = image.width - image.width * 0.1;
@@ -63,11 +65,23 @@ export function Card({
         </div>
         <div className="">
           <small>Price</small>
-          <div>
-            <small className="text-transparent !bg-clip-text font-bold md:text-2xl  [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
-              $ {price}
-            </small>
-          </div>
+          {discountedPrice ? (
+            <div className="relative">
+              <small className="text-transparent !bg-clip-text font-bold md:text-2xl  [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
+                <s>$ {discountedPrice}</s>
+              </small>
+              <sup className="pl-1 -top-3">
+                <s className="text-muted-foreground">{price}</s>
+              </sup>
+            </div>
+          ) : (
+            <div>
+              <small className="text-transparent !bg-clip-text font-bold md:text-2xl  [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
+                <s>$ {price}</s>
+              </small>
+            </div>
+          )}
+
           <Button
             asChild
             className="w-full active:scale-95 transition-all duration-300 bg-mintyplex-primary"

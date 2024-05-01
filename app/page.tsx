@@ -28,6 +28,7 @@ import { RenderCards } from "./_components/render-cards";
 import useFetchUserData from "~/hooks/useFetchData";
 import { useAccount } from "~/components/context/AccountContext";
 import LoadingModal from "~/components/ui/LoadingModal";
+import { TrendingProducts } from "./_components/trending-products";
 
 const creators = {
   image: creatorImg,
@@ -79,9 +80,7 @@ export default function Home() {
             name="Trending Products"
             route="/popular-products?view=popular"
           />
-          <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
-            <RenderCards />
-          </div>
+          <TrendingProducts />
           <div className="flex items-center justify-center mt-4">
             <Link
               href="/popular-products"
