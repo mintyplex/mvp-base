@@ -30,7 +30,7 @@ export default function Navbar() {
     closeSidebar,
     isSidebarOpen,
     isLoggedIn,
-    account,
+    accountData,
     setShowAbstraxion,
     toggleSidebar,
   } = useAccount();
@@ -94,7 +94,7 @@ export default function Navbar() {
           </Link>
           <div className="hidden md:block">
             <div className="hidden md:block">
-              {account.bech32Address ? (
+              {accountData ? (
                 <div>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -104,7 +104,7 @@ export default function Navbar() {
                         size="icon"
                       >
                         <HiUserCircle size={24} />
-                        {truncate(account.bech32Address)}
+                        {truncate(accountData)}
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="mt-3 w-[144px] border-mintyplex-border bg-mintyplex-dark">
@@ -114,7 +114,7 @@ export default function Navbar() {
                         </DropdownMenuItem>
                       </Link>
                       <DropdownMenuSeparator />
-                      <Link href="/creator/32">
+                      <Link href="/profile">
                         <DropdownMenuItem className="cursor-pointer">
                           Profile
                         </DropdownMenuItem>

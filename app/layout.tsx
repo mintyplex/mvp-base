@@ -77,7 +77,7 @@ export default function RootLayout({
                   <main className="flex flex-col min-h-screen">
                     <Navbar />
                     <div className="flex-grow">{children}</div>
-                    <HideAt paths={["dashboard"]}>
+                    <HideAt paths={["dashboard", "profile"]}>
                       <Footer />
                     </HideAt>
                   </main>

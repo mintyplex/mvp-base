@@ -46,6 +46,7 @@ const useFetchUserData = ({
     ["userData"],
     fetchUserData,
     {
+      refetchOnWindowFocus:true,
       enabled: isLoggedIn && !!accountData,
       retry: retries,
       onSuccess: (data) => {
