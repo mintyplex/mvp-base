@@ -70,7 +70,7 @@ export default function Profile() {
               </Link>
             </div>
           </div>
-          <div className="absolute top-[57%] md:top-[68%] md:right-20 right-0 z-[11]">
+          <div className="absolute top-[57%] md:top-[70%] md:right-20 right-0 z-[11]">
             <div
               className="flex gap-2 text-[10px] md:text-[16px] cursor-pointer justify-center items-center p-[8px] w-[100px] md:w-[125px] rounded-[8px] border border-[#313233]"
               onClick={() => setEditModal(true)}
