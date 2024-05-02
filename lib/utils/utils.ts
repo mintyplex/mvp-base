@@ -27,4 +27,4 @@ export const truncateXionAddress = (address: string) => {
 };
 
 export const mintyplexContractAddress: string =
-  "xion1h6hrq6wlfrt53aafpt27uvvrmwqeqwrcuqdy4uzcdn4jqz2sqdcq8egzfu";
+  "xion1gdzk8u6z3u46220qtlr6kktqv023dsyh32j22c05vnpr5wnfulmsxvcwrv";

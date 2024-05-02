@@ -18,6 +18,17 @@ interface ProductsFromApi {
   status: string;
 }
 
+interface CreatorFromApi {
+  data: CreatorFromApi[];
+  user: any;
+  message: string;
+  status: string;
+  avatar: string;
+  wallet_address: string;
+  x_link: string;
+  bio: string;
+}
+
 interface ProductFromApi {
   _id: string;
   categories: string[];

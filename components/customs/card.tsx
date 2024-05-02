@@ -3,7 +3,6 @@ import { cn, truncateXionAddress } from "~/lib/utils/utils";
 import { TypographyP } from "~/utils/typography";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import useFetchCuratorData from "~/hooks/useFetchCuratorData";
 
 type CardProps = {
   name: string;
@@ -30,11 +29,6 @@ export function Card({
   const TEN_PERCENT_OF_WIDTH = image.width - image.width * 0.1;
 
   const creatorAddress = by;
-
-  const { refetch } = useFetchCuratorData({ creatorAddress });
-  const handleRefetch = () => {
-    refetch();
-  };
 
   return (
     <div
@@ -65,11 +59,9 @@ export function Card({
                 src={byImg}
                 alt={by}
               />
-              <div onClick={() => handleRefetch()}>
               <Link href={`/creator/${by}`} className="underline">
                 {truncateXionAddress(by)}
               </Link>
-              </div>
             </small>
           </div>
         </div>
