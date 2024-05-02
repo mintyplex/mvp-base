@@ -36,6 +36,8 @@ const creators = {
 };
 
 export default function Home() {
+  const { accountData } = useAccount();
+
   return (
     <TooltipProvider>
       <section className="container p-3 mx-auto space-y-5">
@@ -52,7 +54,7 @@ export default function Home() {
             <Tooltip key={i}>
               <TooltipTrigger asChild>
                 <div className="flex flex-col items-center w-full max-w-40 gap-1">
-                  <Link href="/creator/32">
+                  <Link href={`/creator/${accountData}`}>
                     <Image
                       width={82}
                       height={82}

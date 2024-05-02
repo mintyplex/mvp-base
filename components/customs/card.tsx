@@ -57,7 +57,7 @@ export function Card({
                 src={byImg}
                 alt={by}
               />
-              <Link href={`/creator/${id}`} className="underline">
+              <Link href={`/creator/${by}`} className="underline">
                 {truncateXionAddress(by)}
               </Link>
             </small>

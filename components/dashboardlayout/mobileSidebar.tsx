@@ -43,7 +43,7 @@ export const SidebarData = [
   },
   {
     title: "Profile",
-    link: "/creator/321",
+    link: "/profile",
     id: "profile",
   },
   {
