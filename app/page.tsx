@@ -20,7 +20,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-import { cn } from "~/lib/utils/utils";
+import { cn, truncateXionAddress } from "~/lib/utils/utils";
 import creatorImg from "~/public/curator.png";
 import monkey from "~/public/monkey-yellow-bg.jpeg";
 import { TypographyH3 } from "~/utils/typography";
@@ -29,6 +29,8 @@ import useFetchUserData from "~/hooks/useFetchData";
 import { useAccount } from "~/components/context/AccountContext";
 import LoadingModal from "~/components/ui/LoadingModal";
 import { TrendingProducts } from "./_components/trending-products";
+import { useQuery } from "@tanstack/react-query";
+import { truncate } from "~/utils/truncate";
 
 const creators = {
   image: creatorImg,
@@ -37,6 +39,29 @@ const creators = {
 
 export default function Home() {
   const { accountData } = useAccount();
+
+  async function getUsers() {
+    // CURL equivalent
+    // curl -sX GET https://mintyplex-api.onrender.com/api/v1/product/
+    const response = await fetch(
+      "https://mintyplex-api.onrender.com/api/v1/user/users"
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      return data as UsersApi;
+    }
+
+    throw new Error("Failed to fetch products");
+  }
+
+  const { data: users, isLoading } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+  });
+
+  console.log(users);
+  
 
   return (
     <TooltipProvider>
@@ -50,27 +75,32 @@ export default function Home() {
           <div>Top Creators</div>
         </TypographyH3>
         <div className="flex p-4 overflow-auto space-x-4">
-          {Array.from({ length: 10 }).map((_, i) => (
+          {users?.data.slice(0, 10).map((user, i) => (
             <Tooltip key={i}>
               <TooltipTrigger asChild>
                 <div className="flex flex-col items-center w-full max-w-40 gap-1">
-                  <Link href={`/creator/${accountData}`}>
+                  <Link href={`/creator/${user.WalletAddress}`}>
                     <Image
                       width={82}
                       height={82}
                       className="rounded-full"
                       draggable={false}
                       alt="user image"
-                      src={creators.image}
+                      src={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${user.WalletAddress}`}
+                      style={{
+                        height: "82px",
+                        objectFit: "cover",
+                        objectPosition: "center",
+                      }}
                     />
                     <div className="overflow-hidden text-xs max-w-20 whitespace-nowrap text-ellipsis">
-                      {creators.name}
+                      {truncateXionAddress(user.WalletAddress)}
                     </div>
                   </Link>
                 </div>
               </TooltipTrigger>
               <TooltipContent align="center">
-                <p>{creators.name}</p>
+                <p>{user.WalletAddress}</p>
               </TooltipContent>
             </Tooltip>
           ))}

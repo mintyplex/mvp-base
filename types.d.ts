@@ -17,6 +17,12 @@ interface ProductsFromApi {
   message: string;
   status: string;
 }
+interface UsersApi {
+  data: UsersApi[];
+  message: string;
+  status: string;
+  WalletAddress: any;
+}
 
 interface CreatorFromApi {
   data: CreatorFromApi[];
