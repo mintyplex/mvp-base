@@ -21,7 +21,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   return (
     <>
-      {/* {isLoggedIn && <LoadingModal isOpen={isLoading} />} */}
+      {isLoggedIn && <LoadingModal isOpen={isLoading} />}
       {children}
     </>
   );

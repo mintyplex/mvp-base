@@ -72,7 +72,7 @@ export default function Home() {
           <div>Top Creators</div>
         </TypographyH3>
         {isLoading ? (
-          <div className="flex items-center justify-center min-h-30">
+          <div className="flex items-center justify-center min-h-40">
             <div className="loader" />
           </div>
         ) : (
