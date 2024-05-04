@@ -7,11 +7,6 @@ import Link from "next/link";
 import DashboardLayout from "~/components/dashboardlayout/page";
 
 const AddProduct: React.FC = () => {
-
-  
-
-  //
-
   return (
     <DashboardLayout>
       <div className="mt-10">
@@ -39,7 +34,7 @@ const AddProduct: React.FC = () => {
             Add Product
           </h2>
         </div>
-        
+
         <ProductForm />
       </div>
     </DashboardLayout>
