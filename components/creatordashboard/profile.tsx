@@ -144,7 +144,7 @@ export default function Profile() {
           </div>
         </div>
         <div className="my-10 space-y-6">
-          {userProducts.length === 0 ? (
+          {userProducts?.length === 0 ? (
             <div className="h-[30vh] flex w-[100%] items-center justify-center">
               <p>No Items yet</p>
             </div>
