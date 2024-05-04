@@ -242,13 +242,13 @@ export default function Curator() {
               </div>
             </div>
             <div className="space-y-6">
-              {CuratorProducts.length === 0 ? (
+              {CuratorProducts?.length === 0 ? (
                 <div className="h-[30vh] flex w-[100%] items-center justify-center">
                   <p>No Items yet</p>
                 </div>
               ) : (
                 <div className="grid-cols-2 grid gap-4 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
-                  {CuratorProducts.map(
+                  {CuratorProducts?.map(
                     (product: ProductType, index: number): any => (
                       <Card
                         key={index}

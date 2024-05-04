@@ -150,7 +150,7 @@ export default function Profile() {
             </div>
           ) : (
             <div className="grid-cols-2 grid gap-4 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3">
-              {userProducts.map((product: ProductType, index: number): any => (
+              {userProducts?.map((product: ProductType, index: number): any => (
                 <Card
                   key={index}
                   id={product.ID}
