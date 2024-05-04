@@ -144,11 +144,11 @@ export default function Profile() {
           </div>
         </div>
         <div className="my-10 space-y-6">
-          {/* {userProducts.length === 0 ? (
+          {userProducts?.length === 0 ? (
             <div className="h-[30vh] flex w-[100%] items-center justify-center">
               <p>No Items yet</p>
             </div>
-          ) : ( */}
+          ) : (
             <div className="grid-cols-2 grid gap-4 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3">
               {userProducts.map((product: ProductType, index: number): any => (
                 <Card
@@ -163,7 +163,7 @@ export default function Profile() {
                 />
               ))}
             </div>
-          {/* )} */}
+          )}
         </div>
         {editModal && (
           <>
