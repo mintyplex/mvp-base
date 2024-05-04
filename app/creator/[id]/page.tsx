@@ -5,6 +5,8 @@ import Image, { StaticImageData } from "next/image";
 import curatorImage from "~/public/curator-bg.png";
 import { FaChevronUp, FaChevronDown, FaSearch } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import creatorImg from "~/public/curator.png";
+import topCreator from "~/public/top-creator.jpeg";
 import { TypographyH3 } from "~/utils/typography";
 import { BsArrowLeft } from "react-icons/bs";
 import {
@@ -24,6 +26,15 @@ import { truncate } from "~/utils/truncate";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Card } from "~/components/customs/card";
+
+interface ProductType {
+  ID: string;
+  Name: string;
+  UserId: string;
+  Discount?: any; // Optional property
+  Price: any;
+}
 
 export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
@@ -63,6 +74,8 @@ export default function Curator() {
   }, []);
 
   const CuratorData = data?.user;
+  const CuratorProducts = CuratorData?.products;
+  console.log(CuratorProducts);
 
   const creatorAvatar = CuratorData?.avatar;
   const userURL = `${CuratorData?.x_link}`;
@@ -229,22 +242,28 @@ export default function Curator() {
               </div>
             </div>
             <div className="space-y-6">
-              {/* <div className="grid-cols-2 grid gap-3 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
-            {Array.from({ length: 16 }).map((_, index) => (
-              <Card
-                id={index.toString()}
-                byImg={topCreator}
-                name="Yatch Ape Club"
-                by="0x20..8"
-                image={topCreator}
-                price="23"
-                key={index}
-              />
-            ))}
-          </div> */}
-              <div className="h-[30vh] flex w-[100%] items-center justify-center">
-                <p>No Items yet</p>
-              </div>
+              {CuratorProducts.length === 0 ? (
+                <div className="h-[30vh] flex w-[100%] items-center justify-center">
+                  <p>No Items yet</p>
+                </div>
+              ) : (
+                <div className="grid-cols-2 grid gap-4 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
+                  {CuratorProducts.map(
+                    (product: ProductType, index: number): any => (
+                      <Card
+                        key={index}
+                        id={product.ID}
+                        byImg={creatorImg}
+                        name={product.Name}
+                        by={product.UserId}
+                        image={topCreator}
+                        discountedPrice={product.Discount}
+                        price={product.Price}
+                      />
+                    )
+                  )}
+                </div>
+              )}
               {/* <div className="flex items-center justify-center mt-4">
             <Button
               className="mx-auto text-white border rounded-full linear-gradient"

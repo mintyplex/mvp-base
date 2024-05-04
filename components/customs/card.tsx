@@ -1,5 +1,5 @@
 import Image, { StaticImageData } from "next/image";
-import { cn, truncateXionAddress } from "~/lib/utils/utils";
+import { cn, truncateString, truncateXionAddress } from "~/lib/utils/utils";
 import { TypographyP } from "~/utils/typography";
 import { Button } from "../ui/button";
 import Link from "next/link";
@@ -29,7 +29,6 @@ export function Card({
   const TEN_PERCENT_OF_WIDTH = image.width - image.width * 0.1;
 
   const creatorAddress = by;
-
   return (
     <div
       className={cn(
@@ -37,7 +36,7 @@ export function Card({
         asSmall ? "max-w-xs" : "max-w-sm"
       )}
     >
-      <Link href={id} className="space-y-2">
+      <Link href={`/${id}`} className="space-y-2">
         <div className="overflow-hidden rounded-md">
           <Image
             alt={name}
@@ -48,7 +47,9 @@ export function Card({
           />
         </div>
         <div className="pb-3 border-b space-y-2 border-mintyplex-border">
-          <TypographyP className="text-sm">{name}</TypographyP>
+          <TypographyP className="text-sm">
+            {truncateString(name, 46)}
+          </TypographyP>
           <div>
             <small className="flex items-center gap-2">
               by{" "}

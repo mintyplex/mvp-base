@@ -85,12 +85,13 @@ export default function Home() {
                       <Image
                         width={82}
                         height={82}
-                        className="rounded-full"
+                        className="min-w-[82px] rounded-full"
                         draggable={false}
                         alt="user image"
                         src={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${user.WalletAddress}`}
                         style={{
                           height: "82px",
+                          width: "82px",
                           objectFit: "cover",
                           objectPosition: "center",
                         }}

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState, useTransition } from "react";
 import ReuseableBackground from "./ReuseableBackground";
 import { MdCancel } from "react-icons/md";
 import {
@@ -15,14 +15,24 @@ import Image from "next/image";
 import { Controller, useForm } from "react-hook-form";
 import { useAccount } from "../context/AccountContext";
 import { useRouter } from "next/navigation";
-import usePostData from "~/hooks/usePostFormData";
+import { BsDownload } from "react-icons/bs";
+import { useToast } from "~/components/ui/use-toast";
+import axios from "axios";
 
 const ProductForm = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [inputValuee, setInputValuee] = useState("");
   const { account, accountData, isLoggedIn } = useAccount();
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+  const { toast } = useToast();
+
+  const handleSuccessful = () => {
+    toast({
+      description: "Prosuct submitted successfully.",
+    });
+  };
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValuee(e.target.value);
@@ -76,39 +86,48 @@ const ProductForm = () => {
     formState: { errors },
   } = useForm();
 
-  const { postData, isLoading, error } = usePostData();
+  // const hasDecimalDigits = /\.\d+$/.test(
+  //   data.price.toString() && data.discount.toString()
+  // );
 
+  // if (!hasDecimalDigits) {
+  //   data.price = parseFloat(data.price).toFixed(2);
+  //   data.discount = parseFloat(data.discount).toFixed(2);
+  // }
   const onSubmit = async (data: any) => {
-    // const hasDecimalDigits = /\.\d+$/.test(
-    //   data.price.toString() && data.discount.toString()
-    // );
-
-    // if (!hasDecimalDigits) {
-    //   data.price = parseFloat(data.price).toFixed(2);
-    //   data.discount = parseFloat(data.discount).toFixed(2);
-    // }
+    setIsLoading(true);
 
     data.price = Number(data.price);
     data.discount = Number(data.discount);
     data.quantity = Number(data.quantity);
 
     data.categories = [data.categories];
-    data.tags = tags;
+    data.tags = [tags]
+
     console.log(data);
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/product";
+    try {
+      const formData = new FormData();
+      for (const key in data) {
+        formData.append(key, data[key]);
+      }
 
-    const response = await postData({
-      url: `${apiUrl}/${accountData}`,
-      data,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-
-    if (response) {
+      const response = await axios.postForm(
+        `${apiUrl}/${accountData}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Set content type for FormData
+          },
+        }
+      );
+      setIsLoading(false);
       reset();
-      router.push("/dashboard");
-      console.log("Product added successfully:", response);
+      handleSuccessful();
+      return response.data;
+    } catch (error) {
+      console.error("Error posting data:", error);
+      throw error; // Re-throw the error for handling in the component
     }
   };
 
@@ -272,6 +291,27 @@ const ProductForm = () => {
       </div>
       <ReuseableBackground>
         <form className="flex flex-col py-5 gap-6">
+          <div className="w='full">
+            <h1 className=" text-base">Add file</h1>
+            <div className="w-full my-2">
+              <div onClick={triggerFileInput} className="cursor-pointer">
+                <div className="bg-[#1C1E1E]/[0.5] h-[120px] p-8 flex flex-col items-center opacity-90 justify-center">
+                  <BsDownload size={24} />
+                  <p className="font-light">Upload a file or drag and drop</p>
+                  {/* <p className="font-light">PNG or JPEG upto 5MB</p> */}
+                </div>
+              </div>
+              <input
+                type="file"
+                id="image-upload"
+                accept="image/*"
+                multiple // Allow multiple files
+                onChange={handleImageChange}
+                className="hidden"
+                ref={fileInputRef}
+              />
+            </div>
+          </div>
           <div className="my-3 form">
             <input
               type="number"

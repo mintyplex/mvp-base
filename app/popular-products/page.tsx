@@ -83,7 +83,7 @@ export default function Popular({
 
 function All({ title = "All" }: { title?: string }) {
   return (
-    <div className="mt-10 space-y-3">
+    <div className="mt-10 space-y-6">
       <div className="flex items-center justify-center">
         <PopularProductsText text={title} />
       </div>

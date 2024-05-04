@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import curatorBg from "~/public/curator-bg.png";
 import mobileBg from "~/public/mobile-creator-bg.png";
+import topCreator from "~/public/top-creator.jpeg";
+import creatorImg from "~/public/curator.png";
 import { FaXTwitter } from "react-icons/fa6";
 import { TbSettings } from "react-icons/tb";
 import { TypographyH3 } from "~/utils/typography";
@@ -15,13 +17,23 @@ import { useAccount } from "~/components/context/AccountContext";
 import { truncate } from "~/utils/truncate";
 import useFetchUserData from "~/hooks/useFetchData";
 import Link from "next/link";
+import BackButton from "~/app/popular-products/_components/back-button";
+import { ArrowLeftIcon } from "@radix-ui/react-icons";
+import { Card } from "../customs/card";
+
+interface ProductType {
+  ID: string;
+  Name: string;
+  UserId: string;
+  Discount?: any; // Optional property
+  Price: any;
+}
 
 export default function Profile() {
   const [editModal, setEditModal] = useState(false);
-  const { accountData, isLoggedIn, userAvatar } = useAccount();
+  const { accountData, isLoggedIn, userAvatar, userData } = useAccount();
 
-  const { userData } = useFetchUserData({ isLoggedIn, accountData });
-
+  const userProducts = userData?.products;
   const userURL = `${userData?.x_link}`;
 
   const { toast } = useToast();
@@ -47,6 +59,13 @@ export default function Profile() {
     <>
       <div className="w-full pb-4 mt-10">
         <div className="relative w-full">
+          <BackButton
+            variant="ghost"
+            size="icon"
+            className="!border !bg-none border-input mb-6"
+          >
+            <ArrowLeftIcon />
+          </BackButton>
           <div className="flex w-full h-fit min-h-[170px] md:min-h-fit rounded-[24px] relative overflow-hidden">
             <Image
               height={600}
@@ -65,12 +84,12 @@ export default function Profile() {
             <div className="absolute bottom-0 right-0 mb-4 mr-4 md:mr-6 md:mb-6 z-[11]">
               <Link target="_blank" href={userURL}>
                 <div className="p-3 rounded-full bg-mintyplex-dark cursor-pointer ">
-                  <FaXTwitter size={25} />
+                  <FaXTwitter size={20} />
                 </div>
               </Link>
             </div>
           </div>
-          <div className="absolute top-[57%] md:top-[70%] md:right-20 right-0 z-[11]">
+          <div className="absolute top-[68%] md:top-[73%] md:right-20 right-0 z-[11]">
             <div
               className="flex gap-2 text-[10px] md:text-[16px] cursor-pointer justify-center items-center p-[8px] w-[100px] md:w-[125px] rounded-[8px] border border-[#313233]"
               onClick={() => setEditModal(true)}
@@ -124,7 +143,28 @@ export default function Profile() {
             </div>
           </div>
         </div>
-
+        <div className="my-10 space-y-6">
+          {userProducts.length === 0 ? (
+            <div className="h-[30vh] flex w-[100%] items-center justify-center">
+              <p>No Items yet</p>
+            </div>
+          ) : (
+            <div className="grid-cols-2 grid gap-4 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3">
+              {userProducts.map((product: ProductType, index: number): any => (
+                <Card
+                  key={index}
+                  id={product.ID}
+                  byImg={creatorImg}
+                  name={product.Name}
+                  by={product.UserId}
+                  image={topCreator}
+                  discountedPrice={product.Discount}
+                  price={product.Price}
+                />
+              ))}
+            </div>
+          )}
+        </div>
         {editModal && (
           <>
             <div className="">
