@@ -101,8 +101,7 @@ const ProductForm = () => {
     data.discount = Number(data.discount);
     data.quantity = Number(data.quantity);
 
-    data.categories = [data.categories];
-    data.tags = [tags]
+    data.tags = [tags];
 
     console.log(data);
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/product";
@@ -123,6 +122,7 @@ const ProductForm = () => {
       );
       setIsLoading(false);
       reset();
+      router.push("/profile");
       handleSuccessful();
       return response.data;
     } catch (error) {

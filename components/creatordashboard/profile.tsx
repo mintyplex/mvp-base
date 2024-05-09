@@ -36,6 +36,8 @@ export default function Profile() {
   const userProducts = userData?.products;
   const userURL = `${userData?.x_link}`;
 
+  
+
   const { toast } = useToast();
 
   const handleSuccessful = () => {
@@ -55,6 +57,14 @@ export default function Profile() {
       description: "Creators address copied.",
     });
   };
+
+  const sortedData = userProducts?.slice().sort((a: any, b: any) => {
+    const timestampA = new Date(a.CreatedAt).getTime();
+    const timestampB = new Date(b.CreatedAt).getTime();
+
+    return timestampB - timestampA;
+  });
+
   return (
     <>
       <div className="w-full pb-4 mt-10">
@@ -150,7 +160,7 @@ export default function Profile() {
             </div>
           ) : (
             <div className="grid-cols-2 grid gap-4 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3">
-              {userProducts?.map((product: ProductType, index: number): any => (
+              {sortedData?.map((product: ProductType, index: number): any => (
                 <Card
                   key={index}
                   id={product.ID}

@@ -32,7 +32,7 @@ export function Card({
   return (
     <div
       className={cn(
-        " mx-auto rounded-lg p-1.5 space-y-2 border border-mintyplex-border max-w-md w-full",
+        " mx-auto rounded-lg p-1.5 space-y-2 border border-mintyplex-border max-w-md w-full flex flex-col justify-between",
         asSmall ? "max-w-xs" : "max-w-sm"
       )}
     >
@@ -66,33 +66,33 @@ export function Card({
             </small>
           </div>
         </div>
-        <div className="">
-          <small>Price</small>
-          {discountedPrice ? (
-            <div className="relative">
-              <small className="text-transparent !bg-clip-text font-bold md:text-2xl  [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
-                <s>$ {discountedPrice}</s>
-              </small>
-              <sup className="pl-1 -top-3">
-                <s className="text-muted-foreground">{price}</s>
-              </sup>
-            </div>
-          ) : (
-            <div>
-              <small className="text-transparent !bg-clip-text font-bold md:text-2xl  [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
-                <s>$ {price}</s>
-              </small>
-            </div>
-          )}
-
-          <Button
-            asChild
-            className="w-full active:scale-95 transition-all duration-300 bg-mintyplex-primary"
-          >
-            <button className="text-white bg-mintyplex-primary">Buy Now</button>
-          </Button>
-        </div>
       </Link>
+      <div className="">
+        <small>Price</small>
+        {discountedPrice ? (
+          <div className="relative">
+            <small className="text-transparent !bg-clip-text font-bold md:text-2xl  [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
+              <s>$ {discountedPrice}</s>
+            </small>
+            <sup className="pl-1 -top-3">
+              <s className="text-muted-foreground">{price}</s>
+            </sup>
+          </div>
+        ) : (
+          <div>
+            <small className="text-transparent !bg-clip-text font-bold md:text-2xl  [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
+              <s>$ {price}</s>
+            </small>
+          </div>
+        )}
+
+        <Button
+          asChild
+          className="w-full active:scale-95 transition-all duration-300 bg-mintyplex-primary"
+        >
+          <button className="text-white bg-mintyplex-primary">Buy Now</button>
+        </Button>
+      </div>
     </div>
   );
 }
