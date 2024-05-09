@@ -62,7 +62,7 @@ export default function Home() {
 
   return (
     <TooltipProvider>
-      <section className="container p-3 mx-auto space-y-5">
+      <section className="container p-3 mx-auto space-y-5 mt-5">
         <TypographyH3 className="flex items-center gap-3">
           <div
             className={cn("p-1.5 rounded-md bg-amber-200/20 text-amber-500")}
@@ -77,36 +77,46 @@ export default function Home() {
           </div>
         ) : (
           <div className="flex p-4 overflow-auto space-x-4">
-            {users?.data.slice(0, 10).map((user, i) => (
-              <Tooltip key={i}>
-                <TooltipTrigger asChild>
-                  <div className="flex flex-col items-center w-full max-w-40 gap-1">
-                    <Link href={`/creator/${user.WalletAddress}`}>
-                      <Image
-                        width={82}
-                        height={82}
-                        className="min-w-[82px] rounded-full"
-                        draggable={false}
-                        alt="user image"
-                        src={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${user.WalletAddress}`}
-                        style={{
-                          height: "82px",
-                          width: "82px",
-                          objectFit: "cover",
-                          objectPosition: "center",
-                        }}
-                      />
-                      <div className="overflow-hidden text-xs max-w-20 whitespace-nowrap text-ellipsis">
-                        {truncateXionAddress(user.WalletAddress)}
-                      </div>
-                    </Link>
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent align="center">
-                  <p>{user.WalletAddress}</p>
-                </TooltipContent>
-              </Tooltip>
-            ))}
+            {users?.data
+              .sort(
+                (a, b) =>
+                  (b?.products?.length ?? 0) - (a?.products?.length ?? 0)
+              )
+              .slice(0, 10)
+              .map((user, i) => (
+                <Tooltip key={i}>
+                  <TooltipTrigger asChild>
+                    <div className="flex flex-col items-center w-full max-w-40 gap-1">
+                      <Link
+                        href={`/creator/${user?.userProfile?.WalletAddress}`}
+                      >
+                        <Image
+                          width={82}
+                          height={82}
+                          className="min-w-[82px] rounded-full"
+                          draggable={false}
+                          alt="user image"
+                          src={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${user?.userProfile?.WalletAddress}`}
+                          style={{
+                            height: "82px",
+                            width: "82px",
+                            objectFit: "cover",
+                            objectPosition: "center",
+                          }}
+                        />
+                        <div className="overflow-hidden text-xs max-w-20 whitespace-nowrap text-ellipsis">
+                          {truncateXionAddress(
+                            user?.userProfile?.WalletAddress
+                          )}
+                        </div>
+                      </Link>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent align="center">
+                    <p>{user?.userProfile?.WalletAddress}</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
           </div>
         )}
         <div className="space-y-12">

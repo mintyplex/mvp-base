@@ -19,6 +19,8 @@ interface ProductsFromApi {
 }
 interface UsersApi {
   data: UsersApi[];
+  userProfile: any;
+  products: any;
   message: string;
   status: string;
   WalletAddress: any;

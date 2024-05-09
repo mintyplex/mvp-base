@@ -46,9 +46,16 @@ export function RenderCards({ data }: { data?: ProductFromApi[] }) {
     return returnMe.toFixed(2).toString();
   }
 
+  const sortedData = data?.slice().sort((a, b) => {
+    const timestampA = new Date(a.created_at).getTime();
+    const timestampB = new Date(b.created_at).getTime();
+
+    return timestampB - timestampA;
+  });
+
   return (
     <>
-      {data.map((product) => (
+      {sortedData?.map((product) => (
         <Card
           id={product._id}
           byImg={creatorImg}

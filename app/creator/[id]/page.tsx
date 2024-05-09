@@ -27,6 +27,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Card } from "~/components/customs/card";
+import { createPriceWithDiscount } from "~/lib/utils/utils";
 
 interface ProductType {
   ID: string;
@@ -75,7 +76,7 @@ export default function Curator() {
 
   const CuratorData = data?.user;
   const CuratorProducts = CuratorData?.products;
-  console.log(CuratorProducts);
+  // console.log(CuratorProducts);
 
   const creatorAvatar = CuratorData?.avatar;
   const userURL = `${CuratorData?.x_link}`;
@@ -257,7 +258,10 @@ export default function Curator() {
                         name={product.Name}
                         by={product.UserId}
                         image={topCreator}
-                        discountedPrice={product.Discount}
+                        discountedPrice={createPriceWithDiscount(
+                          product.Price,
+                          product.Discount
+                        )}
                         price={product.Price}
                       />
                     )
