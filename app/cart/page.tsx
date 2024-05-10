@@ -49,7 +49,7 @@ export default function Cart() {
 
   const handleClear = () => {
     if (typeof window !== "undefined") {
-      localStorage.removeItem("cart");
+      window.localStorage.removeItem("cart");
     }
   };
 

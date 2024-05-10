@@ -52,7 +52,7 @@ const useFetchUserData = ({
       onSuccess: (data) => {
         if (data?.user) {
           if (typeof window !== "undefined") {
-            localStorage.setItem("user", JSON.stringify(data.user));
+            window.localStorage.setItem("user", JSON.stringify(data.user));
           }
         }
         if (data?.error === true) {
