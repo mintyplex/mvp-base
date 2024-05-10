@@ -42,8 +42,10 @@ interface CartProviderProps {
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<Product[]>(() => {
     // Initialize state from local storage at the start
-    const localData = localStorage.getItem("cart");
-    return localData ? JSON.parse(localData) : [];
+    if (typeof window !== "undefined") {
+      const localData = localStorage.getItem("cart");
+      return localData ? JSON.parse(localData) : [];
+    }
   });
 
   const { toast } = useToast();
