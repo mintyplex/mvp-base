@@ -48,8 +48,8 @@ export default function Cart() {
   }, [cartItems]);
 
   const handleClear = () => {
-    if (typeof window !== "undefined") {
-      window.localStorage.removeItem("cart");
+    if (typeof localStorage !== "undefined") {
+      localStorage.removeItem("cart");
     }
   };
 

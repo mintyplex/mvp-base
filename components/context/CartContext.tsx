@@ -71,8 +71,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
           : [...currentItems, { ...product, quantity: Number(quantityAdded) }];
 
         // Correctly update local storage after modifying the cart items
-        if (typeof window !== "undefined") {
-          window.localStorage.setItem("cart", JSON.stringify(updatedItems));
+        if (typeof localStorage !== "undefined") {
+          localStorage.setItem("cart", JSON.stringify(updatedItems));
         }
         handleAddSuccess();
         return updatedItems;
@@ -83,8 +83,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const removeFromCart = useCallback(
     (productId: string) => {
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem(
+      if (typeof localStorage !== "undefined") {
+        localStorage.setItem(
           "cart",
           JSON.stringify(cartItems.filter((item) => item.id !== productId))
         );
