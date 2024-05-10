@@ -46,17 +46,17 @@ const useFetchUserData = ({
     ["userData"],
     fetchUserData,
     {
-      refetchOnWindowFocus: true,
+      refetchOnWindowFocus:true,
       enabled: isLoggedIn && !!accountData,
       retry: retries,
       onSuccess: (data) => {
         if (data?.user) {
-          if (typeof localStorage !== "undefined") {
+          if (typeof window !== 'undefined'){
             localStorage.setItem("user", JSON.stringify(data.user));
           }
         }
         if (data?.error === true) {
-          setHasError(true);
+          setHasError(true)
         }
       },
       onError: (error) => {
