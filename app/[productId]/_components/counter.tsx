@@ -1,10 +1,13 @@
 "use client";
 import { MinusIcon, PlusIcon } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "~/components/ui/button";
 
-export function Counter() {
+export function Counter({ price, setUpdatedPrice, setQuantity }: any) {
   const [counter, setCounter] = React.useState(1);
+
+  setQuantity(counter);
+  setUpdatedPrice(price * counter);
 
   return (
     <div className="pt-3">
@@ -16,7 +19,7 @@ export function Counter() {
         <div className="space-x-3">
           <Button
             className="text-white bg-[#9F9F9F] hover:bg-[#9F9F9F] duration-300 transition-all"
-            onClick={() => setCounter((prev) => (prev > 0 ? prev - 1 : 0))}
+            onClick={() => setCounter((prev) => (prev > 1 ? prev - 1 : 1))}
             size="icon"
           >
             <MinusIcon />

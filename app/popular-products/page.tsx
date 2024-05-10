@@ -55,7 +55,7 @@ export default function Popular({
         <BackButton
           variant="ghost"
           size="icon"
-          className="!border border-input"
+          className="!border bg-!none border-input"
         >
           <ArrowLeftIcon />
         </BackButton>

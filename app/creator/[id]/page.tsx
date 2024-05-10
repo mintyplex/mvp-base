@@ -90,6 +90,14 @@ export default function Curator() {
       description: "Creators address copied.",
     });
   };
+
+  const sortedData = CuratorProducts?.slice().sort((a: any, b: any) => {
+    const timestampA = new Date(a.CreatedAt).getTime();
+    const timestampB = new Date(b.CreatedAt).getTime();
+
+    return timestampB - timestampA;
+  });
+
   return (
     <>
       <section className="container relative p-3 mx-auto mt-6 space-y-6">
@@ -249,7 +257,7 @@ export default function Curator() {
                 </div>
               ) : (
                 <div className="grid-cols-2 grid gap-4 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
-                  {CuratorProducts?.map(
+                  {sortedData?.map(
                     (product: ProductType, index: number): any => (
                       <Card
                         key={index}

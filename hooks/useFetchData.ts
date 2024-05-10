@@ -51,7 +51,9 @@ const useFetchUserData = ({
       retry: retries,
       onSuccess: (data) => {
         if (data?.user) {
-          localStorage.setItem("user", JSON.stringify(data.user));
+          if (typeof window !== 'undefined'){
+            localStorage.setItem("user", JSON.stringify(data.user));
+          }
         }
         if (data?.error === true) {
           setHasError(true)
