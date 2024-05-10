@@ -48,7 +48,9 @@ export default function Cart() {
   }, [cartItems]);
 
   const handleClear = () => {
-    localStorage.removeItem("cart");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("cart");
+    }
   };
 
   const tabs = [
