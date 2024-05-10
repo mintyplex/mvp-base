@@ -22,6 +22,7 @@ import { Toaster } from "~/components/ui/toaster";
 import { queryClient } from "~/lib/queryClient";
 import { QueryProvider } from "~/components/context/queryClient";
 import ProtectedRoute from "~/components/customs/protected-route";
+import { CartProvider } from "~/components/context/CartContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://testnet.mintyplex.com/"),
@@ -68,21 +69,23 @@ export default function RootLayout({
           <BurntWrapper>
             <AccountProvider>
               <ProtectedRoute>
-                <ThemeProvider
-                  attribute="class"
-                  defaultTheme="dark"
-                  enableSystem
-                  disableTransitionOnChange
-                >
-                  <main className="flex flex-col min-h-screen">
-                    <Navbar />
-                    <div className="flex-grow">{children}</div>
-                    <HideAt paths={["dashboard", "profile"]}>
-                      <Footer />
-                    </HideAt>
-                  </main>
-                  <Toaster />
-                </ThemeProvider>
+                <CartProvider>
+                  <ThemeProvider
+                    attribute="class"
+                    defaultTheme="dark"
+                    enableSystem
+                    disableTransitionOnChange
+                  >
+                    <main className="flex flex-col min-h-screen">
+                      <Navbar />
+                      <div className="flex-grow">{children}</div>
+                      <HideAt paths={["dashboard", "profile"]}>
+                        <Footer />
+                      </HideAt>
+                    </main>
+                    <Toaster />
+                  </ThemeProvider>
+                </CartProvider>
               </ProtectedRoute>
             </AccountProvider>
           </BurntWrapper>

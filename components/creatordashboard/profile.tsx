@@ -72,7 +72,7 @@ export default function Profile() {
           <BackButton
             variant="ghost"
             size="icon"
-            className="!border !bg-none border-input mb-6"
+            className="!border bg-!none border-input mb-6"
           >
             <ArrowLeftIcon />
           </BackButton>

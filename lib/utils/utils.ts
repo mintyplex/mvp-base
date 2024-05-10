@@ -36,7 +36,7 @@ export function truncateString(str: string, maxLength: number): string {
   return str;
 }
 
-export function createPriceWithDiscount(price: number, discount: number) {
+export function createPriceWithDiscount(price: any, discount: number) {
   const returnMe = price - (price * discount) / 100;
   return returnMe.toFixed(2).toString();
 }

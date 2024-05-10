@@ -6,6 +6,7 @@ import Link from "next/link";
 import { BsXLg } from "react-icons/bs";
 import { HiUserCircle } from "react-icons/hi";
 import { useAccount } from "~/components/context/AccountContext";
+import { useCart } from "~/components/context/CartContext";
 import MobileSidebar from "~/components/dashboardlayout/mobileSidebar";
 import Search from "~/components/ui/Search";
 import { Button } from "~/components/ui/button";
@@ -34,6 +35,8 @@ export default function Navbar() {
     setShowAbstraxion,
     toggleSidebar,
   } = useAccount();
+
+  const { cartItems } = useCart();
 
   return (
     <header className="border-b border-mintyplex-border">
@@ -84,13 +87,21 @@ export default function Navbar() {
             </DialogContent>
           </Dialog>
           <Link href="/cart">
-            <Button
-              variant="ghost"
-              className="border border-mintyplex-border"
-              size="icon"
-            >
-              <CartIcon />
-            </Button>
+            <div className="relative">
+              <Button
+                variant="ghost"
+                className="border border-mintyplex-border"
+                size="icon"
+              >
+                <CartIcon />
+              </Button>
+              {cartItems.length !== 0 && (
+                <p className="absolute -top-3 -right-2 bg-mintyplex-primary rounded-full w-fit px-3 py-1 text-[12px]">
+                  {" "}
+                  {cartItems.length}
+                </p>
+              )}
+            </div>
           </Link>
           <div className="hidden md:block">
             <div className="hidden md:block">

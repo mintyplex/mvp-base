@@ -36,6 +36,17 @@ interface CreatorFromApi {
   x_link: string;
   bio: string;
 }
+interface ProductDetailsApi {
+  product: ProductDetailsApi[];
+  data: any;
+  UserId: string;
+  Name: string;
+  // status: string;
+  // avatar: string;
+  // wallet_address: string;
+  // x_link: string;
+  // bio: string;
+}
 
 interface ProductFromApi {
   _id: string;
@@ -49,4 +60,10 @@ interface ProductFromApi {
   tags: string[]?;
   updated_at: number;
   user_id: string;
+}
+
+interface CartContextProps {
+  cart: CartProduct[];
+  prevCart: CartProduct[];
+  addToCart: (product: CartProduct) => void;
 }

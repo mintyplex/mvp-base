@@ -13,7 +13,7 @@ const LoadingModal = ({ isOpen }: any) => {
         <div className="loading-spinner">
           <div className="spinner"></div>
         </div>
-          <p>Conecting...</p>
+          <p>Connecting...</p>
       </div>
     </div>,
     document.body 

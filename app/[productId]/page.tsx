@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowLeftIcon,
   ChevronLeftIcon,
@@ -16,6 +18,11 @@ import {
 } from "~/components/ui/carousel";
 import productImg from "~/public/top-creator.jpeg";
 import { TypographyH2, TypographyH4 } from "~/utils/typography";
+import React, { useEffect, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { truncate } from "~/utils/truncate";
+import { createPriceWithDiscount } from "~/lib/utils/utils";
+import { useCart } from "~/components/context/CartContext";
 import BackButton from "../popular-products/_components/back-button";
 import { Counter } from "./_components/counter";
 import Link from "next/link";
@@ -43,15 +50,58 @@ const data = [
   },
 ];
 
-import React from "react";
-
 type ProductPageProps = {
   params: { [key: string]: string };
   searchParams: { [key: string]: string };
 };
 
 export default function ProductDetailPage({ params }: ProductPageProps) {
+  const [updatedPrice, setUpdatedPrice] = useState();
+  const [quantity, setQuantity] = useState(0);
+  const { addToCart } = useCart();
+
   const productId = params.productId;
+
+  const queryClient = useQueryClient();
+
+  // const searchParams = useParams();
+  // const productId = searchParams.id as string;
+
+  async function getProductDetails() {
+    const response = await fetch(
+      `https://mintyplex-api.onrender.com/api/v1/product/${productId}`
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      return data as ProductDetailsApi;
+    }
+
+    throw new Error("Failed to fetch creator");
+  }
+  const {
+    data: productDetail,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: [productId],
+    queryFn: getProductDetails,
+    refetchOnMount: true,
+    keepPreviousData: false,
+  });
+
+  const product = productDetail?.data;
+  // console.log(product);
+
+  useEffect(() => {
+    return () => {
+      queryClient.invalidateQueries({ queryKey: [productId] });
+    };
+  }, []);
+
+  const handleAddToCart = () => {
+    addToCart(product, quantity);
+  };
 
   return (
     <section className="container p-3 mx-auto space-y-3">
@@ -59,7 +109,7 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
         <BackButton
           variant="outline"
           size="icon"
-          className="border-mintyplex-border bg-none"
+          className="border-mintyplex-border bg-!none"
         >
           <ArrowLeftIcon />
         </BackButton>
@@ -67,108 +117,131 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
           <ShareIcon />
         </Button>
       </div>
-      <div>
-        <Carousel className="relative w-full max-w-5xl mx-auto">
-          <CarouselNext className="z-30 text-black bg-white right-4">
-            <ChevronRightIcon />
-          </CarouselNext>
-          <CarouselPrevious className="z-30 text-black bg-white left-4">
-            <ChevronLeftIcon />
-          </CarouselPrevious>
-          <CarouselContent className="">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <CarouselItem
-                key={index}
-                className="relative flex items-center justify-center w-full max-w-6xl mx-auto"
-              >
-                <div className="p-2 mx-auto w-fit">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute text-black bg-white rounded-full size-6 top-4 right-4"
+      {isLoading && (
+        <div className="w-full h-[50vh] flex items-center justify-center">
+          <div className="modal-content flex flex-col items-center gap-2">
+            <div className="loading-spinner">
+              <div className="spinner"></div>
+            </div>
+          </div>
+        </div>
+      )}
+      {product && (
+        <>
+          <div>
+            <Carousel className="relative w-full max-w-5xl mx-auto">
+              <CarouselNext className="z-30 text-black bg-white right-4">
+                <ChevronRightIcon />
+              </CarouselNext>
+              <CarouselPrevious className="z-30 text-black bg-white left-4">
+                <ChevronLeftIcon />
+              </CarouselPrevious>
+              <CarouselContent className="">
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <CarouselItem
+                    key={index}
+                    className="relative flex items-center justify-center w-full max-w-6xl mx-auto"
                   >
-                    <PlusIcon />
-                  </Button>
-                  <Image
-                    src={productImg}
-                    width={1280}
-                    height={720}
-                    alt="product image"
-                    className="object-cover mx-auto rounded-md max-h-[45rem] bg-green-200"
-                  />
-                </div>
-              </CarouselItem>
+                    <div className="p-2 mx-auto w-fit">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute text-black bg-white rounded-full size-6 top-4 right-4"
+                      >
+                        <PlusIcon />
+                      </Button>
+                      <Image
+                        src={productImg}
+                        width={1280}
+                        height={720}
+                        alt="product image"
+                        className="object-cover mx-auto rounded-md max-h-[45rem] bg-green-200"
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
+          <div>
+            <TypographyH2 className="border-none">{product?.Name}</TypographyH2>
+            <div className="flex items-center pt-3 gap-1">
+              <span>by</span>
+              <Image
+                alt="By Creator"
+                src={productImg}
+                height={24}
+                width={24}
+                className="rounded-full"
+              />
+              <Link href={`/creator/${product?.UserId}`} className="underline">
+                {truncate(product?.UserId)}
+              </Link>
+            </div>
+          </div>
+          <div className="">
+            <span className="leading-7">{product?.Description}</span>
+            {/* <Button
+              className="ml-2 transition-all duration-300"
+              variant={"secondary"}
+              size="sm"
+            >
+              See More
+            </Button> */}
+          </div>
+          <div>
+            {Array.isArray(product?.Tags) ? (
+              <span className="mr-2 underline">Tags:</span>
+            ) : null}
+            {Array.isArray(product?.Tags) &&
+              product?.Tags[0]?.split(",").map((tag: any, i: any) => (
+                <Badge
+                  key={i}
+                  className="mr-2 text-white rounded-none bg-mintyplex-primary"
+                >
+                  {tag.trim()}
+                </Badge>
+              ))}
+          </div>
+          {/* <div className="border rounded-md divide-y border-mintyplex-border divide-mintyplex-border">
+            {data.map((item) => (
+              <div
+                key={item.name}
+                className="flex items-center justify-between p-3"
+              >
+                <div>{item.name}</div>
+                <div>{item.title}</div>
+              </div>
             ))}
-          </CarouselContent>
-        </Carousel>
-      </div>
-      <div>
-        <TypographyH2 className="border-none">Yatch Ape Club</TypographyH2>
-        <div className="flex items-center pt-3 gap-1">
-          <span>by</span>
-          <Image
-            alt="By Creator"
-            src={productImg}
-            height={24}
-            width={24}
-            className="rounded-full"
+          </div> */}
+          <Counter
+            setQuantity={setQuantity}
+            price={product?.Price}
+            setUpdatedPrice={setUpdatedPrice}
           />
-          <Link href={`/creator/${productId}`} className="underline">
-            0x20...82
-          </Link>
-        </div>
-      </div>
-      <div className="">
-        <span className="leading-7">
-          The Bored Ape Yacht Club is a collection of 10,000 unique Bored Ape
-          NFTs— unique digital collectibles living on the Ethereum blockchain.
-          Your Bored Ape doubles as your Yacht Club membership card, and grants
-          access to members-only benefits, the first of which is access to THE
-          BATHROOM, a collaborative graffiti board. Future areas and perks can
-          be unlocked by the community through roadmap activation.
-        </span>
-        <Button
-          className="ml-2 transition-all duration-300"
-          variant={"secondary"}
-          size="sm"
-        >
-          See More
-        </Button>
-      </div>
-      <div>
-        <span className="mr-2 underline">Tags:</span>
-        {["NFT", "Art", "Collectibles", "Crypto"].map((tag) => (
-          <Badge
-            key={tag}
-            className="mr-2 text-white rounded-none bg-mintyplex-primary"
-          >
-            {tag}
-          </Badge>
-        ))}
-      </div>
-      <div className="border rounded-md divide-y border-mintyplex-border divide-mintyplex-border">
-        {data.map((item) => (
-          <div
-            key={item.name}
-            className="flex items-center justify-between p-3"
-          >
-            <div>{item.name}</div>
-            <div>{item.title}</div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1">
+              <TypographyH4 className="text-transparent !bg-clip-text text-[25px] font-medium [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
+                ${createPriceWithDiscount(updatedPrice, product?.Discount)}
+              </TypographyH4>
+              <div className="font-semibold">
+                <s>${updatedPrice}</s>
+              </div>
+            </div>
+            <div className="flex gap-4">
+              <Button className="text-white py-5 bg-mintyplex-primary px-[40px]">
+                Buy Now
+              </Button>
+              <Button
+                className="text-white py-5 bg-!none border border-mintyplex-border"
+                onClick={handleAddToCart}
+              >
+                <PlusIcon />
+              </Button>
+            </div>
           </div>
-        ))}
-      </div>
-      <Counter />
-      <div className="flex items-center justify-between">
-        <div className="flex items-end gap-1">
-          <TypographyH4 className="text-transparent !bg-clip-text font-medium [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
-            $ 23
-          </TypographyH4>
-          <div className="font-semibold">
-            <s>$ 29</s>
-          </div>
-        </div>
-        <Button className="text-white bg-mintyplex-primary">Buy Now</Button>
-      </div>
+        </>
+      )}
     </section>
   );
 }
