@@ -13,11 +13,17 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const router = useRouter();
   const { accountData, isLoggedIn } = useAccount();
-  const { isLoading, hasError } = useFetchUserData({
+  const { isLoading, hasError, userData } = useFetchUserData({
     isLoggedIn,
     accountData,
     retries: 0,
   });
+
+  useEffect(() => {
+    if (accountData && !userData) {
+      window.location.href = "/profile-update";
+    }
+  }, [accountData, userData]);
 
   return (
     <>
