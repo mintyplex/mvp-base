@@ -95,10 +95,10 @@ export default function Navbar() {
               >
                 <CartIcon />
               </Button>
-              {cartItems.length !== 0 && (
+              {cartItems?.length !== 0 && (
                 <p className="absolute -top-3 -right-2 bg-mintyplex-primary rounded-full w-fit px-3 py-1 text-[12px]">
                   {" "}
-                  {cartItems.length}
+                  {cartItems?.length}
                 </p>
               )}
             </div>
