@@ -8,7 +8,7 @@ type CardProps = {
   name: string;
   byImg: string | StaticImageData;
   by: string;
-  image: StaticImageData;
+  image: StaticImageData | string;
   price: string;
   asSmall?: boolean;
   id: string;
@@ -25,10 +25,10 @@ export function Card({
   id,
   discountedPrice,
 }: CardProps) {
-  const TEN_PERCENT_OF_HEIGHT = image.height - image.height * 0.1;
-  const TEN_PERCENT_OF_WIDTH = image.width - image.width * 0.1;
+  // const TEN_PERCENT_OF_HEIGHT = image.height - image.height * 0.1;
+  // const TEN_PERCENT_OF_WIDTH = image.width - image.width * 0.1;
 
-  const creatorAddress = by;
+  
   return (
     <div
       className={cn(
@@ -40,10 +40,16 @@ export function Card({
         <div className="overflow-hidden rounded-md">
           <Image
             alt={name}
-            height={TEN_PERCENT_OF_HEIGHT}
-            width={TEN_PERCENT_OF_WIDTH}
+            height={200}
+            width={200}
             src={image}
             className="transition-all duration-300 hover:scale-105"
+            style={{
+              height: "200px",
+              width: '100%',
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
           />
         </div>
         <div className="pb-3 border-b space-y-2 border-mintyplex-border">

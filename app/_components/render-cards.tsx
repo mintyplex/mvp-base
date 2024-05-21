@@ -53,6 +53,8 @@ export function RenderCards({ data }: { data?: ProductFromApi[] }) {
     return timestampB - timestampA;
   });
 
+
+
   return (
     <>
       {sortedData?.map((product) => (
@@ -61,7 +63,7 @@ export function RenderCards({ data }: { data?: ProductFromApi[] }) {
           byImg={creatorImg}
           name={product.name}
           by={product.user_id}
-          image={topCreator}
+          image={`https://mintyplex-api.onrender.com/api/v1/product/cover/${product._id}`}
           price={product.price.toString()}
           discountedPrice={createPriceWithDiscount(
             product.price,

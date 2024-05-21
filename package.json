@@ -32,6 +32,7 @@
     "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "codegen": "^0.1.0",
     "dropdown-menu": "^0.1.1",
     "embla-carousel-react": "^8.0.0-rc19",
     "faker": "^5.5.3",
