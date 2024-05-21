@@ -22,8 +22,8 @@ interface FormData {
 }
 
 export default function UpdateProfile() {
-  const { account, accountData, isLoggedIn } = useAccount();
- 
+  const { account, accountData, userData } = useAccount();
+
   const router = useRouter();
 
   // Image scr
@@ -31,9 +31,11 @@ export default function UpdateProfile() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-  // if (userData) {
-  //   router.push("/dashboard");
-  // }
+  const userDatInLocalStorage = localStorage.getItem("user");
+
+  if (userDatInLocalStorage) {
+    router.push("/");
+  }
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;

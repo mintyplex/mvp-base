@@ -71,20 +71,22 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   // console.log(account, client)
   // const apiUrl = process.env.NEXT_BASE_URL;
 
-  // useEffect(() => {
-  //   if (!!!isLoggedIn) {
-  //     router.push("/");
-  //   }
-  // }, [isLoggedIn, router]);
-
+  
   const profile = account?.bech32Address;
-
+  
   useEffect(() => {
     setIsLoggedIn(!!profile);
     setAccountData(profile);
   }, [profile, router]);
-
+  
   const { userData } = useFetchUserData({ isLoggedIn, accountData });
+  
+  // useEffect(() => {
+  //   if (!userData) {
+  //     router.push("/");
+  //   }
+  // }, [isLoggedIn, router, userData]);
+  
   // console.log(userData);
   const userAvatar = userData?.avatar
 

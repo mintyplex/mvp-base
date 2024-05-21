@@ -21,9 +21,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   useEffect(() => {
     if (accountData && !userData) {
-      window.location.href = "/profile-update";
+      router.push("/profile-update")
     }
-  }, [accountData, userData]);
+  }, [accountData, userData, router]);
 
   return (
     <>
