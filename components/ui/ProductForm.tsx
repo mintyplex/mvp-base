@@ -46,34 +46,49 @@ const ProductForm = () => {
   };
 
   const handleDeleteTag = (tagIndex: any) => {
-    // Create a copy of the tags array
     const newTags = [...tags];
-    // Remove the tag at the specified index
     newTags.splice(tagIndex, 1);
-    // Update the state with the new tags array
     setTags(newTags);
   };
 
   // for image handling
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [images, setImages] = useState<string[]>([]); // Store image data
+  const [images, setImages] = useState<File | string | null>(null); // Store image data
 
   const triggerFileInput = () => {
     fileInputRef.current?.click();
   };
 
+  // const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.files) {
+  //     const files = Array.from(event.target.files); // Convert FileList to Array
+  //     const imageURLs = files.map((file) => URL.createObjectURL(file)); // Create URLs for display
+  //     setImages((prev: string[]) => [...prev, ...imageURLs]); // Update state with new images
+  //   }
+  // };
+
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const files = Array.from(event.target.files); // Convert FileList to Array
-      const imageURLs = files.map((file) => URL.createObjectURL(file)); // Create URLs for display
-      setImages((prev: string[]) => [...prev, ...imageURLs]); // Update state with new images
+    if (!event.target.files) return; // Handle no file selection
+
+    const file = event.target.files[0];
+
+    if (!file.type.match(/image.*/)) {
+      console.error("Please select an image file.");
+      return;
     }
+
+    if (file.size > 5 * 1024 * 1024) {
+      // Check for 5MB limit
+      console.error("Image file size exceeds 5MB limit.");
+      return;
+    }
+
+    const imageURL = URL.createObjectURL(file);
+    setImages(file); // Update state with the File object
   };
 
-  const removeImage = (indexToRemove: number) => {
-    setImages((prev: string[]) =>
-      prev.filter((_, index) => index !== indexToRemove)
-    ); // Remove image by index
+  const removeImage = () => {
+    setImages(null);
   };
 
   // adding product
@@ -100,17 +115,24 @@ const ProductForm = () => {
     data.price = Number(data.price);
     data.discount = Number(data.discount);
     data.quantity = Number(data.quantity);
+    // data.image = images;
 
-    data.tags = [tags];
+    data.tags = tags;
+
+    const formData = new FormData();
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
+
+    if (images instanceof File) {
+      formData.append("image", images);
+    } else {
+      console.warn("Invalid image data provided.");
+    }
 
     console.log(data);
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/product";
     try {
-      const formData = new FormData();
-      for (const key in data) {
-        formData.append(key, data[key]);
-      }
-
       const response = await axios.postForm(
         `${apiUrl}/${accountData}`,
         formData,
@@ -120,14 +142,22 @@ const ProductForm = () => {
           },
         }
       );
-      setIsLoading(false);
-      reset();
-      router.push("/profile");
-      handleSuccessful();
-      return response.data;
+      if (response.status === 200 || response.status === 201) {
+        // Check for successful response
+        setIsLoading(false);
+        reset();
+        router.push("/profile");
+        handleSuccessful();
+        return response.data;
+      } else {
+        console.error("Error creating product:", response.data);
+        throw new Error("Product creation failed."); // Create a custom error
+      }
     } catch (error) {
       console.error("Error posting data:", error);
-      throw error; // Re-throw the error for handling in the component
+      // Handle error in the component (e.g., display a user-friendly message)
+    } finally {
+      setIsLoading(false); // Set loading state to false even in case of errors
     }
   };
 
@@ -158,11 +188,11 @@ const ProductForm = () => {
           </div>
           {/* Images collage */}
           <div className="relative flex flex-wrap justify-center w-full mt-4 gap-4">
-            {images.map((image, index) => (
-              <div key={index} className="relative">
+            {images && (
+              <div className="relative">
                 <Image
-                  src={image}
-                  alt={`Upload ${index}`}
+                  src={URL.createObjectURL(images as any)}
+                  alt=""
                   width={140}
                   height={140}
                   style={{
@@ -173,18 +203,18 @@ const ProductForm = () => {
                   }}
                 />
                 <button
-                  onClick={() => removeImage(index)}
+                  onClick={() => removeImage()}
                   className="absolute top-0 right-0 bg-red-500 text-white mt-2 mr-2 px-2 py-1 text-[10px] rounded-full"
                 >
                   X
                 </button>
               </div>
-            ))}
+            )}
           </div>
           {/* Counter at the corner */}
-          <div className="absolute top-0 right-0 mt-2 mr-2 text-[10px] px-3 py-2 bg-mintyplex-dark rounded-full">
+          {/* <div className="absolute top-0 right-0 mt-2 mr-2 text-[10px] px-3 py-2 bg-mintyplex-dark rounded-full">
             {images.length}
-          </div>
+          </div> */}
         </ReuseableBackground>
       </div>
       <div className="py-4 md:py-7 bg-[rgb(28,30,30)]">

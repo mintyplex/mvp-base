@@ -14,6 +14,7 @@ interface ReusableTableProps {
 
 interface ProductsFromApi {
   data: ProductFromApi[];
+  sortedData: ProductFromApi[];
   message: string;
   status: string;
 }

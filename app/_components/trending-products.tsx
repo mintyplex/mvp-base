@@ -44,9 +44,16 @@ export function TrendingProducts({
   // if it's undefined it will take all the elements
   const rendereAmount = shouldNotBe12 ? undefined : 12;
 
+  const sortedData = products?.data?.slice().sort((a, b) => {
+    const timestampA = new Date(a.created_at).getTime();
+    const timestampB = new Date(b.created_at).getTime();
+
+    return timestampB - timestampA;
+  });
+
   return (
     <div className="grid-cols-2 grid gap-4 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
-      <RenderCards data={products?.data.slice(0, rendereAmount)} />
+      <RenderCards data={(sortedData as ProductFromApi[]).slice(0, rendereAmount)} />
     </div>
   );
 }
