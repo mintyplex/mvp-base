@@ -54,6 +54,7 @@ interface ProductFromApi {
   categories: string[];
   created_at: number;
   description: string;
+  image: any;
   discount: number;
   name: string;
   price: number;

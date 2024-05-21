@@ -265,7 +265,7 @@ export default function Curator() {
                         byImg={creatorImg}
                         name={product.Name}
                         by={product.UserId}
-                        image={topCreator}
+                        image={`https://mintyplex-api.onrender.com/api/v1/product/cover/${product.ID}`}
                         discountedPrice={createPriceWithDiscount(
                           product.Price,
                           product.Discount
