@@ -36,7 +36,7 @@ export default function Profile() {
   const userProducts = userData?.products;
   const userURL = `${userData?.x_link}`;
 
-  console.log(userProducts);
+  // console.log(userProducts);
   
 
   const { toast } = useToast();

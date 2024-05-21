@@ -7,69 +7,20 @@ import ReusableTable from "~/components/ui/Reuseable-table";
 import {
   data,
   dataPurchase,
-  dataSales,
   headerPurchase,
   headers,
-  headersSales,
 } from "~/utils/constants/table-data";
 
 import CreatorChart from "../ui/graph/Creator-line-chart";
 import CreatorEmptyState from "../ui/CreatorEmptyState";
-import Doughnutt from "../ui/graph/Creator-Doughnut";
-import { randomUUID } from "crypto";
-import {
-  useAbstraxionAccount,
-  useAbstraxionSigningClient,
-} from "@burnt-labs/abstraxion";
+import { useAccount } from "../context/AccountContext";
 
 // import CreatorLineChart from '~/components/ui/graph/creator-line-chart';
 
 const CreatorDashboard = () => {
-  const people = [
-    { name: "Product Type" },
-    { name: "Last 1 week" },
-    { name: "Devon Webb" },
-    { name: "Tom Cook" },
-    { name: "Tanya Fox" },
-    { name: "Hellen Schmidt" },
-  ];
-  const ProductType = [
-    { name: " Active" },
-    { name: "Arlene Mccoy" },
-    { name: "Devon Webb" },
-    { name: "Tom Cook" },
-    { name: "Tanya Fox" },
-    { name: "Hellen Schmidt" },
-  ];
-  const Active = [{ name: " Active " }, { name: "in Active " }];
+  const { userData } = useAccount();
 
-  const Creators = [
-    {
-      product: "USDC",
-      value: "$5,000",
-      border: "border-[rgba(0,128,0,1)] border-[1px]",
-      width: "md:w-[276px] ",
-      graph: "2.3%",
-    },
-    {
-      product: "All Product",
-      value: 5,
-      color: "bg-[rgba(0,204,153,1)]",
-      width: " w-[206px] ",
-    },
-    {
-      product: "All Sales",
-      value: 4,
-      color: "bg-[rgba(164,49,255)]",
-      width: " w-[206px] ",
-    },
-    {
-      product: "Active Customer",
-      value: 4,
-      color: "bg-[rgba(255,115,174,1)]",
-      width: " w-[206px] ",
-    },
-  ];
+  const userProducts = userData?.products;
 
   return (
     <div className="w-full pb-4">
@@ -155,7 +106,7 @@ const CreatorDashboard = () => {
                 <h1 className="text-[16px] leading-[20px] font-semibold">
                   All Products
                 </h1>
-                <h1 className="text-[32px] font-semibold">0</h1>
+                <h1 className="text-[32px] font-semibold">{userProducts?.length}</h1>
               </div>
             </div>
 

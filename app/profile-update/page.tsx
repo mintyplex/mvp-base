@@ -31,7 +31,7 @@ export default function UpdateProfile() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-  const userDatInLocalStorage = localStorage.getItem("user");
+  const userDatInLocalStorage = window.localStorage.getItem("user");
 
   if (userDatInLocalStorage) {
     router.push("/");
