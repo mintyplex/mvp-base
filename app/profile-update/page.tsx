@@ -31,10 +31,13 @@ export default function UpdateProfile() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
-  const userDatInLocalStorage = window.localStorage.getItem("user");
+  if (typeof window !== "undefined") {
+    const userDatInLocalStorage = window.localStorage.getItem("user");
 
-  if (userDatInLocalStorage) {
-    router.push("/");
+    if (userDatInLocalStorage) {
+      router.push("/");
+    }
+    // console.log(userDatInLocalStorage);
   }
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
