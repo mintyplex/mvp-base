@@ -128,8 +128,8 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
       )}
       {product && (
         <>
-          <div>
-            <Carousel className="relative w-full max-w-5xl mx-auto">
+          <div className="max-w-[500px]">
+            {/* <Carousel className="relative w-full max-w-5xl mx-auto">
               <CarouselNext className="z-30 text-black bg-white right-4">
                 <ChevronRightIcon />
               </CarouselNext>
@@ -161,7 +161,19 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-            </Carousel>
+            </Carousel> */}
+            <Image
+              src={`https://mintyplex-api.onrender.com/api/v1/product/cover/${product.ID}`}
+              width={1280}
+              height={500}
+              alt="product image"
+              className="object-cover mx-auto rounded-md bg-white-200"
+              style={{
+                maxHeight: "500px",
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+            />
           </div>
           <div>
             <TypographyH2 className="border-none">{product?.Name}</TypographyH2>
