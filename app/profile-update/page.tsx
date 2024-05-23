@@ -35,8 +35,12 @@ export default function UpdateProfile() {
     const userDatInLocalStorage = window.localStorage.getItem("user");
 
     if (userDatInLocalStorage) {
-      router.push("/");
-    }
+      // No routing; user stays on the current page
+    } 
+    // else {
+    //   // Redirect to login or another relevant page if no user data
+    //   router.push("/"); // Or other appropriate route
+    // }
     // console.log(userDatInLocalStorage);
   }
 
@@ -75,6 +79,7 @@ export default function UpdateProfile() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm();
 
@@ -82,19 +87,22 @@ export default function UpdateProfile() {
 
   const onSubmit = async (data: any) => {
     // preventDefault();
+    const values = getValues()
+
+    
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
     // const apiUrl = process.env.NEXT_BASE_URL;
-
-    data.wallet_address = account.bech32Address;
-
+    
+    values.wallet_address = account.bech32Address;
+    
     const response = await postData({
       url: `${apiUrl}/profile`,
-      body: data,
+      body: values,
     });
     if (response) {
       handleSuccessful();
       router.push("/dashboard");
-      console.log("Form submitted successfully:", response);
+      // console.log("Form submitted successfully:", response);
     }
   };
 

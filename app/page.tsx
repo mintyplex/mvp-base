@@ -60,6 +60,14 @@ export default function Home() {
     queryFn: getUsers,
   });
 
+  if (!users) {
+    return (
+      <div className="h-[20vh] flex w-full items-center justify-center">
+        <p>No Items yet</p>
+      </div>
+    );
+  }
+
   return (
     <TooltipProvider>
       <section className="container p-3 mx-auto space-y-5 mt-5">

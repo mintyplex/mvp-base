@@ -46,7 +46,7 @@ export function RecentListing({
 
   return (
     <div className="">
-      <RenderCards data={products?.data.slice(0, rendereAmount)} />
+      <RenderCards data={products?.data?.slice(0, rendereAmount)} />
     </div>
   );
 }

@@ -13,6 +13,7 @@ interface Product {
   id: string; // Assumed type; adjust as necessary (could be number)
   Name: string;
   ID: string;
+  CoverImage: any;
   UserId: string;
   Discount: number;
   Price: number;
