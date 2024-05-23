@@ -23,21 +23,9 @@ export function RenderCards({ data }: { data?: ProductFromApi[] }) {
 
   if (!data) {
     return (
-      <>
-        {Array.from({
-          length: isMobile ? 6 : 12,
-        }).map((_, index) => (
-          <Card
-            id={index.toString()}
-            byImg={creatorImg}
-            name="Yatch Ape Club"
-            by="0x20..8"
-            image={topCreator}
-            price="23"
-            key={index}
-          />
-        ))}
-      </>
+      <div className="h-[20vh] flex w-full items-center justify-center">
+        <p>No products yet</p>
+      </div>
     );
   }
 
@@ -52,8 +40,6 @@ export function RenderCards({ data }: { data?: ProductFromApi[] }) {
 
     return timestampB - timestampA;
   });
-
-
 
   return (
     <>

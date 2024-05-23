@@ -12,6 +12,7 @@ import { TooltipProvider } from "~/components/ui/tooltip";
 import useFetchUserData from "~/hooks/useFetchData";
 import {
   createPriceWithDiscount,
+  truncateString,
   truncateXionAddress,
 } from "~/lib/utils/utils";
 import img from "~/public/top-creator.jpeg";
@@ -94,6 +95,7 @@ export default function Cart() {
                         discount={item?.Discount}
                         quantity={item?.quantity}
                         itemId={item.ID}
+                        image={`https://mintyplex-api.onrender.com/api/v1/product/cover/${item.ID}`}
                       />
                     ))
                   ) : (
@@ -198,7 +200,7 @@ export default function Cart() {
   );
 }
 
-function CartCard({ name, quantity, price, discount, by, itemId }: any) {
+function CartCard({ name, quantity, price, discount, by, itemId, image }: any) {
   const [number, setNumber] = useState(quantity);
   const [updatedPrice, setUpdatedPrice] = useState<null | number>(null);
 
@@ -214,7 +216,7 @@ function CartCard({ name, quantity, price, discount, by, itemId }: any) {
         <div className="flex flex-col gap-3">
           <div className="flex items-top gap-[16px]">
             <Image
-              src={img}
+              src={image}
               alt=""
               width={125}
               height={125}
@@ -222,7 +224,7 @@ function CartCard({ name, quantity, price, discount, by, itemId }: any) {
             />
             <div className="flex flex-col justify-between">
               <div>
-                <p className="text-[20px] font-[500] font-[600]">{name}</p>
+                <p className="text-[20px] font-[500] font-[600]">{truncateString(name, 20)}</p>
                 <p className="text-[16px] font-[400]">{by}</p>
                 {/* <p className="text-[14px] font-[400]">Membership: Monthly</p> */}
               </div>
