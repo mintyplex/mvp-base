@@ -23,7 +23,7 @@ export default function Cart() {
   const [totalPrice, setTotalPrice] = useState(0);
   const { accountData } = useAccount();
 
-  const { cartItems } = useCart();
+  const { cartItems, clearCart } = useCart();
 
   useEffect(() => {
     // Function to calculate the total price of the cart
@@ -47,12 +47,6 @@ export default function Cart() {
       setTotalPrice(0);
     }
   }, [cartItems]);
-
-  const handleClear = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem("cart");
-    }
-  };
 
   const tabs = [
     {
@@ -99,10 +93,18 @@ export default function Cart() {
                       />
                     ))
                   ) : (
-                    <p>Your cart is empty</p>
+                    <div className=" w-full flex items-center justify-center min-h-[10vh]">
+                      <p>Your cart is empty</p>
+                    </div>
                   )}
-
-                  <button onClick={handleClear}>remove</button>
+                  {cartItems?.length > 0 && (
+                    <button
+                      onClick={clearCart}
+                      className="text-[#f8fafc] hover:text-white px-4 py-2 rounded-[8px] bg-mintyplex-dark hover:bg-mintyplex-primary "
+                    >
+                      Clear cart
+                    </button>
+                  )}
                 </div>
                 <div className="border-t border-[#757575] mt-3 p-[24px] flex-col flex gap-[12px]">
                   <div className="flex items-center justify-between">
@@ -224,7 +226,9 @@ function CartCard({ name, quantity, price, discount, by, itemId, image }: any) {
             />
             <div className="flex flex-col justify-between">
               <div>
-                <p className="text-[20px] font-[500] font-[600]">{truncateString(name, 20)}</p>
+                <p className="text-[20px] font-[500] font-[600]">
+                  {truncateString(name, 20)}
+                </p>
                 <p className="text-[16px] font-[400]">{by}</p>
                 {/* <p className="text-[14px] font-[400]">Membership: Monthly</p> */}
               </div>
