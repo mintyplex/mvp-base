@@ -262,7 +262,7 @@ export default function Curator() {
                       <Card
                         key={index}
                         id={product.ID}
-                        byImg={creatorImg}
+                        byImg={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${product.UserId}`}
                         name={product.Name}
                         by={product.UserId}
                         image={`https://mintyplex-api.onrender.com/api/v1/product/cover/${product.ID}`}

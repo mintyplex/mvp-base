@@ -181,7 +181,7 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
               <span>by</span>
               <Image
                 alt="By Creator"
-                src={productImg}
+                src={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${product.UserId}`}
                 height={24}
                 width={24}
                 className="rounded-full"
