@@ -60,13 +60,13 @@ export default function Home() {
     queryFn: getUsers,
   });
 
-  if (!users) {
-    return (
-      <div className="h-[20vh] flex w-full items-center justify-center">
-        <p>No Items yet</p>
-      </div>
-    );
-  }
+  // if (!users) {
+  //   return (
+  //     <div className="h-[20vh] flex w-full items-center justify-center">
+  //       <p>No Items yet</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <TooltipProvider>
@@ -101,7 +101,7 @@ export default function Home() {
                         <Image
                           width={82}
                           height={82}
-                          className="min-w-[82px] rounded-full"
+                          className="bg-green min-w-[82px] rounded-full"
                           draggable={false}
                           alt="user image"
                           src={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${user?.userProfile?.WalletAddress}`}

@@ -165,7 +165,7 @@ export default function Profile() {
                 <Card
                   key={index}
                   id={product.ID}
-                  byImg={creatorImg}
+                  byImg={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`}
                   name={product.Name}
                   by={product.UserId}
                   image={`https://mintyplex-api.onrender.com/api/v1/product/cover/${product.ID}`}
