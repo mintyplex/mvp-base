@@ -24,6 +24,7 @@ interface CartContextType {
   cartItems: Product[];
   addToCart: (product: Product, quantityAdded: number | string) => void;
   removeFromCart: (productId: string) => void;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -47,6 +48,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       const localData = localStorage.getItem("cart");
       return localData ? JSON.parse(localData) : [];
     }
+    return [];
   });
 
   const { toast } = useToast();
@@ -86,24 +88,33 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const removeFromCart = useCallback(
     (productId: string) => {
-      if (typeof window !== "undefined") {
-        localStorage.setItem(
-          "cart",
-          JSON.stringify(cartItems.filter((item) => item.id !== productId))
+      setCartItems((currentItems) => {
+        const updatedItems = currentItems.filter(
+          (item) => item.ID !== productId
         );
-      }
-      setCartItems((prevItems) =>
-        prevItems.filter((item) => item.id !== productId)
-      );
 
-      // console.log("remove");
+        // Correctly update local storage after modifying the cart items
+        if (typeof window !== "undefined") {
+          localStorage.setItem("cart", JSON.stringify(updatedItems));
+        }
+        return updatedItems;
+      });
     },
-    [cartItems]
+    [setCartItems]
   );
+
+  const clearCart = useCallback(() => {
+    setCartItems([]);
+
+    // Correctly update local storage after clearing the cart items
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("cart");
+    }
+  }, [setCartItems]);
 
   // console.log(cartItems);
 
-  const value = { cartItems, addToCart, removeFromCart };
+  const value = { cartItems, addToCart, removeFromCart, clearCart };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
