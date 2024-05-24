@@ -24,18 +24,9 @@ import { cn, truncateXionAddress } from "~/lib/utils/utils";
 import creatorImg from "~/public/curator.png";
 import monkey from "~/public/monkey-yellow-bg.jpeg";
 import { TypographyH3 } from "~/utils/typography";
-import { RenderCards } from "./_components/render-cards";
-import useFetchUserData from "~/hooks/useFetchData";
 import { useAccount } from "~/components/context/AccountContext";
-import LoadingModal from "~/components/ui/LoadingModal";
 import { TrendingProducts } from "./_components/trending-products";
 import { useQuery } from "@tanstack/react-query";
-import { truncate } from "~/utils/truncate";
-
-const creators = {
-  image: creatorImg,
-  name: "0AHY21....342",
-};
 
 export default function Home() {
   const { accountData } = useAccount();
@@ -161,7 +152,7 @@ export default function Home() {
                   name="Yatch Ape Club"
                   by="0x20..8"
                   image={monkey}
-                  price="23"
+                  price={23}
                 />
               </div>
             ))}
