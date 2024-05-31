@@ -1,5 +1,5 @@
 "use client";
-
+import { useState,useEffect } from "react";
 import { Abstraxion } from "@burnt-labs/abstraxion";
 import Image from "next/image";
 import Link from "next/link";
@@ -24,6 +24,15 @@ import logo from "~/public/logo.png";
 import { truncate } from "~/utils/truncate";
 import { TypographyH3 } from "~/utils/typography";
 
+
+
+interface Product {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  // Add other relevant fields
+}
 export default function Navbar() {
   // const baseURL = process.env.BASE_URL;
 
@@ -37,6 +46,52 @@ export default function Navbar() {
   } = useAccount();
 
   const { cartItems } = useCart();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await fetch('https://mintyplex-api.onrender.com/api/v1/product/');
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+        const data = await response.json();
+        setProducts(data.data); // Adjust based on the API response structure
+        setFilteredProducts(data.data);
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchClick = () => {
+    const term = searchTerm.trim();
+    if (term === '') {
+      setFilteredProducts([]);
+    } else {
+      const filtered = products.filter((product) =>
+        product.name.toLowerCase().includes(term.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    }
+  };
 
   return (
     <header className="border-b border-mintyplex-border">
@@ -80,11 +135,23 @@ export default function Navbar() {
             </DialogTrigger>
             <DialogContent>
               <TypographyH3>Search Mintyplex</TypographyH3>
-              <Input placeholder="Search for Creators, Products and Categories" />
-              <Button className="flex items-center justify-center gap-3 transition-all duration-300 bg-mintyplex-primary">
+              <Input placeholder="Search for Creators, Products and Categories" 
+              value={searchTerm}
+                onChange={handleSearchChange}
+              />
+              <Button onClick={handleSearchClick} className="flex items-center justify-center gap-3 transition-all duration-300 bg-mintyplex-primary">
                 <SearchIcon /> <span className="text-[#E9E9E9]">Search</span>
               </Button>
+              {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {filteredProducts.length === 0 && searchTerm && !loading && !error && <p>No products found</p>}
+    <div>
+        {filteredProducts.map((product) => (
+          <p className="py-2  px-1  border-b-stone-400 border-b shadow-lg"  key={product.id}>{product.name}</p >
+        ))}
+      </div>
             </DialogContent>
+
           </Dialog>
           <Link href="/cart">
             <div className="relative">
