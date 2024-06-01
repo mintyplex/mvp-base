@@ -25,7 +25,7 @@ type Product = {
   Price: number;
   ID: string;
   id: string;
-  Discount?: number | string;
+  Discount?: number | string | undefined;
   UserId: string;
 };
 
@@ -46,6 +46,7 @@ export function Card({
   const [hidButton, setHidButton] = useState(false);
 
   const { addToCart } = useCart();
+
 
   const product: Product = {
     Name: name,

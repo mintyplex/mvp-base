@@ -95,7 +95,11 @@ export default function Home() {
                           className="bg-green min-w-[82px] rounded-full"
                           draggable={false}
                           alt="user image"
-                          src={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${user?.userProfile?.WalletAddress}`}
+                          src={
+                            user?.userProfile?.Avatar
+                              ? `${user?.userProfile?.Avatar}`
+                              : creatorImg
+                          }
                           style={{
                             height: "82px",
                             width: "82px",
