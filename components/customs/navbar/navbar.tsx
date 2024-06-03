@@ -36,6 +36,13 @@ interface Product {
 export default function Navbar() {
   // const baseURL = process.env.BASE_URL;
 
+  const handleLogout = () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("user");
+    }
+    setShowAbstraxion(true);
+  };
+
   const {
     closeSidebar,
     isSidebarOpen,
@@ -246,7 +253,7 @@ export default function Navbar() {
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
                         className="cursor-pointer hover:bg-red"
-                        onClick={() => setShowAbstraxion(true)}
+                        onClick={() => handleLogout()}
                       >
                         Logout
                       </DropdownMenuItem>

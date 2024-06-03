@@ -55,7 +55,8 @@ const links = [
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const { account, userAvatar, isLoggedIn, accountData } = useAccount();
+  const { account, userAvatar, isLoggedIn, accountData, setShowAbstraxion } =
+    useAccount();
   const { userData } = useFetchUserData({ isLoggedIn, accountData });
   const { toast } = useToast();
 
@@ -64,6 +65,13 @@ const Sidebar = () => {
     toast({
       description: "Address copied.",
     });
+  };
+
+  const handleLogout = () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("user");
+    }
+    setShowAbstraxion(true);
   };
 
   return (
@@ -149,6 +157,7 @@ const Sidebar = () => {
           </div>
           <div
             className={`flex items-center w-full py-3 text-center cursor-pointer gap-4 transition-colors rounded-[8px] hover:bg-brand1`}
+            onClick={() => handleLogout()}
           >
             <HiLogout />
             <div>
