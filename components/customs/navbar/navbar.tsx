@@ -1,5 +1,5 @@
 "use client";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Abstraxion } from "@burnt-labs/abstraxion";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,8 +23,8 @@ import logoLg from "~/public/logo-lg.png";
 import logo from "~/public/logo.png";
 import { truncate } from "~/utils/truncate";
 import { TypographyH3 } from "~/utils/typography";
-
-
+import useSearch from "~/hooks/useSearchHook";
+import { Result } from "postcss";
 
 interface Product {
   id: string;
@@ -46,51 +46,75 @@ export default function Navbar() {
   } = useAccount();
 
   const { cartItems } = useCart();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const { searchTerm, setSearchTerm, searchResults, isLoading, error } =
+    useSearch();
 
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const response = await fetch('https://mintyplex-api.onrender.com/api/v1/product/');
-        if (!response.ok) {
-          throw new Error('Failed to fetch products');
-        }
-        const data = await response.json();
-        setProducts(data.data); // Adjust based on the API response structure
-        setFilteredProducts(data.data);
-      } catch (error: any) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-
-
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
+  const handleSearchChange = (event: any) => {
+    setSearchTerm(event.target.value);
   };
 
-  const handleSearchClick = () => {
-    const term = searchTerm.trim();
-    if (term === '') {
-      setFilteredProducts([]);
-    } else {
-      const filtered = products.filter((product) =>
-        product.name.toLowerCase().includes(term.toLowerCase())
-      );
-      setFilteredProducts(filtered);
+  const filteredData = searchResults?.filter((el) => {
+    // Handle empty search term gracefully
+    if (!searchTerm) {
+      return; // Return all items if search term is empty
     }
+
+    return el.name?.toLowerCase().includes(searchTerm);
+  });
+
+  const handleClick = () => {
+    setSearchTerm("");
+    setIsOpen(false);
+  };
+
+  const renderSearchResults = () => {
+    if (!searchTerm) {
+      return "";
+    }
+
+    if (isLoading) {
+      return (
+        <div className="hidden md:flex absolute top-[8%] bg-[#151515] w-[300px] p-[12px] gap-4 rounded-[12px]">
+          <p>Loading...</p>
+        </div>
+      );
+    }
+
+    if (error) {
+      return <p>Error fetching data: {error.message}</p>;
+    }
+
+    if (filteredData.length === 0) {
+      return (
+        <div className="hidden md:flex absolute top-[8%] bg-[#151515] w-[300px] p-[12px]  gap-4 rounded-[12px]">
+          <p>No product found for {searchTerm} </p>
+        </div>
+      );
+    }
+
+    return (
+      <ul className="hidden md:flex flex-col absolute top-[8%] bg-[#151515] w-[300px] p-[12px] gap-4 rounded-[12px]">
+        {filteredData.map((result) => (
+          <>
+            <Link href={`/${result._id}`}>
+              <li
+                onClick={handleClick}
+                className="px-2 py-1 hover:bg-mintyplex-primary cursor-pointer rounded-[6px] flex gap-4 items-center "
+                key={result.id}
+              >
+                <img
+                  src={`https://mintyplex-api.onrender.com/api/v1/product/cover/${result?._id}`}
+                  alt=""
+                  className="w-10 h-10 object-cover rounded-[8px]"
+                />
+                {result?.name}
+              </li>
+            </Link>
+          </>
+        ))}
+      </ul>
+    );
   };
 
   return (
@@ -125,8 +149,12 @@ export default function Navbar() {
               name="search"
               className="w-full py-3 text-sm bg-transparent outline-none bg-opacity-0 focus:outline-none"
               placeholder="Search product"
+              // placeholder={placeholder}
+              value={searchTerm}
+              onChange={handleSearchChange}
             />
           </div>
+          {searchResults.length > 0 && renderSearchResults()}
           <Dialog>
             <DialogTrigger asChild>
               <Button className="md:hidden" size="icon" variant="ghost">
@@ -135,23 +163,41 @@ export default function Navbar() {
             </DialogTrigger>
             <DialogContent>
               <TypographyH3>Search Mintyplex</TypographyH3>
-              <Input placeholder="Search for Creators, Products and Categories" 
-              value={searchTerm}
+              <Input
+                className="py-5"
+                placeholder="Search Products"
+                value={searchTerm}
                 onChange={handleSearchChange}
               />
-              <Button onClick={handleSearchClick} className="flex items-center justify-center gap-3 transition-all duration-300 bg-mintyplex-primary">
+              {/* <Button className="flex items-center justify-center gap-3 transition-all duration-300 bg-mintyplex-primary">
                 <SearchIcon /> <span className="text-[#E9E9E9]">Search</span>
-              </Button>
-              {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      {filteredProducts.length === 0 && searchTerm && !loading && !error && <p>No products found</p>}
-    <div>
-        {filteredProducts.map((product) => (
-          <p className="py-2  px-1  border-b-stone-400 border-b shadow-lg"  key={product.id}>{product.name}</p >
-        ))}
-      </div>
+              </Button> */}
+              {!searchTerm && ""}
+              {filteredData.length === 0 && searchTerm && (
+                <p>No product found for {searchTerm}</p>
+              )}
+              <div>
+                {searchResults.length > 0 && (
+                  <ul className="flex-col flex w-full p-[12px] gap-4">
+                    {filteredData.map((result) => (
+                      <Link key={result.id} href={`/${result._id}`}>
+                        <li
+                          onClick={handleClick}
+                          className="px-2 py-1 hover:bg-mintyplex-primary cursor-pointer rounded-[6px] flex gap-4 items-center "
+                        >
+                          <img
+                            src={`https://mintyplex-api.onrender.com/api/v1/product/cover/${result?._id}`}
+                            alt=""
+                            className="w-10 h-10 object-cover rounded-[8px]"
+                          />
+                          {result?.name}
+                        </li>
+                      </Link>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </DialogContent>
-
           </Dialog>
           <Link href="/cart">
             <div className="relative">
