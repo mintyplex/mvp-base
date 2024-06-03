@@ -147,7 +147,7 @@ export default function UpdateProfile() {
                   <FaCamera />
                 </div>
                 <Image
-                  src={typeof images === "string" || File ? images : Curator}
+                  src={typeof images === "string" ? images : Curator}
                   width={120}
                   height={120}
                   alt="Curator image"

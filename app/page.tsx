@@ -69,7 +69,7 @@ export default function Home() {
             <div className="loader" />
           </div>
         ) : (
-          <div className="flex p-4 overflow-auto space-x-4">
+          <div className="flex py-4 overflow-auto space-x-4 gap-2">
             {users?.data
               ?.sort(
                 (a, b) =>
@@ -79,7 +79,7 @@ export default function Home() {
               .map((user, i) => (
                 <Tooltip key={i}>
                   <TooltipTrigger asChild>
-                    <div className="flex flex-col items-center w-full max-w-40 gap-1">
+                    <div className="flex flex-col items-center max-w-40 gap-1">
                       <Link
                         href={`/creator/${user?.userProfile?.WalletAddress}`}
                       >
