@@ -20,6 +20,7 @@ import Link from "next/link";
 import BackButton from "~/app/popular-products/_components/back-button";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import { Card } from "../customs/card";
+import { createPriceWithDiscount } from "~/lib/utils/utils";
 
 interface ProductType {
   ID: string;
@@ -37,7 +38,6 @@ export default function Profile() {
   const userURL = `${userData?.x_link}`;
 
   // console.log(userData);
-  
 
   const { toast } = useToast();
 
@@ -169,7 +169,10 @@ export default function Profile() {
                   name={product.Name}
                   by={product.UserId}
                   image={`https://mintyplex-api.onrender.com/api/v1/product/cover/${product.ID}`}
-                  discountedPrice={product.Discount}
+                  discountedPrice={createPriceWithDiscount(
+                    product.Price,
+                    product.Discount
+                  )}
                   price={product.Price}
                 />
               ))}
