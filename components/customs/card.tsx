@@ -83,8 +83,9 @@ export function Card({
             src={image}
             className="transition-all duration-300 hover:scale-105"
             style={{
+              width:'100%',
               height: "200px",
-              width: "200px",
+              minWidth: "200px",
               objectFit: "cover",
               objectPosition: "center",
             }}
@@ -100,7 +101,7 @@ export function Card({
               <Image
                 height={20}
                 width={20}
-                className="h-[20px] object-cover rounded-full"
+                className="max-h-[20px] object-cover rounded-full"
                 src={byImg}
                 alt={by}
               />
