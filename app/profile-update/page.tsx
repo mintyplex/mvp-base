@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Curator from "~/public/curator.png";
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa6";
 import { Button } from "~/components/ui/button";
 import { useAccount } from "~/components/context/AccountContext";
@@ -13,30 +13,31 @@ import { useRouter } from "next/navigation";
 import useFetchUserData from "~/hooks/useFetchData";
 import { useToast } from "~/components/ui/use-toast";
 import LoadingModal from "~/components/ui/LoadingModal";
+import axios from "axios";
 
 interface FormData {
   bio: string;
-  email: string;
   wallet_address: string;
   x_link: string;
+  avatar?: File;
 }
 
 export default function UpdateProfile() {
-  const { account, accountData, userData } = useAccount();
-
+  const { account } = useAccount();
   const router = useRouter();
 
-  // Image scr
-  const [imageSrc, setImageSrc] = useState<any>(Curator);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<null | string>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [images, setImages] = useState<File | string | any | null>(Curator);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (typeof window !== "undefined") {
     const userDatInLocalStorage = window.localStorage.getItem("user");
 
     if (userDatInLocalStorage) {
       // No routing; user stays on the current page
-    } 
+    }
     // else {
     //   // Redirect to login or another relevant page if no user data
     //   router.push("/"); // Or other appropriate route
@@ -44,17 +45,25 @@ export default function UpdateProfile() {
     // console.log(userDatInLocalStorage);
   }
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files ? event.target.files[0] : null;
-    setImageFile(file);
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return; // Handle no file selection
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageSrc(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+    const file = event.target.files[0];
+
+    if (!file.type.match(/image.*/)) {
+      console.error("Please select an image file.");
+      return;
     }
+
+    if (file.size > 5 * 1024 * 1024) {
+      // Check for 5MB limit
+      console.error("Image file size exceeds 5MB limit.");
+      return;
+    }
+
+    const imageURL = URL.createObjectURL(file);
+    setImages(imageURL);
+    setImageFile(file);
   };
 
   const triggerFileInput = () => {
@@ -68,79 +77,56 @@ export default function UpdateProfile() {
       description: "Profile Completed.",
     });
   };
-  const handleError = () => {
-    toast({
-      description: "Error uploading image (try an image with less than 1mb).",
-    });
-  };
 
   // data
-
   const {
     register,
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm<FormData>();
 
-  const { postData, loading, error } = usePostData();
+  const onSubmit = async (data: FormData) => {
+    setLoading(true);
+    const values = getValues();
 
-  const onSubmit = async (data: any) => {
-    // preventDefault();
-    const values = getValues()
-
-    
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
     // const apiUrl = process.env.NEXT_BASE_URL;
-    
     values.wallet_address = account.bech32Address;
-    
-    const response = await postData({
-      url: `${apiUrl}/profile`,
-      body: values,
-    });
-    if (response) {
-      handleSuccessful();
-      router.push("/dashboard");
-      // console.log("Form submitted successfully:", response);
-    }
-  };
-
-  // On submit Image
-  const onSubmitImage = async () => {
-    // preventDefault(); // Remove this line as it's not needed in this context
-    const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
-
-    if (!imageFile) {
-      console.error("No image file selected");
-      return;
-    }
 
     const formData = new FormData();
-    formData.append("avatar", imageFile);
+    for (const key in values) {
+      if (values[key as keyof FormData] !== undefined) {
+        formData.append(key, values[key as keyof FormData] as string);
+      }
+    }
+
+    if (imageFile) {
+      formData.append("avatar", imageFile);
+    } else {
+      console.warn("No image file provided.");
+    }
+    console.log(values);
 
     try {
-      const response = await fetch(`${apiUrl}/avatar/${accountData}`, {
-        method: "POST",
-        body: formData,
+      const response = await axios.postForm(apiUrl + "/profile", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
-
-      if (response.ok) {
+      if (response.status === 200 || response.status === 201) {
         handleSuccessful();
-        console.log("Image uploaded successfully");
         router.push("/dashboard");
+        // console.log("Form submitted successfully:", response);
       } else {
-        handleError();
-        console.error("Failed to upload image");
+        console.error("Error creating product:", response.data);
+        throw new Error("Product creation failed.");
       }
     } catch (error) {
-      console.error("Error uploading image:", error);
+      console.error("Error posting data:", error);
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const handleSubmitAll = async () => {
-    await onSubmit({});
-    await onSubmitImage();
   };
 
   return (
@@ -155,19 +141,16 @@ export default function UpdateProfile() {
             </p>
 
             {/* Image Upload Section */}
-            <form
-              onSubmit={handleSubmit(onSubmitImage)}
-              className="my-2 relative"
-            >
+            <form className="my-2 relative">
               <div onClick={triggerFileInput} className="cursor-pointer">
                 <div className="absolute bg-[#1C1E1E]/[0.5] rounded-full inset-0 grid items-center opacity-90 justify-center">
                   <FaCamera />
                 </div>
                 <Image
-                  src={imageSrc}
+                  src={typeof images === "string" || File ? images : Curator}
                   width={120}
                   height={120}
-                  alt="Curator"
+                  alt="Curator image"
                   className="rounded-full border-[8px] border-mintyplex-dark"
                   style={{
                     height: "120px",
@@ -222,7 +205,7 @@ export default function UpdateProfile() {
             </form>
             <div className="w-full flex justify-end mt-4">
               <button
-                onClick={handleSubmitAll}
+                onClick={handleSubmit(onSubmit)}
                 // disabled={isLoading}
                 className="text-white bg-mintyplex-primary px-3 py-2 rounded-[8px]"
               >

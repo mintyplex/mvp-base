@@ -27,6 +27,7 @@ import { TypographyH3 } from "~/utils/typography";
 import { useAccount } from "~/components/context/AccountContext";
 import { TrendingProducts } from "./_components/trending-products";
 import { useQuery } from "@tanstack/react-query";
+import { RecentListing } from "./_components/recent-listing";
 
 export default function Home() {
   const { accountData } = useAccount();
@@ -50,14 +51,7 @@ export default function Home() {
     queryKey: ["users"],
     queryFn: getUsers,
   });
-
-  // if (!users) {
-  //   return (
-  //     <div className="h-[20vh] flex w-full items-center justify-center">
-  //       <p>No Items yet</p>
-  //     </div>
-  //   );
-  // }
+  
 
   return (
     <TooltipProvider>
@@ -77,7 +71,7 @@ export default function Home() {
         ) : (
           <div className="flex p-4 overflow-auto space-x-4">
             {users?.data
-              .sort(
+              ?.sort(
                 (a, b) =>
                   (b?.products?.length ?? 0) - (a?.products?.length ?? 0)
               )
@@ -120,6 +114,13 @@ export default function Home() {
                   </TooltipContent>
                 </Tooltip>
               ))}
+
+            {users?.data === null && (
+              <div className="h-[10vh] flex w-full items-center justify-center">
+                <p>No users yet</p>
+                {" "}
+              </div>
+            )}
           </div>
         )}
         <div className="space-y-12">
@@ -146,7 +147,7 @@ export default function Home() {
             name="Recent Listings"
             route="/popular-products?view=recent"
           />
-          <div className="flex overflow-auto gap-3">
+          {/* <div className="flex overflow-auto gap-3">
             {Array.from({ length: 10 }).map((_, index) => (
               <div key={index} className="shrink-0">
                 <Card
@@ -160,7 +161,8 @@ export default function Home() {
                 />
               </div>
             ))}
-          </div>
+          </div> */}
+          <RecentListing />
           <SeeAllFor
             Icon={TbLayoutGrid}
             tw="bg-[#A431FF]/20 text-[#A431FF]"

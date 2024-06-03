@@ -47,7 +47,6 @@ export function Card({
 
   const { addToCart } = useCart();
 
-
   const product: Product = {
     Name: name,
     CoverImage: image,
@@ -85,7 +84,7 @@ export function Card({
             className="transition-all duration-300 hover:scale-105"
             style={{
               height: "200px",
-              width: "100%",
+              width: "200px",
               objectFit: "cover",
               objectPosition: "center",
             }}

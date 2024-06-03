@@ -130,7 +130,7 @@ const ProductForm = () => {
       console.warn("Invalid image data provided.");
     }
 
-    console.log(data);
+    // console.log(data);
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/product";
     try {
       const response = await axios.postForm(
