@@ -58,7 +58,7 @@ export function Card({
   };
 
   const handleAddToCart = () => {
-    addToCart(product, 1);
+    addToCart(product as any, 1);
   };
 
   useEffect(() => {
