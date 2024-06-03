@@ -30,7 +30,7 @@ export const mintyplexContractAddress: string =
   "xion1gdzk8u6z3u46220qtlr6kktqv023dsyh32j22c05vnpr5wnfulmsxvcwrv";
 
 export function truncateString(str: string, maxLength: number): string {
-  if (str.length > maxLength) {
+  if (str?.length > maxLength) {
     return str.substring(0, maxLength - 3) + "..."; // Truncate and add ellipsis
   }
   return str;
@@ -38,5 +38,5 @@ export function truncateString(str: string, maxLength: number): string {
 
 export function createPriceWithDiscount(price: any, discount: number) {
   const returnMe = price - (price * discount) / 100;
-  return returnMe.toFixed(2).toString();
+  return returnMe.toFixed(2);
 }

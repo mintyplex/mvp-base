@@ -231,7 +231,7 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
             price={product?.Price}
             setUpdatedPrice={setUpdatedPrice}
           />
-          <div className="flex items-center justify-between">
+          <div className="flex flex-column md:flex-row items-center justify-between">
             <div className="flex items-center gap-1">
               <TypographyH4 className="text-transparent !bg-clip-text text-[25px] font-medium [background:linear-gradient(87.25deg,_#2063f2,_#a431ff_33.33%,_#a431ff_66.67%,_#ff73ae)] [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
                 ${createPriceWithDiscount(updatedPrice, product?.Discount)}

@@ -17,7 +17,7 @@ interface Product {
   UserId: string;
   Discount: number;
   Price: number;
-  quantity?: number; // Optional property for quantity to handle it within the cart
+  quantity?: number; 
 }
 
 interface CartContextType {

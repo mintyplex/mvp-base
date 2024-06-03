@@ -76,9 +76,8 @@ export default function Curator() {
 
   const CuratorData = data?.user;
   const CuratorProducts = CuratorData?.products;
-  // console.log(CuratorProducts);
 
-  const creatorAvatar = CuratorData?.avatar;
+  const creatorAvatar = `https://mintyplex-api.onrender.com/api/v1/user/avatar/${CuratorData?.wallet_address}`;
   const userURL = `${CuratorData?.x_link}`;
 
   const back = () => {

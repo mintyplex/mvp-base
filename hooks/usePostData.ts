@@ -1,10 +1,11 @@
 // hooks/usePostData.ts
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 interface PostDataOptions {
   url: string;
-  body?: any;
+  formData?: any;
   headers?: Record<string, string>;
 }
 
@@ -15,27 +16,25 @@ const usePostData = () => {
 
   const postData = async <T>({
     url,
-    body,
+    formData,
     headers,
   }: PostDataOptions): Promise<T | undefined> => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(url, {
-        method: "POST",
+      const response = await axios.postForm(url, formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
           ...headers,
         },
-        body: JSON.stringify(body),
       });
 
-      if (!response.ok) {
+      if (response.status != 200) {
         throw new Error("Network response was not ok");
       }
 
-      const data = await response.json();
+      const data = await response.data;
       setLoading(false);
 
       return data;

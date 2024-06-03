@@ -24,18 +24,10 @@ import { cn, truncateXionAddress } from "~/lib/utils/utils";
 import creatorImg from "~/public/curator.png";
 import monkey from "~/public/monkey-yellow-bg.jpeg";
 import { TypographyH3 } from "~/utils/typography";
-import { RenderCards } from "./_components/render-cards";
-import useFetchUserData from "~/hooks/useFetchData";
 import { useAccount } from "~/components/context/AccountContext";
-import LoadingModal from "~/components/ui/LoadingModal";
 import { TrendingProducts } from "./_components/trending-products";
 import { useQuery } from "@tanstack/react-query";
-import { truncate } from "~/utils/truncate";
-
-const creators = {
-  image: creatorImg,
-  name: "0AHY21....342",
-};
+import { RecentListing } from "./_components/recent-listing";
 
 export default function Home() {
   const { accountData } = useAccount();
@@ -59,14 +51,7 @@ export default function Home() {
     queryKey: ["users"],
     queryFn: getUsers,
   });
-
-  // if (!users) {
-  //   return (
-  //     <div className="h-[20vh] flex w-full items-center justify-center">
-  //       <p>No Items yet</p>
-  //     </div>
-  //   );
-  // }
+  
 
   return (
     <TooltipProvider>
@@ -84,9 +69,9 @@ export default function Home() {
             <div className="loader" />
           </div>
         ) : (
-          <div className="flex p-4 overflow-auto space-x-4">
+          <div className="flex py-4 overflow-auto space-x-4 gap-2">
             {users?.data
-              .sort(
+              ?.sort(
                 (a, b) =>
                   (b?.products?.length ?? 0) - (a?.products?.length ?? 0)
               )
@@ -94,7 +79,7 @@ export default function Home() {
               .map((user, i) => (
                 <Tooltip key={i}>
                   <TooltipTrigger asChild>
-                    <div className="flex flex-col items-center w-full max-w-40 gap-1">
+                    <div className="flex flex-col items-center max-w-40 gap-1">
                       <Link
                         href={`/creator/${user?.userProfile?.WalletAddress}`}
                       >
@@ -104,7 +89,11 @@ export default function Home() {
                           className="bg-green min-w-[82px] rounded-full"
                           draggable={false}
                           alt="user image"
-                          src={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${user?.userProfile?.WalletAddress}`}
+                          src={
+                            user?.userProfile?.Avatar
+                              ? `${user?.userProfile?.Avatar}`
+                              : creatorImg
+                          }
                           style={{
                             height: "82px",
                             width: "82px",
@@ -125,6 +114,13 @@ export default function Home() {
                   </TooltipContent>
                 </Tooltip>
               ))}
+
+            {users?.data === null && (
+              <div className="h-[10vh] flex w-full items-center justify-center">
+                <p>No users yet</p>
+                {" "}
+              </div>
+            )}
           </div>
         )}
         <div className="space-y-12">
@@ -151,7 +147,7 @@ export default function Home() {
             name="Recent Listings"
             route="/popular-products?view=recent"
           />
-          <div className="flex overflow-auto gap-3">
+          {/* <div className="flex overflow-auto gap-3">
             {Array.from({ length: 10 }).map((_, index) => (
               <div key={index} className="shrink-0">
                 <Card
@@ -161,11 +157,12 @@ export default function Home() {
                   name="Yatch Ape Club"
                   by="0x20..8"
                   image={monkey}
-                  price="23"
+                  price={23}
                 />
               </div>
             ))}
-          </div>
+          </div> */}
+          <RecentListing />
           <SeeAllFor
             Icon={TbLayoutGrid}
             tw="bg-[#A431FF]/20 text-[#A431FF]"

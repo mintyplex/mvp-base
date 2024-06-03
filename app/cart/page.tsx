@@ -222,7 +222,7 @@ function CartCard({ name, quantity, price, discount, by, itemId, image }: any) {
               alt=""
               width={125}
               height={125}
-              className="object-cover rounded-[8px]"
+              className="h-[125px] object-cover rounded-[8px]"
             />
             <div className="flex flex-col justify-between">
               <div>

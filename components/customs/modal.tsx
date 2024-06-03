@@ -2,13 +2,14 @@
 import Image from "next/image";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Curator from "~/public/curator.png";
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { FaCamera } from "react-icons/fa6";
 import usePutData from "~/hooks/usePutData";
 import { useAccount } from "../context/AccountContext";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 type ModalProps = {
   setEditModal?: any;
@@ -18,7 +19,7 @@ type ModalProps = {
 
 interface FormData {
   bio: string;
-  email: string;
+  avatar?: File;
   wallet_address: string;
   x_link: string;
 }
@@ -30,21 +31,30 @@ export default function EditModal({
 }: ModalProps) {
   const { accountData, userData } = useAccount();
 
-  const [imageSrc, setImageSrc] = useState<any>(Curator);
+  const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [images, setImages] = useState<File | string | any | null>(Curator);
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files ? event.target.files[0] : null;
-    setImageFile(file);
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) return; // Handle no file selection
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImageSrc(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+    const file = event.target.files[0];
+
+    if (!file.type.match(/image.*/)) {
+      console.error("Please select an image file.");
+      return;
     }
+
+    if (file.size > 5 * 1024 * 1024) {
+      // Check for 5MB limit
+      console.error("Image file size exceeds 5MB limit.");
+      return;
+    }
+
+    const imageURL = URL.createObjectURL(file);
+    setImages(imageURL);
+    setImageFile(file);
   };
 
   const triggerFileInput = () => {
@@ -60,61 +70,50 @@ export default function EditModal({
     getValues,
     formState: { errors },
   } = useForm();
-  const { postData, isLoading, error } = usePutData();
 
   const onSubmit = async (data: any) => {
-    // preventDefault();
+    const values = getValues();
+
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
     // const apiUrl = process.env.NEXT_BASE_URL;
 
-    console.log(data);
-
-    const response = await postData({
-      url: `${apiUrl}/profile/${accountData}`,
-      body: data,
-    });
-    if (response) {
-      handleSuccessful();
-      console.log("Profile updated successfully:", response);
-      setEditModal(false);
-    }
-  };
-
-  // On submit Image
-  const onSubmitImage = async () => {
-    // preventDefault(); // Remove this line as it's not needed in this context
-    const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
-
-    if (!imageFile) {
-      console.error("No image file selected");
-      return;
-    }
-
     const formData = new FormData();
-    formData.append("avatar", imageFile);
+    for (const key in values) {
+      if (values[key as keyof FormData] !== undefined) {
+        formData.append(key, values[key as keyof FormData] as string);
+      }
+    }
+
+    if (imageFile) {
+      formData.append("avatar", imageFile);
+    } else {
+      console.warn("No image file provided.");
+    }
+    console.log(values);
 
     try {
-      const response = await fetch(`${apiUrl}/avatar/${accountData}`, {
-        method: "PUT",
-        body: formData,
-      });
-
-      if (response.ok) {
+      const response = await axios.putForm(
+        apiUrl + "/profile/" + accountData,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      if (response.status === 200 || response.status === 201) {
         handleSuccessful();
-        console.log("Image uploaded successfully");
-        // router.push("/dashboard");
+        setEditModal(false);
+        // console.log("Form submitted successfully:", response);
       } else {
-        handleError();
-        console.error("Failed to upload image");
+        console.error("Error creating product:", response.data);
+        throw new Error("Product creation failed.");
       }
     } catch (error) {
-      console.error("Error uploading image:", error);
+      console.error("Error posting data:", error);
+    } finally {
+      setIsLoading(false);
     }
-  };
-
-  const handleSubmitAll = () => {
-    onSubmit(getValues());
-    onSubmitImage();
   };
 
   return (
@@ -136,14 +135,14 @@ export default function EditModal({
             </p>
 
             {/* Image Upload Section */}
-            <form onSubmit={handleSubmit(onSubmitImage)}>
+            <form>
               <div className="my-4 relative">
                 <div onClick={triggerFileInput} className="cursor-pointer">
                   <div className="absolute bg-[#1C1E1E]/[0.5] rounded-full inset-0 grid items-center opacity-90 justify-center">
                     <FaCamera />
                   </div>
                   <Image
-                    src={imageSrc}
+                    src={typeof images === "string" || File ? images : Curator}
                     width={120}
                     height={120}
                     alt="Curator"
@@ -200,7 +199,7 @@ export default function EditModal({
             </form>
             <div className="w-full flex justify-end mt-4">
               <button
-                onClick={handleSubmitAll}
+                onClick={handleSubmit(onSubmit)}
                 // disabled={isLoading}
                 className="text-white bg-mintyplex-primary px-3 py-2 rounded-[8px]"
               >
@@ -214,7 +213,7 @@ export default function EditModal({
               </button>
             </div>
           </div>
-          {error && <p>{error}</p>}
+          {/* {error && <p>{error}</p>} */}
         </div>
       </div>
     </div>

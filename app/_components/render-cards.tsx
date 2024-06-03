@@ -31,7 +31,7 @@ export function RenderCards({ data }: { data?: ProductFromApi[] }) {
 
   function createPriceWithDiscount(price: number, discount: number) {
     const returnMe = price - (price * discount) / 100;
-    return returnMe.toFixed(2).toString();
+    return returnMe.toFixed(2);
   }
 
   const sortedData = data?.slice().sort((a, b) => {
@@ -50,7 +50,8 @@ export function RenderCards({ data }: { data?: ProductFromApi[] }) {
           name={product.name}
           by={product.user_id}
           image={`https://mintyplex-api.onrender.com/api/v1/product/cover/${product._id}`}
-          price={product.price.toString()}
+          price={product.price}
+          discount={product.discount}
           discountedPrice={createPriceWithDiscount(
             product.price,
             product.discount

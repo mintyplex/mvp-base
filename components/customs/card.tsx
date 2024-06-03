@@ -3,16 +3,30 @@ import { cn, truncateString, truncateXionAddress } from "~/lib/utils/utils";
 import { TypographyP } from "~/utils/typography";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { PlusIcon } from "lucide-react";
+import { useCart } from "../context/CartContext";
+import { useEffect, useState } from "react";
 
 type CardProps = {
   name: string;
   byImg: string | StaticImageData;
   by: string;
   image: StaticImageData | string;
-  price: string;
+  price: number;
   asSmall?: boolean;
   id: string;
-  discountedPrice?: string;
+  discountedPrice?: number | string;
+  discount?: number;
+};
+
+type Product = {
+  Name: string;
+  CoverImage: StaticImageData | string;
+  Price: number;
+  ID: string;
+  id: string;
+  Discount?: number | string | undefined;
+  UserId: string;
 };
 
 export function Card({
@@ -23,12 +37,36 @@ export function Card({
   byImg,
   asSmall,
   id,
+  discount,
   discountedPrice,
 }: CardProps) {
   // const TEN_PERCENT_OF_HEIGHT = image.height - image.height * 0.1;
   // const TEN_PERCENT_OF_WIDTH = image.width - image.width * 0.1;
 
-  
+  const [hidButton, setHidButton] = useState(false);
+
+  const { addToCart } = useCart();
+
+  const product: Product = {
+    Name: name,
+    CoverImage: image,
+    Price: price,
+    ID: id,
+    id: id,
+    Discount: discount,
+    UserId: by,
+  };
+
+  const handleAddToCart = () => {
+    addToCart(product, 1);
+  };
+
+  useEffect(() => {
+    if (window.location.pathname === "/profile") {
+      setHidButton(true);
+    }
+  }, []);
+
   return (
     <div
       className={cn(
@@ -45,8 +83,9 @@ export function Card({
             src={image}
             className="transition-all duration-300 hover:scale-105"
             style={{
+              width:'100%',
               height: "200px",
-              width: '100%',
+              minWidth: "200px",
               objectFit: "cover",
               objectPosition: "center",
             }}
@@ -62,7 +101,7 @@ export function Card({
               <Image
                 height={20}
                 width={20}
-                className="object-cover rounded-full"
+                className="max-h-[20px] object-cover rounded-full"
                 src={byImg}
                 alt={by}
               />
@@ -92,12 +131,22 @@ export function Card({
           </div>
         )}
 
-        <Button
-          asChild
-          className="w-full active:scale-95 transition-all duration-300 bg-mintyplex-primary"
-        >
-          <button className="text-white bg-mintyplex-primary">Buy Now</button>
-        </Button>
+        {hidButton ? null : (
+          <div className="flex gap-3">
+            <Button
+              asChild
+              className="w-full active:scale-95 transition-all duration-300 bg-mintyplex-primary"
+            >
+              <p className="text-white bg-mintyplex-primary">Buy Now</p>
+            </Button>
+            <Button
+              className="text-white px-2 bg-!none border border-mintyplex-border"
+              onClick={handleAddToCart}
+            >
+              <PlusIcon />
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -3,12 +3,11 @@
 import React from "react";
 import { RenderCards } from "./render-cards";
 import { useQuery } from "@tanstack/react-query";
+import { Card } from "~/components/customs/card";
+import creatorImg from "~/public/curator.png";
+import { createPriceWithDiscount } from "~/lib/utils/utils";
 
-export function RecentListing({
-  shouldNotBe12,
-}: {
-  shouldNotBe12?: boolean;
-}) {
+export function RecentListing({ shouldNotBe12 }: { shouldNotBe12?: boolean }) {
   async function getProducts() {
     // CURL equivalent
     // curl -sX GET https://mintyplex-api.onrender.com/api/v1/product/
@@ -40,13 +39,31 @@ export function RecentListing({
       </div>
     );
 
-  // A splice in JS can take a number or undefined
-  // if it's undefined it will take all the elements
   const rendereAmount = shouldNotBe12 ? undefined : 12;
+  const sortedData = products?.data?.slice().sort((a, b) => {
+    const timestampA = new Date(a.created_at).getTime();
+    const timestampB = new Date(b.created_at).getTime();
+
+    return timestampB - timestampA;
+  });
 
   return (
-    <div className="">
-      <RenderCards data={products?.data?.slice(0, rendereAmount)} />
+    <div className="flex overflow-auto gap-3 w-full">
+      {sortedData?.slice(0, rendereAmount).map((_, index) => (
+        <div key={index} className="shrink-0">
+          <Card
+            id={_?._id}
+            asSmall
+            byImg={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${_?.user_id}`}
+            name={_?.name}
+            by={_?.user_id}
+            image={`https://mintyplex-api.onrender.com/api/v1/product/cover/${_?._id}`}
+            price={_?.price}
+            discount={_?.discount}
+            discountedPrice={createPriceWithDiscount(_?.price, _?.discount)}
+          />
+        </div>
+      ))}
     </div>
   );
 }
