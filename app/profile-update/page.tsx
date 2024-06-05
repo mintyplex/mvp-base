@@ -106,7 +106,7 @@ export default function UpdateProfile() {
     } else {
       console.warn("No image file provided.");
     }
-    console.log(values);
+    // console.log(values);
 
     try {
       const response = await axios.postForm(apiUrl + "/profile", formData, {

@@ -60,7 +60,7 @@ const useFetchUserData = ({
         }
       },
       onError: (error) => {
-        console.error("Error fetching user data:", error);
+        // console.error("Error fetching user data:", error);
       },
     }
   );

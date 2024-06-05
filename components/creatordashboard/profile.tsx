@@ -20,6 +20,7 @@ import Link from "next/link";
 import BackButton from "~/app/popular-products/_components/back-button";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import { Card } from "../customs/card";
+import { createPriceWithDiscount } from "~/lib/utils/utils";
 
 interface ProductType {
   ID: string;
@@ -27,6 +28,7 @@ interface ProductType {
   UserId: string;
   Discount?: any; // Optional property
   Price: any;
+  CoverImage: any;
 }
 
 export default function Profile() {
@@ -35,9 +37,6 @@ export default function Profile() {
 
   const userProducts = userData?.products;
   const userURL = `${userData?.x_link}`;
-
-  // console.log(userData);
-  
 
   const { toast } = useToast();
 
@@ -160,7 +159,7 @@ export default function Profile() {
               <p>No Items yet</p>
             </div>
           ) : (
-            <div className="grid-cols-2 grid gap-4 xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3">
+            <div className="grid-cols-2 grid gap-4 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-3">
               {sortedData?.map((product: ProductType, index: number): any => (
                 <Card
                   key={index}
@@ -168,8 +167,11 @@ export default function Profile() {
                   byImg={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${accountData}`}
                   name={product.Name}
                   by={product.UserId}
-                  image={`https://mintyplex-api.onrender.com/api/v1/product/cover/${product.ID}`}
-                  discountedPrice={product.Discount}
+                  image={product.CoverImage}
+                  discountedPrice={createPriceWithDiscount(
+                    product.Price,
+                    product.Discount
+                  )}
                   price={product.Price}
                 />
               ))}
