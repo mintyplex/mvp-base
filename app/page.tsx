@@ -51,7 +51,6 @@ export default function Home() {
     queryKey: ["users"],
     queryFn: getUsers,
   });
-  
 
   return (
     <TooltipProvider>
@@ -117,8 +116,7 @@ export default function Home() {
 
             {users?.data === null && (
               <div className="h-[10vh] flex w-full items-center justify-center">
-                <p>No users yet</p>
-                {" "}
+                <p>No users yet</p>{" "}
               </div>
             )}
           </div>
@@ -147,21 +145,6 @@ export default function Home() {
             name="Recent Listings"
             route="/popular-products?view=recent"
           />
-          {/* <div className="flex overflow-auto gap-3">
-            {Array.from({ length: 10 }).map((_, index) => (
-              <div key={index} className="shrink-0">
-                <Card
-                  id={index.toString()}
-                  asSmall
-                  byImg={creatorImg}
-                  name="Yatch Ape Club"
-                  by="0x20..8"
-                  image={monkey}
-                  price={23}
-                />
-              </div>
-            ))}
-          </div> */}
           <RecentListing />
           <SeeAllFor
             Icon={TbLayoutGrid}

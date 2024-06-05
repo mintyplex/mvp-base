@@ -45,19 +45,19 @@ export function RecentListing({ shouldNotBe12 }: { shouldNotBe12?: boolean }) {
     const timestampB = new Date(b.created_at).getTime();
 
     return timestampB - timestampA;
-  });
+  });  
 
   return (
     <div className="flex overflow-auto gap-3 w-full">
       {sortedData?.slice(0, rendereAmount).map((_, index) => (
-        <div key={index} className="shrink-0">
+        <div key={index} className="shrink-0 w-fit">
           <Card
             id={_?._id}
             asSmall
             byImg={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${_?.user_id}`}
             name={_?.name}
             by={_?.user_id}
-            image={`https://mintyplex-api.onrender.com/api/v1/product/cover/${_?._id}`}
+            image={_?.image}
             price={_?.price}
             discount={_?.discount}
             discountedPrice={createPriceWithDiscount(_?.price, _?.discount)}

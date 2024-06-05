@@ -49,7 +49,7 @@ export function RenderCards({ data }: { data?: ProductFromApi[] }) {
           byImg={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${product.user_id}`}
           name={product.name}
           by={product.user_id}
-          image={`https://mintyplex-api.onrender.com/api/v1/product/cover/${product._id}`}
+          image={product.image}
           price={product.price}
           discount={product.discount}
           discountedPrice={createPriceWithDiscount(
