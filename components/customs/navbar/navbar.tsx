@@ -70,6 +70,9 @@ export default function Navbar() {
     return el.name?.toLowerCase().includes(searchTerm);
   });
 
+  console.log(filteredData);
+  
+
   const handleClick = () => {
     setSearchTerm("");
     setIsOpen(false);
@@ -111,7 +114,7 @@ export default function Navbar() {
                 key={result.id}
               >
                 <img
-                  src={`https://mintyplex-api.onrender.com/api/v1/product/cover/${result?._id}`}
+                  src={result?.image}
                   alt=""
                   className="w-10 h-10 object-cover rounded-[8px]"
                 />
@@ -193,7 +196,7 @@ export default function Navbar() {
                           className="px-2 py-1 hover:bg-mintyplex-primary cursor-pointer rounded-[6px] flex gap-4 items-center "
                         >
                           <img
-                            src={`https://mintyplex-api.onrender.com/api/v1/product/cover/${result?._id}`}
+                            src={result?.image}
                             alt=""
                             className="w-10 h-10 object-cover rounded-[8px]"
                           />
