@@ -27,29 +27,6 @@ import BackButton from "../popular-products/_components/back-button";
 import { Counter } from "./_components/counter";
 import Link from "next/link";
 
-const data = [
-  {
-    name: "DNA",
-    title: "Human",
-  },
-  {
-    name: "Eye Colour",
-    title: "Blue",
-  },
-  {
-    name: "Jewelry",
-    title: "Blue",
-  },
-  {
-    name: "Type",
-    title: "Blue",
-  },
-  {
-    name: "Clothing",
-    title: "Blue",
-  },
-];
-
 type ProductPageProps = {
   params: { [key: string]: string };
   searchParams: { [key: string]: string };
@@ -90,8 +67,8 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
     keepPreviousData: false,
   });
 
-  const product = productDetail?.data;
-  // console.log(product);
+  const product = productDetail?.data?.Product;
+  const productCreator = productDetail?.data?.User;
 
   useEffect(() => {
     return () => {
@@ -163,7 +140,7 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
               </CarouselContent>
             </Carousel> */}
             <Image
-              src={`https://mintyplex-api.onrender.com/api/v1/product/cover/${product.ID}`}
+              src={product?.CoverImage}
               width={1280}
               height={500}
               alt="product image"
@@ -181,10 +158,10 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
               <span>by</span>
               <Image
                 alt="By Creator"
-                src={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${product.UserId}`}
+                src={productCreator.Avatar}
                 height={24}
                 width={24}
-                className="rounded-full"
+                className="h-[24px] w-[24px] rounded-full object-cover"
               />
               <Link href={`/creator/${product?.UserId}`} className="underline">
                 {truncate(product?.UserId)}

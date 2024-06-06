@@ -20,13 +20,16 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   });
 
   useEffect(() => {
-    if (!accountData) {
-      router.push("/");
-    }
     if (typeof window !== "undefined") {
       const userDatInLocalStorage = window.localStorage.getItem("user");
       if (accountData && !userDatInLocalStorage) {
         router.push("/profile-update");
+      }
+      if (userDatInLocalStorage) {
+        //
+      }
+      if (!accountData && !userDatInLocalStorage) {
+        router.push("/");
       }
     }
   }, [accountData, userData, router]);

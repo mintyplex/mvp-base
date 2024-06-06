@@ -45,16 +45,17 @@ export function RecentListing({ shouldNotBe12 }: { shouldNotBe12?: boolean }) {
     const timestampB = new Date(b.created_at).getTime();
 
     return timestampB - timestampA;
-  });  
+  });
 
   return (
     <div className="flex overflow-auto gap-3 w-full">
-      {sortedData?.slice(0, rendereAmount).map((_, index) => (
-        <div key={index} className="shrink-0 w-fit">
+      {sortedData
+        ?.slice(0, rendereAmount)
+        .map((_, index) => (
           <Card
+            key={index}
             id={_?._id}
-            asSmall
-            byImg={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${_?.user_id}`}
+            byImg={""}
             name={_?.name}
             by={_?.user_id}
             image={_?.image}
@@ -62,8 +63,7 @@ export function RecentListing({ shouldNotBe12 }: { shouldNotBe12?: boolean }) {
             discount={_?.discount}
             discountedPrice={createPriceWithDiscount(_?.price, _?.discount)}
           />
-        </div>
-      ))}
+        ))}
     </div>
   );
 }

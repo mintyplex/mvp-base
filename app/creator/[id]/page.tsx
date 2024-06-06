@@ -35,6 +35,7 @@ interface ProductType {
   UserId: string;
   Discount?: any; // Optional property
   Price: any;
+  CoverImage: any;
 }
 
 export default function Curator() {
@@ -254,16 +255,16 @@ export default function Curator() {
                   <p>No Items yet</p>
                 </div>
               ) : (
-                <div className="grid-cols-2 grid gap-4 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
+                <div className="grid-cols-2 grid gap-4 xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
                   {sortedData?.map(
                     (product: ProductType, index: number): any => (
                       <Card
                         key={index}
                         id={product.ID}
-                        byImg={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${product.UserId}`}
+                        byImg={``}
                         name={product.Name}
                         by={product.UserId}
-                        image={`https://mintyplex-api.onrender.com/api/v1/product/cover/${product.ID}`}
+                        image={product.CoverImage}
                         discountedPrice={createPriceWithDiscount(
                           product.Price,
                           product.Discount

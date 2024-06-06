@@ -46,7 +46,7 @@ export function RenderCards({ data }: { data?: ProductFromApi[] }) {
       {sortedData?.map((product) => (
         <Card
           id={product._id}
-          byImg={`https://mintyplex-api.onrender.com/api/v1/user/avatar/${product.user_id}`}
+          byImg={''}
           name={product.name}
           by={product.user_id}
           image={product.image}

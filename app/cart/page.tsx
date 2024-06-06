@@ -77,10 +77,6 @@ export default function Cart() {
                 <div className="p-[24px] w-full space-y-4">
                   {cartItems && cartItems.length > 0 ? (
                     cartItems.map((item) => (
-                      // <div key={item.ID}>
-                      //   <h4>{item.Name}</h4>
-                      //   <p>Quantity: {item.quantity}</p>
-                      // </div>
                       <CartCard
                         key={item.ID}
                         name={item?.Name}
@@ -89,7 +85,7 @@ export default function Cart() {
                         discount={item?.Discount}
                         quantity={item?.quantity}
                         itemId={item.ID}
-                        image={`https://mintyplex-api.onrender.com/api/v1/product/cover/${item.ID}`}
+                        image={item.CoverImage}
                       />
                     ))
                   ) : (
