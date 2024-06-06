@@ -155,7 +155,7 @@ export default function Home() {
           />
           <Carousel className="">
             <CarouselContent>
-              {Array.from({ length: 4 }).map((_, index) => (
+              {Array.from({ length: 3 }).map((_, index) => (
                 <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                   <PopularCard index={index} />
                 </CarouselItem>

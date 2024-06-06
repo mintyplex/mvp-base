@@ -52,7 +52,7 @@ export function TrendingProducts({
   });
 
   return (
-    <div className="grid-cols-2 grid gap-4 xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
+    <div className="grid-cols-2 grid gap-4 xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
       <RenderCards data={(sortedData as ProductFromApi[])?.slice(0, rendereAmount)} />
     </div>
   );

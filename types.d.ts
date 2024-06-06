@@ -15,6 +15,7 @@ interface ReusableTableProps {
 interface ProductsFromApi {
   data: ProductFromApi[];
   sortedData: ProductFromApi[];
+  fetchedProducts: ProductFromApi[] | undefined;
   message: string;
   status: string;
 }
@@ -51,7 +52,7 @@ interface ProductDetailsApi {
 
 interface ProductFromApi {
   _id: string;
-  categories: string[];
+  categories: string[] | string;
   created_at: number;
   description: string;
   image: any;
