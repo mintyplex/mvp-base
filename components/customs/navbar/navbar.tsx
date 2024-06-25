@@ -70,7 +70,7 @@ export default function Navbar() {
     return el.name?.toLowerCase().includes(searchTerm);
   });
 
-  console.log(filteredData);
+  // console.log(filteredData);
   
 
   const handleClick = () => {
