@@ -49,7 +49,7 @@ const useBuyFunction = (options: BuyProductOptions) => {
     };
 
     try {
-      const buyRes = await options.client?.execute(
+      const mint_n_f_t = await options.client?.execute(
         options.accountData,
         options.seatContractAddress,
         msg,
@@ -61,7 +61,7 @@ const useBuyFunction = (options: BuyProductOptions) => {
         []
       );
 
-      setExecuteResult(buyRes);
+      setExecuteResult(mint_n_f_t);
     } catch (error) {
       // eslint-disable-next-line no-console -- No UI exists yet to display errors
       console.log(error);

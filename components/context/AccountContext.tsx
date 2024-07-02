@@ -83,7 +83,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   // const balance = await client?.getBalance(account?.bech32Address, "xion");
   async function fetchBalance() {
     const xionBalance = await client?.getBalance(account?.bech32Address, "xion");
-    // console.log(xionBalance);
+    console.log(xionBalance);
     setBalance(xionBalance?.amount as string) 
   }
   
