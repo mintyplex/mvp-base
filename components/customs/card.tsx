@@ -67,6 +67,21 @@ export function Card({
     }
   }, []);
 
+  const generateRandomColor = () => {
+    // Generate a random hex color code (replace with your preferred method)
+    const randomColor = Math.floor(Math.random() * 16777215)
+      .toString(16)
+      .padStart(6, "0");
+    return `#${randomColor}`;
+  };
+
+  const styles = {
+    width: "20px",
+    height: "20px",
+    borderRadius: "30px",
+    background: `linear-gradient(to right, ${generateRandomColor()}, ${generateRandomColor()})`,
+  };
+
   return (
     <div
       className={cn(
@@ -83,7 +98,7 @@ export function Card({
             src={image}
             className="transition-all duration-300 hover:scale-105"
             style={{
-              width:'100%',
+              width: "100%",
               height: "200px",
               minWidth: "200px",
               objectFit: "cover",
@@ -93,18 +108,19 @@ export function Card({
         </div>
         <div className="pb-3 border-b space-y-2 border-mintyplex-border">
           <TypographyP className="text-sm">
-            {truncateString(name, 46)}
+            {truncateString(name, 30)}
           </TypographyP>
           <div>
             <small className="flex items-center gap-2">
               by{" "}
-              <Image
+              {/* <Image
                 height={20}
                 width={20}
                 className="max-h-[20px] object-cover rounded-full"
                 src={byImg}
                 alt={by}
-              />
+              /> */}
+              <div style={styles} />
               <Link href={`/creator/${by}`} className="underline">
                 {truncateXionAddress(by)}
               </Link>

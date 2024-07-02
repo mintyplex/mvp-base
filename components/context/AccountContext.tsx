@@ -17,6 +17,7 @@ type AccountProviderProps = {
   toggleSidebar: () => void;
   client: any | null;
   accountData: string | null;
+  balance: string | null;
   isLoggedIn: boolean;
   isSidebarOpen: boolean;
   account: any;
@@ -48,6 +49,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   const [, setShowAbstraxion] = useModal();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [accountData, setAccountData] = useState<string | null>(null);
+  const [balance, setBalance] = useState<string | null>(null)
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -71,29 +73,40 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   // console.log(account, client)
   // const apiUrl = process.env.NEXT_BASE_URL;
 
-  
   const profile = account?.bech32Address;
-  
+
   useEffect(() => {
     setIsLoggedIn(!!profile);
     setAccountData(profile);
   }, [profile, router]);
+
+  // const balance = await client?.getBalance(account?.bech32Address, "xion");
+  async function fetchBalance() {
+    const xionBalance = await client?.getBalance(account?.bech32Address, "xion");
+    console.log(xionBalance);
+    setBalance(xionBalance?.amount as string) 
+  }
   
+  fetchBalance();
+  
+console.log(balance)
+
   const { userData } = useFetchUserData({ isLoggedIn, accountData });
-  
+
   // useEffect(() => {
   //   if (!userData) {
   //     router.push("/");
   //   }
   // }, [isLoggedIn, router, userData]);
-  
+
   // console.log(userData);
-  const userAvatar = userData?.avatar
+  const userAvatar = userData?.avatar;
 
   const contextValue: AccountProviderProps = {
     toggleSidebar,
     client,
     accountData,
+    balance,
     isLoggedIn,
     isSidebarOpen,
     account,

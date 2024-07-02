@@ -1,5 +1,6 @@
 "use client";
 
+import { useAbstraxionSigningClient } from "@burnt-labs/abstraxion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -9,9 +10,11 @@ import { useAccount } from "~/components/context/AccountContext";
 import { useCart } from "~/components/context/CartContext";
 import { Button } from "~/components/ui/button";
 import { TooltipProvider } from "~/components/ui/tooltip";
+import useBuyFunction from "~/hooks/useBuyFunction";
 import useFetchUserData from "~/hooks/useFetchData";
 import {
   createPriceWithDiscount,
+  mintyplexContractAddress,
   truncateString,
   truncateXionAddress,
 } from "~/lib/utils/utils";
@@ -22,8 +25,17 @@ export default function Cart() {
   const [activeTab, setActiveTab] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const { accountData } = useAccount();
-
   const { cartItems, clearCart } = useCart();
+  const { client } = useAbstraxionSigningClient();
+  const { loading, executeResult, buyProduct, blockExplorerUrl, errors } =
+    useBuyFunction({
+      accountData,
+      seatContractAddress: mintyplexContractAddress,
+      client,
+    });
+
+    console.log(executeResult, errors);
+    
 
   useEffect(() => {
     // Function to calculate the total price of the cart
@@ -176,9 +188,27 @@ export default function Cart() {
                         </label>
                       </div>
                     </div>
-                    <Button className="w-full px-6 py-6 active:scale-95 transition-all duration-300 bg-mintyplex-primary">
-                      <span className="text-white">Pay Now</span>
+                    <Button
+                      className="w-full px-6 py-6 active:scale-95 transition-all duration-300 bg-mintyplex-primary"
+                      onClick={() => {accountData ? void buyProduct() : alert("Please login")}}
+                    >
+                      <span className="text-white">{loading ? "Processing" : "Pay Now"}</span>
                     </Button>
+                    {errors && ('Error:' + errors)}
+                    {executeResult?.transactionHash ? (
+                      <div className="flex flex-col gap-4">
+                        <p className="text-[#f8fafc] text-[14px]">
+                        Transaction hash: {executeResult?.transactionHash}
+                        </p>
+                        <a
+                          href={blockExplorerUrl}
+                          target="_blank"
+                          className="text-[#f8fafc] text-[14px] underline"
+                        >
+                          View on explorer
+                        </a>
+                      </div>
+                    ) : null}
                   </div>
                 )}
                 {activeTab === 1 && (
