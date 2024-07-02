@@ -79,7 +79,7 @@ export function Card({
     width: "20px",
     height: "20px",
     borderRadius: "30px",
-    background: `linear-gradient(to right, ${generateRandomColor()}, ${generateRandomColor()})`,
+    background: ` ${generateRandomColor()}`,
   };
 
   return (
