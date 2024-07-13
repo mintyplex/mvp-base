@@ -19,29 +19,37 @@ import { BsDownload } from "react-icons/bs";
 import { useToast } from "~/components/ui/use-toast";
 import axios from "axios";
 
+interface FileInfo {
+  name: string;
+  size: number;
+}
+
 const ProductForm = () => {
   const [tags, setTags] = useState<string[]>([]);
-  const [inputValuee, setInputValuee] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const { account, accountData, isLoggedIn } = useAccount();
   const [isLoading, setIsLoading] = useState(false);
-
+  const imageInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [images, setImages] = useState<File | string | null>(null);
+  const [filesInfo, setFilesInfo] = useState<FileInfo[]>([]);
   const router = useRouter();
   const { toast } = useToast();
 
-  const handleSuccessful = () => {
+  const handleSuccessful = (): void => {
     toast({
-      description: "Prosuct submitted successfully.",
+      description: "Product submitted successfully.",
     });
   };
 
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setInputValuee(e.target.value);
-  }
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setInputValue(e.target.value);
+  };
 
   const handleAddTag = () => {
-    if (inputValuee.trim() !== "") {
-      setTags([...tags, inputValuee.trim()]);
-      setInputValuee("");
+    if (inputValue.trim() !== "") {
+      setTags([...tags, inputValue.trim()]);
+      setInputValue("");
     }
   };
 
@@ -51,11 +59,11 @@ const ProductForm = () => {
     setTags(newTags);
   };
 
-  // for image handling
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [images, setImages] = useState<File | string | null>(null); // Store image data
+  const triggerImageInput = (): void => {
+    imageInputRef.current?.click();
+  };
 
-  const triggerFileInput = () => {
+  const triggerFileInput = (): void => {
     fileInputRef.current?.click();
   };
 
@@ -87,7 +95,19 @@ const ProductForm = () => {
     setImages(file); // Update state with the File object
   };
 
-  const removeImage = () => {
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const files = event.target.files;
+    if (!files) return;
+
+    const filesArray: FileInfo[] = Array.from(files).map((file) => ({
+      name: file.name,
+      size: Math.round((file.size / (1024 * 1024)) * 100) / 100,
+    }));
+
+    setFilesInfo(filesArray);
+  };
+
+  const removeImage = (): void => {
     setImages(null);
   };
 
@@ -115,7 +135,6 @@ const ProductForm = () => {
     data.price = Number(data.price);
     data.discount = Number(data.discount);
     data.quantity = Number(data.quantity);
-    // data.image = images;
 
     data.tags = tags;
 
@@ -129,6 +148,13 @@ const ProductForm = () => {
     } else {
       console.warn("Invalid image data provided.");
     }
+
+    // Append files from filesInfo
+    filesInfo.forEach((file, index) => {
+      if (file instanceof File) {
+        formData.append(`file${index}`, file); // Append each file with a unique key
+      }
+    });
 
     // console.log(data);
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/product";
@@ -169,7 +195,7 @@ const ProductForm = () => {
             Image <span className="text-red-600">*</span>
           </h1>
           <div className="w-full my-4">
-            <div onClick={triggerFileInput} className="cursor-pointer">
+            <div onClick={triggerImageInput} className="cursor-pointer">
               <div className="bg-[#1C1E1E]/[0.5] h-[180px] p-8 flex flex-col items-center opacity-90 justify-center">
                 <FaCamera size={24} />
                 <p className="font-light">Upload an image or drag and drop</p>
@@ -183,7 +209,7 @@ const ProductForm = () => {
               multiple // Allow multiple files
               onChange={handleImageChange}
               className="hidden"
-              ref={fileInputRef}
+              ref={imageInputRef}
             />
           </div>
           {/* Images collage */}
@@ -328,15 +354,23 @@ const ProductForm = () => {
                 <div className="bg-[#1C1E1E]/[0.5] h-[120px] p-8 flex flex-col items-center opacity-90 justify-center">
                   <BsDownload size={24} />
                   <p className="font-light">Upload a file or drag and drop</p>
-                  {/* <p className="font-light">PNG or JPEG upto 5MB</p> */}
+                  {filesInfo.map((file, index) => (
+                    <div
+                      className="flex flex-col items-center text-neutral-400"
+                      key={index}
+                    >
+                      <p>Name: {file?.name}</p>
+                      <p>Size: {file?.size} MB</p>
+                    </div>
+                  ))}
                 </div>
               </div>
               <input
                 type="file"
                 id="image-upload"
-                accept="image/*"
+                accept="*/*"
                 multiple // Allow multiple files
-                onChange={handleImageChange}
+                onChange={handleFileChange}
                 className="hidden"
                 ref={fileInputRef}
               />
@@ -362,7 +396,7 @@ const ProductForm = () => {
           <div className="form">
             <input
               type="text"
-              value={inputValuee}
+              value={inputValue}
               onChange={handleInputChange}
               className="p-4 border-2 text-sm border-[rgb(99,99,99)] placeholder:text-[14px] "
               placeholder="Type a tag"
