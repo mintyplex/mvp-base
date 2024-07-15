@@ -21,6 +21,7 @@ import axios from "axios";
 
 interface FileInfo {
   name: string;
+  type: string;
   size: number;
 }
 
@@ -32,6 +33,7 @@ const ProductForm = () => {
   const imageInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [images, setImages] = useState<File | string | null>(null);
+  const [fileUploaded, setFileUloaded] = useState<File | string | null>(null);
   const [filesInfo, setFilesInfo] = useState<FileInfo[]>([]);
   const router = useRouter();
   const { toast } = useToast();
@@ -95,16 +97,37 @@ const ProductForm = () => {
     setImages(file); // Update state with the File object
   };
 
+  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  //   const files = event.target.files;
+  //   if (!files) return;
+
+  //   const filesArray: FileInfo[] = Array.from(files).map((file) => ({
+  //     name: file.name,
+  //     size: Math.round((file.size / (1024 * 1024)) * 100) / 100,
+  //   }));
+
+  //   setFilesInfo(filesArray);
+  // };
+
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const files = event.target.files;
-    if (!files) return;
+    if (!files || files.length === 0) return;
 
-    const filesArray: FileInfo[] = Array.from(files).map((file) => ({
+    const file = files[0]; // Select only the first file
+
+    const fileData = {
       name: file.name,
-      size: Math.round((file.size / (1024 * 1024)) * 100) / 100,
-    }));
+      type: file.type,
+      size: file.size,
+    };
 
-    setFilesInfo(filesArray);
+    setFilesInfo([fileData]);
+    setFileUloaded(file);
+
+    // if (file.size > 5 * 1024 * 1024) {
+    //   console.error("Image file size exceeds 5MB limit.");
+    //   return;
+    // }
   };
 
   const removeImage = (): void => {
@@ -150,13 +173,13 @@ const ProductForm = () => {
     }
 
     // Append files from filesInfo
-    filesInfo.forEach((file, index) => {
-      if (file instanceof File) {
-        formData.append(`file${index}`, file); // Append each file with a unique key
-      }
-    });
+    if (fileUploaded instanceof File) {
+      formData.append("file", fileUploaded);
+    } else {
+      console.warn("Invalid file data provided for 'file'.");
+    }
 
-    // console.log(data);
+    // console.log([...formData.entries()]);
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/product";
     try {
       const response = await axios.postForm(
@@ -361,6 +384,7 @@ const ProductForm = () => {
                     >
                       <p>Name: {file?.name}</p>
                       <p>Size: {file?.size} MB</p>
+                      <p>Type: {file?.type}</p>
                     </div>
                   ))}
                 </div>
