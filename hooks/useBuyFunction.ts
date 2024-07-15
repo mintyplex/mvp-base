@@ -18,6 +18,7 @@ type BuyProductOptions = {
 const useBuyFunction = (options: BuyProductOptions) => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<any>(null);
+  const [productID, setProductID] = useState("");
   const [executeResult, setExecuteResult] = useState<ExecuteResult | undefined>(
     undefined
   );
@@ -38,13 +39,11 @@ const useBuyFunction = (options: BuyProductOptions) => {
   const buyProduct = async () => {
     setLoading(true);
     const msg = {
-      sales: {
-        buy_item: {
-          token_id: String(getTimestampInSeconds(now)),
-          owner: options.accountData,
-          token_uri: "",
-          extension: {},
-        },
+      buy_item: {
+        token_id: productID,
+        owner: options.accountData,
+        token_uri: "",
+        extension: {},
       },
     };
 
@@ -71,7 +70,14 @@ const useBuyFunction = (options: BuyProductOptions) => {
     }
   };
 
-  return { loading, executeResult, buyProduct, errors, blockExplorerUrl };
+  return {
+    loading,
+    executeResult,
+    buyProduct,
+    setProductID,
+    errors,
+    blockExplorerUrl,
+  };
 };
 
 export default useBuyFunction;

@@ -27,15 +27,24 @@ export default function Cart() {
   const { accountData } = useAccount();
   const { cartItems, clearCart } = useCart();
   const { client } = useAbstraxionSigningClient();
-  const { loading, executeResult, buyProduct, blockExplorerUrl, errors } =
-    useBuyFunction({
-      accountData,
-      seatContractAddress: mintyplexContractAddress,
-      client,
-    });
+  const {
+    loading,
+    executeResult,
+    buyProduct,
+    blockExplorerUrl,
+    errors,
+    setProductID,
+  } = useBuyFunction({
+    accountData,
+    seatContractAddress: mintyplexContractAddress,
+    client,
+  });
 
-    console.log(executeResult, errors);
-    
+  useEffect(() => {
+    setProductID(cartItems[0].ID);
+  });
+
+  console.log(executeResult, errors);
 
   useEffect(() => {
     // Function to calculate the total price of the cart
@@ -190,15 +199,19 @@ export default function Cart() {
                     </div>
                     <Button
                       className="w-full px-6 py-6 active:scale-95 transition-all duration-300 bg-mintyplex-primary"
-                      onClick={() => {accountData ? void buyProduct() : alert("Please login")}}
+                      onClick={() => {
+                        accountData ? void buyProduct() : alert("Please login");
+                      }}
                     >
-                      <span className="text-white">{loading ? "Processing" : "Pay Now"}</span>
+                      <span className="text-white">
+                        {loading ? "Processing" : "Pay Now"}
+                      </span>
                     </Button>
-                    {errors && ('Error:' + errors)}
+                    {errors && "Error:" + errors}
                     {executeResult?.transactionHash ? (
                       <div className="flex flex-col gap-4">
                         <p className="text-[#f8fafc] text-[14px]">
-                        Transaction hash: {executeResult?.transactionHash}
+                          Transaction hash: {executeResult?.transactionHash}
                         </p>
                         <a
                           href={blockExplorerUrl}
