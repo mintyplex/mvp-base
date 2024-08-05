@@ -27,7 +27,7 @@ export const truncateXionAddress = (address: string = "") => {
 };
 
 export const mintyplexContractAddress: string =
-  "xion1gdzk8u6z3u46220qtlr6kktqv023dsyh32j22c05vnpr5wnfulmsxvcwrv";
+  "xion1z7lyct6reu9gzsuq382ewn0jd3s4c85t6tl0z2gn5zq63px8feysxm5umq";
 
 export function truncateString(str: string, maxLength: number): string {
   if (str?.length > maxLength) {

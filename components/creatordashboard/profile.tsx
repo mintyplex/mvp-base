@@ -33,7 +33,7 @@ interface ProductType {
 
 export default function Profile() {
   const [editModal, setEditModal] = useState(false);
-  const { accountData, isLoggedIn, userAvatar, userData } = useAccount();
+  const { accountData, isLoggedIn, userAvatar, userData, balance } = useAccount();
 
   const userProducts = userData?.products;
   const userURL = `${userData?.x_link}`;
@@ -144,6 +144,7 @@ export default function Profile() {
                 >
                   <GoCopy />
                 </div>
+                balance: {balance}
               </div>
               <div className="w-full grid place-items-center">
                 <p className="max-w-[630px] text-left font-[300]">
