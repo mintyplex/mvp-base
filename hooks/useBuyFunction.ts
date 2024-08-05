@@ -53,7 +53,7 @@ const useBuyFunction = (options: BuyProductOptions) => {
         options.seatContractAddress,
         msg,
         {
-          amount: [{ amount: "0", denom: "uxion" }],
+          amount: [{ amount: "1", denom: "uxion" }],
           gas: "500000",
         },
         "",
