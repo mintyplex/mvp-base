@@ -25,6 +25,9 @@ import { truncate } from "~/utils/truncate";
 import { TypographyH3 } from "~/utils/typography";
 import useSearch from "~/hooks/useSearchHook";
 import { Result } from "postcss";
+import { ConnectButton } from "thirdweb/react";
+import { base } from "thirdweb/chains";
+import { client } from "~/app/client";
 
 interface Product {
   id: string;
@@ -71,7 +74,6 @@ export default function Navbar() {
   });
 
   // console.log(filteredData);
-  
 
   const handleClick = () => {
     setSearchTerm("");
@@ -264,12 +266,15 @@ export default function Navbar() {
                   </DropdownMenu>
                 </div>
               ) : (
-                <button
-                  onClick={() => setShowAbstraxion(true)}
-                  className="rounded-[8px] text-[14px] px-5 py-2 bg-mintyplex-primary hover:bg-mintyplex-border"
-                >
-                  Login{" "}
-                </button>
+                // <button
+                //   onClick={() => setShowAbstraxion(true)}
+                //   className="rounded-[8px] text-[14px] px-5 py-2 bg-mintyplex-primary hover:bg-mintyplex-border"
+                // >
+                //   Login{" "}
+                // </button>
+                <ConnectButton client={client} chain={base} connectModal={{
+                  size: "compact",
+                }} />
               )}
               <Abstraxion
                 onClose={() => {

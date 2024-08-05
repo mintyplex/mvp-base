@@ -7,6 +7,7 @@ import Navbar from "~/components/customs/navbar/navbar";
 import { HideAt } from "~/components/customs/show-at";
 import { ThemeProvider } from "~/components/customs/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { ThirdwebProvider } from "thirdweb/react";
 import { cn } from "~/lib/utils/utils";
 import "./globals.css";
 
@@ -66,7 +67,8 @@ export default function RootLayout({
     <html lang="en" className="bg-mintyplex-dark">
       <body className={cn(inter.className, "bg-mintyplex-dark text-white")}>
         <QueryProvider>
-          <BurntWrapper>
+          {/* <BurntWrapper> */}
+          <ThirdwebProvider>
             <AccountProvider>
               <ProtectedRoute>
                 <CartProvider>
@@ -88,7 +90,8 @@ export default function RootLayout({
                 </CartProvider>
               </ProtectedRoute>
             </AccountProvider>
-          </BurntWrapper>
+          </ThirdwebProvider>
+          {/* </BurntWrapper> */}
         </QueryProvider>
       </body>
     </html>
