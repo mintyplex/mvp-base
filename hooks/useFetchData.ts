@@ -24,11 +24,13 @@ interface UseFetchUserDataProps {
   isLoggedIn: boolean;
   accountData: string | null;
   retries?: number;
+  setLoadingModal: (value: boolean) => void;
 }
 
 const useFetchUserData = ({
   isLoggedIn,
   accountData,
+  setLoadingModal,
   retries = 0,
 }: UseFetchUserDataProps) => {
   const router = useRouter();
@@ -46,17 +48,17 @@ const useFetchUserData = ({
     ["userData"],
     fetchUserData,
     {
-      refetchOnWindowFocus:true,
+      refetchOnWindowFocus: true,
       enabled: isLoggedIn && !!accountData,
       retry: retries,
       onSuccess: (data) => {
         if (data?.user) {
-          if (typeof window !== 'undefined'){
+          if (typeof window !== "undefined") {
             localStorage.setItem("user", JSON.stringify(data.user));
           }
         }
         if (data?.error === true) {
-          setHasError(true)
+          setHasError(true);
         }
       },
       onError: (error) => {
@@ -67,9 +69,10 @@ const useFetchUserData = ({
 
   useEffect(() => {
     if (hasError) {
-      router.push("/profile-update");
+      // router.push("/profile-update");
+      setLoadingModal(true);
     }
-  }, [router, hasError]);
+  }, [router, hasError, setLoadingModal]);
 
   return { userData: data?.user, status, isLoading, hasError };
 };

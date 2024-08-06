@@ -11,18 +11,24 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import useFetchUserData from "~/hooks/useFetchData";
+import { useActiveAccount, useWalletBalance } from "thirdweb/react";
+import { client } from "~/app/client";
+import { base } from "thirdweb/chains";
+import ProfileModal from "~/app/profile-update/profileModal";
 
 // I don't know how to properly get the type for client so I'll just pass in any for the type being
 type AccountProviderProps = {
   toggleSidebar: () => void;
-  client: any | null;
+  // client: any | null;
   accountData: string | null;
-  balance: string | null;
+  userBalance: string | null;
   isLoggedIn: boolean;
   isSidebarOpen: boolean;
   account: any;
   setShowAbstraxion: (value: boolean) => void;
+  setLoadingModal: (value: boolean) => void;
   closeSidebar: () => void;
+  loadingModal: any | null;
   isError: any | null;
   loading: any | null;
   setIsError: any | null;
@@ -49,9 +55,10 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   const [, setShowAbstraxion] = useModal();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [accountData, setAccountData] = useState<string | null>(null);
-  const [balance, setBalance] = useState<string | null>(null)
+  const [userBalance, setUserBalance] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [loadingModal, setLoadingModal] = useState(false);
 
   const router = useRouter();
 
@@ -64,34 +71,38 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     setIsSidebarOpen(false);
   };
 
-  // const [userData, setUserData] = useState(null);
-
   // XION
-  const { data: account } = useAbstraxionAccount();
-  const { client } = useAbstraxionSigningClient();
+  // const { data: account } = useAbstraxionAccount();
+  // const { client } = useAbstraxionSigningClient();
 
-  // console.log(account, client)
-  // const apiUrl = process.env.NEXT_BASE_URL;
+  // Thirdweb
+  const account = useActiveAccount();
+  const profile = account?.address;
 
-  const profile = account?.bech32Address;
+  const { data: balance, isLoading } = useWalletBalance({
+    client: client,
+    chain: base,
+    address: account?.address,
+  });
+
+  // console.log("wallet address", account?.address);
+  // console.log("wallet balance", balance?.displayValue, balance?.symbol);
 
   useEffect(() => {
     setIsLoggedIn(!!profile);
-    setAccountData(profile);
-  }, [profile, router]);
+    setAccountData(profile as any);
+    setUserBalance(balance?.displayValue as string);
+  }, [profile, router, balance?.displayValue]);
 
-  // const balance = await client?.getBalance(account?.bech32Address, "xion");
-  async function fetchBalance() {
-    const xionBalance = await client?.getBalance(account?.bech32Address, "xion");
-    console.log(xionBalance);
-    setBalance(xionBalance?.amount as string) 
+  const { userData } = useFetchUserData({
+    isLoggedIn,
+    accountData,
+    setLoadingModal,
+  });
+
+  {
+    loadingModal && <ProfileModal isOpen={loadingModal} />;
   }
-  
-  fetchBalance();
-  
-console.log(balance)
-
-  const { userData } = useFetchUserData({ isLoggedIn, accountData });
 
   // useEffect(() => {
   //   if (!userData) {
@@ -104,9 +115,10 @@ console.log(balance)
 
   const contextValue: AccountProviderProps = {
     toggleSidebar,
-    client,
+    setLoadingModal,
+    loadingModal,
     accountData,
-    balance,
+    userBalance,
     isLoggedIn,
     isSidebarOpen,
     account,

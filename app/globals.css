@@ -180,3 +180,10 @@ select#attributeSelect {
       transform: rotate(360deg);
     }
   } 
+
+  .login-button{
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #2063F2;
+    /* background: linear-gradient(87.25deg, #2063F2, #A431FF 33.33%, #A431FF 66.67%, #FF73AE); */
+  }

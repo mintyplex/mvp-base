@@ -17,13 +17,13 @@ import axios from "axios";
 
 interface FormData {
   bio: string;
-  wallet_address: string;
+  wallet_address: string | null;
   x_link: string;
   avatar?: File;
 }
 
 export default function UpdateProfile() {
-  const { account } = useAccount();
+  const { accountData } = useAccount();
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
@@ -92,7 +92,7 @@ export default function UpdateProfile() {
 
     const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
     // const apiUrl = process.env.NEXT_BASE_URL;
-    values.wallet_address = account.bech32Address;
+    values.wallet_address = accountData;
 
     const formData = new FormData();
     for (const key in values) {
@@ -174,7 +174,7 @@ export default function UpdateProfile() {
               className="flex flex-col gap-3 w-full"
             >
               <div className="w-full py-2 px-4 flex justify-center">
-                <h3>{truncate(account.bech32Address)}</h3>
+                <h3>{truncate(accountData)}</h3>
               </div>
               <div className="form">
                 <p className="mb-2 text-[14px]">
