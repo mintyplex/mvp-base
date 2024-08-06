@@ -12,7 +12,6 @@ import {
 import { FaFacebookF } from "react-icons/fa6";
 import { GoCopy } from "react-icons/go";
 import { BsArrowUpRight, BsChevronDown } from "react-icons/bs";
-import { TypographyH3 } from "../../utils/typography";
 import { usePathname } from "next/navigation";
 import TwitterIcon from "../ui/TwitterIcon";
 import TelegramIcon from "../ui/TelegramIcon";
@@ -23,7 +22,14 @@ import { useAccount } from "../context/AccountContext";
 import { copyToClipboard } from "~/utils/copyToClipboard";
 import { useToast } from "../ui/use-toast";
 import ReserveUsername from "../customs/ReserveUsername";
-import useFetchUserData from "~/hooks/useFetchData";
+import {
+  ConnectButton,
+  darkTheme,
+  useActiveWallet,
+  useDisconnect,
+} from "thirdweb/react";
+import { client } from "~/app/client";
+import { base } from "thirdweb/chains";
 
 export const SidebarData = [
   {
@@ -56,7 +62,6 @@ export const SidebarData = [
 const MobileSidebar = ({
   closeSidebar,
   isLoggedIn,
-  setShowAbstraxion,
 }: {
   closeSidebar: () => void;
   isLoggedIn: boolean;
@@ -65,7 +70,6 @@ const MobileSidebar = ({
   const pathname = usePathname();
 
   const { accountData, userAvatar } = useAccount();
-  const { userData } = useFetchUserData({ isLoggedIn, accountData });
 
   const filteredSidebarData = SidebarData.filter((data) => {
     if (!isLoggedIn) {
@@ -79,6 +83,8 @@ const MobileSidebar = ({
   });
 
   const { toast } = useToast();
+  const { disconnect } = useDisconnect();
+  const wallet = useActiveWallet();
 
   // handle copy notification
   const handleCopy = (text: string | null) => {
@@ -145,7 +151,7 @@ const MobileSidebar = ({
                   <BsArrowUpRight />
                 </Button>
               </DialogTrigger>
-              <DialogContent className='w-[300px]' >
+              <DialogContent className="w-[300px]">
                 <ReserveUsername />
               </DialogContent>
             </Dialog>
@@ -165,21 +171,37 @@ const MobileSidebar = ({
               </div>
             ))}
             {!isLoggedIn ? (
-              <div
-                onClick={() => {
-                  setShowAbstraxion(true);
-                  closeSidebar();
+              <ConnectButton
+                client={client}
+                chain={base}
+                connectButton={{
+                  label: "Login",
                 }}
-                className={`flex items-center justify-center w-full px-4 py-4 mt-4 text-center cursor-pointer bg-mintyplex-primary rounded-[8px] gap-1 transition-color hover:bg-mintyplex-primary`}
-              >
-                <p>Login</p>
-                <WalletIcon />
-              </div>
+                connectModal={{
+                  title: "Connect to Mintyplex",
+                  size: "compact",
+                }}
+                theme={darkTheme({
+                  colors: {
+                    accentButtonBg: "#2063F2",
+                    connectedButtonBgHover: "rgba(256, 256,256, 0.05)",
+                    borderColor: "rgba(256, 256,256, 0.1)",
+                    accentText: "rgba(256, 256,256, 0.1)",
+                    connectedButtonBg: "#1C1E1E",
+                    tertiaryBg: "rgba(256, 256,256, 0.1)",
+                    primaryButtonBg: "#2063F2",
+                    secondaryButtonBg: "rgba(256, 256,256, 0.1)",
+                    primaryButtonText: "#E7E8E9",
+                    primaryText: "#E7E8E9",
+                    separatorLine: "rgba(256, 256,256, 0.1)",
+                  },
+                })}
+              />
             ) : (
               <div
                 onClick={() => {
-                  setShowAbstraxion(true);
                   closeSidebar();
+                  disconnect(wallet as any);
                 }}
                 className={`mt-4 bg-[#FF0000] rounded-[8px] text-center cursor-pointer w-full flex gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-dark`}
               >
@@ -241,4 +263,3 @@ function SearchIcon({ className }: { className?: string }) {
     </svg>
   );
 }
-

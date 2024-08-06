@@ -25,7 +25,12 @@ import { truncate } from "~/utils/truncate";
 import { TypographyH3 } from "~/utils/typography";
 import useSearch from "~/hooks/useSearchHook";
 import { Result } from "postcss";
-import { ConnectButton, darkTheme } from "thirdweb/react";
+import {
+  ConnectButton,
+  darkTheme,
+  useActiveWallet,
+  useDisconnect,
+} from "thirdweb/react";
 import { base } from "thirdweb/chains";
 import { client } from "~/app/client";
 
@@ -39,11 +44,14 @@ interface Product {
 export default function Navbar() {
   // const baseURL = process.env.BASE_URL;
 
+  const { disconnect } = useDisconnect();
+  const wallet = useActiveWallet();
+
   const handleLogout = () => {
     if (typeof window !== "undefined") {
       localStorage.removeItem("user");
     }
-    setShowAbstraxion(true);
+    disconnect(wallet as any);
   };
 
   const {
@@ -291,21 +299,14 @@ export default function Navbar() {
                       connectedButtonBg: "#1C1E1E",
                       tertiaryBg: "rgba(256, 256,256, 0.1)",
                       primaryButtonBg: "#2063F2",
-                      secondaryButtonBg:
-                        "rgba(256, 256,256, 0.1)",
+                      secondaryButtonBg: "rgba(256, 256,256, 0.1)",
                       primaryButtonText: "#E7E8E9",
                       primaryText: "#E7E8E9",
-                      separatorLine:
-                        "rgba(256, 256,256, 0.1)",
+                      separatorLine: "rgba(256, 256,256, 0.1)",
                     },
                   })}
                 />
               )}
-              <Abstraxion
-                onClose={() => {
-                  setShowAbstraxion(false);
-                }}
-              />
             </div>
           </div>
           <Button

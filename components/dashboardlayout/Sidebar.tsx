@@ -21,7 +21,6 @@ import { useToast } from "../ui/use-toast";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import ReserveUsername from "../customs/ReserveUsername";
 import { useAccount } from "../context/AccountContext";
-import useFetchUserData from "~/hooks/useFetchData";
 
 export const SidebarData = [
   {
@@ -55,9 +54,8 @@ const links = [
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const { account, userAvatar, isLoggedIn, accountData, setShowAbstraxion } =
+  const { accountData, userAvatar, setShowAbstraxion } =
     useAccount();
-  const { userData } = useFetchUserData({ isLoggedIn, accountData });
   const { toast } = useToast();
 
   // handle copy notification
@@ -92,12 +90,12 @@ const Sidebar = () => {
         <div className="text-center">
           <div className="flex items-center gap-2">
             <p className="text-[25px] font-bold capitalize">
-              {truncateXionAddress(account.bech32Address)}
+              {truncateXionAddress(accountData as any)}
             </p>
             <div
               className="cursor-pointer"
               onClick={() =>
-                copyToClipboard(`${account.bech32Address}`, handleCopy)
+                copyToClipboard(`${accountData}`, handleCopy)
               }
             >
               <GoCopy />
