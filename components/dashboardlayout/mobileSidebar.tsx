@@ -11,7 +11,7 @@ import {
 } from "../../components/ui/dialog";
 import { FaFacebookF } from "react-icons/fa6";
 import { GoCopy } from "react-icons/go";
-import { BsArrowUpRight, BsChevronDown } from "react-icons/bs";
+import { BsArrowUpRight } from "react-icons/bs";
 import { usePathname } from "next/navigation";
 import TwitterIcon from "../ui/TwitterIcon";
 import TelegramIcon from "../ui/TelegramIcon";

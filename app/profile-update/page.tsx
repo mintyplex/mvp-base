@@ -83,8 +83,13 @@ export default function UpdateProfile() {
     register,
     handleSubmit,
     getValues,
+    watch,
     formState: { errors },
   } = useForm<FormData>();
+
+  const bio = watch("bio");
+  const xLink = watch("x_link");
+  const isFormValid = bio && xLink;
 
   const onSubmit = async (data: FormData) => {
     setLoading(true);
@@ -132,7 +137,7 @@ export default function UpdateProfile() {
   return (
     <>
       <div className="relative flex items-center justify-center w-full h-screen">
-        <div className="bg-[#313233] rounded-[8px] !max-w-[800px] px-4 md:px-8 py-6 md:py-10">
+        <div className="bg-[#313233] rounded-[8px] !max-w-[640px] px-4 md:px-8 py-6 md:py-10 mx-4">
           <div className="w-full flex flex-col items-center justify-center gap-2">
             <h2 className="font-[500] text-[32px]">Complete profile</h2>
             <p className="text-center text-[13px] font-[400]">
@@ -206,8 +211,12 @@ export default function UpdateProfile() {
             <div className="w-full flex justify-end mt-4">
               <button
                 onClick={handleSubmit(onSubmit)}
-                // disabled={isLoading}
-                className="text-white bg-mintyplex-primary px-3 py-2 rounded-[8px]"
+                disabled={!isFormValid}
+                className={
+                  !isFormValid
+                    ? "opacity-[0.5] text-white bg-mintyplex-primary px-3 py-2 rounded-[8px]"
+                    : "text-white bg-mintyplex-primary px-3 py-2 rounded-[8px]"
+                }
               >
                 {loading ? (
                   <>

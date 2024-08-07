@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Abstraxion } from "@burnt-labs/abstraxion";
 import Image from "next/image";
 import Link from "next/link";
 import { BsXLg } from "react-icons/bs";
