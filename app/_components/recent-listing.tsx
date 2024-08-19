@@ -8,11 +8,12 @@ import creatorImg from "~/public/curator.png";
 import { createPriceWithDiscount } from "~/lib/utils/utils";
 
 export function RecentListing({ shouldNotBe12 }: { shouldNotBe12?: boolean }) {
+
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   async function getProducts() {
-    // CURL equivalent
-    // curl -sX GET https://mintyplex-api.onrender.com/api/v1/product/
     const response = await fetch(
-      "https://mintyplex-api.onrender.com/api/v1/product/"
+      `${API_URL}/product/`
     );
 
     if (response.ok) {

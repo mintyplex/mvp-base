@@ -34,7 +34,7 @@ export default function EditModal({
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [images, setImages] = useState<File | string | any | null>(Curator);
+  const [images, setImages] = useState<File | string | any | null>(userData.avatar);
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return; // Handle no file selection
@@ -74,8 +74,7 @@ export default function EditModal({
   const onSubmit = async (data: any) => {
     const values = getValues();
 
-    const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
-    // const apiUrl = process.env.NEXT_BASE_URL;
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
     const formData = new FormData();
     for (const key in values) {
@@ -93,7 +92,7 @@ export default function EditModal({
 
     try {
       const response = await axios.putForm(
-        apiUrl + "/profile/" + accountData,
+        `${API_URL}` + "/user/profile/" + accountData,
         formData,
         {
           headers: {
@@ -115,6 +114,9 @@ export default function EditModal({
       setIsLoading(false);
     }
   };
+
+  console.log(userData);
+  
 
   return (
     <div className="bg-bg-dark/[0.65] fixed inset-0 z-[9999] backdrop-blur-[10px] px-4 overflow-auto">
@@ -142,7 +144,7 @@ export default function EditModal({
                     <FaCamera />
                   </div>
                   <Image
-                    src={typeof images === "string" || File ? images : Curator}
+                    src={typeof images === "string" || File ? images : userData.avatar}
                     width={120}
                     height={120}
                     alt="Curator"

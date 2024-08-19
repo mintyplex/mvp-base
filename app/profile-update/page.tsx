@@ -22,7 +22,7 @@ interface FormData {
   avatar?: File;
 }
 
-export default function UpdateProfile() {
+export default function UpdateProfile({ closeModal }: any) {
   const { accountData } = useAccount();
   const router = useRouter();
 
@@ -73,7 +73,9 @@ export default function UpdateProfile() {
   const { toast } = useToast();
 
   const handleSuccessful = () => {
+    
     toast({
+      title: "Success",
       description: "Profile Completed.",
     });
   };
@@ -95,8 +97,7 @@ export default function UpdateProfile() {
     setLoading(true);
     const values = getValues();
 
-    const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
-    // const apiUrl = process.env.NEXT_BASE_URL;
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
     values.wallet_address = accountData;
 
     const formData = new FormData();
@@ -114,13 +115,18 @@ export default function UpdateProfile() {
     // console.log(values);
 
     try {
-      const response = await axios.postForm(apiUrl + "/profile", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.postForm(
+        `${API_URL}` + "/user/profile",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       if (response.status === 200 || response.status === 201) {
         handleSuccessful();
+        closeModal();
         router.push("/dashboard");
         // console.log("Form submitted successfully:", response);
       } else {

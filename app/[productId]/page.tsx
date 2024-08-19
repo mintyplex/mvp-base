@@ -40,21 +40,20 @@ export default function ProductDetailPage({ params }: ProductPageProps) {
   const productId = params.productId;
 
   const queryClient = useQueryClient();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   // const searchParams = useParams();
   // const productId = searchParams.id as string;
 
   async function getProductDetails() {
-    const response = await fetch(
-      `https://mintyplex-api.onrender.com/api/v1/product/${productId}`
-    );
+    const response = await fetch(`${API_URL}/product/${productId}`);
 
     if (response.ok) {
       const data = await response.json();
       return data as ProductDetailsApi;
     }
 
-    throw new Error("Failed to fetch creator");
+    throw new Error("Failed to fetch product details");
   }
   const {
     data: productDetail,

@@ -16,6 +16,11 @@ interface ProtectedRouteProps {
 //   retries?: number;
 // }
 
+interface ProfileModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const router = useRouter();
   const { accountData, isLoggedIn, setLoadingModal, loadingModal } = useAccount();
@@ -23,17 +28,16 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     isLoggedIn,
     accountData,
     retries: 0,
-  } );
+  });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const userDatInLocalStorage = window.localStorage.getItem("user");
       if (accountData && !userDatInLocalStorage) {
-        // router.push("/profile-update");
         setLoadingModal(true);
       }
       if (userDatInLocalStorage) {
-        //
+        setLoadingModal(false);
       }
       if (!accountData && !userDatInLocalStorage) {
         router.push("/");
@@ -41,10 +45,14 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     }
   }, [accountData, userData, router]);
 
+  const closeModal = () => {
+    setLoadingModal(false);
+  };
+
   return (
     <>
       {isLoggedIn && <LoadingModal isOpen={isLoading} />}
-      {loadingModal && <ProfileModal isOpen={loadingModal} />}
+      {loadingModal && <ProfileModal isOpen={loadingModal} onClose={closeModal} />}
       {children}
     </>
   );

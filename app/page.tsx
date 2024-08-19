@@ -31,12 +31,12 @@ import { RecentListing } from "./_components/recent-listing";
 
 export default function Home() {
   const { accountData } = useAccount();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  
 
   async function getUsers() {
-    // CURL equivalent
-    // curl -sX GET https://mintyplex-api.onrender.com/api/v1/product/
     const response = await fetch(
-      "https://mintyplex-api.onrender.com/api/v1/user/users"
+      `${API_URL}/user/users`
     );
 
     if (response.ok) {

@@ -26,6 +26,8 @@ export default function ReserveUsername() {
     "Just secured a unique @Mintyplex username! 🚀 The top 100 to join before launch will receive exclusive value-added benefits for free. 🎁 Reserve your own username now: https://www.mintyplex.com";
   const twitterIntentUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   async function onSubmit(data) {
     // Check if email and username are not empty
     if (!data.email || !data.username) {
@@ -43,16 +45,13 @@ export default function ReserveUsername() {
         username: `${data.username}.mtpx`,
       };
 
-      const res = await fetch(
-        `https://mintyplex-api.onrender.com/api/v1/reserve/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ updatedData }),
-        }
-      );
+      const res = await fetch(`${API_URL}/reserve/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ updatedData }),
+      });
       if (!response.ok) {
         throw new Error(`API request failed with status: ${response.status}`);
       }

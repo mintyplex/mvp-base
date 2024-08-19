@@ -23,6 +23,8 @@ function useSearch(): UseSearchState {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   useEffect(() => {
     const fetchData = async () => {
       if (!searchTerm) {
@@ -34,9 +36,7 @@ function useSearch(): UseSearchState {
       setError(null);
 
       try {
-        const response = await fetch(
-          "https://mintyplex-api.onrender.com/api/v1/product/"
-        );
+        const response = await fetch(`${API_URL}product/`);
         const data = await response.json();
         setSearchResults(data.data);
       } catch (error) {

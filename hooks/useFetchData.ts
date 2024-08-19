@@ -34,10 +34,10 @@ const useFetchUserData = ({
   retries = 0,
 }: UseFetchUserDataProps) => {
   const router = useRouter();
-  const apiUrl = "https://mintyplex-api.onrender.com/api/v1/user";
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   const fetchUserData = async (): Promise<UserData> => {
-    const response = await fetch(`${apiUrl}/profile/${accountData}`);
+    const response = await fetch(`${API_URL}/user/profile/${accountData}`);
     if (!response.ok) throw new Error("Network response was not ok");
     return response.json();
   };

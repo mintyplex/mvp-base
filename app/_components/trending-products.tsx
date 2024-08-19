@@ -9,12 +9,10 @@ export function TrendingProducts({
 }: {
   shouldNotBe12?: boolean;
 }) {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   async function getProducts() {
-    // CURL equivalent
-    // curl -sX GET https://mintyplex-api.onrender.com/api/v1/product/
-    const response = await fetch(
-      "https://mintyplex-api.onrender.com/api/v1/product/"
-    );
+    const response = await fetch(`${API_URL}/product/`);
 
     if (response.ok) {
       const data = await response.json();
@@ -53,7 +51,9 @@ export function TrendingProducts({
 
   return (
     <div className="grid-cols-2 grid gap-4 xl:grid-cols-5 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3">
-      <RenderCards data={(sortedData as ProductFromApi[])?.slice(0, rendereAmount)} />
+      <RenderCards
+        data={(sortedData as ProductFromApi[])?.slice(0, rendereAmount)}
+      />
     </div>
   );
 }

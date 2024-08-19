@@ -5,16 +5,22 @@ import ReactDOM from "react-dom";
 import "../../components/ui/LoadingModal.css";
 import UpdateProfile from "./page";
 
-const ProfileModal = ({ isOpen }: any) => {
+interface ProfileModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
-  function closeModal() {
-    isOpen = false;
-  }
+
+  const closeModal = () => {
+    onClose();
+  };
 
   return (
-    <div className="modal-overlay" onClick={closeModal}>
+    <div className="modal-overlay">
       <div className="">
-        <UpdateProfile />
+        <UpdateProfile closeModal={closeModal} />
       </div>
     </div>
   );

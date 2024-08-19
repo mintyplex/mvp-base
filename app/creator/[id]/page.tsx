@@ -41,13 +41,14 @@ interface ProductType {
 export default function Curator() {
   const [showFilter, setShowFilter] = useState(false);
   const queryClient = useQueryClient();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
   const searchParams = useParams();
   const creatorAddress = searchParams.id as string;
 
   async function getCuratorData() {
     const response = await fetch(
-      `https://mintyplex-api.onrender.com/api/v1/user/profile/${creatorAddress}`
+      `${API_URL}/user/profile/${creatorAddress}`
     );
 
     if (response.ok) {

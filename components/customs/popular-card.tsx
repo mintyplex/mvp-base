@@ -19,9 +19,12 @@ interface CategoryCreatorCounts {
 }
 
 export function PopularCard({ asSmall, mxAuto, index }: PopularCardProps) {
+  
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  
   async function getProducts() {
     const response = await fetch(
-      "https://mintyplex-api.onrender.com/api/v1/product/"
+      `${API_URL}/product/`
     );
 
     if (response.ok) {

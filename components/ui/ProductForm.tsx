@@ -40,7 +40,14 @@ const ProductForm = () => {
 
   const handleSuccessful = (): void => {
     toast({
+      title: "Success",
       description: "Product submitted successfully.",
+    });
+  };
+  const handleFailed = (): void => {
+    toast({
+      title: "Error",
+      description: "Product Failed to upload.",
     });
   };
 
@@ -152,6 +159,8 @@ const ProductForm = () => {
   //   data.price = parseFloat(data.price).toFixed(2);
   //   data.discount = parseFloat(data.discount).toFixed(2);
   // }
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   const onSubmit = async (data: any) => {
     setIsLoading(true);
 
@@ -180,10 +189,9 @@ const ProductForm = () => {
     }
 
     // console.log([...formData.entries()]);
-    const apiUrl = "https://mintyplex-api.onrender.com/api/v1/product";
     try {
       const response = await axios.postForm(
-        `${apiUrl}/${accountData}`,
+        `${API_URL}/product/${accountData}`,
         formData,
         {
           headers: {
@@ -200,11 +208,11 @@ const ProductForm = () => {
         return response.data;
       } else {
         console.error("Error creating product:", response.data);
-        throw new Error("Product creation failed."); // Create a custom error
+        throw new Error("Product creation failed.");
       }
     } catch (error) {
       console.error("Error posting data:", error);
-      // Handle error in the component (e.g., display a user-friendly message)
+      handleFailed();
     } finally {
       setIsLoading(false); // Set loading state to false even in case of errors
     }

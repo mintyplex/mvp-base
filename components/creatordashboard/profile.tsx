@@ -42,12 +42,14 @@ export default function Profile() {
 
   const handleSuccessful = () => {
     toast({
+      title: "Success",
       description: "Profile updated.",
     });
   };
 
   const handleError = () => {
     toast({
+      title: "Error",
       description: "Error uploading image (try an image with less than 1mb).",
     });
   };
