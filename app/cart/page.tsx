@@ -23,9 +23,9 @@ import { TypographyH3, TypographyH4 } from "~/utils/typography";
 
 export default function Cart() {
   const [activeTab, setActiveTab] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
   const { accountData } = useAccount();
-  const { cartItems, clearCart } = useCart();
+  const { cartItems, clearCart, totalPrice, updatePrice, updateQuantity } =
+    useCart();
   const { client } = useAbstraxionSigningClient();
   const {
     loading,
@@ -41,33 +41,8 @@ export default function Cart() {
   });
 
   useEffect(() => {
-    setProductID(cartItems[0].ID);
+    setProductID(cartItems[0]?.ID);
   });
-
-  console.log(executeResult, errors);
-
-  useEffect(() => {
-    // Function to calculate the total price of the cart
-    const calculateTotal = () => {
-      let total = 0;
-      cartItems.forEach((item) => {
-        const priceAfterDiscount = createPriceWithDiscount(
-          item.Price,
-          item.Discount
-        );
-        total += Number(priceAfterDiscount) * Number(item.quantity);
-      });
-      return total;
-    };
-
-    // Set the total price using the function above
-    if (cartItems.length > 0) {
-      const newTotalPrice = calculateTotal();
-      setTotalPrice(newTotalPrice);
-    } else {
-      setTotalPrice(0);
-    }
-  }, [cartItems]);
 
   const tabs = [
     {
@@ -107,6 +82,8 @@ export default function Cart() {
                         quantity={item?.quantity}
                         itemId={item.ID}
                         image={item.CoverImage}
+                        updateQuantity={updateQuantity}
+                        updatePrice={updatePrice}
                       />
                     ))
                   ) : (
@@ -130,16 +107,6 @@ export default function Cart() {
                       ${totalPrice.toFixed(2)}
                     </p>
                   </div>
-                  {/* <div className="hidden md:flex items-center justify-between">
-                    <p className="text-[20px] font-[500]">
-                      Transaction fee (gas)
-                    </p>
-                    <p className="text-[20px] font-[500]">USD$23</p>
-                  </div> */}
-                  {/* <div className="hidden md:flex items-center justify-between">
-                    <p className="text-[20px] font-[500]">Processing Fee</p>
-                    <p className="text-[20px] font-[500]">USD$23</p>
-                  </div> */}
                 </div>
               </div>
               <div className="sticky top-5 flex flex-col gap-4 bg-[#313233] rounded-[8px] h-fit p-[24px] lg:w-[520px] md:w-full w-full">
@@ -199,29 +166,14 @@ export default function Cart() {
                     </div>
                     <Button
                       className="w-full px-6 py-6 active:scale-95 transition-all duration-300 bg-mintyplex-primary"
-                      onClick={() => {
-                        accountData ? void buyProduct() : alert("Please login");
-                      }}
+                      // onClick={() => {
+                      //   accountData ? void buyProduct() : alert("Please login");
+                      // }}
                     >
                       <span className="text-white">
                         {loading ? "Processing" : "Pay Now"}
                       </span>
                     </Button>
-                    {errors && "Error:" + errors}
-                    {executeResult?.transactionHash ? (
-                      <div className="flex flex-col gap-4">
-                        <p className="text-[#f8fafc] text-[14px]">
-                          Transaction hash: {executeResult?.transactionHash}
-                        </p>
-                        <a
-                          href={blockExplorerUrl}
-                          target="_blank"
-                          className="text-[#f8fafc] text-[14px] underline"
-                        >
-                          View on explorer
-                        </a>
-                      </div>
-                    ) : null}
                   </div>
                 )}
                 {activeTab === 1 && (
@@ -241,15 +193,40 @@ export default function Cart() {
   );
 }
 
-function CartCard({ name, quantity, price, discount, by, itemId, image }: any) {
+function CartCard({
+  name,
+  quantity,
+  price,
+  discount,
+  by,
+  itemId,
+  image,
+  updateQuantity,
+  updatePrice,
+}: any) {
   const [number, setNumber] = useState(quantity);
-  const [updatedPrice, setUpdatedPrice] = useState<null | number>(null);
 
   const { removeFromCart } = useCart();
 
-  useEffect(() => {
-    setUpdatedPrice(price * number);
-  }, [number, price]);
+  const handleIncrement = () => {
+    setNumber((prevNumber: any) => {
+      const newQuantity = prevNumber + 1;
+      updateQuantity(itemId, newQuantity);
+      return newQuantity;
+    });
+  };
+
+  const handleDecrement = () => {
+    setNumber((prevNumber: any) => {
+      if (prevNumber > 1) {
+        const newQuantity = prevNumber - 1;
+        updateQuantity(itemId, newQuantity);
+        return newQuantity;
+      }
+      return prevNumber; // Prevent decrementing below 1
+    });
+  };
+  const updatedPrice = price * number;
 
   return (
     <>
@@ -293,9 +270,7 @@ function CartCard({ name, quantity, price, discount, by, itemId, image }: any) {
           <div className="flex gap-[10px] items-center">
             <button
               className="py-2 px-4 bg-[#9F9F9F] cursor-pointer rounded-[10px] hover:bg-primary"
-              onClick={() =>
-                setNumber((prev: any) => (prev > 1 ? prev - 1 : 1))
-              }
+              onClick={handleDecrement}
             >
               -
             </button>
@@ -304,7 +279,7 @@ function CartCard({ name, quantity, price, discount, by, itemId, image }: any) {
             </div>
             <button
               className="py-2 px-4 bg-[#9F9F9F] cursor-pointer rounded-[10px] hover:bg-primary"
-              onClick={() => setNumber((prev: any) => prev + 1)}
+              onClick={handleIncrement}
             >
               +
             </button>
