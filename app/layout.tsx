@@ -7,7 +7,6 @@ import Navbar from "~/components/customs/navbar/navbar";
 import { HideAt } from "~/components/customs/show-at";
 import { ThemeProvider } from "~/components/customs/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { ThirdwebProvider } from "thirdweb/react";
 import { cn } from "~/lib/utils/utils";
 import "./globals.css";
 
@@ -24,6 +23,8 @@ import { queryClient } from "~/lib/queryClient";
 import { QueryProvider } from "~/components/context/queryClient";
 import ProtectedRoute from "~/components/customs/protected-route";
 import { CartProvider } from "~/components/context/CartContext";
+import { BaseSepoliaTestnet } from "@thirdweb-dev/chains";
+import { ThirdwebProvider } from "@thirdweb-dev/react";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://testnet.mintyplex.com/"),
@@ -68,7 +69,10 @@ export default function RootLayout({
       <body className={cn(inter.className, "bg-mintyplex-dark text-white")}>
         <QueryProvider>
           {/* <BurntWrapper> */}
-          <ThirdwebProvider>
+          <ThirdwebProvider
+            activeChain={BaseSepoliaTestnet}
+            clientId="648dd0dd39c83ec04b42837410d06c75"
+          >
             <AccountProvider>
               <ProtectedRoute>
                 <CartProvider>

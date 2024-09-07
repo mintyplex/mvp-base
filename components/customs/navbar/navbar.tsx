@@ -24,14 +24,7 @@ import { truncate } from "~/utils/truncate";
 import { TypographyH3 } from "~/utils/typography";
 import useSearch from "~/hooks/useSearchHook";
 import { Result } from "postcss";
-import {
-  ConnectButton,
-  darkTheme,
-  useActiveWallet,
-  useDisconnect,
-} from "thirdweb/react";
-import { base } from "thirdweb/chains";
-import { client } from "~/app/client";
+import { ConnectWallet, useDisconnect } from "@thirdweb-dev/react";
 
 interface Product {
   id: string;
@@ -43,14 +36,13 @@ interface Product {
 export default function Navbar() {
   // const baseURL = process.env.BASE_URL;
 
-  const { disconnect } = useDisconnect();
-  const wallet = useActiveWallet();
+  const disconnect = useDisconnect();
 
   const handleLogout = () => {
     if (typeof window !== "undefined") {
       localStorage.removeItem("user");
     }
-    disconnect(wallet as any);
+    disconnect();
   };
 
   const {
@@ -279,31 +271,10 @@ export default function Navbar() {
                 // >
                 //   Login{" "}
                 // </button>
-                <ConnectButton
-                  client={client}
-                  chain={base}
-                  connectButton={{
-                    label: "Login",
-                  }}
-                  connectModal={{
-                    title: "Connect to Mintyplex",
-                    size: "compact",
-                  }}
-                  theme={darkTheme({
-                    colors: {
-                      accentButtonBg: "#2063F2",
-                      connectedButtonBgHover: "rgba(256, 256,256, 0.05)",
-                      borderColor: "rgba(256, 256,256, 0.1)",
-                      accentText: "rgba(256, 256,256, 0.1)",
-                      connectedButtonBg: "#1C1E1E",
-                      tertiaryBg: "rgba(256, 256,256, 0.1)",
-                      primaryButtonBg: "#2063F2",
-                      secondaryButtonBg: "rgba(256, 256,256, 0.1)",
-                      primaryButtonText: "#E7E8E9",
-                      primaryText: "#E7E8E9",
-                      separatorLine: "rgba(256, 256,256, 0.1)",
-                    },
-                  })}
+                <ConnectWallet
+                  btnTitle="Login"
+                  modalSize="compact"
+                  modalTitle="Connect to Mintyplex"
                 />
               )}
             </div>
