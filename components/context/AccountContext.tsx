@@ -11,7 +11,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import useFetchUserData from "~/hooks/useFetchData";
-import { useActiveAccount, useWalletBalance } from "thirdweb/react";
+import { useAddress, useBalance, useWallet } from "@thirdweb-dev/react";
 import { client } from "~/app/client";
 import { base } from "thirdweb/chains";
 import ProfileModal from "~/app/profile-update/profileModal";
@@ -24,7 +24,7 @@ type AccountProviderProps = {
   userBalance: string | null;
   isLoggedIn: boolean;
   isSidebarOpen: boolean;
-  account: any;
+  address: any;
   setShowAbstraxion: (value: boolean) => void;
   setLoadingModal: (value: boolean) => void;
   closeSidebar: () => void;
@@ -76,23 +76,18 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   // const { client } = useAbstraxionSigningClient();
 
   // Thirdweb
-  const account = useActiveAccount();
-  const profile = account?.address;
+  const address = useAddress();
+  const profile = address;
 
-  const { data: balance, isLoading } = useWalletBalance({
-    client: client,
-    chain: base,
-    address: account?.address,
-  });
-
-  // console.log("wallet address", account?.address);
-  // console.log("wallet balance", balance?.displayValue, balance?.symbol);
+  const USDC = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+  const { data: balance, isLoading } =
+    useBalance(USDC);
 
   useEffect(() => {
     setIsLoggedIn(!!profile);
     setAccountData(profile as any);
-    setUserBalance(balance?.displayValue as string);
-  }, [profile, router, balance?.displayValue]);
+    setUserBalance(balance as any);
+  }, [profile, router, balance]);
 
   const { userData } = useFetchUserData({
     isLoggedIn,
@@ -101,7 +96,9 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
   });
 
   {
-    loadingModal && <ProfileModal isOpen={loadingModal} />;
+    loadingModal && (
+      <ProfileModal isOpen={loadingModal} onClose={closeSidebar} />
+    );
   }
 
   // useEffect(() => {
@@ -121,7 +118,7 @@ export function AccountProvider({ children }: { children: React.ReactNode }) {
     userBalance,
     isLoggedIn,
     isSidebarOpen,
-    account,
+    address,
     setShowAbstraxion,
     closeSidebar,
     isError,

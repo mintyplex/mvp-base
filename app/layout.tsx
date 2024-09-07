@@ -9,6 +9,7 @@ import { ThemeProvider } from "~/components/customs/theme-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { cn } from "~/lib/utils/utils";
 import "./globals.css";
+import Providers from "./providers"
 
 const inter = Figtree({
   subsets: ["latin"],
@@ -69,10 +70,7 @@ export default function RootLayout({
       <body className={cn(inter.className, "bg-mintyplex-dark text-white")}>
         <QueryProvider>
           {/* <BurntWrapper> */}
-          <ThirdwebProvider
-            activeChain={BaseSepoliaTestnet}
-            clientId="648dd0dd39c83ec04b42837410d06c75"
-          >
+          <Providers>
             <AccountProvider>
               <ProtectedRoute>
                 <CartProvider>
@@ -94,7 +92,7 @@ export default function RootLayout({
                 </CartProvider>
               </ProtectedRoute>
             </AccountProvider>
-          </ThirdwebProvider>
+          </Providers>
           {/* </BurntWrapper> */}
         </QueryProvider>
       </body>

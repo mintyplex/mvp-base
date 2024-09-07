@@ -18,8 +18,8 @@ import { useAccount } from "../context/AccountContext";
 // import CreatorLineChart from '~/components/ui/graph/creator-line-chart';
 
 const CreatorDashboard = () => {
-  const { userData } = useAccount();
-
+  const { userData, userBalance } = useAccount();
+  const balance = (userBalance as { displayValue?: string })?.displayValue || "0";
   const userProducts = userData?.products;
 
   return (
@@ -82,7 +82,9 @@ const CreatorDashboard = () => {
                   </div>
 
                   <div className="flex gap-[18px] mr-[20px]">
-                    <h1 className="text-[32px] font-semibold">$0.00</h1>
+                    <h1 className="text-[32px] font-semibold">
+                      ${parseFloat(balance).toFixed(2)}
+                    </h1>
                   </div>
                 </div>
 
@@ -106,7 +108,9 @@ const CreatorDashboard = () => {
                 <h1 className="text-[16px] leading-[20px] font-semibold">
                   All Products
                 </h1>
-                <h1 className="text-[32px] font-semibold">{userProducts?.length}</h1>
+                <h1 className="text-[32px] font-semibold">
+                  {userProducts?.length}
+                </h1>
               </div>
             </div>
 

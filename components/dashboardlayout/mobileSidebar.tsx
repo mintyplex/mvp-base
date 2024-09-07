@@ -23,11 +23,11 @@ import { copyToClipboard } from "~/utils/copyToClipboard";
 import { useToast } from "../ui/use-toast";
 import ReserveUsername from "../customs/ReserveUsername";
 import {
-  ConnectButton,
+  ConnectWallet,
   darkTheme,
-  useActiveWallet,
+  useAddress,
   useDisconnect,
-} from "thirdweb/react";
+} from "@thirdweb-dev/react";
 import { client } from "~/app/client";
 import { base } from "thirdweb/chains";
 
@@ -83,8 +83,8 @@ const MobileSidebar = ({
   });
 
   const { toast } = useToast();
-  const { disconnect } = useDisconnect();
-  const wallet = useActiveWallet();
+  const disconnect = useDisconnect();
+  const address = useAddress();
 
   // handle copy notification
   const handleCopy = (text: string | null) => {
@@ -171,37 +171,16 @@ const MobileSidebar = ({
               </div>
             ))}
             {!isLoggedIn ? (
-              <ConnectButton
-                client={client}
-                chain={base}
-                connectButton={{
-                  label: "Login",
-                }}
-                connectModal={{
-                  title: "Connect to Mintyplex",
-                  size: "compact",
-                }}
-                theme={darkTheme({
-                  colors: {
-                    accentButtonBg: "#2063F2",
-                    connectedButtonBgHover: "rgba(256, 256,256, 0.05)",
-                    borderColor: "rgba(256, 256,256, 0.1)",
-                    accentText: "rgba(256, 256,256, 0.1)",
-                    connectedButtonBg: "#1C1E1E",
-                    tertiaryBg: "rgba(256, 256,256, 0.1)",
-                    primaryButtonBg: "#2063F2",
-                    secondaryButtonBg: "rgba(256, 256,256, 0.1)",
-                    primaryButtonText: "#E7E8E9",
-                    primaryText: "#E7E8E9",
-                    separatorLine: "rgba(256, 256,256, 0.1)",
-                  },
-                })}
-              />
+              <ConnectWallet
+              btnTitle="Login"
+              modalSize="compact"
+              modalTitle="Connect to Mintyplex"
+            />
             ) : (
               <div
                 onClick={() => {
                   closeSidebar();
-                  disconnect(wallet as any);
+                  disconnect();
                 }}
                 className={`mt-4 bg-[#FF0000] rounded-[8px] text-center cursor-pointer w-full flex gap-1 py-4 px-4 items-center justify-center transition-color hover:bg-dark`}
               >

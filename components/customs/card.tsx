@@ -1,3 +1,5 @@
+"use client"
+
 import Image, { StaticImageData } from "next/image";
 import { cn, truncateString, truncateXionAddress } from "~/lib/utils/utils";
 import { TypographyP } from "~/utils/typography";

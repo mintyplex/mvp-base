@@ -1,3 +1,5 @@
+"use client"
+
 import React, { ChangeEvent, useRef, useState, useTransition } from "react";
 import ReuseableBackground from "./ReuseableBackground";
 import { MdCancel } from "react-icons/md";
