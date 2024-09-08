@@ -28,8 +28,6 @@ import {
   useAddress,
   useDisconnect,
 } from "@thirdweb-dev/react";
-import { client } from "~/app/client";
-import { base } from "thirdweb/chains";
 
 export const SidebarData = [
   {

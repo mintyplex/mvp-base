@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { ChangeEvent, useRef, useState, useTransition } from "react";
 import ReuseableBackground from "./ReuseableBackground";
@@ -20,6 +20,9 @@ import { useRouter } from "next/navigation";
 import { BsDownload } from "react-icons/bs";
 import { useToast } from "~/components/ui/use-toast";
 import axios from "axios";
+import { useContract, useContractWrite } from "@thirdweb-dev/react";
+import { contractABI, contractAddress } from "../constant/constant";
+import { truncateXionAddress } from "~/lib/utils/utils";
 
 interface FileInfo {
   name: string;
@@ -30,15 +33,24 @@ interface FileInfo {
 const ProductForm = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
-  const { account, accountData, isLoggedIn } = useAccount();
+  const { accountData, address } = useAccount();
   const [isLoading, setIsLoading] = useState(false);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [images, setImages] = useState<File | string | null>(null);
   const [fileUploaded, setFileUloaded] = useState<File | string | null>(null);
   const [filesInfo, setFilesInfo] = useState<FileInfo[]>([]);
+  const [responseData, setResponseData] = useState<any>(null);
   const router = useRouter();
   const { toast } = useToast();
+
+  const { contract } = useContract(contractAddress, contractABI);
+  const {
+    mutateAsync: createCourse,
+    data,
+    isLoading: isLoadingContract,
+    error,
+  } = useContractWrite(contract, "createCourse");
 
   const handleSuccessful = (): void => {
     toast({
@@ -203,11 +215,25 @@ const ProductForm = () => {
       );
       if (response.status === 200 || response.status === 201) {
         // Check for successful response
-        setIsLoading(false);
-        reset();
-        router.push("/profile");
+
+        // setIsLoading(false);
+        const productData = response.data;
+        setResponseData(response.data);
         handleSuccessful();
-        return response.data;
+        const extractedFormData = {
+          name: data.name,
+          symbol: "mtpx", // Assuming a static symbol for now
+          price: data.price,
+          description: data.description,
+        };
+
+        // Call handleBuyTokens directly with formData if product data exists
+        if (productData) {
+          await handleBuyTokens(extractedFormData, productData.product);
+        }
+        // reset();
+        // router.push("/profile");
+        return productData;
       } else {
         console.error("Error creating product:", response.data);
         throw new Error("Product creation failed.");
@@ -216,7 +242,47 @@ const ProductForm = () => {
       console.error("Error posting data:", error);
       handleFailed();
     } finally {
-      setIsLoading(false); // Set loading state to false even in case of errors
+      setIsLoading(false);
+    }
+  };
+
+  // handle create product on chain
+  const handleBuyTokens = async (extractedFormData: any, baseURI: string) => {
+    if (!address) {
+      alert("Please connect your wallet first");
+      return;
+    }
+    console.log(extractedFormData);
+    try {
+      const { name, symbol, price, description } = extractedFormData;
+     const createProduct = await createCourse({ args: [name, symbol, price, description, baseURI] });
+      
+
+    // Wait for the transaction to be mined
+    const receipt = await createProduct.wait();
+
+    // Now you have the transaction receipt, which contains transaction details
+    console.log("Transaction successful:", receipt);
+
+    // You can access transaction details like:
+    console.log("Transaction Hash:", receipt.transactionHash);
+    console.log("Block Number:", receipt.blockNumber);
+    console.log("Gas Used:", receipt.gasUsed.toString());
+
+      setIsLoading(false);
+      toast({
+        title: "Success",
+        description: `Product minted successfully. ${receipt.transactionHash}`,
+      });
+      reset();
+      router.push("/profile");
+      alert(`Transaction successful. Hash: ${receipt.transactionHash}`);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Error minting product.",
+      });
+      console.error("Error buying tokens:", error);
     }
   };
 
@@ -461,7 +527,23 @@ const ProductForm = () => {
           </div>
         </form>
       </ReuseableBackground>
-
+      {isLoading && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-black/30 p-6 rounded shadow-lg flex flex-row gap-4 text-center">
+            {isLoadingContract ? (
+              <>
+                <div className="loader"></div> {/* Add your loader here */}
+                <p className="text-md">Minting on blockchain...</p>
+              </>
+            ) : (
+              <>
+                <div className="loader"></div> {/* Add your loader here */}
+                <p className="text-md">Creating Product...</p>
+              </>
+            )}
+          </div>
+        </div>
+      )}
       <div className="flex w-full justify-end">
         <button
           onClick={handleSubmit(onSubmit)}

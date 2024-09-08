@@ -12,8 +12,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import useFetchUserData from "~/hooks/useFetchData";
 import { useAddress, useBalance, useWallet } from "@thirdweb-dev/react";
-import { client } from "~/app/client";
-import { base } from "thirdweb/chains";
 import ProfileModal from "~/app/profile-update/profileModal";
 
 // I don't know how to properly get the type for client so I'll just pass in any for the type being
